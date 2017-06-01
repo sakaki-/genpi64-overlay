@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>kernel@gentoo.org</email>
+		<name>Gentoo Kernel Project</name>
+		<description>Maintainer of vanilla-sources</description>
+	</maintainer>
+	<maintainer type="person">
+		<email>xmw@gentoo.org</email>
+		<name>Michael Weber</name>
+		<description>Maintainer of raspberrypi-sources</description>
+	</maintainer>
+	<maintainer type="person">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+	</maintainer>
+	<use>
+		<flag name='checkboot'>Check if /boot is mounted (if installing into /).".</flag>
+	</use>
+	<use>
+		<flag name='firmware'>Install firmware (avoid if sys-kernel/linux-firmware installed).".</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">sakaki-/bcmrpi3-kernel</remote-id>
+	</upstream>
+	<longdescription>
+		Binary RPi3 64-bit kernel package (bcmrpi3_defconfig).
+	</longdescription>
+</pkgmetadata>
