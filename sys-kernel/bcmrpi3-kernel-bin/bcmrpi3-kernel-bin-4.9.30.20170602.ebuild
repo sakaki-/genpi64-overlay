@@ -41,12 +41,11 @@ pkg_pretend() {
 
 src_install() {
 	# just copy tarball contents into temporary install root
-	insinto /
-	doins -r boot
-	doins -r lib/modules
+	cp -r "${S}/boot" "${D}"
+	cp -r "${S}/lib/modules" "${D}"
 	if use firmware; then
 		# NB may cause collisions if linux-firmware installed
-		doins -r lib/firmware
+		cp -r "${S}/lib/firmware" "${D}"
 	fi
 }
 
