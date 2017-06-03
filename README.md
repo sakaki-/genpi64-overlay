@@ -6,7 +6,11 @@ Gentoo overlay for the Raspberry Pi 3
 <img src="https://raw.githubusercontent.com/sakaki-/resources/master/raspberrypi/pi3/Raspberry_Pi_3_B.jpg" alt="Raspberry Pi 3 B" width="250px" align="right"/>
 
 * **www-client/firefox** [upstream](https://wiki.gentoo.org/wiki/Project:Mozilla)
- * Provides `firefox-50.1.0-r1.ebuild`; this has been removed from the Gentoo tree, but it works well under `~amd64` (with the `skia` USE flag unset).
+  * Provides `firefox-50.1.0-r1.ebuild`; this has been removed from the Gentoo tree, but it works well under `~amd64` (with the `skia` USE flag unset).
+* **media-libs/raspberrypi-userland**
+  * Provides `raspberrypi-userland-9999.ebuild`, a (restricted) 64-bit build (`-DARM64=ON`).
+* **sys-kernel/bcmrpi3-kernel-bin-\<version\>**
+  * Provides ebuilds to install the available binary packages for the 64-bit `bcmrpi3_defconfig` Linux kernels (for the Raspberry Pi 3 model B), which are updated weekly [here](https://github.com/sakaki-/bcmrpi3-kernel).
 
 ## Installation
 
