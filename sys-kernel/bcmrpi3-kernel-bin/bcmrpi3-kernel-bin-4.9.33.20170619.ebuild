@@ -80,8 +80,8 @@ pkg_postrm() {
 		# was this kernel installed by a binary package?
 		if [[ -s "${MDIR}/owning_binpkg" ]]; then
 			OWNING_BINPKG="$(<"${MDIR}/owning_binpkg")"
-			# was it us?
-			if [[ "${P}" == "${OWNING_BINPKG}" ]]; then
+			# was it us? (also check this is not a pure re-install)
+			if [[ "${P}" == "${OWNING_BINPKG}" && "${PVR}" != "${REPLACED_BY_VERSION}" ]]; then
 				# yes, we installed it, we need to remove it
 				ewarn "Forcibly deleting kernel module directory ${MDIR}"
 				rm -rf "${MDIR}"
