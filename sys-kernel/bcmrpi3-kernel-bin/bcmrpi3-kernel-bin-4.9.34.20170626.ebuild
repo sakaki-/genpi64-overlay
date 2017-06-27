@@ -61,8 +61,8 @@ src_install() {
 }
 
 pkg_postinst() {
-	einfo "Your new kernel has been installed."
-	einfo "Reboot your system to start using it."
+	elog "Your new kernel has been installed."
+	elog "Reboot your system to start using it."
 }
 
 pkg_postrm() {
