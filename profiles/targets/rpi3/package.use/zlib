@@ -1,0 +1,3 @@
+# required by media-video/vlc
+sys-libs/zlib minizip
+

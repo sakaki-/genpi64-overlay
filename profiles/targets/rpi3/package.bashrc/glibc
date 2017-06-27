@@ -1,0 +1,6 @@
+# there appears to be a problem building glibc under distcc
+# (result is a corrupted /lib64/libc-2.2{2,3}.so which will
+# make your system unbootable - and which will cause problems
+# even in trying to chroot in to rescue it; see e.g.
+# https://forums.gentoo.org/viewtopic-p-7911052.html)
+sys-libs/glibc	suppress-distcc.conf

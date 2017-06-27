@@ -1,0 +1,7 @@
+net-misc/networkmanager-openvpn	* ~*
+# dependencies of net-misc/networkmanager-openvpn
+net-libs/libqmi	* ~*
+net-misc/modemmanager	* ~*
+sys-auth/consolekit	* ~*
+gnome-extra/nm-applet	* ~*
+net-libs/libmbim	* ~*

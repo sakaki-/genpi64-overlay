@@ -1,0 +1,2 @@
+# Xorg driver currently segfaults on arm64
+=media-libs/mesa-17*

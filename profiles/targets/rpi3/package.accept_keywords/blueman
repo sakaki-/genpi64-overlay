@@ -1,0 +1,3 @@
+net-wireless/blueman	* ~*
+# dependencies of net-wireless/blueman
+dev-python/dbus-python	* ~*

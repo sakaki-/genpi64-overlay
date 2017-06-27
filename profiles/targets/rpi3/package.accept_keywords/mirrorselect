@@ -1,0 +1,3 @@
+app-portage/mirrorselect * ~*
+# requirements of mirrorselect
+net-analyzer/netselect * ~*

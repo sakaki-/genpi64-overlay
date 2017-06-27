@@ -1,0 +1,7 @@
+mail-client/claws-mail	* ~*
+# dependencies of mail-client/claws-mail
+dev-libs/libdbusmenu	* ~*
+net-libs/libetpan	* ~*
+dev-libs/libindicate	* ~*
+x11-themes/sound-theme-freedesktop	* ~*
+

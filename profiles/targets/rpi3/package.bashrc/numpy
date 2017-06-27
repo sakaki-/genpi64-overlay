@@ -1,0 +1,2 @@
+# see https://forums.gentoo.org/viewtopic-p-7824176.html#7824176
+dev-python/numpy	suppress-distcc.conf

@@ -1,0 +1,7 @@
+# no sneaky downloading of binary blobs on first run, please...
+# and also disable skia; as this seems to try to pull in neon stuff
+www-client/firefox -gmp-autoupdate -skia system-harfbuzz system-icu system-jpeg system-libevent system-libvpx
+# requirements of firefox
+dev-lang/python:2.7 sqlite
+media-libs/harfbuzz icu
+media-libs/libvpx postproc

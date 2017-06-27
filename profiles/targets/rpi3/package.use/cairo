@@ -1,0 +1,2 @@
+# Per https://wiki.gentoo.org/wiki/Raspberry_Pi_VC4
+x11-libs/cairo opengl xlib-xcb

@@ -1,0 +1,4 @@
+xfce-extra/xfce4-indicator-plugin	* ~*
+# dependencies of xfce-extra/xfce4-indicator-plugin
+dev-libs/libindicator	* ~*
+

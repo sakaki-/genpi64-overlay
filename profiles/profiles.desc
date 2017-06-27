@@ -1,0 +1,14 @@
+#############################################
+# This is a list of valid profiles for each architecture.  This file is used by
+# repoman when doing a repoman scan or repoman full.
+# DO NOT ADD PROFILES WITH A "die" or "exit" IN THEM OR IT KILLS REPOMAN
+#
+#layout:
+#arch		profile_directory				status
+
+# These profiles will augment those already present in the
+# core gentoo repo
+
+# ARM-64 Profiles (currenly only one)
+arm64           default/linux/arm64/13.0/desktop/rpi3           exp
+

@@ -1,0 +1,6 @@
+app-portage/elogviewer * ~*
+# dependencies of app-portage/elogviewer
+dev-python/PyQt5	* ~*
+dev-python/sip	* ~*
+dev-vcs/mercurial	* ~*
+dev-qt/qtbluetooth	* ~*

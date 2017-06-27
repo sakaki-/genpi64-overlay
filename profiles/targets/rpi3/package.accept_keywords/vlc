@@ -1,0 +1,5 @@
+media-video/vlc * ~*
+# required by vlc
+media-video/ffmpeg * ~*
+media-libs/xvid * ~*
+media-libs/x264	* ~*

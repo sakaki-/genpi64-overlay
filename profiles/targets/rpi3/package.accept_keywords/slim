@@ -1,0 +1,3 @@
+x11-misc/slim	* ~*
+# dependencies of x11-misc/slim
+x11-themes/slim-themes	* ~*

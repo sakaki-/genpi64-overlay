@@ -1,0 +1,2 @@
+# doesn't seem to work properly in pump mode
+sys-devel/llvm	suppress-distcc-pump.conf

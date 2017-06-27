@@ -1,0 +1,2 @@
+# requirements of app-crypt/seahorse
+app-crypt/pinentry gnome-keyring

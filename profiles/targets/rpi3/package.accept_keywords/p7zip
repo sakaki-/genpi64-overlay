@@ -1,0 +1,4 @@
+app-arch/p7zip	* ~*
+# dependencies of app-arch/p7zip
+x11-libs/wxGTK	* ~*
+app-eselect/eselect-wxwidgets	* ~*
