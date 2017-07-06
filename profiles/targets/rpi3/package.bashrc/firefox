@@ -1,0 +1,2 @@
+# See https://forums.gentoo.org/viewtopic-p-8081866.html#8081866
+>=www-client/firefox-50 disable-sandbox.conf makeopts-j4.conf
