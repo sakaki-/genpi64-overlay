@@ -1,0 +1,4 @@
+media-sound/alsa-tools	* ~*
+# required by media-sound/alsa-tools
+dev-python/pyalsa	* ~*
+
