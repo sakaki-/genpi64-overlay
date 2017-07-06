@@ -1,0 +1,2 @@
+# configure phase fails if distributed
+dev-cpp/clucene suppress-distcc.conf
