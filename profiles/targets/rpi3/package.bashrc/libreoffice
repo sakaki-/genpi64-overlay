@@ -1,0 +1,2 @@
+# prevent overload when building
+app-office/libreoffice makeopts-j4.conf
