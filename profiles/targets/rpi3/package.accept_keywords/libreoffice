@@ -1,0 +1,37 @@
+app-office/libreoffice	* ~*
+# required by libreoffice
+app-office/libreoffice-l10n	* ~*
+sys-devel/ucpp	* ~*
+dev-perl/Archive-Zip	* ~*
+app-text/libmspub	* ~*
+sci-mathematics/lpsolve	* ~*
+dev-libs/liborcus	* ~*
+app-text/libodfgen	* ~*
+dev-libs/librevenge	* ~*
+dev-libs/rasqal	* ~*
+app-text/libabw	* ~*
+media-libs/libcdr	* ~*
+app-office/libreoffice	* ~*
+app-text/libexttextcat	* ~*
+media-libs/glm	* ~*
+dev-libs/redland	* ~*
+media-libs/libvisio	* ~*
+media-libs/libpagemaker	* ~*
+media-libs/libfreehand	* ~*
+app-text/libwpd	* ~*
+dev-cpp/clucene	* ~*
+dev-libs/hyphen	* ~*
+app-text/libebook	* ~*
+app-text/libmwaw	* ~*
+app-text/libstaroffice	* ~*
+media-libs/libzmf	* ~*
+dev-cpp/libcmis	* ~*
+app-text/mythes	* ~*
+app-text/libetonyek	* ~*
+app-text/libwpg	* ~*
+app-text/libwps	* ~*
+media-libs/raptor	* ~*
+dev-util/mdds	* ~*
+dev-libs/libixion	* ~*
+app-text/liblangtag	* ~*
+
