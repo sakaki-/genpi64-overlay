@@ -1,0 +1,3 @@
+mail-client/thunderbird	* ~*
+# dependencies of thunderbird
+media-plugins/gst-plugins-libav * ~*
