@@ -1,0 +1,2 @@
+# incompatible with bindist
+>=dev-python/cryptography-1.9
