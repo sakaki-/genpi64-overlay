@@ -1,0 +1,2 @@
+# build lightning so it doesn't get downloaded as a blob
+mail-client/thunderbird lightning
