@@ -1,0 +1,2 @@
+# build fails with distcc
+media-gfx/exiv2 suppress-distcc.conf
