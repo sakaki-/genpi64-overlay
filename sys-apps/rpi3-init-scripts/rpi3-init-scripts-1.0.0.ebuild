@@ -12,6 +12,7 @@ SRC_URI=""
 LICENSE="GPL-3+"
 SLOT="0"
 IUSE=""
+RESTRICT="mirror"
 
 # required by Portage, as we have no SRC_URI...
 S="${WORKDIR}"
