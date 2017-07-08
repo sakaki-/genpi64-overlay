@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer status="active">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+</maintainer>
+<upstream>
+		<maintainer status="active">
+				<email>sakaki@deciban.com</email>
+				<name>sakaki</name>
+		</maintainer>
+		<bugs-to>mailto:sakaki@deciban.com</bugs-to>
+</upstream>
+<longdescription>
+		This provides a simple /etc/local.d script to activate
+		the 'ondemand' CPU frequency scaling governor on boot for the
+		RPi3 (provides better performance than the default 'powersave').
+</longdescription>
+</pkgmetadata>
