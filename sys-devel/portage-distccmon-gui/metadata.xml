@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+	</maintainer>
+	<longdescription>
+		Adds a .desktop item and wrapper script for sys-devel/distcc's distccmon-gui
+		program, so that it is launched with the correct path to view Portage's
+		distributed compilations (assuming you are a member of the portage group, or
+		root).
+	</longdescription>
+</pkgmetadata>
