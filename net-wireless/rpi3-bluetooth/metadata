@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer status="active">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+</maintainer>
+<upstream>
+		<maintainer status="active">
+				<email>jesse.jaara@gmail.com</email>
+				<name>Jesse Jaara</name>
+		</maintainer>
+		<bugs-to>mailto:jesse.jaara@gmail.com</bugs-to>
+</upstream>
+<longdescription>
+		Service and udev rule for integrated bluetooth on the Raspberry Pi 3.
+		Adapted from the pi-bluetooth package on aur.archlinux.org.
+</longdescription>
+</pkgmetadata>
