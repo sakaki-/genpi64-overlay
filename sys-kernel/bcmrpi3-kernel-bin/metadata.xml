@@ -17,9 +17,8 @@
 	</maintainer>
 	<use>
 		<flag name='checkboot'>Check if /boot is mounted (if installing into /).".</flag>
-	</use>
-	<use>
-		<flag name='firmware'>Install firmware (avoid if sys-kernel/linux-firmware installed).".</flag>
+		<flag name='firmware'>Install (kernel) firmware (avoid if sys-kernel/linux-firmware installed).".</flag>
+		<flag name='with-matching-boot-fw'>Ensure matching rpi3-64bit-firmware installed (in /boot).</flag>
 	</use>
 	<upstream>
 		<remote-id type="github">sakaki-/bcmrpi3-kernel</remote-id>
