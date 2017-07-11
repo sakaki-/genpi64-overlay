@@ -1,0 +1,2 @@
+# segfaults on arm64 when e.g. setting new startup applications
+>=xfce-base/xfce4-session-4.13.0
