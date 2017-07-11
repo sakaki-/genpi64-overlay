@@ -1,0 +1,159 @@
+#!/sbin/openrc-run
+#
+# Automatically attempt to extend root partition (second partition
+# on microSD card) to fill remaining free space on the card
+#
+# Operates on a live root filesystem: first pass will simply expand the
+# partition, then reboot (as it is not possible to change the kernel partition
+# table entry for / on a running system); on the second pass, we resize the
+# root filesystem (this can be done 'live'), then add xdm to the default
+# runlevel, and start it (to bring up the Xfce4 demouser session).
+#
+# Checks for a sentinel file "autoexpand_root_partition" on /boot (the
+# microSD card's first partition), and will proceed only if found. On first
+# run, it is replaced with the file "autoexpand_root_filesystem" (and on
+# second run, this latter sentinel file is deleted).
+#
+# On first run, the root and demouser password will also be set, to
+# "raspberrypi64"; if you _only_ want to do this (and not extend the root
+# partition) then create an "autoexpand_root_none" sentinel file on /boot (in
+# place of "autoexpand_root_partition"). For avoidance of doubt, doing so
+# will still enable Xfce4, and start the demouser session.
+#
+# Copyright (c) 2017 sakaki <sakaki@deciban.com>
+# License: GPL 3.0+
+# NO WARRANTY
+
+description="Auto-expands root partition and sets passwords (for gentoo-on-rpi3-64bit)"
+
+depend() {
+	need localmount
+	after modules sysctl root
+}
+
+ROOTDRIVE="/dev/mmcblk0"
+ROOTPART="${ROOTDRIVE}p2"
+SENTINEL1="/boot/autoexpand_root_partition"
+SENTINEL2="/boot/autoexpand_root_filesystem"
+SENTINEL3="/boot/autoexpand_root_none"
+DEFAULTPW="raspberrypi64"
+
+_resize_if_necessary() {
+	if [ -f "${SENTINEL1}" ]; then
+		# first boot, need to resize /dev/mmcblk0p2 (root) to fill disk
+		# then, since this is /, need to reboot to get kernel to see it
+		# after which its ext4 filesystem can be resized online
+		ewarn ""
+		ewarn "*******************************************************************"
+		ewarn "* Auto resizing root partition to fill microSD card - please wait *"
+		ewarn "*  (we will reboot immediately this is done, so kernel notices)   *"
+		ewarn "*******************************************************************"
+		ewarn ""
+		rm -f "${SENTINEL1}"
+		if [ -f "${SENTINEL1}" ]; then
+			# might mean an ro filesystem, and we don't want an
+			# infinite loop
+			ewarn "Failed to delete sentinel file '${SENTINEL1}'"
+			exit 1
+		fi
+		# turn off swapfiles, for safety
+		swapoff -a
+		# sync filesystems before we begin, to minimize any damage if things
+		# should go wrong
+		sync
+		# begin by resizing the root partition
+		sfdisk --no-reread -N 2 <<<", +" "${ROOTDRIVE}"
+		# create second sentinel to mark that we have done this
+		touch "${SENTINEL2}"
+		if ! [ -f "${SENTINEL2}" ]; then
+			ewarn "Failed to create sentinel file '${SENTINEL2}' - exiting"
+			exit 1
+		fi
+		# now, change passwords
+		ewarn "Changing root and demouser passwords, to '${DEFAULTPW}'"
+		chpasswd <<<"root:${DEFAULTPW}"
+		chpasswd <<<"demouser:${DEFAULTPW}"
+		ewarn ""
+		ewarn "*******************************************************************"
+		ewarn "*  Resize completed - rebooting now (this will only happen once)  *"
+		ewarn "*******************************************************************"
+		ewarn ""
+		# let the user read it
+		sleep 5
+		# then reboot, but don't do it in the context of this, an init script
+		sync
+		nohup bash -c 'reboot' &>/dev/null&
+	elif [ -f "${SENTINEL2}" ]; then
+		# second boot, partition has been resized (and kernel is aware); so now
+		# we just need to update the filesystem, which can be done online
+		ewarn ""
+		ewarn "*******************************************************************"
+		ewarn "* Auto resizing root filesystem to fill partition 2 - please wait *"
+		ewarn "*******************************************************************"
+		ewarn ""
+		rm -f "${SENTINEL2}"
+		if [ -f "${SENTINEL2}" ]; then
+			error "Failed to delete sentinel file '${SENTINEL2}' - exiting"
+			return 1
+		fi
+		# turn off swapfiles, for safety
+		swapoff -a
+		# sync filesystems before we begin, to minimize any damage if things
+		# should go wrong
+		sync
+		# do an online resize of the root partition's ext4 filing system
+		resize2fs -f "${ROOTPART}"
+		# restore swaps
+		swapon -a
+		ewarn ""
+		ewarn "*******************************************************************"
+		ewarn "*        Root filesystem resized OK - proceeding with boot!       *"
+		ewarn "*******************************************************************"
+		ewarn ""
+		# let the user read it
+		sleep 5
+		# then ensure we don't run again, and that graphical login
+		# starts up (disabled by default on the image)
+		sync
+		rc-update del "${SVCNAME}" boot &>/dev/null
+		rc-update --update add xdm default &>/dev/null
+	elif [ -f "${SENTINEL3}" ]; then
+		# First boot, with no resizing requested.
+		# we just need to update the passwords and logon
+		rm -f "${SENTINEL3}"
+		if [ -f "${SENTINEL3}" ]; then
+			eerror "Failed to delete sentinel file '${SENTINEL3}' - exiting"
+			return 1
+		fi
+		# Change passwords
+		ewarn "Changing root and demouser passwords, to '${DEFAULTPW}'"
+		chpasswd <<<"root:${DEFAULTPW}"
+		chpasswd <<<"demouser:${DEFAULTPW}"
+		ewarn ""
+		ewarn "*******************************************************************"
+		ewarn "*        Changed passwords - proceeding with boot!                *"
+		ewarn "*******************************************************************"
+		ewarn ""
+		# let the user read it
+		sleep 5
+		# then ensure we don't run again, and that graphical login
+		# starts up (disabled by default on the image)
+		sync
+		rc-update del "${SVCNAME}" boot &>/dev/null
+		rc-update --update add xdm default &>/dev/null
+	else
+		# no sentinel found, service should really be disabled
+		ewarn "No sentinel detected; consider deleting ${SVCNAME} from boot runlevel"
+	fi
+	return 0
+}
+
+start() {
+   	ebegin "Starting ${SVCNAME}"
+   	_resize_if_necessary
+	RC=$?
+	eend $RC
+	exit $RC
+}
+
+

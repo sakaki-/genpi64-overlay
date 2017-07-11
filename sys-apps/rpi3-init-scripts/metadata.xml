@@ -13,8 +13,8 @@
 		<bugs-to>mailto:sakaki@deciban.com</bugs-to>
 </upstream>
 <longdescription>
-		This provides a few simple init scripts for the Raspberry Pi3
-		running in 64-bit mode (to autoexpand the root partition on
-		first boot, etc.)
+		This provides a few simple init scripts for the
+		gentoo-on-rpi3-64bit image (to autoexpand the root partition
+		on first boot, etc.)
 </longdescription>
 </pkgmetadata>
