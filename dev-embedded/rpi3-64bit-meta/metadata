@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+	</maintainer>
+	<use>
+		<flag name="kernel-bin">Pull in the binary kernel package.</flag>
+		<flag name="boot-fw">Pull in the /boot firmware, configs and bootloader.</flag>
+	</use>
+	<longdescription>
+		This is a metapackage. Merge it to pull in the baseline set of packages
+		for the corresponding gentoo-on-rpi3-64bit image release, customized
+		by USE-flag for your specific configuration.
+	</longdescription>
+</pkgmetadata>
