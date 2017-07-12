@@ -11,7 +11,7 @@ SRC_URI=""
 LICENSE="metapackage"
 SLOT="0"
 KEYWORDS="~arm64"
-IUSE="+boot-fw +kernel-bin +porthash"
+IUSE="+boot-fw +kernel-bin +porthash +weekly-genup"
 
 RDEPEND="
 	kernel-bin? (
@@ -35,5 +35,7 @@ RDEPEND="
 	>=net-wireless/rpi3-bluetooth-1.1-r1
 	>=sys-firmware/brcm43430-firmware-20160225
 	porthash? ( >=app-portage/rpi3-check-porthash-1.0.0 )
+	weekly-genup? ( >=app-portage/weekly-genup-1.0.1 )
+	!weekly-genup? ( !app-portage/weekly-genup )
 "
 
