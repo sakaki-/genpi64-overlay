@@ -18,7 +18,7 @@ The overlay provides the following ebuilds:
    | `boot-fw` | Yes | Pull in the /boot firmware, configs and bootloader. |
    | `kernel-bin` | Yes | Pull in the `bcmrpi3-kernel-bin` binary kernel package. |
    | `porthash` | Yes | Pull in repo signature checker, for isshoni.org `rsync`. |
-   |  `weekly-genup` | Yes | pull in `cron.weekly` script, to run `genup` automatically. |
+   |  `weekly-genup` | Yes | Pull in `cron.weekly` script, to run `genup` automatically. |
 
 ### Ebuilds related to the [`gentoo-on-rpi3-64bit`](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image
 
