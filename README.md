@@ -11,7 +11,7 @@ The overlay provides the following ebuilds:
 
 * **dev-embedded/rpi3-64bit-meta**
 
-   This is a convenience metapackage, which you can emerge to pull in the appropriate set of RPi3-specific packages (described below) from the overlay, when constructing (or updating) a system patterned after that in my [`gentoo-on-rpi3-64bit`](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image. It is customized via the following USE flags:<a name="meta_use_flags"></a>
+   This is a convenience metapackage, which you can `emerge` to pull in the appropriate set of RPi3-specific packages (described below) from the overlay, when constructing (or updating) a system patterned after that in my [`gentoo-on-rpi3-64bit`](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image. It is customized via the following USE flags:<a name="meta_use_flags"></a>
    
    | USE flag | Default? | Effect |
    | -------- | --------:| ------:|
@@ -20,7 +20,7 @@ The overlay provides the following ebuilds:
    | `porthash` | Yes | Pull in repo signature checker, for isshoni.org `rsync`. |
    |  `weekly-genup` | Yes | pull in `cron.weekly` script, to run `genup` automatically. |
 
-## Ebuilds related to the [`gentoo-on-rpi3-64bit`](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image
+### Ebuilds related to the [`gentoo-on-rpi3-64bit`](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image
 
 * **sys-firmware/brcm43430-firmware** [upstream](https://github.com/RPi-Distro/firmware-nonfree)
   * Just provides a configuration file (`brcmfmac43430-sdio.txt`) that is required for the RPi3's integrated WiFi (the main firmware is provided already, by [`sys-kernel/linux-firmware`](http://packages.gentoo.org/package/sys-kernel/linux-firmware)).
