@@ -1,0 +1,43 @@
+#!/bin/bash
+#
+# Simple script to run genup in a batch fashion
+# To be placed in /etc/cron.weekly/genup
+# The genup run itself has a 'dither' of 0-2.2hrs to avoid excessive
+# load on the isshoni.org server.
+#
+# If the file /var/log/latest-genup-run.log does not exist,
+# it is created and the process exits immediately.
+# This is to prevent a quickfire startup on the first NTP sync.
+#
+# Copyright (c) 2017 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/bin"
+
+# don't run multiple copies of genup
+if pidof -o %PPID -x genup &>/dev/null; then
+	# already running
+	exit 1
+fi
+
+# don't run on very first trigger, to avoid firing immediately
+# on unlucky NTP update etc.
+LOGFILE="/var/log/latest-genup-run.log"
+if ! [ -f "${LOGFILE}" ]; then
+	echo "genup will run on next weekly trigger" > "${LOGFILE}"
+	exit 0
+fi
+# dither startup by 0-8191 seconds (approx 2.2 hours)
+sleep $((RANDOM/4))s
+/usr/sbin/genup &>"${LOGFILE}"
+RC=$?
+if ((RC==0)); then
+	OUTCOME="SUCCEEDED"
+else
+	OUTCOME="FAILED"
+fi
+# if you have mail sending from your RPi3 configured, modify the
+# below appropriately, and uncomment
+#mail -s "RPi3 ($(hostname)) genup run ${OUTCOME}" your@email.address <"${LOGFILE}"
+exit $RC
