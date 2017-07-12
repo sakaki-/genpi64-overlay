@@ -9,6 +9,7 @@
 		<flag name="boot-fw">Pull in the /boot firmware, configs and bootloader.</flag>
 		<flag name="kernel-bin">Pull in the binary kernel package.</flag>
 		<flag name="porthash">Pull in repo signature checker, for isshoni.org rsync.</flag>
+		<flag name="weekly-genup">Pull in cron.weekly script, to run genup automatically.</flag>
 	</use>
 	<longdescription>
 		This is a metapackage. Merge it to pull in the baseline set of packages
