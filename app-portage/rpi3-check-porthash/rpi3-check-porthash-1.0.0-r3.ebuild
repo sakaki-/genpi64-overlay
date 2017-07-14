@@ -27,11 +27,13 @@ src_install() {
 }
 
 pkg_postinst() {
-	elog "A new post-sync hook has been installed to"
-	elog "/etc/portage/repo.postsync.d/${PN}"
-	elog "This will validate the main gentoo repo, iff it is updated by"
-	elog "rsync from rsync://isshoni.org/gentoo-portage-pi64, using the"
-	elog "provided signed master checksum."
-	elog "If this causes trouble on your system, simply make this"
-	elog "file non-executable, or uninstall this package."
+	if [[ -z ${REPLACING_VERSIONS} ]]; then
+		elog "A new post-sync hook has been installed to"
+		elog "/etc/portage/repo.postsync.d/${PN}"
+		elog "This will validate the main gentoo repo, iff it is updated by"
+		elog "rsync from rsync://isshoni.org/gentoo-portage-pi64, using the"
+		elog "provided signed master checksum."
+		elog "If this causes trouble on your system, simply make this"
+		elog "file non-executable, or uninstall this package."
+	fi
 }
