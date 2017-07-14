@@ -16,10 +16,10 @@ IUSE=""
 # required by Portage, as we have no SRC_URI...
 S="${WORKDIR}"
 
-DEPEND=">=sys-apps/portage-2.3.5"
+DEPEND=">=sys-apps/portage-2.3.0"
 RDEPEND="${DEPEND}
 	>=app-shells/bash-4.2
-	>=app-portage/porthash-1.0.3[add-pubkey]"
+	>=app-portage/porthash-1.0.4[add-pubkey]"
 
 src_install() {
 	exeinto "/etc/portage/repo.postsync.d"
