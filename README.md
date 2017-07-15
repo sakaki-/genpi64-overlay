@@ -1,5 +1,5 @@
 # rpi3-overlay
-Gentoo overlay (ebuild repository) for the Raspberry Pi 3
+Gentoo overlay (ebuild repository) for the Raspberry Pi 3. Used by my bootable [`gentoo-on-rpi3-64bit`](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image.
 
 <img src="https://raw.githubusercontent.com/sakaki-/resources/master/raspberrypi/pi3/Raspberry_Pi_3_B.jpg" alt="Raspberry Pi 3 B" width="250px" align="right"/>
 
