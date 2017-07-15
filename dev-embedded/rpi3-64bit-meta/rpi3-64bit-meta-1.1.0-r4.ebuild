@@ -30,11 +30,11 @@ RDEPEND="
 			!sys-boot/rpi3-64bit-firmware
 		)
 	)
-	>=sys-apps/rpi3-ondemand-cpufreq-1.0.0
+	>=sys-apps/rpi3-ondemand-cpufreq-1.1.0
 	>=sys-apps/rpi3-init-scripts-1.1.1
 	>=net-wireless/rpi3-bluetooth-1.1-r1
 	>=sys-firmware/brcm43430-firmware-20160225
-	porthash? ( >=app-portage/rpi3-check-porthash-1.0.0 )
+	porthash? ( >=app-portage/rpi3-check-porthash-1.0.0-r3 )
 	weekly-genup? ( >=app-portage/weekly-genup-1.0.1 )
 	!weekly-genup? ( !app-portage/weekly-genup )
 "
