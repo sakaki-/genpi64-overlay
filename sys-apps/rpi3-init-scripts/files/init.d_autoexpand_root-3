@@ -159,8 +159,7 @@ _resize_if_necessary() {
 start() {
    	ebegin "Starting ${SVCNAME}"
    	_resize_if_necessary
-	RC=$?
-	eend $RC
+	eend $?
 }
 
 

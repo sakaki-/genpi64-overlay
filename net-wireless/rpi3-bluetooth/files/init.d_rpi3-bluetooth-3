@@ -1,0 +1,39 @@
+#!/sbin/openrc-run
+# Start up integrated bluetooth on Raspberry Pi 3
+# Adapted from https://aur.archlinux.org/packages/pi-bluetooth/
+# Copyright (c) 2017 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+description="Starts up integrated bluetooth on the RPi3"
+
+depend() {
+	need bluetooth
+}
+
+HCMD="/usr/bin/hciattach /dev/ttyAMA0 bcm43xx 921600 noflow -"
+
+start() {
+   	ebegin "Starting ${SVCNAME}"
+   	if ! [ -d /proc/device-tree/soc/gpio@7e200000/bt_pins ]; then
+   		eend 1 "Bluetooth not found"
+   		return 1
+   	fi
+	declare -i I
+	# attach process is unreliable, so we do it this way
+	# rather than via start-stop-daemon
+	for ((I=0;I<5;I++)); do
+		${HCMD} >/dev/null 2>&1
+		if pgrep -f "${HCMD}"; then
+			eend 0
+			return 0
+		fi
+	done
+	eend 1 "hciattach failed"
+}
+
+stop() {
+	ebegin "Shutting down ${SVCNAME}"
+	pkill -f "${HCMD}"
+	eend $?
+}
