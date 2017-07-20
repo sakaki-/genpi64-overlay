@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer status="active">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+</maintainer>
+<upstream>
+		<maintainer status="active">
+				<email>sakaki@deciban.com</email>
+				<name>sakaki</name>
+		</maintainer>
+		<bugs-to>mailto:sakaki@deciban.com</bugs-to>
+</upstream>
+<longdescription>
+		This provides a simple OpenRC service to check if the user
+		has "disable_overscan=1" (uncommmented) in /boot/config.txt; if
+		not, it creates a file in /usr/share/X11/xorg.conf.d/ to
+		force software-based cursor blitting (this is to avoid the
+		VC4 offset cursor issue with overscan, issue #17 (GitHub)).
+		It also disables compositing for Xfce4 for all users.
+</longdescription>
+</pkgmetadata>
