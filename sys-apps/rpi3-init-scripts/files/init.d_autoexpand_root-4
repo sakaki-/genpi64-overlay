@@ -1,7 +1,8 @@
 #!/sbin/openrc-run
 #
-# Automatically attempt to extend root partition (second partition
-# on microSD card) to fill remaining free space on the card
+# Automatically attempt to extend root partition (calculated from
+# the root=... kernel command line parameter, with root=PARTUUID=... allowed)
+# to fill remaining free space on the card
 #
 # Operates on a live root filesystem: first pass will simply expand the
 # partition, then reboot (as it is not possible to change the kernel partition
@@ -31,16 +32,46 @@ depend() {
 	after modules sysctl root
 }
 
-ROOTDRIVE="/dev/mmcblk0"
-ROOTPART="${ROOTDRIVE}p2"
 SENTINEL1="/boot/autoexpand_root_partition"
 SENTINEL2="/boot/autoexpand_root_filesystem"
 SENTINEL3="/boot/autoexpand_root_none"
 DEFAULTPW="raspberrypi64"
 
 _resize_if_necessary() {
+	local PUUID="" KROOTPART="" ROOTDRIVE="" ROOTPART="" PNUM=""
+	if [[ -f "${SENTINEL1}" || -f "${SENTINEL2}" ]]; then
+		# begin by finding the specified root from the kernel command line
+		KROOTPART="$(awk -v RS=" " '/^root=/ {print substr($0,6)}' /proc/cmdline)"
+		if [[ -z "${KROOTPART}" ]]; then
+			eerror "Could not find root=<...> term in kernel command line"
+			return 1
+		fi
+		# if a PARTUUID spec, look it up
+		if grep -q "PARTUUID=" <<<"${KROOTPART}"; then
+			PUUID="$(cut -d '=' -f 2 <<<"${KROOTPART}" )"
+			# make sure lower case
+			PUUID="${PUUID,,}"
+			if ! ROOTPART="$(findfs PARTUUID=${PUUID})"; then
+				eerror "Failed to locate root on PARTUUID ${PUUID}"
+				return 1
+			fi
+		else
+			# otherwise, just take it as is
+			ROOTPART="${KROOTPART}"
+		fi
+		# extract the drive from the partition name, e.g.
+		# 	/dev/sda2 -> /dev/sda
+		# 	/dev/mmcblk0p2 -> /dev/mmcblk0
+		ROOTDRIVE="$(sed 's/[0-9]*$//;s/\([0-9]\)p$/\1/' <<<"${ROOTPART}")"
+		# get the partition number too
+		PNUM="$(egrep -o "[0-9]+$" <<<"${ROOTPART}")"
+		if [[ -z "${ROOTPART}" || -z "${ROOTDRIVE}" || -z "${PNUM}" ]]; then
+			eerror "Unable to determine root path components"
+			return 1
+		fi
+	fi
 	if [ -f "${SENTINEL1}" ]; then
-		# first boot, need to resize /dev/mmcblk0p2 (root) to fill disk
+		# first boot, need to resize root partition to fill disk
 		# then, since this is /, need to reboot to get kernel to see it
 		# after which its ext4 filesystem can be resized online
 		ewarn ""
@@ -53,7 +84,7 @@ _resize_if_necessary() {
 		if [ -f "${SENTINEL1}" ]; then
 			# might mean an ro filesystem, and we don't want an
 			# infinite loop
-			ewarn "Failed to delete sentinel file '${SENTINEL1}'"
+			eerror "Failed to delete sentinel file '${SENTINEL1}'"
 			return 1
 		fi
 		# turn off swapfiles, for safety
@@ -62,14 +93,14 @@ _resize_if_necessary() {
 		# should go wrong
 		sync
 		# begin by resizing the root partition
-		if ! sfdisk --no-reread --no-tell-kernel -N 2 <<<", +" "${ROOTDRIVE}" &>/dev/null; then
+		if ! sfdisk --no-reread --no-tell-kernel -N ${PNUM} <<<", +" "${ROOTDRIVE}" &>/dev/null; then
 			eerror "Failed to resize root partition"
 			return 1
 		fi
 		# create second sentinel to mark that we have done this
 		touch "${SENTINEL2}"
 		if ! [ -f "${SENTINEL2}" ]; then
-			ewarn "Failed to create sentinel file '${SENTINEL2}'"
+			eerror "Failed to create sentinel file '${SENTINEL2}'"
 			return 1
 		fi
 		# now, change passwords
@@ -91,7 +122,7 @@ _resize_if_necessary() {
 		# we just need to update the filesystem, which can be done online
 		ewarn ""
 		ewarn "*******************************************************************"
-		ewarn "* Auto resizing root filesystem to fill partition 2 - please wait *"
+		ewarn "* Auto resizing root filesystem to fill partition ${PNUM} - please wait *"
 		ewarn "*******************************************************************"
 		ewarn ""
 		rm -f "${SENTINEL2}"

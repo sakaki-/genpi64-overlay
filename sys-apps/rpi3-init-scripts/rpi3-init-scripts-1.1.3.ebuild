@@ -25,7 +25,7 @@ RDEPEND="${DEPEND}
 	>=app-shells/bash-4.0"
 
 src_install() {
-	newinitd "${FILESDIR}/init.d_autoexpand_root-3" "${AR_SVCNAME}"
+	newinitd "${FILESDIR}/init.d_autoexpand_root-4" "${AR_SVCNAME}"
 	insinto "/usr/share/X11/xorg.conf.d"
 	newins "${FILESDIR}/50-disable-Xv.conf-1" "50-disable-Xv.conf"
 }
