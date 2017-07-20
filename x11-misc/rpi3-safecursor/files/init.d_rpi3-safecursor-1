@@ -40,6 +40,9 @@ EOF
 			ewarn "if you subsequently add disable_overscan=1 to /boot/config.txt"
 			find "/home" -type f -name xfwm4.xml -exec sed -i \
 			's#<property name="use_compositing" type="bool" value="true"/>#<property name="use_compositing" type="bool" value="false"/>#' {} \;
+			# allow user to read message; we'll be close to
+			# graphical boot at this point
+			sleep 5
 		fi
 	elif [ -f "${WORKAROUND}" ]; then
 		einfo "Removing forced software cursor blitting workaround"
