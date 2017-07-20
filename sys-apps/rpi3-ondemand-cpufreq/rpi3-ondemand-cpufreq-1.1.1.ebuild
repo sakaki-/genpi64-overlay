@@ -23,7 +23,7 @@ RDEPEND="${DEPEND}
 	>=app-shells/bash-4.0"
 
 src_install() {
-	newinitd "${FILESDIR}/init.d_rpi3-ondemand-1" "rpi3-ondemand"
+	newinitd "${FILESDIR}/init.d_rpi3-ondemand-2" "rpi3-ondemand"
 }
 
 pkg_postinst() {

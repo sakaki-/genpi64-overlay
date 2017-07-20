@@ -13,8 +13,8 @@
 		<bugs-to>mailto:sakaki@deciban.com</bugs-to>
 </upstream>
 <longdescription>
-		This provides a simple /etc/local.d script to activate
-		the 'ondemand' CPU frequency scaling governor on boot for the
+		This provides a simple OpenRC service to activate the
+		'ondemand' CPU frequency scaling governor on boot for the
 		RPi3 (provides better performance than the default 'powersave').
 </longdescription>
 </pkgmetadata>

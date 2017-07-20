@@ -32,7 +32,5 @@ _activate_ondemand() {
 start() {
    	ebegin "Starting ${SVCNAME}"
 	_activate_ondemand
-	RC=$?
-	eend $RC
-	return $RC
+	eend $?
 }
