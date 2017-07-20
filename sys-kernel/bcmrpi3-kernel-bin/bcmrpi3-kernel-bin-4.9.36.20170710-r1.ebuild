@@ -1,6 +1,5 @@
 # Copyright (c) 2017 sakaki <sakaki@deciban.com>
 # Distributed under the terms of the GNU General Public License v2
-# $Header$
 
 EAPI="6"
 
@@ -14,12 +13,14 @@ SRC_URI="${HOMEPAGE}/releases/download/${PV}/bcmrpi3-kernel-${PV}.tar.xz -> ${P}
 LICENSE="GPL-2 freedist"
 SLOT="0"
 KEYWORDS="~arm64"
-IUSE="+checkboot firmware"
+IUSE="+checkboot firmware +with-matching-boot-fw"
 
 RESTRICT="mirror"
 
 DEPEND=""
-RDEPEND="${DEPEND}"
+RDEPEND="
+	with-matching-boot-fw? ( ~sys-boot/rpi3-64bit-firmware-1.20170515 )
+	${DEPEND}"
 
 QA_PREBUILT="*"
 
@@ -57,7 +58,7 @@ src_install() {
 	# note that we installed the libraries, for future cleanup
 	RELEASE_NAME=$(head -n1 <(ls -t1d "${S}/lib/modules"/*))
 	RELEASE_NAME="${RELEASE_NAME##*/}"
-	echo "${P}" > "${D%/}/lib/modules/${RELEASE_NAME}/owning_binpkg"
+	echo "${PF}" > "${D%/}/lib/modules/${RELEASE_NAME}/owning_binpkg"
 }
 
 pkg_postinst() {
@@ -81,7 +82,7 @@ pkg_postrm() {
 		if [[ -s "${MDIR}/owning_binpkg" ]]; then
 			OWNING_BINPKG="$(<"${MDIR}/owning_binpkg")"
 			# was it us? (also check this is not a pure re-install)
-			if [[ "${P}" == "${OWNING_BINPKG}" && "${PVR}" != "${REPLACED_BY_VERSION}" ]]; then
+			if [[ "${PF}" == "${OWNING_BINPKG}" && "${PVR}" != "${REPLACED_BY_VERSION}" ]]; then
 				# yes, we installed it, we need to remove it
 				ewarn "Forcibly deleting kernel module directory ${MDIR}"
 				rm -rf "${MDIR}"
