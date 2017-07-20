@@ -1,0 +1,5 @@
+# Xv currently crashes; use gl output for video instead
+Section "Extensions"
+	Option "XVideo" "Disable"
+EndSection
+

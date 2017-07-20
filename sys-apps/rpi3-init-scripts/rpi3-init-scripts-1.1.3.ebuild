@@ -25,7 +25,9 @@ RDEPEND="${DEPEND}
 	>=app-shells/bash-4.0"
 
 src_install() {
-	newinitd "${FILESDIR}/init.d_autoexpand_root-1" "${AR_SVCNAME}"
+	newinitd "${FILESDIR}/init.d_autoexpand_root-3" "${AR_SVCNAME}"
+	insinto "/usr/share/X11/xorg.conf.d"
+	newins "${FILESDIR}/50-disable-Xv.conf-1" "50-disable-Xv.conf"
 }
 
 pkg_postinst() {
@@ -39,6 +41,12 @@ pkg_postinst() {
 		elog "(touch) the file /boot/autoexpand_root_none instead."
 		elog "To disable entirely, run:"
 		elog "  rc-update del ${AR_SVCNAME} boot"
+	fi
+	local OLDRULE="/etc/X11/xorg.conf.d/50-disable-Xv.conf"
+	if [ -f "${OLDRULE}" ]; then
+		elog "Removing old XVideo disable rule"
+		elog "New managed version is in /usr/share/X11/xorg.conf.d"
+		rm "${OLDRULE}"
 	fi
 }
 
