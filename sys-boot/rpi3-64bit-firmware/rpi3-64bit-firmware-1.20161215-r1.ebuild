@@ -36,8 +36,8 @@ src_install() {
 	doins *.dat
 	doins *.broadcom
 	# 'starter' versions of these files, will be CONFIG_PROTECTed
-	newins "${FILESDIR}/config.txt-1" config.txt
-	newins "${FILESDIR}/cmdline.txt-1" cmdline.txt
+	newins "${FILESDIR}/config.txt-2" config.txt
+	newins "${FILESDIR}/cmdline.txt-2" cmdline.txt
 	newenvd "${FILESDIR}"/config_protect-1 99${PN}
 	# assume kernel and dtbs are provided separately
 	# e.g. by sys-kernel/bcmrpi3-kernel-bin package
