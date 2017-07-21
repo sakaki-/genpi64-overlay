@@ -35,9 +35,11 @@ The overlay provides the following ebuilds:
 * **media-libs/raspberrypi-userland**
   * Provides `raspberrypi-userland-9999.ebuild`, a (restricted) 64-bit build (`-DARM64=ON`). Not currently installed on the image, or controlled by the `rpi3-64bit-meta` metapackage.
 * **sys-apps/rpi3-init-scripts**
-  * Provides a few simple init scripts for the [gentoo-on-rpi3-64bit](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image (to autoexpand the root partition on first boot, etc.).
+  * Provides a few simple init scripts for the [gentoo-on-rpi3-64bit](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image (to autoexpand the root partition on first boot, inhibit XVideo etc.).
 * **sys-apps/rpi3-ondemand-cpufreq**
-  * Provides the `/etc/local.d/ondemand_freq_scaling.start` boot script, to switch the RPi3 from its (`bcmrpi3_defconfig`) default `powersave` CPU frequency governor, to `ondemand`, for better performance.
+  * Provides the `rpi3-ondemand` OpenRC `sysinit` service, to switch the RPi3 from its (`bcmrpi3_defconfig`) default `powersave` CPU frequency governor, to `ondemand`, for better performance.
+* **x11-misc/rpi3-safecursor**
+  * Provides the `rpi3-safecursor` OpenRC service, which will install a rule to force software cursor blitting (rather than the hardware default) if the user has not set `disable_overscan=1` in `config.txt`. (Required because hardware cursor blitting in the open-source vc4 driver does not always take account of the overscan 'bezel' correctly on HDMI TVs, resulting in an offset cursor.)
 * **app-portage/rpi3-check-porthash**
   * Provides a [`porthash`](https://github.com/sakaki-/porthash) signed hash check for the [isshoni.org](https://isshoni.org) rsync gentoo ebuild repository, implemented as a `repo.postsync.d` hook.
 * **sys-boot/rpi3-64bit-firmware** [upstream](https://github.com/raspberrypi/firmware)
