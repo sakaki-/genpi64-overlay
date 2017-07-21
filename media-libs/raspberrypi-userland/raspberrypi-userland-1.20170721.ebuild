@@ -10,11 +10,12 @@ SRC_URI=""
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~arm64 ~arm"
 IUSE=""
 
 DEPEND=""
-RDEPEND=""
+RDEPEND="${DEPEND}
+	!media-libs/raspberrypi-userland-bin"
 
 EGIT_REPO_URI="https://github.com/raspberrypi/userland"
 # latest commit, as of of ebuild's version (datestamp)
