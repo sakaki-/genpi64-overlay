@@ -10,7 +10,7 @@ SRC_URI=""
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~arm64 ~arm"
+KEYWORDS=""
 IUSE=""
 
 DEPEND=""
