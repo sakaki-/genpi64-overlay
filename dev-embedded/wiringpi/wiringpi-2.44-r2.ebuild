@@ -86,8 +86,9 @@ src_install() {
 	cd ..
 	DOCS=( README.TXT People )
 	if use arm64; then
-		# following is a snippet of cpuinfo, for use on arm64 Pi3s (which
-		# don't show it)
+		# following is a snippet of cpuinfo, for use on Pi3s (which
+		# don't contain all the expected fields when booted in 64-bit
+		# mode)
 		insinto "/etc/${PN}"
 		newins "${FILESDIR}/cpuinfo-1" "cpuinfo"
 	fi
