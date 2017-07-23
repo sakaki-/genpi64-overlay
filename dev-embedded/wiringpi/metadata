@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer status="active">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+</maintainer>
+<upstream>
+		<maintainer status="active">
+				<email>projects@drogon.net</email>
+				<name>Gordon Henderson</name>
+		</maintainer>
+		<bugs-to>mailto:projects@drogon.net</bugs-to>
+</upstream>
+<longdescription>
+		WiringPi is a PIN based GPIO access library written in C
+		for the BCM2835 used in the Raspberry Pi (1, 2 and 3).
+		It’s designed to be familiar to people who have used the
+		Arduino “wiring” system.
+
+		A main library, devices library and utility app are included.
+
+		You need to uncomment "dtparam=spi=on" in config.txt to use
+		this package.
+</longdescription>
+</pkgmetadata>
