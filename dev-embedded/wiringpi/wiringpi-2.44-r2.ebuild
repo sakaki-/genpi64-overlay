@@ -97,7 +97,7 @@ src_install() {
 
 pkg_postinst() {
 	if [[ -z ${REPLACING_VERSIONS} ]] && use arm64; then
-		elog "The file /etc/{PN}/cpuinfo has been created."
+		elog "The file /etc/${PN}/cpuinfo has been created."
 		elog "The library will look there, instead of /proc/cpuinfo"
 		elog "when determining system type; this is necessary because"
 		elog "some /proc/cpuinfo data is not output in 64-bit mode."
