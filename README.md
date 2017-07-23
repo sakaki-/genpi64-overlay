@@ -44,7 +44,8 @@ The overlay provides the following ebuilds:
   * Provides a [`porthash`](https://github.com/sakaki-/porthash) signed hash check for the [isshoni.org](https://isshoni.org) rsync gentoo ebuild repository, implemented as a `repo.postsync.d` hook.
 * **sys-boot/rpi3-64bit-firmware** [upstream](https://github.com/raspberrypi/firmware)
   * Provides the firmware and config files required in `/boot` to boot the RPi3 in 64-bit mode. Does not provide the kernel or DTBs (see `sys-kernel/bcmrpi3-kernel-bin`, above, for that). A weekly check is made to see if a new tag has been added to the official [`raspberrypi/firmware/boot`](https://github.com/raspberrypi/firmware/tree/master/boot) upstream, and, if so, a matching ebuild is automatically created here.
-
+* **dev-embedded/wiringpi** [upstream](http://wiringpi.com/)
+  * Provides Gordon Henderson's `WiringPi`, a PIN based GPIO access library (with accompanying `gpio` utility). Not currently installed on the image, or controlled by the `rpi3-64bit-meta` metapackage.
 
 ## Other ebuilds
 
