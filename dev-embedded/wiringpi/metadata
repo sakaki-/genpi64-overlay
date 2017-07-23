@@ -20,7 +20,7 @@
 
 		A main library, devices library and utility app are included.
 
-		You need to uncomment "dtparam=spi=on" in config.txt to use
-		this package.
+		You need to uncomment the relevant features in config.txt to use
+		this package (for example, "dtparam=spi=on").
 </longdescription>
 </pkgmetadata>
