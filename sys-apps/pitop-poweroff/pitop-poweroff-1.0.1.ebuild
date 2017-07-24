@@ -23,7 +23,7 @@ RDEPEND="${DEPEND}
 	>=sys-apps/openrc-0.21"
 
 src_install() {
-	newinitd "${FILESDIR}/init.d_${PN}-1" "${PN}"
+	newinitd "${FILESDIR}/init.d_${PN}-2" "${PN}"
 }
 
 pkg_postinst() {

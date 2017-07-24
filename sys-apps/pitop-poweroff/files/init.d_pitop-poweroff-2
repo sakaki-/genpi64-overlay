@@ -14,6 +14,6 @@ start() {
 	einfo "***************************************************"
 	einfo "*    Your Pi-Top will power down in 5 seconds.    *"
 	einfo "***************************************************"
-	/usr/sbin/pt-poweroff
+	/usr/sbin/pt-poweroff &>/dev/null
 	eend $?
 }
