@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer status="active">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+</maintainer>
+<longdescription>
+		OpenRC service and udev rule for I2S access on the Raspberry Pi 3.
+		Ensures i2c-dev module modprobed, and the /dev/i2c-[0-9] devices are
+		read/write by the wheel group, not just root.
+</longdescription>
+</pkgmetadata>

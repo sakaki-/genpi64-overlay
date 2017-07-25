@@ -1,0 +1,33 @@
+#!/sbin/openrc-run
+# Copyright (c) 2017 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+description="Ensures I2C device kernel module loaded on RPi3"
+
+depend() {
+	need localmount
+	after modules
+}
+
+start() {
+	local RC
+   	ebegin "Starting ${SVCNAME}"
+	/sbin/modprobe i2c_dev
+	RC=$?
+	sleep 1
+	# warn if nothing has appeared in /dev
+	if find "/dev" -maxdepth 1 -name 'i2c-*' -exec false {} +; then
+		ewarn "No I2C devices are visible."
+		if grep "${ROOT%/}/boot" /proc/mounts &>/dev/null && \
+		[ -s "/boot/config.txt" ]; then
+			if ! egrep -q "^\s*dtparam=i2c_arm=on" /boot/config.txt; then
+				ewarn "Please set:"
+				ewarn "  dtparam=i2c_arm=on"
+				ewarn "in /boot/config.txt, and reboot"
+			fi
+		fi
+	fi
+	eend $RC
+}
+

@@ -1,0 +1,2 @@
+# ensure members of wheel group can read/write I2C devices
+KERNEL=="i2c-[0-9]*", GROUP="wheel", MODE="0660"
