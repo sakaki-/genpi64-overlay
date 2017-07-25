@@ -25,7 +25,6 @@ RDEPEND="
 	${DEPEND}"
 
 src_prepare() {
-	default
 	local DIR
 	# put header files in include subdirectory
 	# don't make library links directly (these break)
@@ -43,6 +42,7 @@ src_prepare() {
 	# the 'Hardware' line in /proc/cpuinfo, which the wiringPi library
 	# checks, by making it look in /etc/wiringpi/cpuinfo instead
 	use arm64 && epatch "${FILESDIR}/${PV}-pseudo-cpuinfo.patch"
+	default
 }
 
 src_compile() {
