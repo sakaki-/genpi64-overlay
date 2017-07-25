@@ -31,14 +31,14 @@ RDEPEND="
 	>=app-shells/bash-4.0"
 
 src_prepare() {
-	default
 	sed -i -e "s#/bin#/usr/bin#g" 50-bluetooth-hci-auto-poweron.rules
+	default
 }
 
 src_install() {
 	insinto "/lib/udev/rules.d"
 	doins 50-bluetooth-hci-auto-poweron.rules
-	newinitd "${FILESDIR}/init.d_${PN}-1" "${PN}"
+	newinitd "${FILESDIR}/init.d_${PN}-3" "${PN}"
 }
 
 pkg_postinst() {
