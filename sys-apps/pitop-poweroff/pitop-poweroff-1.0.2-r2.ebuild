@@ -18,7 +18,6 @@ RESTRICT="mirror"
 S="${WORKDIR}"
 
 RDEPEND="
-	>=sys-apps/rpi3-spidev-1.0.0
 	>=dev-embedded/pitop-utils-1.20170723
 	>=sys-apps/openrc-0.21"
 DEPEND="${RDEPEND}"
