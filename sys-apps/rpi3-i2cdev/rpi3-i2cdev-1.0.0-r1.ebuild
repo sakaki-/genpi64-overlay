@@ -33,6 +33,8 @@ pkg_postinst() {
 	if [[ -z ${REPLACING_VERSIONS} ]]; then
 		elog "Please run:"
 		elog "  rc-update add ${PN} boot"
-		elog "to enable the ${PN} service"
+		elog "to enable the ${PN} service, and also ensure"
+		elog "  dtparam=i2c_arm=on"
+		elog "is set in /boot/config.txt, to use the I2C interface."
 	fi
 }
