@@ -22,7 +22,8 @@ EGIT_COMMIT="c3f35c3713c69aa06bc833dafb8b82e4e5750efd"
 
 DEPEND=">=dev-embedded/wiringpi-2.44-r2"
 RDEPEND="
-        ${DEPEND}"
+        ${DEPEND}
+	>=sys-apps/rpi3-spidev-1.0.0"
 
 src_compile() {
         local x
