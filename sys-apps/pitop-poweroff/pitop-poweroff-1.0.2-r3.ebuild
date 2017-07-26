@@ -18,7 +18,7 @@ RESTRICT="mirror"
 S="${WORKDIR}"
 
 RDEPEND="
-	>=dev-embedded/pitop-utils-1.20170723
+	>=dev-embedded/pitop-utils-1.20170723-r1
 	>=sys-apps/openrc-0.21"
 DEPEND="${RDEPEND}"
 
