@@ -40,7 +40,7 @@ src_prepare() {
 		-i ${DIR}/Makefile
 		if use arm64; then
 			sed -e 's:$(PREFIX)/lib:$(PREFIX)/lib64:g' \
-			-e 's:/lib/:/lib64/:g'
+			-e 's:/lib/:/lib64/:g' \
 			-i ${DIR}/Makefile
 		fi
 	done
