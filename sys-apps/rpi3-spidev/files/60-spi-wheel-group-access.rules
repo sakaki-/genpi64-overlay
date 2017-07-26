@@ -1,0 +1,2 @@
+# ensure members of wheel group can read/write SPI devices
+KERNEL=="spidev[0-9].[0-9]", GROUP="wheel", MODE="0660"

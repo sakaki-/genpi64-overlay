@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer status="active">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+</maintainer>
+<longdescription>
+		Simple udev rule for SPI access on the Raspberry Pi 3.
+		Ensures that the /dev/spidevN.M devices are read/write by the
+		wheel group, not just root.
+
+		Unlike rpi3-i2cdev, this does not install an init.d service;
+		the necessary module will be modprobed automatically, by the
+		  dtparam=spi=on
+		entry in /boot/config.txt.
+</longdescription>
+</pkgmetadata>
