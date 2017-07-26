@@ -17,10 +17,11 @@ RESTRICT="mirror"
 # required by Portage, as we have no SRC_URI...
 S="${WORKDIR}"
 
-DEPEND=""
-RDEPEND="${DEPEND}
+RDEPEND="
+	>=sys-apps/rpi3-spidev-1.0.0
 	>=dev-embedded/pitop-utils-1.20170723
 	>=sys-apps/openrc-0.21"
+DEPEND="${RDEPEND}"
 
 src_install() {
 	newinitd "${FILESDIR}/init.d_${PN}-3" "${PN}"
