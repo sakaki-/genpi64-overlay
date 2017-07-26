@@ -30,6 +30,7 @@ src_prepare() {
 	# don't make library links directly (these break)
 	# update manpage location to non-deprecated value
 	# get rid of suid (security risk); install utility as sbin instead
+	# if on arm64, install to /usr/lib64, not /usr/lib
 	for DIR in wiringPi devLib gpio; do
 		sed -e "s#/include#/include/${PN}#" \
 		-e 's:\($Q \)ln -sf:#\1ln -sf:g' \
@@ -37,6 +38,10 @@ src_prepare() {
 		-e 's:/bin:/sbin:g' \
 		-e 's:4755:0755:g' \
 		-i ${DIR}/Makefile
+		if use arm64; then
+			sed -e 's:/lib:/lib64:g' \
+			-i ${DIR}/Makefile
+		fi
 	done
 	# deal with problem that RPi3 in 64-bit mode does not have
 	# the 'Hardware' line in /proc/cpuinfo, which the wiringPi library
@@ -74,12 +79,16 @@ src_compile() {
 }
 
 src_install() {
+	local LIBDIR="${D%/}/usr/lib"
+	if use arm64; then
+		LIBDIR+="64"
+	fi
 	cd wiringPi
 	emake DESTDIR="${D%/}" PREFIX="/usr" install
-	cp --no-dereference libwiringPi.so "${D%/}/usr/lib/"
+	cp --no-dereference libwiringPi.so "${LIBDIR}/"
 	cd ../devLib
 	emake DESTDIR="${D%/}" PREFIX="/usr" install
-	cp --no-dereference libwiringPiDev.so "${D%/}/usr/lib/"
+	cp --no-dereference libwiringPiDev.so "${LIBDIR}/"
 	cd ../gpio
 	mkdir -p "${D%/}/usr/sbin"
 	emake DESTDIR="${D%/}" PREFIX="/usr" install
