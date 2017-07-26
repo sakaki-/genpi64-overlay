@@ -31,19 +31,22 @@ src_prepare() {
 	# update manpage location to non-deprecated value
 	# get rid of suid (security risk); install utility as sbin instead
 	# if on arm64, install to /usr/lib64, not /usr/lib
+	# purge upstream email addresses as Gentoo is an unsupported platform
 	for DIR in wiringPi devLib gpio; do
 		sed -e "s#/include#/include/${PN}#" \
 		-e 's:\($Q \)ln -sf:#\1ln -sf:g' \
 		-e 's:/man/man:/share/man/man:g' \
 		-e 's:/bin:/sbin:g' \
 		-e 's:4755:0755:g' \
-		-i ${DIR}/Makefile
+		-i "${DIR}"/Makefile
 		if use arm64; then
 			sed -e 's:$(PREFIX)/lib:$(PREFIX)/lib64:g' \
 			-e 's:/lib/:/lib64/:g' \
-			-i ${DIR}/Makefile
+			-i "${DIR}"/Makefile
 		fi
 	done
+	sed -e 's/projects@drogon.net/(email removed, Gentoo unsupported)/g' \
+	-i $(find . -type f -exec grep -l "projects@drogon.net" {} +)
 	# deal with problem that RPi3 in 64-bit mode does not have
 	# the 'Hardware' line in /proc/cpuinfo, which the wiringPi library
 	# checks, by making it look in /etc/wiringpi/cpuinfo instead

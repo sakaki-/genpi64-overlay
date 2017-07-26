@@ -7,10 +7,8 @@
 </maintainer>
 <upstream>
 		<maintainer status="active">
-				<email>projects@drogon.net</email>
 				<name>Gordon Henderson</name>
 		</maintainer>
-		<bugs-to>mailto:projects@drogon.net</bugs-to>
 </upstream>
 <longdescription>
 		WiringPi is a PIN based GPIO access library written in C
@@ -22,5 +20,8 @@
 
 		You need to uncomment the relevant features in config.txt to use
 		this package (for example, "dtparam=spi=on").
+
+		NB: please note that Gentoo is treated as an unsupported platform
+		by upstream; any bug reports sent there will be rejected.
 </longdescription>
 </pkgmetadata>
