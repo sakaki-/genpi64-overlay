@@ -1,0 +1,4 @@
+sci-calculators/qalculate-gtk	* ~*
+# requirements of qalculate-gtk
+sci-libs/libqalculate	* ~*
+
