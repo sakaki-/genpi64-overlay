@@ -1,0 +1,2 @@
+# need for pitop-speaker etc. (smbus)
+>=sys-apps/i2c-tools-3.1.1-r1 python
