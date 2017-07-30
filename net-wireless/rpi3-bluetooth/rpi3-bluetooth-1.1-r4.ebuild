@@ -38,7 +38,8 @@ src_prepare() {
 src_install() {
 	insinto "/lib/udev/rules.d"
 	doins 50-bluetooth-hci-auto-poweron.rules
-	newinitd "${FILESDIR}/init.d_${PN}-3" "${PN}"
+	newinitd "${FILESDIR}/init.d_${PN}-4" "${PN}"
+	newsbin "${FILESDIR}/rpi3-attach-bluetooth-1" "rpi3-attach-bluetooth"
 }
 
 pkg_postinst() {

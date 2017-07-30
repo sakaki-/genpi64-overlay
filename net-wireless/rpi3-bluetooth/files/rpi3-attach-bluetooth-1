@@ -1,0 +1,24 @@
+#!/bin/bash
+# Attach to integrated Bluetooth on Raspberry Pi 3
+# Intended to be run in the background, started by rpi3-bluetooth startup
+# service.
+# Adapted from https://aur.archlinux.org/packages/pi-bluetooth/
+# Copyright (c) 2017 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+HCMD="/usr/bin/hciattach /dev/ttyAMA0 bcm43xx 921600 noflow -"
+
+if ! [ -d /proc/device-tree/soc/gpio@7e200000/bt_pins ]; then
+	echo "Bluetooth not found" 2>&1
+	exit 1
+fi
+declare -i I
+# attach process is unreliable, so try multiple times
+for ((I=0;I<5;I++)); do
+	${HCMD} &>/dev/null
+	if pgrep -f "${HCMD}"; then
+		exit 0
+	fi
+done
+exit 1
