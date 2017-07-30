@@ -1,0 +1,102 @@
+#!/sbin/openrc-run
+# Copyright (c) 2017 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+description="Initialize pitopSPEAKERs, to play HDMI audio"
+
+depend() {
+	need rpi3-i2cdev alsasound
+}
+
+_trim() {
+	local V="$*"
+	# remove leading whitespace characters
+	V="${V#"${V%%[![:space:]]*}"}"
+	# remove trailing whitespace characters
+	V="${V%"${V##*[![:space:]]}"}"   
+	echo -n "$V"
+}
+
+_initialize_speakers() {
+	# without I2C we can do nothing
+	declare -i NUM_SPEAKERS=0
+	if ! [[ -c "/dev/i2c-1" ]]; then
+		eerror "The /dev/i2c-1 device is not available!"
+		eerror "Please ensure you have enabled the rpi3-i2cdev service,"
+		eerror "and have set:"
+		eerror "  dtparam=i2c_arm=on"
+		eerror "in /boot/config.txt, then reboot."
+		return 1
+	fi
+	local SPEAKER
+	if [[ "${SPEAKERS_TO_INITIALIZE,,}" == "auto" ]]; then
+		einfo "Detecting attached pitopSPEAKER units..."
+		local I2C_PROBE
+		if ! I2C_PROBE="$(/usr/sbin/i2cdetect -y 1 $((0x71)) $((0x73)) 2>/dev/null)"; then
+			eerror "Failed to probe I2C bus"
+			return 1
+		fi
+		SPEAKERS_TO_INITIALIZE=()
+		# TODO make this a bit less hardcoded
+		if grep -q 71 <<<"${I2C_PROBE}"; then
+			einfo "Detected speaker 'l'"
+			SPEAKERS_TO_INITIALIZE+=( l )
+		fi
+		if grep -q 72 <<<"${I2C_PROBE}"; then
+			einfo "Detected speaker 'r'"
+			SPEAKERS_TO_INITIALIZE+=( r )
+		fi
+		if grep -q 73 <<<"${I2C_PROBE}"; then
+			einfo "Detected speaker 'm'"
+			SPEAKERS_TO_INITIALIZE+=( m )
+		fi
+		if ! [[ ${SPEAKERS_TO_INITIALIZE[@]:+${SPEAKERS_TO_INITIALIZE[@]}} ]]; then
+			ewarn "Failed to detect any speakers"
+		fi
+	fi
+	for SPEAKER in ${SPEAKERS_TO_INITIALIZE[@]}; do
+		# convert to lower-case and purge whitespace
+		SPEAKER="$(_trim "${SPEAKER,,}")"
+		if ! [[ "${SPEAKER}" =~ ^(l|r|m)$ ]]; then
+			ewarn "Ignoring unknown speaker '${SPEAKER}'"
+			continue
+		fi
+		# valid speaker, call the python init (which will send the
+		# necessary I2C commands to bring it up)
+		if /usr/bin/python3 -c "
+import sys
+from ptspeaker import configuration
+if not configuration.enable(\"${SPEAKER}\"):
+	sys.exit(1)" &>/dev/null; then
+			einfo "Successfully initialized speaker '${SPEAKER}'"
+			((NUM_SPEAKERS++))
+		else
+			eerror "Failed to initialize speaker '${SPEAKER}'"
+			return 1
+		fi
+	done
+	if ((SET_ALSA_PCM_ROUTE_AS_HDMI==1)); then
+		# if we managed to configure anything, force-select HDMI audio as
+		# the default ALSA PCM route (the pitopSPEAKER units are connected
+		# to this via the hub)
+		if ((NUM_SPEAKERS>0)); then
+			# TODO make this a bit less hardcoded
+			if /usr/bin/amixer -c 0 cset numid=3 2 &>/dev/null; then
+				einfo "Default ALSA PCM playback route set to HDMI"
+			else
+				eerror "Failed to set default ALSA PCM playback route"
+				return 1
+			fi
+		else
+			ewarn "No speakers configured, leaving ALSA settings unchanged"
+		fi
+	fi
+}
+
+start() {
+   	ebegin "Starting ${SVCNAME}"
+	_initialize_speakers
+	eend $?
+}
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer status="active">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+</maintainer>
+<upstream>
+		<maintainer status="active">
+				<name>Pi-Top</name>
+				<email>deb-maintainers@pi-top.com</email>
+		</maintainer>
+</upstream>
+<longdescription>
+		This provides the ptspeaker Python 3 package, which may be
+		used to initialize the pi-topSPEAKER addon board. Derived
+		directly from the Debian package python3-pt-speaker.
+</longdescription>
+</pkgmetadata>
