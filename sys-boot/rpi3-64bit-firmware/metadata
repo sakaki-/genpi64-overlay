@@ -8,6 +8,9 @@
 	<upstream>
 		<remote-id type="github">raspberrypi/firmware</remote-id>
 	</upstream>
+	<use>
+		<flag name="pitop">Modify installed config.txt for Pi-Top (most users will NOT want this).</flag>
+	</use>
 	<longdescription>
 		Raspberry Pi 3 bootloader, firmware, and configs, for 64-bit mode.
 	</longdescription>

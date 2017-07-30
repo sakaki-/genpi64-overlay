@@ -11,7 +11,7 @@ SRC_URI="https://github.com/raspberrypi/firmware/archive/${PV}.tar.gz -> ${P}.ta
 LICENSE="GPL-2 raspberrypi-videocore-bin Broadcom"
 SLOT="0"
 KEYWORDS="~arm64"
-IUSE=""
+IUSE="pitop"
 RESTRICT="mirror binchecks strip"
 
 DEPEND=""
@@ -36,7 +36,11 @@ src_install() {
 	doins *.dat
 	doins *.broadcom
 	# 'starter' versions of these files, will be CONFIG_PROTECTed
-	newins "${FILESDIR}/config.txt-2" config.txt
+	if use pitop; then
+		newins "${FILESDIR}/config.pitop.txt-2" config.txt
+	else
+		newins "${FILESDIR}/config.txt-2" config.txt
+	fi
 	newins "${FILESDIR}/cmdline.txt-2" cmdline.txt
 	newenvd "${FILESDIR}"/config_protect-1 99${PN}
 	# assume kernel and dtbs are provided separately
