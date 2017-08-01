@@ -10,6 +10,10 @@
 		<flag name="kernel-bin">Pull in the binary kernel package.</flag>
 		<flag name="porthash">Pull in repo signature checker, for isshoni.org rsync.</flag>
 		<flag name="weekly-genup">Pull in cron.weekly script, to run genup automatically.</flag>
+		<flag name="core">Pull in core system packages for image (sudo etc.).</flag>
+		<flag name="xfce">Pull in packages for baseline Xfce4 system. Requires core.</flag>
+		<flag name="pitop">Pull in Pi-Top support packages (NB most users will NOT want this). Requires xfce.</flag>
+		<flag name="apps">Pull in baseline desktop apps (libreoffice etc.). Requires xfce.</flag>
 	</use>
 	<longdescription>
 		This is a metapackage. Merge it to pull in the baseline set of packages
