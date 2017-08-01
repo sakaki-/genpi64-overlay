@@ -1,0 +1,106 @@
+#!/bin/bash
+#
+# Simple per-user Xfce4 fixups for the RPi3. Fixes the notification area
+# icon sizing (so NetworkManager icons etc. visible), and applies a few
+# window manager tweaks (to ensure compositing sync'd to the vertical blank,
+# etc.) Also reloads the desktop, to get around the 'black background on first
+# login' problem.
+#
+# Places the sentinel property "/general/setup_complete" in channels
+# xfce4-panel and xfwm4 to designate that the changes have been made (and will
+# NOP if these sentinels are present) so this script can safely
+# be run on each login by an entry in /etc/xdg/autostart.
+#
+# Assumes the user has at least one panel active.
+#
+# Copyright (c) 2017 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+declare -i SETTINGS_CHANGED=0
+declare -i SECS=1000
+
+if [[ "${XDG_CURRENT_DESKTOP}" != "XFCE" ]]; then
+	exit 0
+fi
+
+# first launch for a new user, need to wait until panel
+# available; also hint about which panel configuration to select
+if ! grep -q "xfce4-panel" <(xfconf-query --list 2>/dev/null); then
+	sleep 2
+	notify-send --expire-time=$((60*SECS)) \
+	"Welcome to the first start of the panel" "If in doubt, it's better to select <b>Use default config</b> in this dialog, as this provides a useful 'starter' layout."
+fi
+
+while ! grep -q "xfwm4" <(xfconf-query --list 2>/dev/null); do
+	sleep 1
+done
+
+sleep 1
+
+# ensure compositor is sync'd to vertical blank and that move/resize opacity set
+if ! xfconf-query --channel xfwm4 --property /general/setup_complete &>/dev/null; then
+	xfconf-query --channel xfwm4 --property /general/sync_to_vblank \
+		--create --type bool --set true
+	xfconf-query --channel xfwm4 --property /general/show_popup_shadow \
+		--create --type bool --set true
+	xfconf-query --channel xfwm4 --property /general/move_opacity \
+		--create --type int --set 90
+	xfconf-query --channel xfwm4 --property /general/resize_opacity \
+		--create --type int --set 90
+	# insert sentinel
+	xfconf-query --channel xfwm4 --property /general/setup_complete \
+		--create --type bool --set true
+	SETTINGS_CHANGED=1
+fi
+
+while ! grep -q "xfce4-panel" <(xfconf-query --list 2>/dev/null); do
+	sleep 1
+done
+
+sleep 2
+
+# fix the indicator panel size, so notification icons for NetworkManager,
+# Bluetooth etc. visible
+if ! xfconf-query --channel xfce4-panel --property /general/setup_complete &>/dev/null; then
+	PLUGIN="$(xfconf-query --channel xfce4-panel --list --verbose | grep systray | cut -d " " -f 1)"
+	if ! [[ -z ${PLUGIN} ]]; then
+		xfconf-query --channel xfce4-panel --property "${PLUGIN}/size-max" \
+			--create --type int --set 20
+	fi
+	# insert sentinel
+	xfconf-query --channel xfce4-panel --property /general/setup_complete \
+		--create --type bool --set true
+	SETTINGS_CHANGED=1
+fi
+
+if ((SETTINGS_CHANGED==1)); then
+	# make sure settings are taken up
+	if ((SECONDS>=60)); then
+		# can get problems if user has taken too long after logging
+		# in to create the panel; we'll deal with this, but they
+		# may get a warning dialog, so...
+		notify-send --expire-time=$((60*SECS)) \
+		"Panel Restart" "You may see a 'Failed to restart the panel' dialog pop up shortly; if so, please just dismiss it; this should only occur once."
+	fi
+	if ! xfce4-panel --restart; then
+		xfce4-panel&
+		sleep 2
+		xfce4-panel --restart
+	fi
+
+	if [[ "$(xfconf-query --channel xfwm4 --property /general/use_compositing)" == "true" ]]; then
+		notify-send --expire-time=$((60*SECS)) \
+		"Compositing On" "Window manager compositing is activated. If you find video playback framerates too slow, try turning this off (via Applications -> Settings -> Window Manager Tweaks -> Compositor)."
+	fi
+fi
+
+# ensure desktop background loaded on login
+AUTOSTART_FILE="${HOME}/.config/autostart/Reload xfdesktop.desktop"
+if [[ -s "${AUTOSTART_FILE}" ]]; then
+	# demouser: will already have been triggered, but remove now
+	rm -f "${AUTOSTART_FILE}"
+else
+	sleep 3
+	xfdesktop --reload
+fi

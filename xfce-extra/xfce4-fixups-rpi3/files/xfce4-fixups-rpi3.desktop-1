@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Per-User Xfce4 Fix-Ups
+Comment=Runs /usr/bin/xfce4-fixups-rpi3 script on graphical login
+Exec=/usr/bin/xfce4-fixups-rpi3
+Terminal=false
+Type=Application
+Categories=
+NoDisplay=true
+OnlyShowIn=XFCE;
+StartupNotify=false
