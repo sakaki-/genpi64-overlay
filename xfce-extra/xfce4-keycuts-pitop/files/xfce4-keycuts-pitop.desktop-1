@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Setup Keyboard Shortcuts for Pi-Top
+Comment=Runs /usr/bin/xfce4-keycuts-pitop script on graphical login
+Exec=/usr/bin/xfce4-keycuts-pitop
+Terminal=false
+Type=Application
+Categories=
+NoDisplay=true
+OnlyShowIn=XFCE;
+StartupNotify=false

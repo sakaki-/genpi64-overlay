@@ -1,0 +1,76 @@
+#!/bin/bash
+#
+# Simple per-user keyboard shortcut setup for Xfce4 on Pi-Top.
+# Installs bindings for audio mute/down/up (requires Audio Mixer panel
+# plugin to work), brightness up/down, and file browser, terminal and
+# calculator shortcuts.
+#
+# Can be run on each login by an entry in /etc/xdg/autostart,
+# since it will do nothing if ~/.Xmodmap already exists, or if the sentinel
+# property "/general/setup_complete" is found in the xfce4-keyboard-shortcuts
+# channel.
+#
+# Copyright (c) 2017 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+declare -i SECS=1000
+sleep 2
+
+if [[ -e "${HOME}/.Xmodmap" || "${XDG_CURRENT_DESKTOP}" != "XFCE" ]]; then
+	exit 0
+fi
+
+# install basic keyboard map
+cat >"${HOME}/.Xmodmap" <<EOF
+keycode 191 = F1
+keycode 192 = F2
+keycode 193 = F3
+keycode 194 = F4
+keycode 195 = F5
+keycode 196 = F6
+keycode 197 = F7
+keycode 121 = XF86AudioMute
+keycode 122 = XF86AudioLowerVolume
+keycode 123 = XF86AudioRaiseVolume
+keycode 198 = XF86LaunchB
+keycode 199 = XF86LaunchC
+keycode 200 = XF86Explorer
+keycode 201 = XF86Terminal
+keycode 202 = XF86Calculator
+EOF
+
+# first launch for a new user, need to wait until keyboard shortcuts
+# available
+while ! grep -q "xfce4-keyboard-shortcuts" <(xfconf-query --list 2>/dev/null); do
+	sleep 1
+done
+
+if ! xfconf-query --channel xfce4-keyboard-shortcuts --property /general/setup_complete &>/dev/null; then
+	# reset any old shortcuts
+	for P in LaunchB LaunchC Explorer Terminal Calculator; do
+		xfconf-query --channel xfce4-keyboard-shortcuts --property /commands/custom/${P} --reset
+	done
+
+	# now set new ones
+	xfconf-query --channel xfce4-keyboard-shortcuts --property /commands/custom/LaunchB \
+		--create --type string --set "/usr/sbin/pt-brightness decrease"
+	xfconf-query --channel xfce4-keyboard-shortcuts --property /commands/custom/LaunchC \
+		--create --type string --set "/usr/sbin/pt-brightness increase"
+	xfconf-query --channel xfce4-keyboard-shortcuts --property /commands/custom/Explorer \
+		--create --type string --set "exo-open --launch FileManager"
+	xfconf-query --channel xfce4-keyboard-shortcuts --property /commands/custom/Terminal \
+		--create --type string --set "exo-open --launch TerminalEmulator"
+	xfconf-query --channel xfce4-keyboard-shortcuts --property /commands/custom/Calculator \
+		--create --type string --set "/usr/bin/qalculate-gtk"
+	# insert sentinel
+	xfconf-query --channel xfce4-keyboard-shortcuts --property /general/setup_complete \
+		--create --type bool --set true
+
+	# make sure settings are taken up
+	xmodmap "${HOME}/.Xmodmap"
+	# rely on the xfce4-fixups-rpi3 script to do a desktop reload
+
+	notify-send --expire-time=$((60*SECS)) \
+	"Pi-Top Keyboard Shortcuts" "Basic keyboard shortcuts (brightness etc.) for the Pi-Top have been configured. Note that to get volume mute / down / up to work, you also need to install the Audio Mixer plugin into the panel."
+fi
