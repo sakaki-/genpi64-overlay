@@ -13,13 +13,13 @@ SRC_URI="${HOMEPAGE}/releases/download/${PV}/bcmrpi3-kernel-${PV}.tar.xz -> ${P}
 LICENSE="GPL-2 freedist"
 SLOT="0"
 KEYWORDS="~arm64"
-IUSE="+checkboot firmware +with-matching-boot-fw"
+IUSE="+checkboot firmware +with-matching-boot-fw pitop"
 
 RESTRICT="mirror"
 
 DEPEND=""
 RDEPEND="
-	with-matching-boot-fw? ( ~sys-boot/rpi3-64bit-firmware-1.20170515 )
+	with-matching-boot-fw? ( ~sys-boot/rpi3-64bit-firmware-1.20170515[pitop(-)?] )
 	${DEPEND}"
 
 QA_PREBUILT="*"
