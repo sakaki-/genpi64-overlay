@@ -15,7 +15,7 @@ start() {
 	# don't power off if an error occurs finding runlevel - we may
 	# be rebooting
 	if RUNLEVEL="$(/sbin/runlevel)"; then
-		RUNLEVEL="$(cut -d ' ' -f 2 <<<"${RUNLEVEL}")"
+		RUNLEVEL="$(echo "${RUNLEVEL}" | cut -d ' ' -f 2)"
 		# don't want to turn power off if RUNLEVEL is 6
 		# (reboot); only if it is 0 (halt)
 		if ((RUNLEVEL==0)); then
