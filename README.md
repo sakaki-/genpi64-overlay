@@ -19,6 +19,12 @@ The overlay provides the following ebuilds:
    | `kernel-bin` | Yes | Pull in the `bcmrpi3-kernel-bin` binary kernel package. |
    | `porthash` | Yes | Pull in repo signature checker, for isshoni.org `rsync`. |
    |  `weekly-genup` | Yes | Pull in `cron.weekly` script, to run `genup` automatically. |
+   |  `core` | Yes | Pull in core system packages for image (`sudo` etc.). |
+   |  `xfce` | Yes | Pull in packages for baseline Xfce4 system. Requires `core`. |
+   |  `pitop` | No | Pull in Pi-Top support packages (NB most users **won't** want this). Requires `xfce`. |
+   |  `apps` | No | Pull in baseline desktop apps (`libreoffice` etc). Requires `xfce`. |
+
+
 
 ### Ebuilds related to the [`gentoo-on-rpi3-64bit`](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image
 
@@ -45,7 +51,23 @@ The overlay provides the following ebuilds:
 * **sys-boot/rpi3-64bit-firmware** [upstream](https://github.com/raspberrypi/firmware)
   * Provides the firmware and config files required in `/boot` to boot the RPi3 in 64-bit mode. Does not provide the kernel or DTBs (see `sys-kernel/bcmrpi3-kernel-bin`, above, for that). A weekly check is made to see if a new tag has been added to the official [`raspberrypi/firmware/boot`](https://github.com/raspberrypi/firmware/tree/master/boot) upstream, and, if so, a matching ebuild is automatically created here.
 * **dev-embedded/wiringpi** [upstream](http://wiringpi.com/)
-  * Provides Gordon Henderson's `WiringPi`, a PIN based GPIO access library (with accompanying `gpio` utility). Not currently installed on the image, or controlled by the `rpi3-64bit-meta` metapackage.
+  * Provides Gordon Henderson's `WiringPi`, a PIN based GPIO access library (with accompanying `gpio` utility).
+* **xfce-extra/xfce4-fixups-rpi3**
+  * Effects some useful new-user fixups for Xfce4 on the RPi3 (forcing compositing to sync to the vertical blank etc.). Installs an `/etc/xdg/autostart/xfce4-fixups-rpi3.desktop` entry.
+* **xfce-extra/xfce4-keycuts-pitop**
+  * Installs some simple keyboard shortcuts for the Pi-Top (an RPi3-based DIY laptop).
+* **xfce-extra/xfce4-battery-plugin** [upstream](https://github.com/rricharz/pi-top-battery-status)
+  * A modified version of the standard `xfce4-battery-plugin` gas gauge. It is patched with code from rricharz to query the status of the Pi-Top's battery over I2C; this code is activated by building with the `pitop` USE flag (NB - _only_ for use on Pi-Top systems).
+* **sys-apps/pitop-poweroff**
+  * Provides a simple OpenRC shutdown service, to ensure that the Pi-Top's onboard hub controller is properly powered off (NB - _only_ for use on Pi-Top systems).
+* **sys-apps/rpi3-spidev**
+  * Provides a `udev` rule for SPI access on the RPi3; ensures that the `/dev/spidevN.M` devices are read/write for all members of the `wheel` group, not just `root`.
+* **sys-apps/rpi3-i2cdev**
+  * Proves an OpenRC service and `udev` rule for I2C access on the RPi3. Ensures that the `i2c-dev` module is `modprobe`d, and that the `/dev/i2c-[0-9]` devices are read/write for all members of the `wheel` group, not just `root`.
+* **dev-embedded/pitop-utils** [upstream](https://github.com/rricharz/pi-top-install)
+  * Provides the `pt-poweroff` and `pt-brightness` `sbin` utilities for the Pi-Top (NB - _only_ for use on Pi-Top systems).
+* **dev-embedded/pitop-speaker** [upstream](https://github.com/pi-top/pi-topSPEAKER)
+  * Provides the `ptspeaker` Python 3 package and accompanying OpenRC service, to initialize pitopSPEAKER add-on-boards (NB - _only_ for use on Pi-Top systems). The init has been adapted from the original Debian package and does _not_ use `pt-peripherals-daemon`.
 
 ## Other ebuilds
 
