@@ -23,7 +23,7 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 
 src_install() {
-	newinitd "${FILESDIR}/init.d_${PN}-3" "${PN}"
+	newinitd "${FILESDIR}/init.d_${PN}-4" "${PN}"
 }
 
 pkg_postinst() {
