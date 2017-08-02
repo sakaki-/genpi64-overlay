@@ -15,5 +15,7 @@
 		This provides the ptspeaker Python 3 package, which may be
 		used to initialize the pi-topSPEAKER addon board. Derived
 		directly from the Debian package python3-pt-speaker.
+
+		An OpenRC service is also included.
 </longdescription>
 </pkgmetadata>
