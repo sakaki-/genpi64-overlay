@@ -57,7 +57,7 @@ SRC_URI="amd64? (
 
 LICENSE="|| ( MIT Apache-2.0 ) BSD-1 BSD-2 BSD-4 UoI-NCSA"
 
-IUSE="clang debug doc libcxx"
+IUSE="clang debug doc libcxx nativeonly"
 REQUIRED_USE="libcxx? ( clang )"
 
 RDEPEND="libcxx? ( sys-libs/libcxx )"
@@ -82,6 +82,34 @@ src_configure() {
 }
 
 src_compile() {
+	# All supported targets from rust-1.19 to preserve original behaviour
+	# the build system does not provide a default if targets is empty.
+	local single_target="X86;ARM;AArch64;Mips;PowerPC;SystemZ;JSBackend;MSP430;Sparc;NVPTX;Hexagon"
+	if use nativeonly ; then
+		# only build the bundled LLVM for the CHOST arch like -march=native
+		# translate our $ARCH from the environment into  the names rust expects.
+		case ${ARCH} in
+			amd64)
+				local single_target="X86"
+				;;
+			arm)
+				local single_target="ARM"
+				;;
+			arm64)
+				local single_target="AArch64"
+				;;
+			sparc)
+				local single_target="Sparc"
+				;;
+			x86)
+				local single_target="X86"
+				;;
+			*) 
+				die "Unknown Single Target " ${ARCH}
+				;;
+		esac
+	fi
+
 	local stage0="rust-${STAGE0_VERSION}-${TRIPLE}"
 	if use debug ; then
 		local optimized="false";
@@ -95,6 +123,7 @@ src_compile() {
 	[llvm]
 	optimize = ${optimized}
 	assertions = ${debug}
+	targets = "${single_target}"
 	[build]
 	docs = false
 	submodules = false
@@ -119,7 +148,12 @@ src_compile() {
 	for i in ${A}; do
 		cp "${DISTDIR}/${i}" $cache_dir/
 	done
-	${EPYTHON} x.py build || die
+	# Need to extract (last) -j param out of ${MAKEOPTS}
+	local pmake="${MAKEOPTS:--j1}"
+	pmake="${pmake##*-j}"			# strip up to (last) -j
+	pmake="${pmake#[![:digit:]]}"		# drop any leading non-digits
+	pmake="${pmake%%[![:digit:]]*}"		# drop any trailing content
+	${EPYTHON} x.py build "-j" ${pmake} || die
 }
 
 src_install() {
