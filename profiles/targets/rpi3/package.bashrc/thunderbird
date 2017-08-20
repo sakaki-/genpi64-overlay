@@ -1,2 +1,3 @@
 # See https://forums.gentoo.org/viewtopic-p-8081866.html#8081866
 >=mail-client/thunderbird-48 disable-sandbox.conf makeopts-j4.conf
+>=mail-client/thunderbird-52 disable-content-sandbox.conf
