@@ -68,6 +68,10 @@ The overlay provides the following ebuilds:
   * Provides the `pt-poweroff` and `pt-brightness` `sbin` utilities for the Pi-Top (NB - _only_ for use on Pi-Top systems).
 * **dev-embedded/pitop-speaker** [upstream](https://github.com/pi-top/pi-topSPEAKER)
   * Provides the `ptspeaker` Python 3 package and accompanying OpenRC service, to initialize pitopSPEAKER add-on-boards (NB - _only_ for use on Pi-Top systems). The init has been adapted from the original Debian package and does _not_ use `pt-peripherals-daemon`.
+* **dev-lang/rust** [upstream](https://wiki.gentoo.org/wiki/Project:Rust)
+  * Provides `rust-1.19.0-r1.ebuild`; adapted from the Gentoo tree version to build under `arm64`; build system also respects the `nativeonly` USE flag and user `MAKEOPTS` for efficiency (thanks to [NeddySeagoon](https://github.com/sakaki-/rpi3-overlay/commit/3abb46bcff04d9b66c8b3c50d309f199606ac0fa##commitcomment-23709642)). The system-programming language `dev-lang/rust` is a hard dependency for `www-client/firefox` versions 55 and above (as is `sys-devel/cargo`, see below).
+* **dev-util/cargo** [upstream](https://wiki.gentoo.org/wiki/Project:Rust)
+  * Provides `cargo-0.20.0.ebuild`, adapted from the Gentoo tree version to build under `arm64`. `dev-util/cargo` is the package manager for `dev-lang/rust`.
 
 ## Other ebuilds
 
