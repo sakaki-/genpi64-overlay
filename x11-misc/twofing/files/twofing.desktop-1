@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Start twofing gesture daemon
+Comment=Starts /usr/bin/twofing daemon on graphical login
+Exec=/usr/bin/twofing
+Terminal=false
+Type=Application
+Categories=
+NoDisplay=true
+OnlyShowIn=XFCE;
+StartupNotify=false
