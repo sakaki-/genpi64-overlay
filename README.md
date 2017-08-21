@@ -72,6 +72,8 @@ The overlay provides the following ebuilds:
   * Provides `rust-1.19.0-r1.ebuild`; adapted from the Gentoo tree version to build under `arm64`; build system also respects the `nativeonly` USE flag and user `MAKEOPTS` for efficiency (thanks to [NeddySeagoon](https://github.com/sakaki-/rpi3-overlay/commit/3abb46bcff04d9b66c8b3c50d309f199606ac0fa##commitcomment-23709642)). The system-programming language `dev-lang/rust` is a hard dependency for `www-client/firefox` versions 55 and above (as is `sys-devel/cargo`, see below).
 * **dev-util/cargo** [upstream](https://wiki.gentoo.org/wiki/Project:Rust)
   * Provides `cargo-0.20.0.ebuild`, adapted from the Gentoo tree version to build under `arm64`. `dev-util/cargo` is the package manager for `dev-lang/rust`.
+* **x11-misc/twofing** [upstream](http://plippo.de/p/twofing)
+  * Provides the `twofing` daemon, which converts touchscreen gestures into mouse and keyboard events. Included primarily for use with the offical 7" RPi (1,2,3) touchscreen. Not currently installed on the image (or controlled by the `rpi3-64bit-meta` metapackage).
 
 ## Other ebuilds
 
