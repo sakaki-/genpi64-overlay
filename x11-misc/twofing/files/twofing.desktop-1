@@ -6,5 +6,4 @@ Terminal=false
 Type=Application
 Categories=
 NoDisplay=true
-OnlyShowIn=XFCE;
 StartupNotify=false
