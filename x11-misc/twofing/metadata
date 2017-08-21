@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer type="person">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+</maintainer>
+<upstream>
+		<maintainer status="active">
+				<email>linux@philmerk.de</email>
+				<name>Philipp Merkel</name>
+		</maintainer>
+		<remote-id type="github">Plippo/twofing</remote-id>
+</upstream>
+<longdescription>
+		twofing is a daemon which runs in the background and
+		recognizes two-finger gestures performed on a touchscreen
+		and converts them into mouse and keyboard events.
+
+		This way, such gestures can be used in almost all
+		existing applications (even ones where you wouldn’t
+		expect it, like Wine applications) without having to
+		modify them.
+
+		Currently contains udev bindings for the egalax touchscreen,
+		and the Raspberry Pi (1,2,3) official 7" touchscreen.
+</longdescription>
+</pkgmetadata>

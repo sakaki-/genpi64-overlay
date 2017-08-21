@@ -1,0 +1,2 @@
+# handle the official 7" Raspberry Pi (1,2,3) touchscreen
+KERNEL=="event*",ATTRS{name}=="FT5406 memory based driver",SYMLINK+="twofingtouch",RUN+="/bin/chmod a+r /dev/twofingtouch"
