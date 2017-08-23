@@ -3,7 +3,7 @@
 # NO WARRANTY
 
 EAPI=6
-inherit udev
+inherit udev toolchain-funcs
 
 KEYWORDS="~amd64 ~arm ~arm64"
 
@@ -28,6 +28,12 @@ src_prepare() {
 	# correct install path for udev rules
 	sed -e "s:/etc/udev/rules.d/:/lib/udev/rules.d/:" -i Makefile
 	default
+}
+
+src_compile() {
+	emake V=1 clean
+	# ensure the right compiler and flags get used
+	emake V=1 CC=$(tc-getCC) CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}"
 }
 
 src_install() {
