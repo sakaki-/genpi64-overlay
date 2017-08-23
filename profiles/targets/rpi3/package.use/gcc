@@ -1,0 +1,3 @@
+# build java compiler where possible
+~sys-devel/gcc-5.4.0 gcj
+
