@@ -1,0 +1,4 @@
+# requirements of media-tv/kodi
+sys-fs/udisks   * ~*
+dev-libs/crossguid      * ~*
+

@@ -1,0 +1,4 @@
+media-tv/kodi java
+# requirements of media-tv/kodi
+media-video/ffmpeg openssl
+
