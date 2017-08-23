@@ -3,3 +3,7 @@
 # The 4.10 branch has audio, but does not have the backport support for VC4
 # etc. So, mask the 4.10 kernels for now.
 =sys-kernel/bcmrpi3-kernel-bin-4.10*
+# 4.11, 4.12 and 4.13 do not support VC4
+=sys-kernel/bcmrpi3-kernel-bin-4.11*
+=sys-kernel/bcmrpi3-kernel-bin-4.12*
+=sys-kernel/bcmrpi3-kernel-bin-4.13*
