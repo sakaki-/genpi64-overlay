@@ -1,0 +1,4 @@
+# problem at configure phase; see
+# https://forums.gentoo.org/viewtopic-p-8106174.html
+=net-misc/curl-7.55.1
+
