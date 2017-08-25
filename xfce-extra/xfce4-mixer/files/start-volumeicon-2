@@ -29,8 +29,8 @@ fi
 
 if [[ ! -f "${VI_CONFIG_PATH}" ]]; then
 	# first start for this user; copy default config
-	mkdir -p "VI_CONFIG_DIR"
-	cp "VI_DEFAULT_CONFIG_PATH" "VI_CONFIG_PATH"
+	mkdir -p "${VI_CONFIG_DIR}"
+	cp "${VI_DEFAULT_CONFIG_PATH}" "${VI_CONFIG_PATH}"
 	FIRST_USE=1
 fi
 

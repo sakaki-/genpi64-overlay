@@ -28,7 +28,7 @@ DEPEND="${RDEPEND}
 src_install() {
 	insinto "/usr/share/${PN}"
 	newins "${FILESDIR}/volumeicon-1" "volumeicon"
-	newbin "${FILESDIR}/start-volumeicon-1" "start-volumeicon"
+	newbin "${FILESDIR}/start-volumeicon-2" "start-volumeicon"
 	insinto "/etc/xdg/autostart/"
 	newins "${FILESDIR}/${PN}.desktop-1" "${PN}.desktop" 
 }
