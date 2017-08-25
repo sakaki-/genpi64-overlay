@@ -1,0 +1,3 @@
+# unmask our 'pseudo' version of xfce4-mixer (which will instead
+# install a custom version of volumeicon + autostart file)
+>=xfce-extra/xfce4-mixer-4.99.0

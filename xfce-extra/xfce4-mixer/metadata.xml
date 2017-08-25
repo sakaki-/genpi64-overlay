@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer type="person">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+</maintainer>
+<longdescription>
+		The original xfce4-mixer (and its useful panel plugin) has
+		been removed from the Gentoo tree (bug #628424). As this was
+		an integral part of gentoo-on-rpi3-64bit image, this 'pseudo-
+		package' provides a workaround, by installing
+		media-sound/volumeicon plus a xdg/autostart file to load it.
+</longdescription>
+</pkgmetadata>
