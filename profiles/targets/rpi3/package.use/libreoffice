@@ -1,2 +1,4 @@
+# as recommended for Base application
+app-office/libreoffice java
 # requirements of app-office/libreoffice
 dev-libs/xmlsec nss
