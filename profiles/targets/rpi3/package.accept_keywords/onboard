@@ -1,0 +1,3 @@
+# dependencies of app-accessibility/onboard
+dev-python/python-distutils-extra	* ~*
+gnome-extra/mousetweaks	* ~*
