@@ -1,0 +1,4 @@
+# prevent DHCP setting the hostname, as this can cause .Xauthority problems
+# see e.g. https://bbs.archlinux.org/viewtopic.php?id=202710
+[main]
+hostname-mode=none
