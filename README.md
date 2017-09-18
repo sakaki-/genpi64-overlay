@@ -73,7 +73,12 @@ The overlay provides the following ebuilds:
 * **dev-util/cargo** [upstream](https://wiki.gentoo.org/wiki/Project:Rust)
   * Provides `cargo-0.20.0.ebuild`, adapted from the Gentoo tree version to build under `arm64`. `dev-util/cargo` is the package manager for `dev-lang/rust`.
 * **x11-misc/twofing** [upstream](http://plippo.de/p/twofing)
-  * Provides the `twofing` daemon, which converts touchscreen gestures into mouse and keyboard events. Included primarily for use with the offical 7" RPi (1,2,3) touchscreen. Not currently installed on the image (or controlled by the `rpi3-64bit-meta` metapackage).
+  * Provides the `twofing` daemon, which converts touchscreen gestures into mouse and keyboard events. Included primarily for use with the offical 7" RPi (1,2,3) touchscreen.
+* **app-accessibility/onboard** [upstream](https://launchpad.net/onboard)
+  * Provides a flexible onscreen keyboard. Again, included primarily for use with the offical 7" RPi (1,2,3) touchscreen. Adapted with thanks from original ebuild, [here](https://bitbucket.org/wjn/wjn-overlay).
+* **media-tv/kodi** [upstream](https://github.com/xbmc/xbmc)
+  * Provides `kodi-17.4_rc1.ebuild`; adapted from the version in the main Gentoo tree (with `~arm64` keyworded, and the dependency list modified to avoid relying on MS fonts with a non-free licence (the remaining deps and the package itself being FOSS licensed)).
+
 
 ## Other ebuilds
 
