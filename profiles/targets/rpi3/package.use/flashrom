@@ -1,0 +1,2 @@
+# not available on the RPi3
+sys-apps/flashrom -atapromise
