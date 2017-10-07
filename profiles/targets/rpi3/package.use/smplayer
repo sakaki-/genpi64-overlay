@@ -1,0 +1,3 @@
+# requirements of smplayer
+>=dev-qt/qtlockedfile-2.4.1_p20150629 qt5
+>=dev-qt/qtsingleapplication-2.6.1_p20150629 qt5
