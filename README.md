@@ -78,9 +78,6 @@ The overlay provides the following ebuilds:
   * Provides a flexible onscreen keyboard. Again, included primarily for use with the offical 7" RPi (1,2,3) touchscreen. Adapted with thanks from original ebuild, [here](https://bitbucket.org/wjn/wjn-overlay).
 * **media-tv/kodi** [upstream](https://github.com/xbmc/xbmc)
   * Provides `kodi-17.4_rc1.ebuild`; adapted from the version in the main Gentoo tree (with `~arm64` keyworded, and the dependency list modified to avoid relying on MS fonts with a non-free licence (the remaining deps and the package itself being FOSS licensed)).
-* **sys-apps/me_cleaner** [upstream](https://github.com/corna/me_cleaner)
-  * Provides `me_cleaner-1.0.20171007`; a tool for disabling the Intel Management Engine, by modifying its firmware. Not installed on the image by default, but provided for those using their RPi3 as an external flashing tool.
-
 
 ## Other ebuilds
 
