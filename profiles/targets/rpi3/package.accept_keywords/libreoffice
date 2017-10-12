@@ -35,4 +35,4 @@ dev-util/mdds	* ~*
 dev-libs/libixion	* ~*
 app-text/liblangtag	* ~*
 dev-libs/xmlsec	* ~*
-
+dev-perl/X11-Protocol	* ~*
