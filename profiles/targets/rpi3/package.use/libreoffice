@@ -2,3 +2,4 @@
 app-office/libreoffice java
 # requirements of app-office/libreoffice
 dev-libs/xmlsec nss
+dev-libs/libpcre2 pcre16
