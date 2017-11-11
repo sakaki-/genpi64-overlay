@@ -1,2 +1,2 @@
 # needs openssl/ecdsa.h header
-=dev-python/m2crypto-0.26.4
+>=dev-python/m2crypto-0.26.4
