@@ -1,2 +1,2 @@
 # not building; masked pro tem
-~www-client/firefox-57.0
+>=www-client/firefox-57.0
