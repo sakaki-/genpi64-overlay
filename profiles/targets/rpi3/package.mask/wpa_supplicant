@@ -1,2 +1,2 @@
 # requires openssl/ec.h header (bindist issue)
-~net-wireless/wpa_supplicant-2.6
+>=net-wireless/wpa_supplicant-2.6-r4
