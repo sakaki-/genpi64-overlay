@@ -1,4 +1,0 @@
-# compile failures with e.g. mesa
-sys-devel/llvm:5
->=sys-devel/llvm-common-5.0.0
-
