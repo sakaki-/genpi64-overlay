@@ -11,4 +11,5 @@
 
 # ARM-64 Profiles (currenly only one)
 arm64           default/linux/arm64/13.0/desktop/rpi3           exp
+arm64           default/linux/arm64/17.0/desktop/rpi3           exp
 
