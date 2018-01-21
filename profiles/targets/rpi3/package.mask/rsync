@@ -1,0 +1,4 @@
+# occasional segfault with large transfers on these versions
+=net-misc/rsync-3.1.2-r1
+=net-misc/rsync-3.1.2-r2
+
