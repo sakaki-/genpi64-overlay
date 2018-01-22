@@ -1,0 +1,2 @@
+# currently this version not working correctly on arm64
+=sys-apps/firejail-0.9.50
