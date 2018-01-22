@@ -82,6 +82,7 @@ RDEPEND="
 		>=net-analyzer/nmap-7.60
 		>=net-analyzer/tcpdump-4.9.2
 		>=net-irc/irssi-1.0.6
+		>=net-libs/libnfsidmap-0.25-r1
 		>=net-misc/bridge-utils-1.6
 		>=net-misc/chrony-3.2
 		>=net-misc/dhcpcd-7.0.0
