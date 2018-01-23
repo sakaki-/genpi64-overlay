@@ -147,7 +147,7 @@ RDEPEND="
 		>=xfce-extra/xfce4-alsa-plugin-0.1.1
 		>=xfce-extra/xfce4-cpufreq-plugin-1.1.90
 		>=xfce-extra/xfce4-cpugraph-plugin-1.0.5
-		>=xfce-extra/xfce4-fixups-rpi3-1.0.1
+		>=xfce-extra/xfce4-fixups-rpi3-1.0.2
 		>=xfce-extra/xfce4-indicator-plugin-2.3.3-r2
 		>=xfce-extra/xfce4-mixer-4.99.0-r1
 		>=xfce-extra/xfce4-notes-plugin-1.8.1
@@ -160,7 +160,7 @@ RDEPEND="
 		>=dev-embedded/pitop-speaker-1.1.0.1
 		>=sys-apps/pitop-poweroff-1.0.2-r5
 		>=xfce-extra/xfce4-battery-plugin-1.1.0-r1[pitop]
-		>=xfce-extra/xfce4-keycuts-pitop-1.0.0
+		>=xfce-extra/xfce4-keycuts-pitop-1.0.1
 	)
 	apps? (
 		>=app-arch/p7zip-16.02-r1
