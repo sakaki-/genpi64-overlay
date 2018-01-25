@@ -1,0 +1,138 @@
+Title: Change of profile and binhost
+Author: sakaki <sakaki@deciban.com>
+Content-Type: text/plain
+Posted: 2018-01-25
+Revision: 1
+News-Item-Format: 2.0
+Display-If-Installed: dev-embedded/rpi3-64bit-meta
+
+Introduction
+------------
+
+Please note that version 1.2.0 of the gentoo-on-rpi3-64bit image has now
+been released on GitHub, and with it, the project has shifted to using
+the new 17.0 Gentoo profile (from 13.0).
+
+Profiles are changed rarely in Gentoo, for they determine how your
+entire system is built, often in backwards-incompatible ways. For example,
+in 17.0, the gcc compiler defaults to creating position independent
+executables (aka, 'pie'), which it did not do before.
+
+Accordingly (and as officially recommended [1]), all project packages have
+been rebuilt under the new 17.0 profile, and, to avoid confusion, a
+new binhost has been created to house these, at https://isshoni.org/pi64pie.
+This is now the binhost that will receive weekly autoupdates, going forward.
+
+The old 13.0 binhost, at https://isshoni.org/pi64, will be retained for
+historical interest (at least for a while), but will no longer be
+autoupdated.
+
+A new custom profile, rpi3:default/linux/arm64/17.0/desktop/rpi3, has also
+been released. As with the rpi3:default/linux/arm64/13.0/desktop/rpi3 profile
+which it replaces, this 'inherits' from the default desktop profile, and
+adds the necessary RPi3-specific elements (USE flags, masks etc.) to
+facilitate a trouble-free arm64 build.
+
+Impact
+------
+
+As such, *action is required* if you want to keep your system up-to-date
+and retain the convenience of the binhost in future. Just running 'genup'
+is *not* sufficient - please instead follow the instructions below (these
+may also be read on GitHub [2]).
+
+Eligible Versions
+-----------------
+
+Note that if you are running a downloaded image >= 1.2.0, you need take
+no action, your system is already up-to-date. What follows is only for
+users on versions 1.1.0 thru 1.1.3 who wish to upgrade.
+
+On the other side of the coin, if you are still running one of the very
+early v1.0.{0,1,2} releases of the image, you should first follow the
+manual upgrade instructions to 1.1.0 on GitHub [3] (if you have not already
+done so), and once that has been completed, come back here to upgrade to
+v1.2.0.
+
+Upgrade Instructions
+--------------------
+
+First, make sure you have at least 2GiB of free space on your RPi3's
+filesystem (use "df -h" to check), and that you are using at least
+version 6.4.0 of gcc (use "gcc-config --list-profiles" to check; look for
+the version marked with the asterisk).
+
+Then, if that all looks good, proceed to update your ebuild repositories.
+As root, issue:
+
+pi64 ~ # emaint sync --auto
+
+You should now find you have a new custom profile available. Switch to it:
+
+pi64 ~ # eselect profile set "rpi3:default/linux/arm64/17.0/desktop/rpi3"
+
+You also need to switch your binary package host ('binhost'), to use the
+new 17.0 variant mentioned in the introduction. To do so, issue:
+
+pi64 ~ # nano -w /etc/portage/make.conf
+
+and modify the line that currently reads:
+
+PORTAGE_BINHOST="https://isshoni.org/pi64"
+
+so it now reads instead:
+
+PORTAGE_BINHOST="https://isshoni.org/pi64pie"
+
+Leave the rest of the file as-is. Save, and exit nano.
+
+Now you can update the core build system. Do *not* follow the advice in
+the official news article [1] to rebuild gcc, binutils and glibc individually
+(if you do, you'll end up building them locally, rather than pulling the
+new binaries from the binhost, which will take a *long* time).
+
+Instead, issue:
+
+pi64 ~ # emerge --ask --verbose sys-devel/gcc sys-devel/binutils sys-libs/glibc
+
+Check (when the above command prompts you for confirmation) that you
+will indeed be installing binary packages - this is a good indication
+you have set things up correctly.
+
+Once this completes, rebuild your entire system for profile 17.0. Almost
+all of the required 900 or so packages should be available on the new
+binhost you just switched to, so this should only take a few hours
+(unless you have added many additional packages to the image yourself).
+
+Issue:
+
+pi64 ~ # nice emerge --ask --verbose --emptytree --with-bdeps=y @world
+
+Once it has completed, issue:
+
+pi64 ~ # nice emerge @preserved-rebuild
+
+then:
+
+pi64 ~ # dispatch-conf
+
+to resolve any proposed configuration file changes (for the most part,
+if you had a reasonably up-to-date 13.0 profile system to start with,
+typing z to 'zap' (discard) most of these proposed changes should be safe;
+a lot of packages have been re-installed here, but you want to keep your
+*prior* configuration, not roll it back to 'shipped defaults').
+
+Once done, reboot your system. Then log in again as root, and issue:
+
+pi64 ~ # genup
+
+Once this has completed, congratulations, you have migrated to the
+(profile 17.0) v1.2.0 release! From this point, the automated weekly
+genup run should keep your system correctly up-to-date.
+
+Best, sakaki <sakaki@deciban.com>
+
+[1] https://www.gentoo.org/support/news-items/2017-11-30-new-17-profiles.html
+[2] https://github.com/sakaki-/gentoo-on-rpi3-64bit/releases#upgrade_to_profile_17
+[3] https://github.com/sakaki-/gentoo-on-rpi3-64bit/releases#upgrade
+
