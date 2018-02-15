@@ -1,0 +1,2 @@
+# problems building under arm64
+=dev-util/strace-4.21
