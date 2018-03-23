@@ -1,0 +1,2 @@
+# Add the ability to color the terminal output and use X type Free Type fonts
+x11-terms/rxvt-unicode xft 256-color
