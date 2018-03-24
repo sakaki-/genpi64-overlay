@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+	</maintainer>
+	<longdescription>
+		Adds a single text file (brcmfmac43455-sdio.txt) that
+		is necessary for the operation of the RPi3 B+'s
+		integrated WiFi. From the Raspbian release.
+	</longdescription>
+</pkgmetadata>
