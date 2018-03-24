@@ -7,5 +7,4 @@
 =sys-kernel/bcmrpi3-kernel-bin-4.11*
 =sys-kernel/bcmrpi3-kernel-bin-4.12*
 =sys-kernel/bcmrpi3-kernel-bin-4.13*
-# 4.14 does, but in testing
-=sys-kernel/bcmrpi3-kernel-bin-4.14*
+# 4.14 has VC4 and audio support, and works well, so no longer masked
