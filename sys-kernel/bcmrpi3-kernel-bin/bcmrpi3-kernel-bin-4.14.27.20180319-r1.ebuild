@@ -19,7 +19,7 @@ RESTRICT="mirror"
 
 DEPEND=""
 RDEPEND="
-	with-matching-boot-fw? ( ~sys-boot/rpi3-64bit-firmware-1.20171029[pitop(-)?] )
+	with-matching-boot-fw? ( ~sys-boot/rpi3-64bit-firmware-1.20180313[pitop(-)?] )
 	${DEPEND}"
 
 QA_PREBUILT="*"
