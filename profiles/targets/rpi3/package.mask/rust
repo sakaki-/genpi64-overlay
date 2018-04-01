@@ -1,4 +1,0 @@
-# prevent this trying to upgrade, for now
-~virtual/rust-1.23.0
-~dev-lang/rust-1.23.0
-
