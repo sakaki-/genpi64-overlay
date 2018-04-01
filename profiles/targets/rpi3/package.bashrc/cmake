@@ -1,0 +1,4 @@
+# cmake parses gcc output, so must be built locally
+# see e.g. https://forums.gentoo.org/viewtopic-p-8179472.html#8179472
+dev-util/cmake suppress-distcc.conf
+
