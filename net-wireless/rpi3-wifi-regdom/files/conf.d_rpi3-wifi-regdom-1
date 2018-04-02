@@ -1,0 +1,8 @@
+# /etc/conf.d/rpi3-wifi-regdom
+
+# WiFi regulatory domain country code.
+# It is important to set this correctly, for compliance.
+# The codes are ISO / IEC 3166 alpha2 codes
+# (the special code 00 means the 'world' (i.e., unset) domain).
+
+WIFI_REGDOM="GB"

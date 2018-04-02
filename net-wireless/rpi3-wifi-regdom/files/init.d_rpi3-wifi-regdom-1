@@ -1,0 +1,25 @@
+#!/sbin/openrc-run
+# Set the WiFi regulatory domain on Raspberry Pi 3
+# The country code itself should be set in /etc/conf.d/rpi3-wifi-regdom
+# Copyright (c) 2018 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+description="Sets up WiFi regulatory domain on the RPi3"
+
+depend() {
+	need net
+}
+
+start() {
+   	ebegin "Starting ${SVCNAME}"
+	iw reg set "${WIFI_REGDOM}"
+	eend $?
+}
+
+stop() {
+	ebegin "Shutting down ${SVCNAME}"
+	# revert to the 'world' domain, which has code 00
+	iw reg set "00"
+	eend $?
+}
