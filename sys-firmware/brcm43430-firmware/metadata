@@ -9,7 +9,10 @@
 		<remote-id type="github">RPi-Distro/firmware-nonfree</remote-id>
 	</upstream>
 	<longdescription>
-		Adds a single text file (brcmfmac43430-sdio.txt) that
-		is necessary for the operation of the RPi3's integrated WiFi.
+		Adds two text files (brcmfmac43430-sdio.txt and
+                brcmfmac43455-sdio.txt) that are necessary for
+                operation of the RPi3's integrated WiFi (on the
+                model B and B+, respectively), plus the additional
+                file brcmfmac43455-sdio.clm_blob (for the B+).
 	</longdescription>
 </pkgmetadata>

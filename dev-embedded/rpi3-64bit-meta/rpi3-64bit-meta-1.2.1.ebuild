@@ -46,8 +46,7 @@ RDEPEND="
 	>=sys-apps/rpi3-ondemand-cpufreq-1.1.1
 	>=sys-firmware/b43-firmware-5.100.138
 	>=sys-firmware/bluez-firmware-1.2
-	>=sys-firmware/brcm43430-firmware-20160225
-	>=sys-firmware/brcm43455-firmware-20180313
+	>=sys-firmware/brcm43430-firmware-20180402
 	porthash? ( >=app-portage/rpi3-check-porthash-1.0.0-r3 )
 	weekly-genup? ( >=app-portage/weekly-genup-1.0.1 )
 	!weekly-genup? ( !app-portage/weekly-genup )
