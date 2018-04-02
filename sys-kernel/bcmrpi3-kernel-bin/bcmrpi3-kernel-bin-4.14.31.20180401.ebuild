@@ -1,4 +1,4 @@
-# Copyright (c) 2017 sakaki <sakaki@deciban.com>
+# Copyright (c) 2018 sakaki <sakaki@deciban.com>
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
@@ -46,6 +46,12 @@ src_install() {
 	# just copy tarball contents into temporary install root
 	insinto /boot
 	doins -r "${S%/}/boot"/*
+	# ensure we have a 3B+ dtb: install from files dir
+	# as a fallback, if not already copied to /boot
+	if [[ ! -f "${D%/}/boot/bcm2710-rpi-3-b-plus.dtb" ]]; then
+		newins "${FILESDIR}/bcm2710-rpi-3-b-plus.dtb-1" bcm2710-rpi-3-b-plus.dtb
+	fi
+
 	insinto /lib/modules
 	doins -r "${S%/}/lib/modules"/*
 
@@ -70,7 +76,7 @@ pkg_postrm() {
 	# it is possible that if the kernel originally installed by this ebuild
 	# is currently running, then its /lib/modules/<release_name> directory
 	# will still be present, due to some of the module files therein having
-	# been marked as "in use", leading Portage deline to delete them during
+	# been marked as "in use", leading Portage decline to delete them during
 	# the default uninstall phase
 	# detect if this has happened and, if so, forcibly (and recursively)
 	# delete /lib/modules/<release_name>, and print a warning
