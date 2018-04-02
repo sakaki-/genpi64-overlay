@@ -13,12 +13,14 @@ depend() {
 
 start() {
    	ebegin "Starting ${SVCNAME}"
+	einfo "Setting WiFi regulatory domain to '${WIFI_REGDOM}'"
 	iw reg set "${WIFI_REGDOM}"
 	eend $?
 }
 
 stop() {
 	ebegin "Shutting down ${SVCNAME}"
+	einfo "Clearing WiFi regulatory domain"
 	# revert to the 'world' domain, which has code 00
 	iw reg set "00"
 	eend $?
