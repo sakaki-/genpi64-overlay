@@ -85,9 +85,9 @@ The overlay provides the following ebuilds:
 * **www-client/firefox** [upstream](https://wiki.gentoo.org/wiki/Project:Mozilla)
   * Provides `firefox-50.1.0-r1.ebuild`; this has been removed from the Gentoo tree, but it works well under `~amd64` (with the `skia` USE flag unset). Also provides `firefox-56.0`. (Neither is required any further, as modern versions now build, but retained for historical interest.)
 * **dev-lang/rust** [upstream](http://www.rust-lang.org/)
-  * Provides `rust-1.19.0-r1.ebuild`; adapted from the Gentoo tree version to build under `arm64`; build system also respects the `nativeonly` USE flag and user `MAKEOPTS` for efficiency (thanks to [NeddySeagoon](https://github.com/sakaki-/rpi3-overlay/commit/3abb46bcff04d9b66c8b3c50d309f199606ac0fa##commitcomment-23709642)). The system-programming language `dev-lang/rust` is a hard dependency for `www-client/firefox` versions 55 and above (as is `sys-devel/cargo`). However, the (more modern) main Gentoo tree version now builds (so this is no longer necessary).
+  * Provides `rust-1.19.0-r1.ebuild`; adapted from the Gentoo tree version to build under `arm64`; build system also respects the `nativeonly` USE flag and user `MAKEOPTS` for efficiency (thanks to [NeddySeagoon](https://github.com/sakaki-/rpi3-overlay/commit/3abb46bcff04d9b66c8b3c50d309f199606ac0fa##commitcomment-23709642)). The system-programming language `dev-lang/rust` is a hard dependency for `www-client/firefox` versions 55 and above (as is `sys-devel/cargo`). However, as the (more modern) main Gentoo tree version now also builds, this is no longer necessary.
 * **dev-util/cargo** [upstream](http://crates.io)
-  * Provides `cargo-0.20.0.ebuild`, adapted from the Gentoo tree version to build under `arm64`. `dev-util/cargo` is the package manager for `dev-lang/rust`. However, (more modern) the main Gentoo tree version now builds (so this is no longer necessary).
+  * Provides `cargo-0.20.0.ebuild`, adapted from the Gentoo tree version to build under `arm64`. `dev-util/cargo` is the package manager for `dev-lang/rust`. However, as the (more modern) main Gentoo tree version now also builds, this is no longer necessary.
 
 ## Installation
 
