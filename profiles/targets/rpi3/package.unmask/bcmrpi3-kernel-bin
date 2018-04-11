@@ -1,2 +1,3 @@
 # allow specific tested variant, for use in the released image
 ~sys-kernel/bcmrpi3-kernel-bin-4.14.31.20180401
+~sys-kernel/bcmrpi3-kernel-bin-4.14.33.20180411
