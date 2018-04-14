@@ -1,0 +1,3 @@
+# configure phase fails if distributed
+sys-libs/tevent suppress-distcc.conf
+

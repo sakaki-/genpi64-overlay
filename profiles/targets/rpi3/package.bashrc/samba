@@ -1,0 +1,3 @@
+# configure phase fails if distributed
+net-fs/samba suppress-distcc.conf
+

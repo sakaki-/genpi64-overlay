@@ -1,0 +1,3 @@
+# configure phase fails if distributed
+sys-libs/tdb suppress-distcc.conf
+
