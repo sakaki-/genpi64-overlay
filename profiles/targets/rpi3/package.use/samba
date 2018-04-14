@@ -1,0 +1,6 @@
+# ensure we can be a client too
+net-fs/samba client
+# required by net-fs/samba
+sys-libs/tevent python
+sys-libs/tdb python
+
