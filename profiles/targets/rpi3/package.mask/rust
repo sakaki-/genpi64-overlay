@@ -1,0 +1,5 @@
+# hold off for now, this takes a long time to build so will
+# update separately
+=dev-lang/rust-1.25.0
+=virtual/rust-1.25.0
+
