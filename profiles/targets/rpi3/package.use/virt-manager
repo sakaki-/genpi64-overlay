@@ -1,0 +1,4 @@
+# required by virt-manager
+net-libs/gtk-vnc python
+net-misc/spice-gtk usbredir
+
