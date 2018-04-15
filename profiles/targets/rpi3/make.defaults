@@ -35,3 +35,7 @@ FEATURES="userfetch"
 # This sets the language of build output to English.
 # Please keep this setting intact when reporting bugs.
 LC_MESSAGES=C
+
+# Default build targets for QEMU; override if desired.
+QEMU_SOFTMMU_TARGETS="aarch64 arm i386 x86_64"
+QEMU_USER_TARGETS="aarch64"
