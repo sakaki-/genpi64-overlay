@@ -1,0 +1,3 @@
+# turn off portage's rsync verification until handover from our
+# own (porthash) is completed - at the moment they clash
+sys-apps/portage -rsync-verify
