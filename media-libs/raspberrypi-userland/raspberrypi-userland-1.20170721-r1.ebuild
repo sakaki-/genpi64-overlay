@@ -49,11 +49,11 @@ src_install() {
 	rmdir "${D}"/usr/src
 
 	# remove potential collisions
-	rm -f "${D}/usr/include/GLES"
-	rm -f "${D}/usr/include/GLES2"
-	rm -f "${D}/usr/include/EGL"
-	rm -f "${D}/usr/include/KHR"
+	rm -rf "${D}/usr/include/GLES"
+	rm -rf "${D}/usr/include/GLES2"
+	rm -rf "${D}/usr/include/EGL"
+	rm -rf "${D}/usr/include/KHR"
 
 	# hacky fix for multilib issue
-	mv "${D}/usr/lib/*.so" "${D}/usr/lib64/"
+	mv "${D}/usr/lib/"*.so "${D}/usr/lib64/"
 }
