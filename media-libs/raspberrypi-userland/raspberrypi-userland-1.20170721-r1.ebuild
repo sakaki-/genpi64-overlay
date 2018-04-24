@@ -53,4 +53,7 @@ src_install() {
 	rm -f "${D}/usr/include/GLES2"
 	rm -f "${D}/usr/include/EGL"
 	rm -f "${D}/usr/include/KHR"
+
+	# hacky fix for multilib issue
+	mv "${D}/usr/lib/*.so" "${D}/usr/lib64/"
 }
