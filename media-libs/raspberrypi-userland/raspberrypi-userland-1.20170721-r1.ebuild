@@ -55,5 +55,6 @@ src_install() {
 	rm -rf "${D}/usr/include/KHR"
 
 	# hacky fix for multilib issue
+	mkdir -pv "${D}/usr/lib64"
 	mv "${D}/usr/lib/"*.so "${D}/usr/lib64/"
 }
