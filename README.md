@@ -40,7 +40,7 @@ The overlay provides the following ebuilds:
 * **sys-kernel/bcmrpi3-kernel-bin**
   * Provides ebuilds to install the available binary packages for the 64-bit `bcmrpi3_defconfig` Linux kernels (for the Raspberry Pi 3 model B and B+), which are updated weekly [here](https://github.com/sakaki-/bcmrpi3-kernel).
 * **media-libs/raspberrypi-userland**
-  * Provides `raspberrypi-userland-9999.ebuild`, a (restricted) 64-bit build (`-DARM64=ON`). Not currently installed on the image, or controlled by the `rpi3-64bit-meta` metapackage.
+  * Provides `raspberrypi-userland-1.20170721-r1.ebuild`, a (restricted) 64-bit build (`-DARM64=ON`). Not currently installed on the image, or controlled by the `rpi3-64bit-meta` metapackage. Provides e.g. `vcgencmd` etc., but the ebuild needs tidying, so please use with care ><
 * **sys-apps/rpi3-init-scripts**
   * Provides a few simple init scripts for the [gentoo-on-rpi3-64bit](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image (to autoexpand the root partition on first boot, inhibit XVideo etc.).
 * **sys-apps/rpi3-ondemand-cpufreq**
@@ -78,12 +78,16 @@ The overlay provides the following ebuilds:
 * **sys-apps/qdiskusage** [upstream](http://www.qt-apps.org/content/show.php/QDiskUsage?content=107012)
   * Provides `qdiskusage-1.0.4.ebuild`, no longer in the main Gentoo tree.
 * **x11-themes/gnome-icon-theme** [upstream](https://www.gnome.org)
-  * Provides `gnome-icon-theme-3.12.0-r1.ebuild`; this has been removed from the main Gentoo tree, but is still required for some icons on the image.
+  * Provides `gnome-icon-theme-3.12.0-r1.ebuild`; this has been removed from the main Gentoo tree, but is still required for some icons on the image. 
+* **x11-base/xorg-server** [upstream](https://www.x.org/wiki/)
+  * Provides `xorg-server-1.19.6-r1.ebuild`; this has been removed from the main Gentoo tree, but is still the current main rev, and in use on the image.
+* **xfce-extra/xfce4-notifyd** [upstream](https://goodies.xfce.org/projects/applications/xfce4-notifyd)
+  * Provides `xfce4-notifyd-0.4.0.ebuild`; this has been removed from the main Gentoo tree, but is still used on the image. Upgrades masked because of message truncation, which causes problems with PIN notification during Bluetooth device setup. To be fixed / resolved soon.
+* **xfce-extra/xfce4-indicator-plugin** [upstream](https://goodies.xfce.org/projects/panel-plugins/xfce4-indicator-plugin)
+  * Provides `xfce4-indicator-plugin-2.3.3-r2.ebuild`; this has been removed from the main Gentoo tree, and the v2.3.4 is currently masked.
 
 ## Other ebuilds
 
-* **www-client/firefox** [upstream](https://wiki.gentoo.org/wiki/Project:Mozilla)
-  * Provides `firefox-50.1.0-r1.ebuild`; this has been removed from the Gentoo tree, but it works well under `~amd64` (with the `skia` USE flag unset). Also provides `firefox-56.0`. (Neither is required any further, as modern versions now build, but retained for historical interest.)
 * **dev-lang/rust** [upstream](http://www.rust-lang.org/)
   * Provides `rust-1.19.0-r1.ebuild`; adapted from the Gentoo tree version to build under `arm64`; build system also respects the `nativeonly` USE flag and user `MAKEOPTS` for efficiency (thanks to [NeddySeagoon](https://github.com/sakaki-/rpi3-overlay/commit/3abb46bcff04d9b66c8b3c50d309f199606ac0fa##commitcomment-23709642)). The system-programming language `dev-lang/rust` is a hard dependency for `www-client/firefox` versions 55 and above (as is `sys-devel/cargo`). However, as the (more modern) main Gentoo tree version now also builds, this is no longer necessary.
 * **dev-util/cargo** [upstream](http://crates.io)
