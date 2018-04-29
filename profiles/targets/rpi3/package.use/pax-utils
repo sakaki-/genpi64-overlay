@@ -1,0 +1,4 @@
+# prevent issues with unimplemented seccomp call 277 when running
+# under a QEMU user-mode / binfmt_misc chroot
+# see e.g. https://forums.gentoo.org/viewtopic-p-8005536.html#8005536
+app-misc/pax-utils -seccomp
