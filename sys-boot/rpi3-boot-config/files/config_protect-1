@@ -1,0 +1,1 @@
+CONFIG_PROTECT="/boot/config.txt /boot/cmdline.txt"

@@ -5,13 +5,10 @@
 		<email>sakaki@deciban.com</email>
 		<name>sakaki</name>
 	</maintainer>
-	<upstream>
-		<remote-id type="github">raspberrypi/firmware</remote-id>
-	</upstream>
 	<use>
-		<flag name="pitop">Use Pi-Top-specific features (most users will NOT want this).</flag>
+		<flag name="pitop">Modify installed config.txt for Pi-Top (most users will NOT want this).</flag>
 	</use>
 	<longdescription>
-		Raspberry Pi 3 bootloader and firmware, for 64-bit mode.
+		Raspberry Pi 3 /boot/{config,cmdline}.txt, for 64-bit mode.
 	</longdescription>
 </pkgmetadata>
