@@ -1,0 +1,43 @@
+#!/bin/bash
+# Attach to integrated Bluetooth on Raspberry Pi 3
+# Intended to be run in the background, started by rpi3-bluetooth startup
+# service.
+# Adapted from https://aur.archlinux.org/packages/pi-bluetooth/
+# Copyright (c) 2017 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+# follow Raspbian's /usr/bin/btuart logic to derive unique address
+# note that the RPi3's serial number is not available via /proc/cpuinfo
+# when booted in 64-bit mode, so we use the device tree instead
+SERIAL="$(tr -d '\0' < /sys/firmware/devicetree/base/serial-number | cut -c9-)"
+B1="$(echo $SERIAL | cut -c3-4)"
+B2="$(echo $SERIAL | cut -c5-6)"
+B3="$(echo $SERIAL | cut -c7-8)"
+BDADDR="$(printf b8:27:eb:%02x:%02x:%02x $((0x$B1 ^ 0xaa)) $((0x$B2 ^ 0xaa)) $((0x$B3 ^ 0xaa)))"
+
+HCMD_NFC="/usr/bin/hciattach /dev/ttyAMA0 bcm43xx 921600 noflow - ${BDADDR}"
+HCMD_FC="/usr/bin/hciattach /dev/ttyAMA0 bcm43xx 3000000 flow - ${BDADDR}"
+
+if ! [ -d /proc/device-tree/soc/gpio@7e200000/bt_pins ]; then
+	echo "Bluetooth not found" 2>&1
+	exit 1
+fi
+
+# if flow control is available, use it (RPi3B+)
+# otherwise, keyboard input etc. will be unreliable
+if [ "$(wc -c /proc/device-tree/soc/gpio@7e200000/uart0_pins/brcm\,pins | cut -f 1 -d ' ')" = "16" ]; then
+    HCMD="${HCMD_FC}"
+else
+    HCMD="${HCMD_NFC}"
+fi
+
+declare -i I
+# attach process is unreliable, so try multiple times
+for ((I=0;I<5;I++)); do
+	${HCMD} &>/dev/null
+	if pgrep -f "${HCMD}"; then
+		exit 0
+	fi
+done
+exit 1
