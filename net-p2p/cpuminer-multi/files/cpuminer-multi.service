@@ -1,10 +1,10 @@
 [Unit]
 Description=CPU mining daemon for cryptocurrencies
 After=network-online.target
-AssertFileNotEmpty=/etc/cpuminer-opt/cpuminer-conf.json
+AssertFileNotEmpty=/etc/cpuminer-multi/cpuminer-conf.json
 
 [Service]
-ExecStart=/usr/bin/cpuminer --syslog --config=/etc/cpuminer-opt/cpuminer-conf.json
+ExecStart=/usr/bin/cpuminer --syslog --config=/etc/cpuminer-multi/cpuminer-conf.json
 DynamicUser=true
 CPUSchedulingPolicy=idle
 PrivateTmp=true
@@ -21,7 +21,7 @@ RestrictRealtime=true
 RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
 RestrictNamespaces=true
 PrivateUsers=true
-ConfigurationDirectory=cpuminer-opt
+ConfigurationDirectory=cpuminer-multi
 
 [Install]
 WantedBy=multi-user.target
