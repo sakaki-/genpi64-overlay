@@ -11,6 +11,7 @@ IUSE="cpu_flags_x86_sse2 +curl libressl"
 LICENSE="GPL-2"
 SLOT="0"
 REQUIRED_USE="amd64? ( cpu_flags_x86_sse2 )"
+RESTRICT="mirror"
 DEPEND="
 	dev-libs/gmp:0
 	dev-libs/jansson
