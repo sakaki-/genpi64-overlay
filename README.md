@@ -85,6 +85,8 @@ The overlay provides the following ebuilds:
   * Provides `xfce4-notifyd-0.4.0.ebuild`; this has been removed from the main Gentoo tree, but is still used on the image. Upgrades masked because of message truncation, which causes problems with PIN notification during Bluetooth device setup. To be fixed / resolved soon.
 * **xfce-extra/xfce4-indicator-plugin** [upstream](https://goodies.xfce.org/projects/panel-plugins/xfce4-indicator-plugin)
   * Provides `xfce4-indicator-plugin-2.3.3-r2.ebuild`; this has been removed from the main Gentoo tree, and the v2.3.4 is currently masked.
+* **www-client/firefox** [upstream](http://www.mozilla.com/firefox)
+  * Provides `firefox-59.0.2.ebuild`; this has been removed from the main Gentoo tree, but is still in use on the image (and 60.0 does not yet build on `arm64`).
 
 ## Other ebuilds
 
