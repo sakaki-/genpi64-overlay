@@ -27,10 +27,16 @@ RDEPEND="
 	${DEPEND}
 	kernel-bin? (
 		boot-fw? (
-			>=sys-kernel/bcmrpi3-kernel-bin-4.14.31.20180401[with-matching-boot-fw(-),pitop(-)?]
+			|| (
+				>=sys-kernel/bcmrpi3-kernel-bin-4.14.31.20180401[with-matching-boot-fw(-),pitop(-)?]
+				>=sys-kernel/bcmrpi3-kernel-bis-bin-4.14.44.20180601[with-matching-boot-fw(-),pitop(-)?]
+			)
 		)
 		!boot-fw? (
-			>=sys-kernel/bcmrpi3-kernel-bin-4.14.31.20180401[-with-matching-boot-fw(-)]
+			|| (
+				>=sys-kernel/bcmrpi3-kernel-bin-4.14.31.20180401[-with-matching-boot-fw(-)]
+				>=sys-kernel/bcmrpi3-kernel-bis-bin-4.14.44.20180601[-with-matching-boot-fw(-)]
+			)
 		)
 	)
 	!kernel-bin? (
