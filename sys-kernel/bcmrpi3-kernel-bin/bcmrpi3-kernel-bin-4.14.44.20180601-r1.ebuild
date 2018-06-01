@@ -1,4 +1,4 @@
-# Copyright (c) 2017 sakaki <sakaki@deciban.com>
+# Copyright (c) 2018 sakaki <sakaki@deciban.com>
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
@@ -13,11 +13,12 @@ SRC_URI="${HOMEPAGE}/releases/download/${PV}/bcmrpi3-kernel-${PV}.tar.xz -> ${P}
 LICENSE="GPL-2 freedist"
 SLOT="0"
 KEYWORDS="~arm64"
-IUSE="+checkboot firmware +with-matching-boot-fw pitop"
+IUSE="+checkboot +with-matching-boot-fw pitop"
 
 RESTRICT="mirror"
 
-DEPEND=""
+DEPEND="
+	!sys-kernel/bcmrpi3-kernel-bis-bin"
 RDEPEND="
 	with-matching-boot-fw? ( ~sys-boot/rpi3-64bit-firmware-1.20180328[pitop(-)?] )
 	${DEPEND}"
@@ -48,12 +49,6 @@ src_install() {
 	doins -r "${S%/}/boot"/*
 	insinto /lib/modules
 	doins -r "${S%/}/lib/modules"/*
-
-	if use firmware; then
-		# NB may cause collisions if linux-firmware installed
-		insinto /lib/firmware
-		doins -r "${S%/}/lib/firmware"/*
-	fi
 
 	# note that we installed the libraries, for future cleanup
 	RELEASE_NAME=$(head -n1 <(ls -t1d "${S}/lib/modules"/*))
