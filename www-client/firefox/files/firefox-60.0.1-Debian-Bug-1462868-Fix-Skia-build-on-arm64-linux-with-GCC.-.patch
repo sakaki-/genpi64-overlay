@@ -1,0 +1,30 @@
+From: Mike Hommey <mh+mozilla@glandium.org>
+Date: Sat, 19 May 2018 12:03:56 +0900
+Subject: Bug 1462868 - Fix Skia build on arm64 linux with GCC. r?lsalzman
+
+---
+ gfx/skia/skia/src/jumper/SkJumper_stages.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/gfx/skia/skia/src/jumper/SkJumper_stages.cpp b/gfx/skia/skia/src/jumper/SkJumper_stages.cpp
+index 19b6cd694aa6..36792390dece 100644
+--- a/gfx/skia/skia/src/jumper/SkJumper_stages.cpp
++++ b/gfx/skia/skia/src/jumper/SkJumper_stages.cpp
+@@ -666,7 +666,7 @@ SI F approx_powf(F x, F y) {
+ }
+ 
+ SI F from_half(U16 h) {
+-#if defined(__aarch64__) && !defined(SK_BUILD_FOR_GOOGLE3)  // Temporary workaround for some Google3 builds.
++#if defined(JUMPER_IS_NEON) && !defined(SK_BUILD_FOR_GOOGLE3)  // Temporary workaround for some Google3 builds.
+     return vcvt_f32_f16(h);
+ 
+ #elif defined(JUMPER_IS_HSW) || defined(JUMPER_IS_AVX512)
+@@ -686,7 +686,7 @@ SI F from_half(U16 h) {
+ }
+ 
+ SI U16 to_half(F f) {
+-#if defined(__aarch64__) && !defined(SK_BUILD_FOR_GOOGLE3)  // Temporary workaround for some Google3 builds.
++#if defined(JUMPER_IS_NEON) && !defined(SK_BUILD_FOR_GOOGLE3)  // Temporary workaround for some Google3 builds.
+     return vcvt_f16_f32(f);
+ 
+ #elif defined(JUMPER_IS_HSW) || defined(JUMPER_IS_AVX512)
