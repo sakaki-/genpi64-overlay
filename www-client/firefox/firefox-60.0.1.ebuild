@@ -161,6 +161,8 @@ src_prepare() {
 
 	# Fix skia on arm64
 	use arm64 && eapply "${FILESDIR}/${P}-Debian-Bug-1462868-Fix-Skia-build-on-arm64-linux-with-GCC.-.patch"
+	# Fix sse2 deps for non x86_64
+	eapply "${FILESDIR}/${P}-Bug-1434589-Fix-sse2-dependency-for-linux.patch"
 	# Allow user to apply any additional patches without modifing ebuild
 	eapply_user
 

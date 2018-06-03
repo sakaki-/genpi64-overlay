@@ -1,0 +1,41 @@
+diff -r 2b504eb4567d -r 2a266219f547 media/webrtc/trunk/moz.build
+--- a/media/webrtc/trunk/moz.build	Wed May 23 13:03:58 2018 +1200
++++ b/media/webrtc/trunk/moz.build	Sun May 27 22:21:07 2018 -0700
+@@ -143,12 +143,8 @@
+ if CONFIG["OS_TARGET"] == "Linux":
+ 
+     DIRS += [
+-        "/media/webrtc/trunk/webrtc/common_audio/common_audio_sse2_gn",
+-        "/media/webrtc/trunk/webrtc/modules/audio_processing/audio_processing_sse2_gn",
+-        "/media/webrtc/trunk/webrtc/modules/desktop_capture/desktop_capture_differ_sse2_gn",
+         "/media/webrtc/trunk/webrtc/modules/desktop_capture/desktop_capture_gn",
+         "/media/webrtc/trunk/webrtc/modules/desktop_capture/primitives_gn",
+-        "/media/webrtc/trunk/webrtc/modules/video_processing/video_processing_sse2_gn",
+         "/media/webrtc/trunk/webrtc/system_wrappers/cpu_features_linux_gn",
+         "/media/webrtc/trunk/webrtc/video_engine/video_engine_gn"
+     ]
+@@ -185,6 +181,24 @@
+         "/media/webrtc/trunk/webrtc/modules/video_processing/video_processing_neon_gn"
+     ]
+ 
++if CONFIG["CPU_ARCH"] == "x86" and CONFIG["OS_TARGET"] == "Linux":
++
++    DIRS += [
++        "/media/webrtc/trunk/webrtc/common_audio/common_audio_sse2_gn",
++        "/media/webrtc/trunk/webrtc/modules/audio_processing/audio_processing_sse2_gn",
++        "/media/webrtc/trunk/webrtc/modules/desktop_capture/desktop_capture_differ_sse2_gn",
++        "/media/webrtc/trunk/webrtc/modules/video_processing/video_processing_sse2_gn"
++    ]
++
++if CONFIG["CPU_ARCH"] == "x86_64" and CONFIG["OS_TARGET"] == "Linux":
++
++    DIRS += [
++        "/media/webrtc/trunk/webrtc/common_audio/common_audio_sse2_gn",
++        "/media/webrtc/trunk/webrtc/modules/audio_processing/audio_processing_sse2_gn",
++        "/media/webrtc/trunk/webrtc/modules/desktop_capture/desktop_capture_differ_sse2_gn",
++        "/media/webrtc/trunk/webrtc/modules/video_processing/video_processing_sse2_gn"
++    ]
++
+ if CONFIG["CPU_ARCH"] == "x86" and CONFIG["OS_TARGET"] == "Android":
+ 
+     DIRS += [
