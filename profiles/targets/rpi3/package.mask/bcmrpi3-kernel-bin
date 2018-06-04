@@ -1,11 +1,9 @@
-# rpi-4.9.y is default branch on official tree at time of writing
-# however, it does not support onboard audio
-# The 4.10 branch has audio, but does not have the backport support for VC4
-# etc. So, mask the 4.10 kernels for now.
+# Allow any 4.9 kernel; mask others
+# 4.14 is the current default for the official kernel at the time
+# of writing, but we only unmask certain versions (after some basic
+# sanity testing)
 =sys-kernel/bcmrpi3-kernel-bin-4.10*
-# 4.11, 4.12 and 4.13 do not support VC4
 =sys-kernel/bcmrpi3-kernel-bin-4.11*
 =sys-kernel/bcmrpi3-kernel-bin-4.12*
 =sys-kernel/bcmrpi3-kernel-bin-4.13*
-# 4.14 does, but in testing
 =sys-kernel/bcmrpi3-kernel-bin-4.14*
