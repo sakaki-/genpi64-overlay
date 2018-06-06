@@ -210,7 +210,6 @@ RDEPEND="
 		>=sys-devel/portage-distccmon-gui-1.0
 		>=www-client/firefox-60.0.1
 		>=www-client/links-2.16
-		>=x11-plugins/enigmail-2.0.6
 		dev-java/icedtea:8
 	)
 "
