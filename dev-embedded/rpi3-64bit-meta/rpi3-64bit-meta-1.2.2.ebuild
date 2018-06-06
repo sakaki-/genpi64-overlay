@@ -79,7 +79,6 @@ RDEPEND="
 		>=app-text/dos2unix-7.4.0
 		>=app-text/psutils-1.17-r3
 		>=dev-embedded/wiringpi-2.44-r7
-		>=dev-lang/go-1.10.2
 		>=dev-libs/elfutils-0.170-r1
 		>=dev-python/pip-9.0.1-r2
 		>=dev-tcltk/expect-5.45
