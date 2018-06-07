@@ -29,10 +29,7 @@ RDEPEND="
 		boot-fw? (
 			|| (
 				>=sys-kernel/bcmrpi3-kernel-bin-4.14.31.20180401[with-matching-boot-fw(-),pitop(-)?]
-				(
-					>=sys-kernel/bcmrpi3-kernel-bis-bin-4.14.44.20180601[with-matching-boot-fw(-),pitop(-)?]
-					xfce? ( >=app-emulation/qemu-2.12.0 )
-				)
+				>=sys-kernel/bcmrpi3-kernel-bis-bin-4.14.44.20180601[with-matching-boot-fw(-),pitop(-)?]
 			)
 		)
 		!boot-fw? (
@@ -134,6 +131,7 @@ RDEPEND="
 	)
 	xfce? (
 		>=app-accessibility/onboard-1.4.1
+		>=app-emulation/qemu-2.12.0
 		>=app-office/orage-4.12.1-r1
 		>=media-fonts/cantarell-0.101
 		>=media-fonts/croscorefonts-1.31.0
