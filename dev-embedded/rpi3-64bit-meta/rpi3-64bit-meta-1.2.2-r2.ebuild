@@ -90,6 +90,7 @@ RDEPEND="
 		>=net-analyzer/tcpdump-4.9.2
 		>=net-dialup/lrzsz-0.12.20-r3
 		>=net-fs/nfs-utils-2.3.2
+		>=net-fs/samba-4.8.2
 		>=net-irc/irssi-1.1.1
 		>=net-misc/bridge-utils-1.6
 		>=net-misc/chrony-3.3
