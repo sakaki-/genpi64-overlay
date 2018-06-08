@@ -154,6 +154,7 @@ RDEPEND="
 		>=x11-misc/lightdm-1.26.0-r1
 		>=x11-misc/lightdm-gtk-greeter-2.0.5-r1
 		>=x11-misc/rpi3-safecursor-1.0.1
+		>=x11-misc/rpi3-safecompositor-1.0.0
 		>=x11-misc/twofing-0.1.2-r2
 		>=x11-misc/xdiskusage-1.51
 		>=x11-terms/xfce4-terminal-0.8.7.4
