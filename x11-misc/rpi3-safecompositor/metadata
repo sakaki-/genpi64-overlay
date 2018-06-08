@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer type="person">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+</maintainer>
+<upstream>
+		<maintainer status="active">
+				<email>sakaki@deciban.com</email>
+				<name>sakaki</name>
+		</maintainer>
+		<bugs-to>mailto:sakaki@deciban.com</bugs-to>
+</upstream>
+<longdescription>
+		This provides a simple OpenRC service to force display
+		compositing off, if the system is running at a high pixel
+		clock frequency. This is for safety, because some apps,
+		such as LibreOffice (v6) Draw, can cause the entire system
+		to lock up if used on high-res displays with window-manager
+		compositing enabled.
+</longdescription>
+</pkgmetadata>
