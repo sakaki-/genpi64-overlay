@@ -37,9 +37,3 @@ start() {
 	eend $?
 }
 
-pkg_postinst() {
-	if [[ -z ${REPLACING_VERSIONS} ]]; then
-		rc-update add "${PN}" default
-		elog "The ${PN} service has been added to your default runlevel."
-	fi
-}
