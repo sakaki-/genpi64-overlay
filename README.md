@@ -88,7 +88,7 @@ The overlay provides the following ebuilds:
 * **xfce-extra/xfce4-indicator-plugin** [upstream](https://goodies.xfce.org/projects/panel-plugins/xfce4-indicator-plugin)
   * Provides `xfce4-indicator-plugin-2.3.3-r2.ebuild`; this has been removed from the main Gentoo tree, and the v2.3.4 is currently masked.
 * **www-client/firefox** [upstream](http://www.mozilla.com/firefox)
-  * Provides `firefox-60.0.1.ebuild`; this requires [some patches](https://bugs.gentoo.org/657146) to build on `arm64`; these have now been upstreamed, so at the next point release ``firefox should revert to the using main-tree ebuild.
+  * Provides `firefox-60.0.1.ebuild`; this requires [some patches](https://bugs.gentoo.org/657146) to build on `arm64`; these have now been upstreamed, so at the next point release `firefox` should revert to the using main-tree ebuild.
 * **dev-python/pyopenssl** [upstream](https://pypi.org/project/pyOpenSSL/)
   * Provides `pyopenssl-17.0.0.ebuild`; this has been removed from the main Gentoo tree, but is still in use on the image.
 
