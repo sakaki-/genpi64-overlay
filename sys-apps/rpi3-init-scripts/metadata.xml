@@ -15,6 +15,7 @@
 <longdescription>
 		This provides a few simple init scripts for the
 		gentoo-on-rpi3-64bit image (to autoexpand the root partition
-		on first boot, disable XVideo, etc.)
+		on first boot, disable XVideo, setup appropriate low-memory
+		cache settings etc.)
 </longdescription>
 </pkgmetadata>

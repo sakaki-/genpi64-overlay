@@ -1,0 +1,3 @@
+# see https://www.codero.com/knowledge-base/pdf.php?cat=3&id=388&artlang=en
+vm.swappiness=10
+vm.vfs_cache_pressure=50
