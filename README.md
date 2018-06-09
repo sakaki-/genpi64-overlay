@@ -42,9 +42,11 @@ The overlay provides the following ebuilds:
 * **media-libs/raspberrypi-userland**
   * Provides `raspberrypi-userland-1.20170721-r1.ebuild`, a (restricted) 64-bit build (`-DARM64=ON`). Not currently installed on the image, or controlled by the `rpi3-64bit-meta` metapackage. Provides e.g. `vcgencmd` etc., but the ebuild needs tidying, so please use with care ><
 * **sys-apps/rpi3-init-scripts**
-  * Provides a few simple init scripts for the [gentoo-on-rpi3-64bit](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image (to autoexpand the root partition on first boot, inhibit XVideo etc.).
+  * Provides a few simple init scripts for the [gentoo-on-rpi3-64bit](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image (to autoexpand the root partition on first boot, inhibit XVideo, setup cache usage appropriate for a low-memory environment etc.).
 * **sys-apps/rpi3-ondemand-cpufreq**
   * Provides the `rpi3-ondemand` OpenRC `sysinit` service, to switch the RPi3 from its (`bcmrpi3_defconfig`) default `powersave` CPU frequency governor, to `ondemand`, for better performance.
+* **x11-misc/rpi3-safecompositor**
+  * Provides the `rpi3-safecompositor` OpenRC service, which turns off display compositing if a high pixel clock is detected (> 1.2175MHz, currently). This is because certain applications, for example LibreOffice v6 Draw and Impress, can cause the whole system to lock-up when used with compositing on under such conditions.
 * **x11-misc/rpi3-safecursor**
   * Provides the `rpi3-safecursor` OpenRC service, which will install a rule to force software cursor blitting (rather than the hardware default) if the user has not set `disable_overscan=1` in `config.txt`. (Required because hardware cursor blitting in the open-source vc4 driver does not always take account of the overscan 'bezel' correctly on HDMI TVs, resulting in an offset cursor.) The service no-ops with the supplied 4.14.y kernel however, as this has a fix [already committed](https://github.com/raspberrypi/linux/commit/81bbe80e7bebab6211c72bf0c0f81a4bc2370eab).
 * **app-portage/rpi3-check-porthash**
@@ -86,7 +88,7 @@ The overlay provides the following ebuilds:
 * **xfce-extra/xfce4-indicator-plugin** [upstream](https://goodies.xfce.org/projects/panel-plugins/xfce4-indicator-plugin)
   * Provides `xfce4-indicator-plugin-2.3.3-r2.ebuild`; this has been removed from the main Gentoo tree, and the v2.3.4 is currently masked.
 * **www-client/firefox** [upstream](http://www.mozilla.com/firefox)
-  * Provides `firefox-59.0.2.ebuild`; this has been removed from the main Gentoo tree, but is still in use on the image (and 60.0 does not yet build on `arm64`).
+  * Provides `firefox-60.0.1.ebuild`; this requires [some patches](https://bugs.gentoo.org/657146) to build on `arm64`; these have now been upstreamed, so at the next point release ``firefox should revert to the using main-tree ebuild.
 * **dev-python/pyopenssl** [upstream](https://pypi.org/project/pyOpenSSL/)
   * Provides `pyopenssl-17.0.0.ebuild`; this has been removed from the main Gentoo tree, but is still in use on the image.
 
