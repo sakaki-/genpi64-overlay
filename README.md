@@ -93,6 +93,8 @@ The overlay provides the following ebuilds:
   * Provides `firefox-60.0.1.ebuild`; this requires [some patches](https://bugs.gentoo.org/657146) to build on `arm64`; these have now been upstreamed, so at the next point release `firefox` should revert to the using main-tree ebuild.
 * **dev-python/pyopenssl** [upstream](https://pypi.org/project/pyOpenSSL/)
   * Provides `pyopenssl-17.0.0.ebuild`; this has been removed from the main Gentoo tree, but is still in use on the image.
+* **net-misc/ethfix**
+  * Effects some simple Ethernet workarounds (using `ethtool`) for the RPi3B+.
 
 ## Other ebuilds
 
