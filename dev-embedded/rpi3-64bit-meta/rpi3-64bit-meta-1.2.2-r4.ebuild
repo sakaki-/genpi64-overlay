@@ -48,7 +48,7 @@ RDEPEND="
 		)
 	)
 	>=net-wireless/rpi3-bluetooth-1.1-r6
-	>=sys-apps/rpi3-init-scripts-1.1.4
+	>=sys-apps/rpi3-init-scripts-1.1.5
 	>=sys-apps/rpi3-ondemand-cpufreq-1.1.1
 	>=sys-firmware/b43-firmware-5.100.138
 	>=sys-firmware/bluez-firmware-1.2
@@ -166,7 +166,7 @@ RDEPEND="
 		>=xfce-extra/xfce4-alsa-plugin-0.1.1
 		>=xfce-extra/xfce4-cpufreq-plugin-1.2.0
 		>=xfce-extra/xfce4-cpugraph-plugin-1.0.5-r1
-		>=xfce-extra/xfce4-fixups-rpi3-1.0.3
+		>=xfce-extra/xfce4-fixups-rpi3-1.0.4
 		>=xfce-extra/xfce4-indicator-plugin-2.3.3-r2
 		>=xfce-extra/xfce4-mixer-4.99.0-r1
 		>=xfce-extra/xfce4-notes-plugin-1.8.1
