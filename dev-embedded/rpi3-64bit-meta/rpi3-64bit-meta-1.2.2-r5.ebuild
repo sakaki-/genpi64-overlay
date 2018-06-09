@@ -99,6 +99,7 @@ RDEPEND="
 		>=net-misc/keychain-2.8.5
 		>=net-misc/networkmanager-1.10.6
 		>=net-misc/networkmanager-openvpn-1.8.4
+		>=net-misc/rpi3-ethfix-1.0.0
 		>=net-vpn/openvpn-2.4.6
 		>=net-wireless/iw-4.14
 		|| ( >=sys-apps/util-linux-2.32-r3 >=net-wireless/rfkill-0.5-r1 )
