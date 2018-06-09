@@ -83,7 +83,7 @@ if ((SETTINGS_CHANGED==1)); then
 		notify-send --expire-time=$((60*SECS)) \
 		"Panel Restart" "You may see a 'Failed to restart the panel' dialog pop up shortly; if so, please just dismiss it; this should only occur once."
 	fi
-	pkill --exact xfce4-panel
+	pkill --exact xfce4-panel || true
 	sleep 1
 	xfce4-panel&
 
