@@ -39,6 +39,8 @@ The overlay provides the following ebuilds:
   * Desktop file (and wrapper) to view Portage jobs with `distccmon-gui` (provided your user is a member of the `portage` group). Currently installed on the image, but _not_ controlled by the `rpi3-64bit-meta` metapackage.
 * **sys-kernel/bcmrpi3-kernel-bin**
   * Provides ebuilds to install the available binary packages for the 64-bit `bcmrpi3_defconfig` Linux kernels (for the Raspberry Pi 3 model B and B+), which are updated weekly [here](https://github.com/sakaki-/bcmrpi3-kernel).
+* **sys-kernel/bcmrpi3-kernel-bis-bin**
+  * Provides ebuilds to install the available binary packages for (slightly tweaked versions of) the 64-bit `bcmrpi3_defconfig` Linux kernels (for the Raspberry Pi 3 model B and B+), which are updated weekly [here](https://github.com/sakaki-/bcmrpi3-kernel-bis).
 * **media-libs/raspberrypi-userland**
   * Provides `raspberrypi-userland-1.20170721-r1.ebuild`, a (restricted) 64-bit build (`-DARM64=ON`). Not currently installed on the image, or controlled by the `rpi3-64bit-meta` metapackage. Provides e.g. `vcgencmd` etc., but the ebuild needs tidying, so please use with care ><
 * **sys-apps/rpi3-init-scripts**
