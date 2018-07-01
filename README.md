@@ -42,7 +42,7 @@ The overlay provides the following ebuilds:
 * **sys-kernel/bcmrpi3-kernel-bis-bin**
   * Provides ebuilds to install the available binary packages for (slightly tweaked versions of) the 64-bit `bcmrpi3_defconfig` Linux kernels (for the Raspberry Pi 3 model B and B+), which are updated weekly [here](https://github.com/sakaki-/bcmrpi3-kernel-bis).
 * **media-libs/raspberrypi-userland**
-  * Provides `raspberrypi-userland-1.20170721-r1.ebuild`, a (restricted) 64-bit build (`-DARM64=ON`). Not currently installed on the image, or controlled by the `rpi3-64bit-meta` metapackage. Provides e.g. `vcgencmd` etc., but the ebuild needs tidying, so please use with care ><
+  * Provides `raspberrypi-userland-1.20170721-r1.ebuild`, a (restricted) 64-bit build (`-DARM64=ON`). Provides e.g. `vcgencmd` etc., but the ebuild needs tidying, so please use with care ><
 * **sys-apps/rpi3-init-scripts**
   * Provides a few simple init scripts for the [gentoo-on-rpi3-64bit](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image (to autoexpand the root partition on first boot, inhibit XVideo, setup cache usage appropriate for a low-memory environment etc.).
 * **sys-apps/rpi3-ondemand-cpufreq**
