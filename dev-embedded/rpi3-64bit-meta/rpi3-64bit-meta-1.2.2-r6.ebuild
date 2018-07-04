@@ -206,7 +206,6 @@ RDEPEND="
 		>=media-video/vlc-3.0.3-r1
 		>=net-irc/hexchat-2.14.1
 		>=sys-apps/gnome-disk-utility-3.24.1
-		>=sys-apps/qdiskusage-1.0.4
 		>=sys-devel/portage-distccmon-gui-1.0
 		>=www-client/firefox-60.0.1
 		>=www-client/links-2.16
