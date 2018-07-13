@@ -1,2 +1,2 @@
 # does not distribute cleanly
-=dev-qt/qtcore-5.9* suppress-distcc.conf
+=dev-qt/qtcore-5* suppress-distcc.conf
