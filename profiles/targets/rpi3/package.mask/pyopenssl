@@ -1,3 +1,0 @@
-# pulls in a non-bindist version of dev-python/cryptography
->=dev-python/pyopenssl-17.2.0
-
