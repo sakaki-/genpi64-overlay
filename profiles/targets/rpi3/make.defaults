@@ -43,3 +43,7 @@ QEMU_USER_TARGETS="aarch64"
 # English L10N (for libreoffice spellcheck etc.)
 # Override if desired
 L10N="en"
+
+# for upgrade stability only (see news item)
+# will be deleted shortly
+PYTHON_TARGETS="python2_7 python3_5 python3_6"
