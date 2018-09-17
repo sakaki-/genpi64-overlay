@@ -1,0 +1,3 @@
+# required by media-sound/mpc
+dev-lang/python sqlite
+
