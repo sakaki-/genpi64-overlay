@@ -13,6 +13,7 @@
 PDIR="$(portageq get_repo_path / gentoo)"
 PLDIR=${PDIR}/local
 
+echo "Purging any stale repo.hash{,.asc} files from ${PLDIR}"
 for F in repo.hash{,.asc}; do
     if [[ -f "${PDIR}/${F}" && -f "${PLDIR}/${F}" && "${PLDIR}/${F}" -ot "${PDIR}/${F}" ]]; then
         echo "Removing stale ${PDIR}/${F}"
