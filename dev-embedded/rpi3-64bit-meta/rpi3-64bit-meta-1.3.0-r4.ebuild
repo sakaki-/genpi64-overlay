@@ -53,12 +53,15 @@ RDEPEND="
 	>=sys-firmware/b43-firmware-5.100.138
 	>=sys-firmware/bluez-firmware-1.2
 	>=sys-firmware/brcm43430-firmware-20180402
-	porthash? ( >=app-portage/rpi3-check-porthash-1.0.0-r3 )
+	porthash? (
+		>=sys-apps/portage-2.3.49[-rsync-verify]
+		>=app-portage/rpi3-check-porthash-1.0.0-r3
+	)
 	!porthash? (
 		!app-portage/rpi3-check-porthash
 		>=sys-apps/portage-2.3.49[rsync-verify]
 	)
-	weekly-genup? ( >=app-portage/weekly-genup-1.0.1 )
+	weekly-genup? ( >=app-portage/weekly-genup-1.1.0 )
 	!weekly-genup? ( !app-portage/weekly-genup )
 	core? (
 		>=app-admin/logrotate-3.14.0
