@@ -27,7 +27,7 @@ if [[ -d "${SCRIPTDIR}" ]]; then
 	echo -e "fixup run started ${DATE}\n" > "${LOGFILE}"
 	for NEXTSCRIPT in "${SCRIPTDIR}"/fixup-*.sh; do
 		if [[ -x "${NEXTSCRIPT}" ]] && (($(stat -c %u "${NEXTSCRIPT}") == 0)); then
-			echo "Running: '${NEXTSCRIPT}'" >> "${LOGFILE}"
+			echo "Running: '${NEXTSCRIPT##*/}'" >> "${LOGFILE}"
 			echo "--------------------------------------------" >> "${LOGFILE}"
 			"${NEXTSCRIPT}" &>>"${LOGFILE}"
 			RC=$?
