@@ -36,5 +36,6 @@ if [[ -d "${FJDIR}" ]]; then
     done
 else
     echo "No ${FJDIR} directory found" >&2
+    exit 1
 fi
 
