@@ -232,4 +232,28 @@ pkg_postinst() {
 			ewarn "Please modify (using eselect java-vm set ...) if incorrect"
 		fi
 	fi
+	# migrate to appropriate sync-uri automatically
+	local RCONPATH="/etc/portage/repos.conf/gentoo.conf"
+	if [ -e "${RCONPATH}" ]; then
+		if use porthash && grep -q 'rsync://isshoni.org/gentoo-portage-pi64-gem$' "${RCONPATH}"; then
+			ewarn "Ensuring you have:"
+			ewarn " rsync://isshoni.org/gentoo-portage-pi64"
+			ewarn "set as your gentoo repo's sync-uri"
+			ewarn "in ${RCONPATH}"
+			sed -i 's#rsync://isshoni.org/gentoo-portage-pi64-gem$#rsync://isshoni.org/gentoo-portage-pi64#' "${RCONPATH}"
+		elif grep -q 'rsync://isshoni.org/gentoo-portage-pi64$' "${RCONPATH}"; then
+			ewarn "Ensuring you have:"
+			ewarn " rsync://isshoni.org/gentoo-portage-pi64-gem"
+			ewarn "set as your gentoo repo's sync-uri"
+			ewarn "in ${RCONPATH}"
+			sed -i 's#rsync://isshoni.org/gentoo-portage-pi64$#rsync://isshoni.org/gentoo-portage-pi64-gem#' "${RCONPATH}"
+		fi
+	else
+		if use porthash; then
+			ewarn "Please ensure you are using the following gentoo sync-uri:"
+			ewarn "rsync://rsync.gentoo.org/gentoo-portage"
+		fi
+		# otherwise assume user knows what they are doing and is using the
+		# main gentoo repo or similar
+	fi
 }
