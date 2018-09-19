@@ -11,7 +11,7 @@ SRC_URI=""
 LICENSE="metapackage"
 SLOT="0"
 KEYWORDS="~arm64"
-IUSE="+boot-fw +kernel-bin +weekly-genup +core +xfce pitop apps"
+IUSE="+boot-fw +kernel-bin -porthash +weekly-genup +core +xfce pitop apps"
 REQUIRED_USE="
 	xfce? ( core )
 	pitop? ( xfce )
@@ -53,8 +53,11 @@ RDEPEND="
 	>=sys-firmware/b43-firmware-5.100.138
 	>=sys-firmware/bluez-firmware-1.2
 	>=sys-firmware/brcm43430-firmware-20180402
-	!app-portage/rpi3-check-porthash
-	>=sys-apps/portage-2.3.49[rsync-verify]
+	porthash? ( >=app-portage/rpi3-check-porthash-1.0.0-r3 )
+	!porthash? (
+		!app-portage/rpi3-check-porthash
+		>=sys-apps/portage-2.3.49[rsync-verify]
+	)
 	weekly-genup? ( >=app-portage/weekly-genup-1.0.1 )
 	!weekly-genup? ( !app-portage/weekly-genup )
 	core? (
