@@ -239,17 +239,21 @@ pkg_postinst() {
 	local RCONPATH="/etc/portage/repos.conf/gentoo.conf"
 	if [ -e "${RCONPATH}" ]; then
 		if use porthash && grep -q 'rsync://isshoni.org/gentoo-portage-pi64-gem$' "${RCONPATH}"; then
-			ewarn "Ensuring you have:"
-			ewarn " rsync://isshoni.org/gentoo-portage-pi64"
-			ewarn "set as your gentoo repo's sync-uri"
-			ewarn "in ${RCONPATH}"
 			sed -i 's#rsync://isshoni.org/gentoo-portage-pi64-gem$#rsync://isshoni.org/gentoo-portage-pi64#' "${RCONPATH}"
-		elif grep -q 'rsync://isshoni.org/gentoo-portage-pi64$' "${RCONPATH}"; then
-			ewarn "Ensuring you have:"
+			ewarn "This install has substituted:"
+			ewarn " rsync://isshoni.org/gentoo-portage-pi64"
+			ewarn "in place of:"
 			ewarn " rsync://isshoni.org/gentoo-portage-pi64-gem"
-			ewarn "set as your gentoo repo's sync-uri"
+			ewarn "as your gentoo repo's sync-uri"
 			ewarn "in ${RCONPATH}"
+		elif grep -q 'rsync://isshoni.org/gentoo-portage-pi64$' "${RCONPATH}"; then
 			sed -i 's#rsync://isshoni.org/gentoo-portage-pi64$#rsync://isshoni.org/gentoo-portage-pi64-gem#' "${RCONPATH}"
+			ewarn "This install has substituted:"
+			ewarn " rsync://isshoni.org/gentoo-portage-pi64-gem"
+			ewarn "in place of:"
+			ewarn " rsync://isshoni.org/gentoo-portage-pi64"
+			ewarn "as your gentoo repo's sync-uri"
+			ewarn "in ${RCONPATH}"
 		fi
 	else
 		if use porthash; then
