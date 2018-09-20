@@ -52,6 +52,6 @@ start() {
 
 stop() {
 	ebegin "Shutting down ${SVCNAME}"
-	_setup_zswap 1
+	_setup_zswap 0
 	eend $?
 }

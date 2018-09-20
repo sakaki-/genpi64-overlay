@@ -23,7 +23,7 @@ RDEPEND="${DEPEND}
 	>=app-shells/bash-4.0"
 
 src_install() {
-	newinitd "${FILESDIR}/init.d_${PN}-1" "${PN}"
+	newinitd "${FILESDIR}/init.d_${PN}-2" "${PN}"
 	newconfd "${FILESDIR}/conf.d_${PN}-1" "${PN}"
 }
 
