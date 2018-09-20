@@ -35,6 +35,7 @@ if [[ -d "${SCRIPTDIR}" ]]; then
 			echo -e "Exit status: ${RC}\n" >> "${LOGFILE}"
 		fi
 	done
+	DATE=$(date +%d-%m-%Y" "%H:%M:%S);
 	echo "fixup run completed ${DATE}" >> "${LOGFILE}"
 fi
 
