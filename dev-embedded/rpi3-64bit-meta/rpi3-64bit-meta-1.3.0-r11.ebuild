@@ -1,4 +1,4 @@
-# Copyright (c) 2017 sakaki <sakaki@deciban.com>
+# Copyright (c) 2017-8 sakaki <sakaki@deciban.com>
 # License: GPL v3+
 # NO WARRANTY
 
@@ -122,6 +122,7 @@ RDEPEND="
 		>=sys-apps/me_cleaner-1.2
 		>=sys-apps/mlocate-0.26-r2
 		>=sys-apps/rng-tools-6.3.1
+		>=sys-apps/rpi3-zswap-1.0-r1
 		>=sys-apps/smartmontools-6.6-r1
 		>=sys-apps/usbutils-010-r1
 		>=sys-devel/clang-6.0.1
