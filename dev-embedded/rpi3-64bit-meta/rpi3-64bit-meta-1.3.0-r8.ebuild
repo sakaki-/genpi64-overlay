@@ -235,25 +235,34 @@ pkg_postinst() {
 			ewarn "Please modify (using eselect java-vm set ...) if incorrect"
 		fi
 	fi
-	# migrate to appropriate sync-uri automatically
-	local RCONPATH="${ROOT%/}etc/portage/repos.conf/gentoo.conf"
+	# migrate to appropriate sync-uri automatically, and force a sync
+	# next time if we do, by deleting /usr/portage/metadata/timestamp.chk
+	# (this is to ensure repo.hash{,.asc} gets added or removed, as
+	# required)
+	local RCONPATH="${ROOT%/}/etc/portage/repos.conf/gentoo.conf"
 	if [ -e "${RCONPATH}" ]; then
 		if use porthash && grep -q 'rsync://isshoni.org/gentoo-portage-pi64-gem$' "${RCONPATH}"; then
 			sed -i 's#rsync://isshoni.org/gentoo-portage-pi64-gem$#rsync://isshoni.org/gentoo-portage-pi64#' "${RCONPATH}"
+			rm -fv "${ROOT%/}/usr/portage/metadata/timestamp.chk"
 			ewarn "This install has substituted:"
 			ewarn " rsync://isshoni.org/gentoo-portage-pi64"
 			ewarn "in place of:"
 			ewarn " rsync://isshoni.org/gentoo-portage-pi64-gem"
-			ewarn "as your gentoo repo's sync-uri"
+			ewarn "as your gentoo repo's sync-uri."
+			ewarn "The timestamp.chk file has also been deleted, to force"
+			ewarn "this repo to sync next time you run genup."
 			ewarn "in ${RCONPATH}"
 		elif grep -q 'rsync://isshoni.org/gentoo-portage-pi64$' "${RCONPATH}"; then
 			sed -i 's#rsync://isshoni.org/gentoo-portage-pi64$#rsync://isshoni.org/gentoo-portage-pi64-gem#' "${RCONPATH}"
+			rm -fv "${ROOT%/}/usr/portage/metadata/timestamp.chk"
 			ewarn "This install has substituted:"
 			ewarn " rsync://isshoni.org/gentoo-portage-pi64-gem"
 			ewarn "in place of:"
 			ewarn " rsync://isshoni.org/gentoo-portage-pi64"
-			ewarn "as your gentoo repo's sync-uri"
+			ewarn "as your gentoo repo's sync-uri."
 			ewarn "in ${RCONPATH}"
+			ewarn "The timestamp.chk file has also been deleted, to force"
+			ewarn "this repo to sync next time you run genup."
 		fi
 	else
 		if use porthash; then
