@@ -1,0 +1,9 @@
+# This file was automatically created because you installed
+# dev-embedded/rpi3-64bit-meta with -porthash USE (now the default),
+# so we must be sure to enable portage's own rsync verification (via
+# gemato) instead.
+#
+# The rpi3-overlay repo does not do this at present, to ensure
+# backwards compatibility), hence the local override.
+
+sys-apps/portage rsync-verify
