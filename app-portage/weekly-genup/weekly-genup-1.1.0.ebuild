@@ -42,6 +42,7 @@ pkg_postinst() {
 	fi
 	elog "Running fixups now, to ensure system clean"
 	elog "(this is a one-off; the cron.weekly job is still active)."
+	elog "Check /var/log/latest-fixup-run.log for output."
 	${ROOT%/}/etc/cron.weekly/fixup
 }
 
