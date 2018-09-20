@@ -1,0 +1,25 @@
+# enable/disable any metapackage USE flags you want here, and then
+# re-emerge dev-embedded/rpi3-64bit-meta to have the effect taken up
+# e.g.:
+#
+#    dev-embedded/rpi3-64bit-meta -weekly-genup -porthash
+#
+# (uncommented) to disable the automated weekly genup (package update)
+# run, and to disable the requirement for a signature check on the
+# isshoni.org rsync mirror
+#
+# unless you so specify, we accept all existing default metapackage flags:
+# at the time of writing, those were (default flag status shown as + or -):
+#
+#  + boot-fw : pull in the /boot firmware, configs and bootloader
+#  + kernel-bin : pull in the binary kernel package
+#  - porthash : pull in repo signature checker, for isshoni.org rsync
+#  + weekly-genup: pull in cron.weekly script, to run genup automatically
+#  + core: pull in core system packages for image (sudo etc.)
+#  + xfce: pull in packages for baseline Xfce4 system (requires core)
+#  - pitop: pull in Pi-Top support packages (NB most users will NOT want this;
+#      the Pi-Top is a DIY laptop kit based around the RPi3) (requires xfce)
+#  - apps: pull in baseline desktop apps (libreoffice etc.) (requires xfce)
+#
+# NB the main point of the core, xfce, pitop and apps USE flags is just to let
+# you reduce what is in your @world set (/var/lib/portage/world).

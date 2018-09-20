@@ -223,7 +223,11 @@ RDEPEND="
 src_install() {
 	# basic framework file to enable / disable USE flags for this package
 	insinto "/etc/portage/package.use/"
-	newins "${FILESDIR}/package.use_${PN}-1" "${PN}"
+	newins "${FILESDIR}/package.use_${PN}-2" "${PN}"
+	# ensure we enable rsync-verify locally too, where required
+	if ! use porthash; then
+		newins "${FILESDIR}/package.use_portage-1" "portage"
+	fi
 }
 
 pkg_postinst() {
