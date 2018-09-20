@@ -3,7 +3,7 @@
 # so we must be sure to enable portage's own rsync verification (via
 # gemato) instead.
 #
-# The rpi3-overlay repo does not do this at present, to ensure
+# The rpi3-overlay repo does not do this at present (to ensure
 # backwards compatibility), hence the local override.
 
 sys-apps/portage rsync-verify
