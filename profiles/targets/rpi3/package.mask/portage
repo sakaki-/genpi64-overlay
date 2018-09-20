@@ -1,2 +1,4 @@
 # problems with sync verification
 =sys-apps/portage-2.3.28
+# temporarily masked while testing
+~sys-apps/portage-2.3.49
