@@ -1,0 +1,23 @@
+# /etc/conf.d/rpi3-zswap
+
+# Settings for ZSWAP
+# (a transparent, compressing, RAM-based write-back cache for swap pages)
+# See e.g. https://askubuntu.com/a/472227
+
+# Uncomment any of the below if you wish to change them from
+# the default values for the RPi3 (shown)
+
+# which compressor to use
+# options: lzo lz4
+#
+#zswap_compressor=lz4
+
+# how much RAM to use for the cache (grows dynamically to this point)
+# options: from 1 to 99 (percent)
+#
+#zswap_max_pool_percent=20
+
+# how compressed data pool is managed
+# options: zbud z3fold zsmalloc
+#
+#zswap_zpool=zsmalloc

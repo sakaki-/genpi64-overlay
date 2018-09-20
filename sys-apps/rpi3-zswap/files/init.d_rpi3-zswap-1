@@ -1,0 +1,57 @@
+#!/sbin/openrc-run
+# Manage the ZSWAP transparent compressing write-back
+# in-memory swap page cache.
+#
+# Default configuration settings can be overridden in
+# /etc/conf.d/rpi3-zswap
+
+# Copyright (c) 2018 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+description="Manages ZSWAP cache compression on the RPi3"
+readonly ZSWAP_M="/sys/module/zswap"
+readonly ZSWAP_M_P="/sys/module/zswap/parameters"
+
+depend() {
+	need sysfs
+}
+
+_setup_zswap() {
+    	local RC=0
+	local enable="${1}"
+	zswap_compressor="${zswap_compressor:-lz4}"
+	zswap_max_pool_percent="${zswap_max_pool_percent:-20}"
+	zswap_zpool="${zswap_zpool:-zsmalloc}"
+	if [ ! -d "${ZSWAP_M}" ]; then
+		eerror "ZSWAP is not supported on the current kernel"
+		return 1
+	else
+		if ((enable==1)); then
+			einfo "Enabling transparent ZSWAP compressed cache"
+			echo "${zswap_compressor}" > "${ZSWAP_M_P}/compressor"
+			echo "${zswap_max_pool_percent}" > "${ZSWAP_M_P}/max_pool_percent"
+			echo "${zswap_zpool}" > "${ZSWAP_M_P}/zpool"
+			echo 1 > "${ZSWAP_M_P}/enabled"
+			RC=$?
+		else
+			einfo "Disabling transparent ZSWAP compressed cache"
+			echo 0 > "${ZSWAP_M_P}/enabled"
+			RC=$?
+		fi
+	fi
+	return $RC
+}
+
+
+start() {
+   	ebegin "Starting ${SVCNAME}"
+	_setup_zswap 1
+	eend $?
+}
+
+stop() {
+	ebegin "Shutting down ${SVCNAME}"
+	_setup_zswap 1
+	eend $?
+}
