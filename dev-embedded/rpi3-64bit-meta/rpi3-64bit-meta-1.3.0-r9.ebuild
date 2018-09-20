@@ -248,10 +248,10 @@ pkg_postinst() {
 			ewarn " rsync://isshoni.org/gentoo-portage-pi64"
 			ewarn "in place of:"
 			ewarn " rsync://isshoni.org/gentoo-portage-pi64-gem"
-			ewarn "as your gentoo repo's sync-uri."
+			ewarn "as your gentoo repo's sync-uri"
+			ewarn "in ${RCONPATH}."
 			ewarn "The timestamp.chk file has also been deleted, to force"
 			ewarn "this repo to sync next time you run genup."
-			ewarn "in ${RCONPATH}"
 		elif grep -q 'rsync://isshoni.org/gentoo-portage-pi64$' "${RCONPATH}"; then
 			sed -i 's#rsync://isshoni.org/gentoo-portage-pi64$#rsync://isshoni.org/gentoo-portage-pi64-gem#' "${RCONPATH}"
 			rm -fv "${ROOT%/}/usr/portage/metadata/timestamp.chk"
@@ -259,10 +259,12 @@ pkg_postinst() {
 			ewarn " rsync://isshoni.org/gentoo-portage-pi64-gem"
 			ewarn "in place of:"
 			ewarn " rsync://isshoni.org/gentoo-portage-pi64"
-			ewarn "as your gentoo repo's sync-uri."
+			ewarn "as your gentoo repo's sync-uri"
 			ewarn "in ${RCONPATH}"
 			ewarn "The timestamp.chk file has also been deleted, to force"
 			ewarn "this repo to sync next time you run genup."
+			rm -fv "${ROOT%/}/usr/portage"{,/local}"/repo.hash"{,.asc}
+			ewarn "Any repo.hash{,.asc} files have also been deleted."
 		fi
 	else
 		if use porthash; then
