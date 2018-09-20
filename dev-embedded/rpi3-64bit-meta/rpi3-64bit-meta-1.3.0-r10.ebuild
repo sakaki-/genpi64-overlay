@@ -61,7 +61,7 @@ RDEPEND="
 		!app-portage/rpi3-check-porthash
 		>=sys-apps/portage-2.3.49
 	)
-	weekly-genup? ( >=app-portage/weekly-genup-1.1.0 )
+	weekly-genup? ( >=app-portage/weekly-genup-1.1.0-r1 )
 	!weekly-genup? ( !app-portage/weekly-genup )
 	core? (
 		>=app-admin/logrotate-3.14.0
