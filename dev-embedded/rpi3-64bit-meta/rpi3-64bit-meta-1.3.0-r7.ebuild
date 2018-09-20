@@ -54,12 +54,12 @@ RDEPEND="
 	>=sys-firmware/bluez-firmware-1.2
 	>=sys-firmware/brcm43430-firmware-20180402
 	porthash? (
-		>=sys-apps/portage-2.3.49[-rsync-verify]
+		<sys-apps/portage-2.3.49
 		>=app-portage/rpi3-check-porthash-1.0.0-r3
 	)
 	!porthash? (
 		!app-portage/rpi3-check-porthash
-		>=sys-apps/portage-2.3.49[rsync-verify]
+		>=sys-apps/portage-2.3.49
 	)
 	weekly-genup? ( >=app-portage/weekly-genup-1.1.0 )
 	!weekly-genup? ( !app-portage/weekly-genup )
@@ -224,10 +224,6 @@ src_install() {
 	# basic framework file to enable / disable USE flags for this package
 	insinto "/etc/portage/package.use/"
 	newins "${FILESDIR}/package.use_${PN}-2" "${PN}"
-	# ensure we enable rsync-verify locally too, where required
-	if ! use porthash; then
-		newins "${FILESDIR}/package.use_portage-1" "portage"
-	fi
 }
 
 pkg_postinst() {
@@ -240,7 +236,7 @@ pkg_postinst() {
 		fi
 	fi
 	# migrate to appropriate sync-uri automatically
-	local RCONPATH="/etc/portage/repos.conf/gentoo.conf"
+	local RCONPATH="${ROOT%/}etc/portage/repos.conf/gentoo.conf"
 	if [ -e "${RCONPATH}" ]; then
 		if use porthash && grep -q 'rsync://isshoni.org/gentoo-portage-pi64-gem$' "${RCONPATH}"; then
 			sed -i 's#rsync://isshoni.org/gentoo-portage-pi64-gem$#rsync://isshoni.org/gentoo-portage-pi64#' "${RCONPATH}"
