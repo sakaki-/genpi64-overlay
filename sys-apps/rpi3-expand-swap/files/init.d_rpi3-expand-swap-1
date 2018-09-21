@@ -22,21 +22,21 @@ _expand_swapfile_if_possible() {
 	local MiB_AVAIL_ON_ROOT=$((KiB_AVAIL_ON_ROOT/1024))
 	local MiB_AVAIL_FOR_SWAP=$((MiB_AVAIL_ON_ROOT*LSWAPFILE_PCT_AVAIL/100))
 	if ((MiB_AVAIL_FOR_SWAP > LMIN_SWAPFILE_MiB)); then
-	    local MiB_FOR_SWAP=$((MiB_AVAIL_FOR_SWAP < LMAX_SWAPFILE_MiB ? MiB_AVAIL_FOR_SWAP : LMAX_SWAPFILE_MiB))
-	    # don't do anything if swapfile already correct size
-	    if [ -s "${LSWAPFILE}" ] && \
-		   (( "$(du -k "${LSWAPFILE}" | awk '{print $1}')" == (1024 * MiB_FOR_SWAP) )); then
-		einfo "Swap file exists and is already correctly sized"
-	    else
+		local MiB_FOR_SWAP=$((MiB_AVAIL_FOR_SWAP < LMAX_SWAPFILE_MiB ? MiB_AVAIL_FOR_SWAP : LMAX_SWAPFILE_MiB))
+		# don't do anything if swapfile already correct size
+		if [ -s "${LSWAPFILE}" ] && \
+			(( "$(du -k "${LSWAPFILE}" | awk '{print $1}')" == (1024 * MiB_FOR_SWAP) )); then
+			einfo "Swap file exists and is already correctly sized"
+		else
 		ewarn "Setting swapfile size to ${MiB_FOR_SWAP} MiB"
 		truncate --size="${MiB_FOR_SWAP}M" "${LSWAPFILE}"
 		chmod -v 0600 "${LSWAPFILE}"
 		mkswap -L "swap1" "${LSWAPFILE}"
-	    fi
+		fi
 	else
-	    eerror "Insufficient free space to expand swapfile!"
-	    eerror "Please consider running this image on a larger drive."
-	    return 1
+		eerror "Insufficient free space to expand swapfile!"
+		eerror "Please consider running this image on a larger drive."
+		return 1
 	fi
 	return 0
 }
@@ -47,7 +47,7 @@ depend() {
 }
 
 start() {
-   	ebegin "Starting ${SVCNAME}"
+	ebegin "Starting ${SVCNAME}"
 	swapoff -a
 	_expand_swapfile_if_possible
 	RC=$?
