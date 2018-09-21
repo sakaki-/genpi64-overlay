@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer type="person">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+</maintainer>
+<longdescription>
+	Service to set the RPi3's swapfile to a sensible percentage of
+	the available free space on the root filesystem at startup,
+	subject to upper and lower caps.
+
+        Default configuration settings can be overridden in
+        /etc/conf.d/rpi3-expand-swap
+</longdescription>
+</pkgmetadata>
