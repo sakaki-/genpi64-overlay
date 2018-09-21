@@ -14,7 +14,7 @@ description="Automatically manages swapfile size on RPi3"
 
 _expand_swapfile_if_possible() {
 	# swaps must be OFF before calling this function!
-	local LMAX_SWAPFILE_MIB="${MAX_SWAPFILE_MiB:-1024}"
+	local LMAX_SWAPFILE_MiB="${MAX_SWAPFILE_MiB:-1024}"
 	local LMIN_SWAPFILE_MiB="${MIN_SWAPFILE_MiB:-512}"
 	local LSWAPFILE_PCT_AVAIL="${SWAPFILE_PCT_AVAIL:-20}"
 	local LSWAPFILE="${SWAPFILE:-/var/cache/swap/swap1}"
@@ -25,13 +25,14 @@ _expand_swapfile_if_possible() {
 		local MiB_FOR_SWAP=$((MiB_AVAIL_FOR_SWAP < LMAX_SWAPFILE_MiB ? MiB_AVAIL_FOR_SWAP : LMAX_SWAPFILE_MiB))
 		# don't do anything if swapfile already correct size
 		if [ -s "${LSWAPFILE}" ] && \
-			(( "$(du -k "${LSWAPFILE}" | awk '{print $1}')" == (1024 * MiB_FOR_SWAP) )); then
+			(( "$(du --apparent-size -k "${LSWAPFILE}" | awk '{print $1}')" == (1024 * MiB_FOR_SWAP) )); then
 			einfo "Swap file exists and is already correctly sized"
 		else
-		ewarn "Setting swapfile size to ${MiB_FOR_SWAP} MiB"
-		truncate --size="${MiB_FOR_SWAP}M" "${LSWAPFILE}"
-		chmod -v 0600 "${LSWAPFILE}"
-		mkswap -L "swap1" "${LSWAPFILE}"
+			ewarn "Setting swapfile size to ${MiB_FOR_SWAP} MiB"
+			rm -f "${LSWAPFILE}"
+			fallocate -l "${MiB_FOR_SWAP}M" "${LSWAPFILE}"
+			chmod -v 0600 "${LSWAPFILE}"
+			mkswap -L "swap1" "${LSWAPFILE}"
 		fi
 	else
 		eerror "Insufficient free space to expand swapfile!"
