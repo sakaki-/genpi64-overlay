@@ -47,3 +47,8 @@ L10N="en"
 # for upgrade stability only (see news item)
 # will be deleted shortly
 PYTHON_TARGETS="python2_7 python3_5 python3_6"
+
+# conservative build parallelism, to avoid hitting swap
+# override locally if desired
+MAKEOPTS="-j2 -l1"
+EMERGE_DEFAULT_OPTS="--jobs=2 --load-average=1"
