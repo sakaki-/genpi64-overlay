@@ -41,10 +41,12 @@ pkg_postinst() {
 		elog "Please edit this as you wish (for example, to have"
 		elog "the log file mailed to you upon completion)."
 	fi
-	elog "Running fixups now, to ensure system clean"
-	elog "(this is a one-off; the cron.weekly job is still active)."
-	elog "Check /var/log/latest-fixup-run.log for output."
-	${ROOT%/}/etc/cron.weekly/fixup
+	if [[ "${ROOT}" == "/" ]]; then
+		elog "Running fixups now, to ensure system clean"
+		elog "(this is a one-off; the cron.weekly job is still active)."
+		elog "Check /var/log/latest-fixup-run.log for output."
+		/etc/cron.weekly/fixup
+	fi
 }
 
 pkg_postrm() {
