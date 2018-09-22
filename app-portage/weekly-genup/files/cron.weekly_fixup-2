@@ -37,7 +37,7 @@ if [[ -d "${SCRIPTDIR}" ]]; then
 		fi
 	done
 	DATE=$(date +%d-%m-%Y" "%H:%M:%S);
-	echo "fixup run completed ${DATE}\n\n" >> "${LOGFILE}"
+	echo -e "fixup run completed ${DATE}\n\n" >> "${LOGFILE}"
 	cat "${LOGFILE}" >> "${CUMLOGFILE}"
 fi
 
