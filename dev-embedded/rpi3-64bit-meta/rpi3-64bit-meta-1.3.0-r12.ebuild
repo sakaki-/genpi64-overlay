@@ -61,7 +61,7 @@ RDEPEND="
 		!app-portage/rpi3-check-porthash
 		>=sys-apps/portage-2.3.49
 	)
-	weekly-genup? ( >=app-portage/weekly-genup-1.1.0-r1 )
+	weekly-genup? ( >=app-portage/weekly-genup-1.1.0-r2 )
 	!weekly-genup? ( !app-portage/weekly-genup )
 	core? (
 		>=app-admin/logrotate-3.14.0
@@ -122,6 +122,7 @@ RDEPEND="
 		>=sys-apps/me_cleaner-1.2
 		>=sys-apps/mlocate-0.26-r2
 		>=sys-apps/rng-tools-6.3.1
+		>=sys-apps/rpi3-expand-swap-1.0
 		>=sys-apps/rpi3-zswap-1.0-r1
 		>=sys-apps/smartmontools-6.6-r1
 		>=sys-apps/usbutils-010-r1
