@@ -22,7 +22,7 @@ RDEPEND="${DEPEND}
 	virtual/cron
 	>=app-portage/genup-1.0.16
 	>=app-shells/bash-4.0
-	>=sys-devel/patch-2.7.6-r2"
+	>=sys-devel/patch-2.7.6"
 
 src_install() {
 	exeinto /etc/cron.weekly
