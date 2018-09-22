@@ -28,9 +28,12 @@ _expand_swapfile_if_possible() {
 			(( "$(du --apparent-size -k "${LSWAPFILE}" | awk '{print $1}')" == (1024 * MiB_FOR_SWAP) )); then
 			einfo "Swap file exists and is already correctly sized"
 		else
-			ewarn "Setting swapfile size to ${MiB_FOR_SWAP} MiB"
+			ewarn "Setting swapfile size to ${MiB_FOR_SWAP} MiB, please wait"
 			rm -f "${LSWAPFILE}"
-			fallocate -l "${MiB_FOR_SWAP}M" "${LSWAPFILE}"
+			# yes fallocate is way faster but also, per
+			# swapon manpage, not safe on ext4, so do it the
+			# old fashioned way
+			dd if=/dev/zero of="${LSWAPFILE}" bs=1M count="${MiB_FOR_SWAP}" status=progress
 			chmod -v 0600 "${LSWAPFILE}"
 			mkswap -L "swap1" "${LSWAPFILE}"
 		fi
