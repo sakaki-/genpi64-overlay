@@ -15,7 +15,7 @@ _tweak_eth0_if_necessary() {
 	if grep -q "Raspberry Pi 3 Model B Plus" /proc/device-tree/model; then
 		# may fix some Samba issues, see e.g.
 		# https://www.raspberrypi.org/forums/viewtopic.php?p=1324321#p1324321
-		ewarn "RPi3 model B detected"
+		ewarn "RPi3 model B+ detected"
 		ewarn "Turning off eth0 offloading, for stability"
 		ethtool --offload eth0 rx off tx off
 		# per https://www.raspberrypi.org/forums/viewtopic.php?p=1294790#p1294790
