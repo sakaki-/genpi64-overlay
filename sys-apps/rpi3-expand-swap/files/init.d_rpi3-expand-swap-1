@@ -31,7 +31,7 @@ _expand_swapfile_if_possible() {
 			ewarn "Setting swapfile size to ${MiB_FOR_SWAP} MiB, please wait"
 			if ((MiB_FOR_SWAP==LMAX_SWAPFILE_MiB && \
 				MiB_AVAIL_FOR_SWAP>(MiB_FOR_SWAP*2))); then
-				einfo "(this process should only be required once)"
+				ewarn "(this process should only be required once)"
 			fi
 			rm -f "${LSWAPFILE}"
 			# yes fallocate is way faster but also, per
