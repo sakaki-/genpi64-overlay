@@ -52,6 +52,7 @@ _expand_swapfile_if_possible() {
 
 depend() {
 	need localmount
+	before xdm
 }
 
 start() {
