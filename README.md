@@ -17,7 +17,7 @@ The overlay provides the following ebuilds:
    | -------- | --------:| ------:|
    | `boot-fw` | Yes | Pull in the /boot firmware, configs and bootloader. |
    | `kernel-bin` | Yes | Pull in the `bcmrpi3-kernel-bin` binary kernel package. |
-   | `porthash` | Yes | Pull in repo signature checker, for isshoni.org `rsync`. |
+   | `porthash` | No | Pull in repo signature checker, for isshoni.org `rsync`. |
    |  `weekly-genup` | Yes | Pull in `cron.weekly` script, to run `genup` automatically. |
    |  `core` | Yes | Pull in core system packages for image (`sudo` etc.). |
    |  `xfce` | Yes | Pull in packages for baseline Xfce4 system. Requires `core`. |
@@ -51,8 +51,6 @@ The overlay provides the following ebuilds:
   * Provides the `rpi3-safecompositor` OpenRC service, which turns off display compositing if a high pixel clock is detected (> 1.2175MHz, currently). This is because certain applications, for example LibreOffice v6 Draw and Impress, can cause the whole system to lock-up when used with compositing on under such conditions.
 * **x11-misc/rpi3-safecursor**
   * Provides the `rpi3-safecursor` OpenRC service, which will install a rule to force software cursor blitting (rather than the hardware default) if the user has not set `disable_overscan=1` in `config.txt`. (Required because hardware cursor blitting in the open-source vc4 driver does not always take account of the overscan 'bezel' correctly on HDMI TVs, resulting in an offset cursor.) The service no-ops with the supplied 4.14.y kernel however, as this has a fix [already committed](https://github.com/raspberrypi/linux/commit/81bbe80e7bebab6211c72bf0c0f81a4bc2370eab).
-* **app-portage/rpi3-check-porthash**
-  * Provides a [`porthash`](https://github.com/sakaki-/porthash) signed hash check for the [isshoni.org](https://isshoni.org) rsync gentoo ebuild repository, implemented as a `repo.postsync.d` hook.
 * **sys-boot/rpi3-64bit-firmware** [upstream](https://github.com/raspberrypi/firmware)
   * Provides the firmware and config files required in `/boot` to boot the RPi3 in 64-bit mode. Does not provide the kernel or DTBs (see `sys-kernel/bcmrpi3-kernel-bin`, above, for that). A weekly check is made to see if a new tag has been added to the official [`raspberrypi/firmware/boot`](https://github.com/raspberrypi/firmware/tree/master/boot) upstream, and, if so, a matching ebuild is automatically created here.
 * **dev-embedded/wiringpi** [upstream](http://wiringpi.com/)
@@ -80,21 +78,29 @@ The overlay provides the following ebuilds:
 * **media-tv/kodi** [upstream](https://github.com/xbmc/xbmc)
   * Provides `kodi-17.4_rc1.ebuild`; adapted from the version in the main Gentoo tree (with `~arm64` keyworded, and the dependency list modified to avoid relying on MS fonts with a non-free licence (the remaining deps and the package itself being FOSS licensed)).
 * **sys-apps/qdiskusage** [upstream](http://www.qt-apps.org/content/show.php/QDiskUsage?content=107012)
-  * Provides `qdiskusage-1.0.4.ebuild`, no longer in the main Gentoo tree.
+  * Provides `qdiskusage-1.99.ebuild`, a dummy, as this has now been removed from the main Gentoo tree, and the local copy no longer builds, due to missing deps.
 * **x11-themes/gnome-icon-theme** [upstream](https://www.gnome.org)
   * Provides `gnome-icon-theme-3.12.0-r1.ebuild`; this has been removed from the main Gentoo tree, but is still required for some icons on the image. 
-* **x11-base/xorg-server** [upstream](https://www.x.org/wiki/)
-  * Provides `xorg-server-1.19.6-r1.ebuild`; this has been removed from the main Gentoo tree, but is still the current main rev, and in use on the image.
 * **xfce-extra/xfce4-notifyd** [upstream](https://goodies.xfce.org/projects/applications/xfce4-notifyd)
   * Provides `xfce4-notifyd-0.4.0.ebuild`; this has been removed from the main Gentoo tree, but is still used on the image. Upgrades masked because of message truncation, which causes problems with PIN notification during Bluetooth device setup. To be fixed / resolved soon.
 * **xfce-extra/xfce4-indicator-plugin** [upstream](https://goodies.xfce.org/projects/panel-plugins/xfce4-indicator-plugin)
   * Provides `xfce4-indicator-plugin-2.3.3-r2.ebuild`; this has been removed from the main Gentoo tree, and the v2.3.4 is currently masked.
+* **xfce-extra/xfc4-mixer** [upstream](http://softwarebakery.com/maato/volumeicon.html)
+  * Provides `xfc4-mixer-4.99.0-r1`, a 'pseudo-package' replacing the original, treecleaned `xfce4-mixer` with the (broadly equivalent) `media-sound/volumeicon` package.
 * **www-client/firefox** [upstream](http://www.mozilla.com/firefox)
-  * Provides `firefox-60.0.1.ebuild`; this requires [some patches](https://bugs.gentoo.org/657146) to build on `arm64`; these have now been upstreamed, so at the next point release `firefox` should revert to the using main-tree ebuild.
-* **dev-python/pyopenssl** [upstream](https://pypi.org/project/pyOpenSSL/)
-  * Provides `pyopenssl-17.0.0.ebuild`; this has been removed from the main Gentoo tree, but is still in use on the image.
+  * Provides `firefox-61.0-r1.ebuild`; this has been removed from the main Gentoo tree, but is in use on the image until v62 or later builds, at which point it will be unmasked, and `firefox` should revert to the using main-tree ebuild.
+* **sys-apps/portage** [upstream](https://wiki.gentoo.org/wiki/Project:Portage)
+  * Provides `portage-2.3.48`; this has been removed from the main Gentoo tree, but is still required to ensure those upgrading the image from a pre-1.3.0 release can do so successfully (with legacy `porthash` authentication).
+* **sys-boot/rpi3-boot-config**
+  * Provides the 'starter' configuration files `/boot/cmdline.txt` and `/boot/config.txt`.
+* **net-wireless/blueman**
+  * Provides `blueman-2.0.4-r1.ebuild`; this has been removed from the main Gentoo tree, but is in use on the image (until the current version proves stable, at which point it will be unmasked, and `blueman` will revert to using the main-tree ebuild).
+* **x11-misc/rpi3-safecompositor**
+  * Provides an OpenRC service to turn off display compositing if a high pixel clock is detected (> 1.2175MHz, currently). This is because certain applications, for example LibreOffice v6 Draw and Impress, can cause the whole system to lock-up when used with compositing on under such conditions.
 * **net-misc/ethfix**
-  * Effects some simple Ethernet workarounds (using `ethtool`) for the RPi3B+.
+  * Provides an OpenRC service to workaround certain RPi3B+ Ethernet issues via `ethtool`.
+* **app-office/orage** [upstream](https://git.xfce.org/apps/orage/)
+  * Provides `orage-4.12.1-r1.ebuild`, patched for [bug 657542](https://bugs.gentoo.org/657542). Once this revbumps in the main Gentoo tree, `orage` should revert to using that version instead.
 
 ## Other ebuilds
 
@@ -102,6 +108,26 @@ The overlay provides the following ebuilds:
   * Provides `rust-1.19.0-r1.ebuild`; adapted from the Gentoo tree version to build under `arm64`; build system also respects the `nativeonly` USE flag and user `MAKEOPTS` for efficiency (thanks to [NeddySeagoon](https://github.com/sakaki-/rpi3-overlay/commit/3abb46bcff04d9b66c8b3c50d309f199606ac0fa##commitcomment-23709642)). The system-programming language `dev-lang/rust` is a hard dependency for `www-client/firefox` versions 55 and above (as is `sys-devel/cargo`). However, as the (more modern) main Gentoo tree version now also builds, this is no longer necessary.
 * **dev-util/cargo** [upstream](http://crates.io)
   * Provides `cargo-0.20.0.ebuild`, adapted from the Gentoo tree version to build under `arm64`. `dev-util/cargo` is the package manager for `dev-lang/rust`. However, as the (more modern) main Gentoo tree version now also builds, this is no longer necessary.
+* **x11-base/xorg-server** [upstream](https://www.x.org/wiki/)
+  * Provides `xorg-server-1.19.6-r1.ebuild`; this has been removed from the main Gentoo tree. However, as the (more modern) main Gentoo tree version now also builds, this is no longer necessary.
+* **app-office/libreoffice** [upstream](https://www.libreoffice.org)
+  * Provides `libreoffice-5.4.4.2-r1.ebuild`, patched for [bug 641812](https://bugs.gentoo.org/641812). However, as the (more modern) main Gentoo tree version now also builds, this is no longer necessary.
+* **dev-python/pyopenssl** [upstream](https://pypi.org/project/pyOpenSSL/)
+  * Provides `pyopenssl-17.0.0`; this has been removed from the main Gentoo tree. However, now the ec workarounds for `dev-libs/openssl` are in use (making it `bindist` compatible), this legacy version is no longer required.
+* **dev-libs/openssl** [upstream](https://www.openssl.org/)
+  * Provides `openssl-1.0.2o-r6.ebuild`; with ec workaround patch for `bindist`. However, now the version in the main Gentoo tree also has this patch, this version is no longer required.
+* **net-fs/nfs-utils** [upstream](http://linux-nfs.org/)
+  * Provides `nfs-utils-2.1.1-r2.ebuild`; this has been removed from the main Gentoo tree. However, as the (more modern) main Gentoo tree version is now also usable, this is no longer necessary.
+* **app-portage/rpi3-check-porthash**
+  * Provides a [`porthash`](https://github.com/sakaki-/porthash) signed hash check for the [isshoni.org](https://isshoni.org) rsync gentoo ebuild repository, implemented as a `repo.postsync.d` hook. NB not installed as of v1.3.0 of the image, as Gentoo's official `gemato` signature check is used instead; please see the release notes [here](https://github.com/sakaki-/gentoo-on-rpi3-64bit/releases/tag/v1.3.0).
+* **net-p2p/cpuminer-multi** [upstream](https://github.com/tpruvot/cpuminer-multi)
+  * Provides `cpuminer-multi-1.3.3.ebuild`; a multi-threaded cryptocurrency CPU miner that builds on arm64. Not currently included on the image by default.
+* **net-misc/m-minerd** [upstream](https://github.com/magi-project/m-cpuminer-v2)
+  * Provides `m-minerd-2.4.ebuild`; a multi-threaded CPU pool miner for M7M/Magi (XMG) that builds on arm64. Not currently included on the image by default.
+
+## Custom profile
+
+The overlay also provides a custom profile, [`rpi3:default/linux/arm64/17.0/desktop/rpi3`](https://github.com/sakaki-/rpi3-overlay/tree/master/profiles/targets/rpi3), for use on the [`gentoo-on-rpi3-64bit`](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image. For futher details, please see [these notes](https://github.com/sakaki-/gentoo-on-rpi3-64bit#profile).
 
 ## Installation
 
@@ -144,3 +170,4 @@ Now you can install packages from the overlay. For example:
 ## Maintainers
 
 * [sakaki](mailto:sakaki@deciban.com)
+
