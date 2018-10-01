@@ -2,7 +2,8 @@
 www-client/firefox -gmp-autoupdate
 # disable DRM plugin at build time, force hw graphics acceleration
 # and build using clang rather than gcc, for modern firefox
->=www-client/firefox-62.0 clang eme-free hwaccel
+# with link-time optimization (lto) on
+>=www-client/firefox-62.0 clang eme-free hwaccel lto
 
 # requirements of firefox
 dev-lang/python:2.7 sqlite
