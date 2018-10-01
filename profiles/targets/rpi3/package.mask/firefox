@@ -1,6 +1,6 @@
 # problems building on arm64 atm (skia etc)
 =www-client/firefox-60.0
-# some problems building on arm64
-=www-client/firefox-62.0-r1
+# some problems building on arm64, hold till patched version released
+>=www-client/firefox-62.0
 
 
