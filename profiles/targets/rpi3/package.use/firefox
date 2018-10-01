@@ -1,5 +1,9 @@
 # no sneaky downloading of binary blobs on first run, please...
 www-client/firefox -gmp-autoupdate
+# disable DRM plugin at build time, force hw graphics acceleration
+# and build using clang rather than gcc, for modern firefox
+>=www-client/firefox-62.0 clang eme-free hwaccel
+
 # requirements of firefox
 dev-lang/python:2.7 sqlite
 media-libs/harfbuzz icu
