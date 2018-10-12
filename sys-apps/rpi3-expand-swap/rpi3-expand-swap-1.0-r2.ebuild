@@ -24,7 +24,7 @@ RDEPEND="${DEPEND}
 
 src_install() {
 	newinitd "${FILESDIR}/init.d_${PN}-2" "${PN}"
-	newconfd "${FILESDIR}/conf.d_${PN}-1" "${PN}"
+	newconfd "${FILESDIR}/conf.d_${PN}-2" "${PN}"
 }
 
 pkg_postinst() {
