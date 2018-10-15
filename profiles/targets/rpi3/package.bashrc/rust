@@ -1,2 +1,2 @@
 # gets confused by remote compile; also, memory hungry
-dev-lang/rust makeopts-j2.conf suppress-distcc.conf
+dev-lang/rust suppress-distcc.conf makeopts-j2.conf
