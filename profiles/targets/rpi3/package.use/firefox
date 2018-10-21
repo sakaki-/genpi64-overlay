@@ -1,9 +1,11 @@
 # no sneaky downloading of binary blobs on first run, please...
 www-client/firefox -gmp-autoupdate
 # disable DRM plugin at build time, force hw graphics acceleration
-# and build using clang rather than gcc, for modern firefox
-# with link-time optimization (lto) on
->=www-client/firefox-62.0 clang eme-free hwaccel lto
+# and build using clang rather than gcc, for 62.0.2
+# (doesn't currently work for 62.0.3)
+# turn link-time optimization (lto) on for better performance
+=www-client/firefox-62.0.2 clang eme-free hwaccel lto
+>=www-client/firefox-62.0.3 eme-free hwaccel lto
 
 # requirements of firefox
 dev-lang/python:2.7 sqlite
