@@ -1,0 +1,81 @@
+#!/sbin/openrc-run
+# Set RPi3's swapfile to a sensible percentage of the
+# available free space on the root filesystem, subject
+# to upper and lower caps.
+#
+# Default configuration settings can be overridden in
+# /etc/conf.d/rpi3-expand-swap
+
+# Copyright (c) 2018 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+description="Automatically manages swapfile size on RPi3"
+
+_expand_swapfile_if_possible() {
+	# swaps must be OFF before calling this function!
+	local LMAX_SWAPFILE_MiB="${MAX_SWAPFILE_MiB:-1024}"
+	local LMIN_SWAPFILE_MiB="${MIN_SWAPFILE_MiB:-512}"
+	local LSWAPFILE_PCT_AVAIL="${SWAPFILE_PCT_AVAIL:-20}"
+	local LSWAPFILE="${SWAPFILE:-/var/cache/swap/swap1}"
+	local LSWAPFILE_KiB=0
+	if [ -s "${LSWAPFILE}" ]; then
+		LSWAPFILE_KiB=$(( "$(du --apparent-size -k "${LSWAPFILE}" | awk '{print $1}')"))
+	fi
+	local KiB_AVAIL_ON_ROOT="$(df -k / | tail -n 1 | awk '{print $4}')"
+	# add back size of any existing swapfile to available space tally,
+	# so we don't end up oscillating each boot once space gets tight
+	KiB_AVAIL_ON_ROOT=$((LSWAPFILE_KiB + KiB_AVAIL_ON_ROOT))
+	local MiB_AVAIL_ON_ROOT=$((KiB_AVAIL_ON_ROOT/1024))
+	local MiB_AVAIL_FOR_SWAP=$((MiB_AVAIL_ON_ROOT*LSWAPFILE_PCT_AVAIL/100))
+	if ((MiB_AVAIL_FOR_SWAP > LMIN_SWAPFILE_MiB)); then
+		local MiB_FOR_SWAP=$((MiB_AVAIL_FOR_SWAP < LMAX_SWAPFILE_MiB ? MiB_AVAIL_FOR_SWAP : LMAX_SWAPFILE_MiB))
+		# don't do anything if swapfile already correct size
+		if (( LSWAPFILE_KiB == (1024 * MiB_FOR_SWAP) )); then
+			einfo "Swap file exists and is already correctly sized"
+		elif (( LSWAPFILE_KiB > (1024 * MiB_FOR_SWAP) )); then
+			# common case as space gets tight
+			einfo "Swap file exists, but is too large; truncating"
+			# this will not create holes
+			truncate --size="${MiB_FOR_SWAP}M" "${LSWAPFILE}"
+			mkswap -L "swap1" "${LSWAPFILE}"
+		else
+			ewarn "Setting swapfile size to ${MiB_FOR_SWAP} MiB, please wait"
+			if ((MiB_FOR_SWAP==LMAX_SWAPFILE_MiB && \
+				MiB_AVAIL_FOR_SWAP>(MiB_FOR_SWAP*2))); then
+				ewarn "(this process should only be required once)"
+			fi
+			rm -f "${LSWAPFILE}"
+			# yes fallocate is way faster but also, per
+			# swapon manpage, not safe on ext4, so do it the
+			# old fashioned way
+			dd if=/dev/zero of="${LSWAPFILE}" bs=1M count="${MiB_FOR_SWAP}" status=progress
+			chmod -v 0600 "${LSWAPFILE}"
+			mkswap -L "swap1" "${LSWAPFILE}"
+		fi
+	else
+		eerror "Insufficient free space to set up swapfile!"
+		eerror "Please consider running this image on a larger drive."
+		if ((LSWAPFILE_KiB>0)); then
+			ewarn "Deleting existing swapfile"
+			rm -fv "${LSWAPFILE}"
+		fi
+		return 1
+	fi
+	return 0
+}
+
+
+depend() {
+	need localmount
+	before xdm
+}
+
+start() {
+	ebegin "Starting ${SVCNAME}"
+	swapoff -a
+	_expand_swapfile_if_possible
+	RC=$?
+	swapon -a
+	eend $RC
+}
