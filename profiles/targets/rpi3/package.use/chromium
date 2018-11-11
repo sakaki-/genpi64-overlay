@@ -1,0 +1,5 @@
+www-client/chromium -proprietary-codecs
+# requirements of www-client/chromium
+dev-libs/libxml2 icu
+net-libs/nodejs inspector icu
+
