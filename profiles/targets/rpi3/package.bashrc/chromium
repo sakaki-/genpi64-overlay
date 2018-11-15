@@ -1,0 +1,3 @@
+# build works under distcc, but lots of local fallbacks, so
+# force local
+www-client/chromium suppress-distcc.conf
