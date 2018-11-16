@@ -1,3 +1,4 @@
 # allow specific tested 4.14 kernels, for use in the released image
 ~sys-kernel/bcmrpi3-kernel-bis-bin-4.14.44.20180601
 ~sys-kernel/bcmrpi3-kernel-bis-bin-4.14.71.20180922
+~sys-kernel/bcmrpi3-kernel-bis-bin-4.14.80.20181113
