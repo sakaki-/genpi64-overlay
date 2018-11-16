@@ -1,5 +1,9 @@
 # issues building in chroot right now
 ~dev-lang/rust-1.27.0
 ~virtual/rust-1.27.0
+~dev-lang/rust-1.30.1
+~virtual/rust-1.30.1
 # hold back too for now
 ~dev-util/cargo-0.28.0
+~virtual/cargo-1.30.1
+~dev-util/cargo-1.30.1
