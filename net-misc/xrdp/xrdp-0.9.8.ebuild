@@ -103,7 +103,8 @@ pkg_preinst() {
 		cp {"${EROOT}","${ED}"}/etc/xrdp/rsakeys.ini || die
 	else
 		einfo "Running xrdp-keygen to generate new rsakeys.ini ..."
-		"${S}"/keygen/xrdp-keygen xrdp "${ED}"/etc/xrdp/rsakeys.ini \
+		LD_LIBRARY_PATH="${ED%/}/usr/lib64/xrdp:${LD_LIBRARY_PATH}" \
+			"${ED%/}"/usr/bin/xrdp-keygen xrdp "${ED%/}"/etc/xrdp/rsakeys.ini \
 			|| die "xrdp-keygen failed to generate RSA keys"
 	fi
 }
