@@ -1,2 +1,3 @@
+net-misc/xrdp fuse
 # requirements of xrdp
-media-plugins/alsa-plugins pulseaudio fuse
+media-plugins/alsa-plugins pulseaudio
