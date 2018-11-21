@@ -1,0 +1,3 @@
+# double negative - ensure this flag is *allowed*
+-fuse
+
