@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">neutrinolabs/xrdp</remote-id>
+	</upstream>
+	<use>
+		<flag name="debug">Enable debug support.</flag>
+		<flag name="fuse">Enable fuse (clipboard file / drive redir).</flag>
+		<flag name="kerberos">Enable kerberos support.</flag>
+		<flag name="neutrinordp">Build neutrinordp module.</flag>
+		<flag name="pam">Enable pam support.</flag>
+		<flag name="pulseaudio">Enable pulseaudio support.</flag>
+		<flag name="xrdpvr">Build xrdpvr module.</flag>
+	</use>
+	<longdescription>
+		An open source Remote Desktop Protocol server.
+	</longdescription>
+</pkgmetadata>
