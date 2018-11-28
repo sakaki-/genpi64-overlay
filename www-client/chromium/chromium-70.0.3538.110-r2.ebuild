@@ -105,7 +105,7 @@ DEPEND="${COMMON_DEPEND}
 	dev-vcs/git
 "
 
-: ${CHROMIUM_FORCE_CLANG=no}
+: ${CHROMIUM_FORCE_CLANG=yes}
 
 if [[ ${CHROMIUM_FORCE_CLANG} == yes ]]; then
 	DEPEND+=" >=sys-devel/clang-5"
