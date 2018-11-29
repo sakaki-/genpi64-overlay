@@ -1,4 +1,9 @@
+=media-tv/kodi-18.0_rc1 * ~*
 # requirements of media-tv/kodi
 sys-fs/udisks   * ~*
 dev-libs/crossguid      * ~*
+dev-libs/libfstrcmp * ~*
+dev-libs/libfmt * ~*
+dev-libs/rapidjson * ~*
+dev-libs/flatbuffers * ~*
 
