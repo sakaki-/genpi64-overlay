@@ -107,12 +107,8 @@ BDEPEND="
 	dev-vcs/git
 "
 
-if use arm64; then
-	# arm64 has several build failures under gcc
-	: ${CHROMIUM_FORCE_CLANG=yes}
-else
-	: ${CHROMIUM_FORCE_CLANG=no}
-fi
+# arm64 has several build failures under gcc
+: ${CHROMIUM_FORCE_CLANG=yes}
 
 if [[ ${CHROMIUM_FORCE_CLANG} == yes ]]; then
 	BDEPEND+=" >=sys-devel/clang-5"
