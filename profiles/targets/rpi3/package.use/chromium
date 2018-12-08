@@ -1,4 +1,6 @@
-www-client/chromium -proprietary-codecs
+# build bindist-friendly variant, with no system openh264, and no
+# proprietary codecs (disables bundled h264 codec, inter alia)
+www-client/chromium -proprietary-codecs -openh264
 # requirements of www-client/chromium
 dev-libs/libxml2 icu
 net-libs/nodejs inspector icu
