@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -31,7 +31,6 @@ RDEPEND="
 	ssl? (
 		|| (
 			~dev-libs/openssl-1.0.2o:0=
-			~dev-libs/openssl-1.0.2p:0=
 			~dev-libs/openssl-1.0.2q:0=
 			>=dev-libs/openssl-1.1.0:0=[-bindist]
 		)
