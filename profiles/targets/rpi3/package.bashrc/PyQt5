@@ -1,0 +1,3 @@
+# force local build
+dev-python/PyQt5 suppress-distcc.conf
+
