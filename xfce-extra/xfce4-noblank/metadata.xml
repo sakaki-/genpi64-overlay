@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer type="person">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+</maintainer>
+<longdescription>
+		Prevents xscreensaver blanking the display when notionally
+		'off', since this causes problems with some displays
+                (under vc4-{f,}kms-v3d graphics drivers, at least).
+		Installs an /etc/xdg/autostart/xfce4-noblank.desktop entry.
+</longdescription>
+</pkgmetadata>

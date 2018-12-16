@@ -1,0 +1,50 @@
+#!/bin/bash
+#
+# If xscreensaver mode is "off" for last-logged in Xfce user,
+# ensure their screensaver can't blank, and really *is* off.
+#
+# This is to prevent screen blanking causing problems with the
+# vc4-{f,}kms-v3d drivers on some displays, which can leave users with
+# an unresponsive system.
+#
+# Copyright (c) 2018 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+# find pid of most recent xfce4 session
+PID="$(pgrep --newest --exact xfce4-session)"
+if [[ ! -n "${PID}" ]]; then
+    # Xfce not running
+    exit 1
+fi
+# find who owns this session (e.g., "demouser")
+USERNAME="$(ps -o user --no-headers ${PID})"
+# find that user's most recent X display (e.g. ":0")
+DISPLAY="$(w -fh "${USERNAME}" | egrep -ow ':[[:digit:]]+' | tail -n 1)"
+if [[ -z "${USERNAME}" || -z "${DISPLAY}" ]]; then
+    exit 1
+fi
+# wait up to 20s for xscreensaver to start for this user
+for ((I=0;I<10;I++)); do
+    sleep 2
+    if pgrep -U "${USERNAME}" -x xscreensaver &>/dev/null; then
+        break
+    fi
+done
+if ((I==10)); then
+    # xscreensaver not started; give up
+    exit 1
+fi
+# let things settle down, in case .xscreensaver file written
+sleep 10
+# now, if user has a .xscreensaver file, and it specifies "off" as
+# the mode, set noblank, and then turn the screensaver off explicitly;
+# do nothing otherwise
+XSSCONF="/home/${USERNAME}/.xscreensaver"
+if [[ -n "${DISPLAY}" && -s "${XSSCONF}" ]] && \
+    grep -E -q '^mode:\s*off\s*$' "${XSSCONF}" &>/dev/null
+then
+    sudo -u "${USERNAME}" xset -display "${DISPLAY}" s noblank
+    sudo -u "${USERNAME}" xset -display "${DISPLAY}" s off
+fi
+exit 0
