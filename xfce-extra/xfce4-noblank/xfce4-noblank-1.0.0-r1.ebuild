@@ -27,7 +27,7 @@ RDEPEND="${DEPEND}
 	>=x11-misc/xscreensaver-5.40"
 
 src_install() {
-	newbin "${FILESDIR}/${PN}-1" "${PN}"
+	newbin "${FILESDIR}/${PN}-2" "${PN}"
 	insinto "/etc/xdg/autostart/"
 	newins "${FILESDIR}/${PN}.desktop-1" "${PN}.desktop"
 }

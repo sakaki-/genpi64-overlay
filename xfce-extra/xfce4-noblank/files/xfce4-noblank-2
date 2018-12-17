@@ -1,7 +1,9 @@
 #!/bin/bash
 #
-# If xscreensaver mode is "off" for last-logged in Xfce user,
-# ensure their screensaver can't blank, and really *is* off.
+# Ensure the last-logged-in Xfce user's xscreensaver can't blank, and
+# turn it off too, if either that user has no non-empty
+# ~/.xscreensaver config file, or, has this file and has specified
+# mode "off" therein.
 #
 # This is to prevent screen blanking causing problems with the
 # vc4-{f,}kms-v3d drivers on some displays, which can leave users with
@@ -37,14 +39,16 @@ if ((I==10)); then
 fi
 # let things settle down, in case .xscreensaver file written
 sleep 10
-# now, if user has a .xscreensaver file, and it specifies "off" as
-# the mode, set noblank, and then turn the screensaver off explicitly;
-# do nothing otherwise
+# always set noblank, and, if user either has a ~/.xscreensaver config file
+# that specifies "off" as the mode, or has no such (non-empty) ~/.xscreensaver file,
+# additionally turn the screensaver off explicitly
+sudo -u "${USERNAME}" xset -display "${DISPLAY}" s noblank
 XSSCONF="/home/${USERNAME}/.xscreensaver"
-if [[ -n "${DISPLAY}" && -s "${XSSCONF}" ]] && \
+if [[ ! -s "${XSSCONF}" ]] || \
     grep -E -q '^mode:\s*off\s*$' "${XSSCONF}" &>/dev/null
 then
-    sudo -u "${USERNAME}" xset -display "${DISPLAY}" s noblank
     sudo -u "${USERNAME}" xset -display "${DISPLAY}" s off
 fi
+# otherwise user has explicitly chosen an active mode, so
+# up to them
 exit 0
