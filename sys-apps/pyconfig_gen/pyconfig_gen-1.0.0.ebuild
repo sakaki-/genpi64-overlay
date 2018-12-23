@@ -56,7 +56,7 @@ pkg_postinst() {
 		elog "The ${SERVICENAME} service has been added to your boot runlevel."
 		elog "Please check /etc/conf.d/${PN} for settings."
 		elog ""
-		elog "An autostart and reguler .desktop files have also"
+		elog "Both autostart and regular .desktop files have also"
 		elog "been installed."
 	fi
 }
