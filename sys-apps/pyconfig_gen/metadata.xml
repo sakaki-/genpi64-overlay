@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer type="person">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+</maintainer>
+<longdescription>
+	Service to enable modifed /boot/config.txt files to be safely
+	tried out on the RPi3, by rotating in the old, last-known-good
+	version and scheduling an automatic reboot to take place after
+	a few minutes delay. The user can elect to keep the modified
+	config prior to this reboot, by using the pyconfig_gen
+	application (or at the CLI, via the rpi3-keep-config
+	script).
+</longdescription>
+</pkgmetadata>

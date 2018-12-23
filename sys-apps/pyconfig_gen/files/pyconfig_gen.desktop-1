@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=RPi3 Config Tool (Autostart)
+Type=Application
+Comment=Simple GUI configuration tool for RPi3
+Exec=sudo pyconfig_gen -a
+TryExec=sudo
+Icon=/usr/share/pixmaps/pyconfig_gen.png
+Categories=Settings;

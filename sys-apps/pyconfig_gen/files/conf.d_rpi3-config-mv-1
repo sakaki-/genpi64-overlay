@@ -1,0 +1,10 @@
+# /etc/conf.d/rpi3-config-mv
+
+# Settings for rpi3-config-mv, a service to enable safe tryout of
+# changes to /boot/config.txt on the RPi3.
+
+# Number of minutes to wait before assuming the new changes have made
+# the system unusable (wrong HDMI mode specified, for example), and
+# intervening by rebooting to use the prior (last-known-good) kernel.
+#
+#reboot_check_after_mins=2

@@ -1,0 +1,94 @@
+#!/sbin/openrc-run
+
+# Enable safe tryout of changed /boot/config.txt on the RPi3.
+#
+# This service runs at the boot runlevel. It rotates the boot-time
+# /boot/config.txt -> /boot/config.txt.tbc, and /boot/config.txt.lng
+# -> /boot/config.txt (the lng file having been created by the
+# pyconfig_gen) application in the last session).
+#
+# A timed job is then setup to force a reboot unless the user
+# intervenes to prevent it, thereby effectively rolling back
+# to the prior config. This approach makes it possible to try
+# out modifications to e.g. the HDMI group, without worrying
+# about recovery in 'black screen' situations.
+#
+# # Default configuration settings can be overridden in
+# /etc/conf.d/rpi3-config-mv
+
+# Copyright (c) 2018 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+description="Enables safe tryout of changed config.txt on RPi3"
+
+readonly CONFIG_PATHNAME="/boot/config.txt"
+readonly CONFIG_LNG_PATHNAME="/boot/config.txt.lng"
+readonly CONFIG_TBC_PATHNAME="/boot/config.txt.tbc"
+readonly CONFIG_REJ_PATHNAME="/boot/config.txt.rej"
+readonly CONFIG_OLD_PATHNAME="/boot/config.txt.old"
+
+depend() {
+    need localmount
+    want atd
+}
+
+_move_configs_around() {
+    local RC=0
+    reboot_check_after_mins="${reboot_check_after_mins:-2}"
+
+    if [ ! -f "${CONFIG_PATHNAME}" ]; then
+	touch "${CONFIG_PATHNAME}"
+    fi
+    # if there's an old reject lying around, delete it
+    # that way later apps can detect failed TBCs (see
+    # next step)
+    if [ -f "${CONFIG_REJ_PATHNAME}" ]; then
+	rm -f "${CONFIG_REJ_PATHNAME}"
+    fi
+
+    if [ -f "${CONFIG_TBC_PATHNAME}" ]; then
+	# user probably hard-rebooted, with changes unconfirmed
+	mv -f "${CONFIG_TBC_PATHNAME}" "${CONFIG_REJ_PATHNAME}"
+    fi
+
+    if [ -f "${CONFIG_LNG_PATHNAME}" ]; then
+	# user did make changes last session, mark for confirmation
+	# use lng version for next boot, until told otherwise
+	cp -f "${CONFIG_PATHNAME}" "${CONFIG_TBC_PATHNAME}"
+	mv -f "${CONFIG_LNG_PATHNAME}" "${CONFIG_PATHNAME}"
+	ewarn "You just booted under a recently modified /boot/config.txt"
+	ewarn "This has temporarily been moved to /boot/config.txt.tbc"
+	ewarn "and the prior last-known-good config to /boot/config.txt."
+	ewarn "Please confirm what you want to do next,"
+	ewarn "via either the graphical pyconfig_gen tool,"
+	ewarn "or by issuing, as root:"
+	ewarn "  rpi3-keep-config"
+	ewarn "to keep the modified config you just booted under, or"
+	ewarn "  rpi3-revert-config"
+	ewarn "to reboot back into the older version."
+	if ((reboot_check_after_mins != 0)); then
+	    ewarn "NB: your system will *automatically* reboot after"
+	    ewarn "${reboot_check_after_mins} minutes, unless you confirm"
+	    ewarn "your intentions explicitly before that time."
+	    # remember at will execute on the next full minute, so
+	    # a delay of 1 minute might execute in 1s, if
+	    # at run at HH:MM:59
+	    # so, add one on for safety
+	    at -M now + "$((reboot_check_after_mins+1))" minutes <<EOF
+/usr/bin/rpi3-revert-config -n
+EOF
+	fi
+    else
+	einfo "No ${CONFIG_LNG_PATHNAME} detected, continuing."
+    fi
+
+    return 0
+}
+
+
+start() {
+    ebegin "Starting ${SVCNAME}"
+    _move_configs_around
+    eend $?
+}
