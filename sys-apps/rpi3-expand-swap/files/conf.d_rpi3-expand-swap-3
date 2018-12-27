@@ -1,0 +1,27 @@
+# /etc/conf.d/rpi3-expand-swap
+
+# Settings for RPi3's main swap; this is set up as a simple swapfile
+# on the root partition for simplicity, and you can specify the
+# desired characteristics of the this file here.
+
+# Uncomment any of the below if you wish to change them from
+# the default values for the RPi3 (shown)
+
+# Max size of swapfile to allocate, in MiB, even if unlimited storage
+# were to be available
+#
+#MAX_SWAPFILE_MiB=1024
+
+# Minimum size of swapfile to accept - if there is insufficient space
+# an error will be raised instead
+#
+#MIN_SWAPFILE_MiB=512
+
+# Percentage of available space on the root that should be allocated
+# for the swapfile, subject to the above limits
+#
+#SWAPFILE_PCT_AVAIL=50
+
+# Location of the swapfile
+#
+#SWAPFILE="/var/cache/swap/swap1"
