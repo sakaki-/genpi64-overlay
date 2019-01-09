@@ -1,2 +1,5 @@
 # problems with sync verification
 =sys-apps/portage-2.3.28
+# won't run correctly under binfmt_misc QEMU
+~sys-apps/portage-2.3.53
+

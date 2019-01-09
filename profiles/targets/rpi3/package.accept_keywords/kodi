@@ -1,4 +1,4 @@
-=media-tv/kodi-18.0_rc1 * ~*
+=media-tv/kodi-18.0* * ~*
 # requirements of media-tv/kodi
 sys-fs/udisks   * ~*
 dev-libs/crossguid      * ~*
