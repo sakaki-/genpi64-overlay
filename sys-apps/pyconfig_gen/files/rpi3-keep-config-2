@@ -1,0 +1,37 @@
+#!/bin/bash
+#
+# Trivial script to keep the config.txt you booted under. By
+# the time you call this script, the rpi3-config-mv service will
+# already have rotated /boot/config.txt to /boot/config.txt.tbc,
+# and /boot/config.txt.lng to /boot.config.txt.
+# This script commits these changes, by moving
+# /boot/config.txt to /boot/config.txt.old and
+# /boot/config.txt.tbc to /boot/config.txt.
+#
+# Copyright (c) 2018 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+if (( $(id -u) != 0)); then
+	echo "You need to be root to run this script! Quitting." >&2
+	exit 1
+fi
+
+readonly CONFIG_PATHNAME="/boot/config.txt"
+readonly CONFIG_LNG_PATHNAME="/boot/config.txt.lng"
+readonly CONFIG_TBC_PATHNAME="/boot/config.txt.tbc"
+readonly CONFIG_REJ_PATHNAME="/boot/config.txt.rej"
+readonly CONFIG_OLD_PATHNAME="/boot/config.txt.old"
+
+if [ -f "${CONFIG_TBC_PATHNAME}" ]; then
+    cp -fv "${CONFIG_PATHNAME}" "${CONFIG_OLD_PATHNAME}"
+    mv -fv "${CONFIG_TBC_PATHNAME}" "${CONFIG_PATHNAME}"
+fi
+
+echo "Your changes to /boot/config.txt have been kept."
+echo "No automatic reboot will occur."
+if [ -f "${CONFIG_OLD_PATHNAME}" ]; then
+    echo "Your prior config may be found in ${CONFIG_OLD_PATHNAME}."
+fi
+
+exit 0
