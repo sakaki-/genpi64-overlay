@@ -1,0 +1,3 @@
+# pulls in xfce4-panel-4.13, which we don't want atm
+>=xfce-extra/xfce4-alsa-plugin-0.1.2
+
