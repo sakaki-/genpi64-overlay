@@ -38,7 +38,7 @@ python_install_all() {
 	newicon "${S}/pixmaps/gear-3d.png" pyconfig_gen.png
 	make_desktop_entry "sudo pyconfig_gen" "RPi3 Config Tool" /usr/share/pixmaps/pyconfig_gen.png "Settings"
 
-	newinitd "${FILESDIR}/init.d_${SERVICENAME}-2" "${SERVICENAME}"
+	newinitd "${FILESDIR}/init.d_${SERVICENAME}-1" "${SERVICENAME}"
 	newconfd "${FILESDIR}/conf.d_${SERVICENAME}-1" "${SERVICENAME}"
 	newbin "${FILESDIR}/rpi3-revert-config-1" "rpi3-revert-config"
 	newbin "${FILESDIR}/rpi3-keep-config-2" "rpi3-keep-config"
