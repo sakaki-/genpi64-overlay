@@ -1,5 +1,3 @@
 # problems building on arm64 atm (skia etc)
 =www-client/firefox-60.0
-# mask till rest of build catches up
->=www-client/firefox-64.0
 
