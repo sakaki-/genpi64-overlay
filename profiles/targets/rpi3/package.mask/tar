@@ -1,2 +1,2 @@
 # compilation issues under aarch64 / gcc-8.2.0
-app-arch/tar-1.31
+>app-arch/tar-1.31
