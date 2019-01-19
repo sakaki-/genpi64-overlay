@@ -54,4 +54,4 @@ MAKEOPTS="-j2 -l1"
 EMERGE_DEFAULT_OPTS="--jobs=2 --load-average=1"
 
 # use modern PHP for module build
-PHP_TARGETS="-* php7-3"
+PHP_TARGETS="-* php7-2"
