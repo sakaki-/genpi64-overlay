@@ -52,3 +52,6 @@ PYTHON_TARGETS="python2_7 python3_5 python3_6"
 # override locally if desired
 MAKEOPTS="-j2 -l1"
 EMERGE_DEFAULT_OPTS="--jobs=2 --load-average=1"
+
+# use modern PHP for module build
+PHP_TARGETS="php7-3"
