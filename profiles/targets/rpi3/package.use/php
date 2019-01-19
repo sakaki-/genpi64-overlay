@@ -1,0 +1,2 @@
+# build some generally useful options for php
+>=dev-lang/php-7.3 bcmath curl sockets threads zip
