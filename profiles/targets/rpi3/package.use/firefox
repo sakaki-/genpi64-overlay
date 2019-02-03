@@ -11,3 +11,6 @@ www-client/firefox -gmp-autoupdate
 dev-lang/python:2.7 sqlite
 media-libs/harfbuzz icu
 media-libs/libvpx postproc
+# required by >=www-client/firefox-65
+dev-db/sqlite secure-delete
+
