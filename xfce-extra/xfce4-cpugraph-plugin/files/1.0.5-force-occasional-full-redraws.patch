@@ -1,0 +1,20 @@
+--- a/panel-plugin/cpu.c
++++ b/panel-plugin/cpu.c
+@@ -377,7 +377,15 @@
+ 
+ static void draw_area_cb( GtkWidget * da, GdkEventExpose * event, gpointer data )
+ {
+-	draw_graph( (CPUGraph *) data );
++	int c = 0;
++	if (c++ < 10) {
++		draw_graph( (CPUGraph *) data );
++	}
++	else {
++		/* force periodic complete redraw */
++		c = 0;
++		gtk_widget_queue_draw(da);
++	}
+ }
+ 
+ static void draw_graph( CPUGraph * base )
+
