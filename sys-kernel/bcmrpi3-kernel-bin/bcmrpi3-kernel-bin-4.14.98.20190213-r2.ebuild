@@ -20,7 +20,7 @@ RESTRICT="mirror"
 DEPEND="
 	!sys-kernel/bcmrpi3-kernel-bis-bin"
 RDEPEND="
-	with-matching-boot-fw? ( ~sys-boot/rpi3-64bit-firmware-1.20181112[pitop(-)?] )
+	with-matching-boot-fw? ( ~sys-boot/rpi3-64bit-firmware-1.20181112[pitop(-)?,-dtbo(+)] )
 	${DEPEND}"
 
 QA_PREBUILT="*"
@@ -54,9 +54,6 @@ src_install() {
 	RELEASE_NAME=$(head -n1 <(ls -t1d "${S}/lib/modules"/*))
 	RELEASE_NAME="${RELEASE_NAME##*/}"
 	echo "${PF}" > "${D%/}/lib/modules/${RELEASE_NAME}/owning_binpkg"
-
-	# purge any device tree overlays from image, for now
-	rm -rf "${D%/}/boot/overlays"
 }
 
 pkg_postinst() {

@@ -10,6 +10,7 @@
 	</upstream>
 	<use>
 		<flag name="pitop">Use Pi-Top-specific features (most users will NOT want this).</flag>
+		<flag name="dtbo">Supply device tree blob overlays (/boot/overlays).</flag>
 	</use>
 	<longdescription>
 		Raspberry Pi 3 bootloader and firmware, for 64-bit mode.

@@ -1,10 +1,10 @@
-# Copyright (c) 2017 sakaki <sakaki@deciban.com>
+# Copyright (c) 2018 sakaki <sakaki@deciban.com>
 # License: GPL v3+
 # NO WARRANTY
 
 EAPI=6
 
-DESCRIPTION="Raspberry PI boot loader, firmware, and configs, for 64-bit mode"
+DESCRIPTION="Raspberry PI boot loader and firmware, for 64-bit mode"
 HOMEPAGE="https://github.com/raspberrypi/firmware"
 SRC_URI="https://github.com/raspberrypi/firmware/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
@@ -16,6 +16,7 @@ RESTRICT="mirror binchecks strip"
 
 DEPEND=""
 RDEPEND="
+	>=sys-boot/rpi3-boot-config-1.0.0[pitop(-)?]
 	!sys-boot/raspberrypi-firmware
 	${DEPEND}"
 
@@ -38,24 +39,8 @@ src_install() {
 	doins *.bin
 	doins *.dat
 	doins *.broadcom
-	# 'starter' versions of these files, will be CONFIG_PROTECTed
-	if use pitop; then
-		newins "${FILESDIR}/config.pitop.txt-2" config.txt
-	else
-		newins "${FILESDIR}/config.txt-2" config.txt
-	fi
-	newins "${FILESDIR}/cmdline.txt-2" cmdline.txt
-	newenvd "${FILESDIR}"/config_protect-1 99${PN}
+	# assume /boot/cmdline.txt and /boot/config.txt now
+	# provided by rpi3-boot-config package;
 	# assume kernel and dtbs are provided separately
 	# e.g. by sys-kernel/bcmrpi3-kernel-bin package
-}
-
-pkg_postinst() {
-	if [[ -z ${REPLACING_VERSIONS} ]]; then
-		elog "Starter versions of /boot/config.txt and /boot/cmdline.txt"
-		elog "have been installed. Modify them as required."
-		elog "See e.g.:"
-		elog "  https://www.raspberrypi.org/documentation/configuration/cmdline-txt.md"
-		elog "  https://www.raspberrypi.org/documentation/configuration/config-txt/README.md"
-	fi
 }

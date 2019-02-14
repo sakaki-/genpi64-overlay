@@ -11,7 +11,7 @@ SRC_URI="https://github.com/raspberrypi/firmware/archive/${PV}.tar.gz -> ${P}.ta
 LICENSE="GPL-2 raspberrypi-videocore-bin Broadcom"
 SLOT="0"
 KEYWORDS="~arm64"
-IUSE="pitop"
+IUSE="pitop +dtbo"
 RESTRICT="mirror binchecks strip"
 
 DEPEND=""
@@ -31,7 +31,10 @@ src_install() {
 	cd boot
 	insinto /boot
 	doins *.elf
-	doins -r overlays
+	# allow for the dtbos to be provided by the kernel package
+	if use dtbo; then
+		doins -r overlays
+	fi
 	doins *.bin
 	doins *.dat
 	doins *.broadcom
