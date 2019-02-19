@@ -30,7 +30,9 @@ ACCEPT_KEYWORDS="~arm64"
 # Logs go to /var/log/portage/elog by default - view them with elogviewer.
 
 # Drop root privs when fetching
-FEATURES="userfetch"
+# Allow QEMU-user chroot build with modern Portage
+# See e.g. https://forums.gentoo.org/viewtopic-p-8302518.html#8302518
+FEATURES="userfetch -pid-sandbox"
 
 # This sets the language of build output to English.
 # Please keep this setting intact when reporting bugs.
