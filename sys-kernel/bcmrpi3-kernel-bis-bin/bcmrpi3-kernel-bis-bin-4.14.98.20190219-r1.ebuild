@@ -20,7 +20,7 @@ RESTRICT="mirror"
 DEPEND="
 	!sys-kernel/bcmrpi3-kernel-bin"
 RDEPEND="
-	with-matching-boot-fw? ( ~sys-boot/rpi3-64bit-firmware-1.20181112[pitop(-)?,-dtbo(+)] )
+	with-matching-boot-fw? ( ~sys-boot/rpi3-64bit-firmware-1.20190215[pitop(-)?,-dtbo(+)] )
 	${DEPEND}"
 
 QA_PREBUILT="*"
