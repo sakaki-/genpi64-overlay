@@ -23,7 +23,7 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 	default
-	eapply "${FILESDIR}"/${PV}-force-occasional-full-redraws.patch
+	eapply "${FILESDIR}"/${PV}-force-occasional-full-redraws-1.patch
 }
 
 src_install() {
