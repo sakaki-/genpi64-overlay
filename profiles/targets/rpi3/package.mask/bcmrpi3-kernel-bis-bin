@@ -1,5 +1,6 @@
-# 4.14 is the current default for the official kernel at the time
+# 4.19 is the current default for the official kernel at the time
 # of writing, but we only unmask certain versions (after some basic
 # sanity testing)
 # there are no -bis kernel releases earlier than 4.14
 =sys-kernel/bcmrpi3-kernel-bis-bin-4.14*
+=sys-kernel/bcmrpi3-kernel-bis-bin-4.19*

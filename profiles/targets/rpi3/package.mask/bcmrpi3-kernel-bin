@@ -1,5 +1,5 @@
 # Allow any 4.9 kernel; mask others
-# 4.14 is the current default for the official kernel at the time
+# 4.19 is the current default for the official kernel at the time
 # of writing, but we only unmask certain versions (after some basic
 # sanity testing)
 =sys-kernel/bcmrpi3-kernel-bin-4.10*
@@ -7,3 +7,4 @@
 =sys-kernel/bcmrpi3-kernel-bin-4.12*
 =sys-kernel/bcmrpi3-kernel-bin-4.13*
 =sys-kernel/bcmrpi3-kernel-bin-4.14*
+=sys-kernel/bcmrpi3-kernel-bin-4.19*
