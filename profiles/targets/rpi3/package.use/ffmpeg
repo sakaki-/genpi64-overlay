@@ -1,2 +1,2 @@
 # Add support for v4l2, chromium browser
->=media-video/ffmpeg-4.1.1 v4l chromium
+>=media-video/ffmpeg-4.1.1 v4l chromium libv4l
