@@ -1,0 +1,50 @@
+#!/sbin/openrc-run
+# Copyright (c) 2018 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+description="Turn off display compositing for high RPi3 pixel clock values"
+
+depend() {
+	before xdm
+}
+
+_disable_compositing() {
+	find "/home" -type f -name xfwm4.xml -exec sed -i \
+	's#<property name="use_compositing" type="bool" value="true"/>#<property name="use_compositing" type="bool" value="false"/>#' {} \;
+	# allow user to read message; we'll be close to
+	# graphical boot at this point
+	sleep 5
+}
+_disable_display_compositing_if_necessary() {
+	# we check the pixel clock using vcgencmd, and only turn off
+	# compositing if the frequency is > 121,750,000Hz (this is known
+	# good, and 148.5MHz is known bad)
+	local -i PIXEL_CLOCK
+	local MJR_VER=$(uname -r | cut -d '.' -f1)
+	local MNR_VER=$(uname -r | cut -d '.' -f2)
+	PIXEL_CLOCK="$(vcgencmd measure_clock pixel | cut -d'=' -f2)"
+	if ((PIXEL_CLOCK > 121750000)); then
+		ewarn "Relatively high pixel clock detected, so, for safety,"
+		ewarn "turning Xfce4 compositing off for all users"
+		ewarn "This is to prevent system lockups with apps such as"
+		ewarn "LibreOffice Draw and Impress"
+		ewarn "Compositing must be manually turned on again, if you want it"
+		_disable_compositing
+	elif grep -q "^dtoverlay=vc4-kms-v3d" /boot/config.txt &>/dev/null && \
+		((MJR_VER==4 && MNR_VER==19)); then
+		ewarn "True kms mode used with 4.19 kernel, turning off compositing"
+		ewarn "for all users, to prevent glitchiness"
+		ewarn "Compositing must be manually turned on again, if you want it"
+		_disable_compositing
+	fi
+
+	return 0
+}
+
+start() {
+	ebegin "Starting ${SVCNAME}"
+	_disable_display_compositing_if_necessary
+	eend $?
+}
+
