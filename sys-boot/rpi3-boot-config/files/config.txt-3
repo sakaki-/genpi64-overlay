@@ -11,10 +11,10 @@ disable_overscan=1
 
 # uncomment the following to adjust overscan. Use positive numbers if console
 # goes off screen, and negative if there is too much border
-#overscan_left=16
-#overscan_right=16
-#overscan_top=16
-#overscan_bottom=16
+#overscan_left=24
+#overscan_right=24
+#overscan_top=24
+#overscan_bottom=24
 
 # uncomment to force a console size. By default it will be display's size minus
 # overscan.
@@ -34,13 +34,10 @@ disable_overscan=1
 
 # uncomment to increase signal to HDMI, if you have interference, blanking, or
 # no display
-#config_hdmi_boost=4
+#config_hdmi_boost=5
 
 # uncomment for composite PAL
 #sdtv_mode=2
-
-#uncomment to overclock the arm. 700 MHz is the default.
-#arm_freq=800
 
 # Uncomment some or all of these to enable the optional hardware interfaces
 #dtparam=i2c_arm=on
@@ -50,22 +47,14 @@ disable_overscan=1
 # it uses
 dtparam=spi=on
 
-# Uncomment this to enable the lirc-rpi module
-#dtoverlay=lirc-rpi
-
 # Additional overlays and parameters are documented /boot/overlays/README
 
 # Enable audio (loads snd_bcm2835)
 dtparam=audio=on
-#dtparam=i2c1=on
-#dtparam=i2c1_baudrate=50000
-#dtparam=i2c1_baudrate=50000
 
 # select true kms mode; better performance with >=4.19 kernels
-# see https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README
+# see /boot/overlays/README
 # we use a CMA of 256MB, 256MB-aligned (needs 1GB)
-# per https://github.com/anholt/mesa/issues/56#issuecomment-263341225, no
-# point trying to use >256MB, RPi3's hardware does not support it
 dtoverlay=vc4-kms-v3d,cma-256
 # per https://github.com/anholt/mesa/issues/56#issuecomment-263283300
 # gpu_mem is for closed-source driver only; since we are only using the
