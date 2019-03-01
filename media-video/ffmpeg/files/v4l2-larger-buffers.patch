@@ -1,0 +1,27 @@
+commit 6d23e1aa79337d4f9468b8dadcebab824c01669b
+Author: Dave Stevenson <dave.stevenson@raspberrypi.org>
+Date:   Thu Mar 22 16:02:33 2018 +0000
+
+    v4l2: Allow larger buffers than expected (but trim them down)
+
+diff --git a/libavdevice/v4l2.c b/libavdevice/v4l2.c
+index 1b9c6e7..062ef23 100644
+--- a/libavdevice/v4l2.c
++++ b/libavdevice/v4l2.c
+@@ -537,13 +537,14 @@ static int mmap_read_frame(AVFormatContext *ctx, AVPacket *pkt)
+         if (ctx->video_codec_id == AV_CODEC_ID_CPIA)
+             s->frame_size = buf.bytesused;
+ 
+-        if (s->frame_size > 0 && buf.bytesused != s->frame_size) {
++        if (s->frame_size > 0 && buf.bytesused < s->frame_size) {
+             av_log(ctx, AV_LOG_ERROR,
+                    "Dequeued v4l2 buffer contains %d bytes, but %d were expected. Flags: 0x%08X.\n",
+                    buf.bytesused, s->frame_size, buf.flags);
+             enqueue_buffer(s, &buf);
+             return AVERROR_INVALIDDATA;
+         }
++        buf.bytesused = s->frame_size;
+     }
+ 
+     /* Image is at s->buff_start[buf.index] */
+
