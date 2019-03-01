@@ -31,9 +31,9 @@ src_install() {
 	insinto /boot
 	# 'starter' versions of these files, will be CONFIG_PROTECTed
 	if use pitop; then
-		newins "${FILESDIR}/config.pitop.txt-3" config.txt
+		newins "${FILESDIR}/config.pitop.txt-4" config.txt
 	else
-		newins "${FILESDIR}/config.txt-3" config.txt
+		newins "${FILESDIR}/config.txt-4" config.txt
 	fi
 	newins "${FILESDIR}/cmdline.txt-1" cmdline.txt
 	newenvd "${FILESDIR}"/config_protect-1 99${PN}
