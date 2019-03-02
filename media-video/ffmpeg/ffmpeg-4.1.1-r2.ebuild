@@ -322,7 +322,7 @@ src_prepare() {
 	# per https://www.raspberrypi.org/forums/viewtopic.php?p=1436166#p1436166
 	if use v4l; then
 		PATCHES+=(
-			"${FILESDIR}"/v4l2-larger-buffers.patch
+#			"${FILESDIR}"/v4l2-larger-buffers.patch
 			"${FILESDIR}"/v4l2-nv21-yuv420p-handling.patch
 			"${FILESDIR}"/v4l2-selection-crop.patch
 		)
