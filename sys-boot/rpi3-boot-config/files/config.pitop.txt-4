@@ -61,12 +61,12 @@ dtparam=audio=on
 # see /boot/overlays/README
 # we use a CMA of 256MB, 256MB-aligned (needs 1GB)
 dtoverlay=vc4-fkms-v3d,cma-256
-# per https://github.com/anholt/mesa/issues/56#issuecomment-263283300
-# gpu_mem is for closed-source driver only; since we are only using the
-# open-source driver here, set low
-gpu_mem=16
+# now the camera and v4l2 m2m codecs are usable for 64-bit systems
+# a modest amount of gpu_mem *is* advised; see e.g.
+# https://www.raspberrypi.org/forums/viewtopic.php?p=1436162#p1436162
+gpu_mem=64
 
-# enable camera interfaces (v4l2, including m2m); requires >=4.19 kernel
+# enable camera interfaces (v4l2); requires >=4.19 kernel
 start_x=1
 
 # force 64-bit mode, per https://wiki.gentoo.org/wiki/Raspberry_Pi

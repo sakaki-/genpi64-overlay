@@ -1,4 +1,4 @@
-# Copyright (c) 2017 sakaki <sakaki@deciban.com>
+# Copyright (c) 2017-2019 sakaki <sakaki@deciban.com>
 # License: GPL v3+
 # NO WARRANTY
 
