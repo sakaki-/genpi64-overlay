@@ -27,6 +27,7 @@ RDEPEND="${DEPEND}
 	>=gnome-extra/zenity-3.28.1
 	>=media-libs/raspberrypi-userland-1.20190114
 	>=media-video/ffmpeg-4.1.1-r2[sdl,v4l]
+	>=media-libs/raspberrypi-userland-1.20190114
 "
 
 src_install() {
