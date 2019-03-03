@@ -26,8 +26,8 @@ _disable_display_compositing_if_necessary() {
 	local CFILE="/boot/config.txt"
 	# if a tbc file exists, we booted under that,
 	# so check it instead
-	if [[ -s "/boot/config.tbc" ]]; then
-	    CFILE="/boot/config.tbc"
+	if [[ -s "/boot/config.txt.tbc" ]]; then
+	    CFILE="/boot/config.txt.tbc"
 	fi
 	PIXEL_CLOCK="$(vcgencmd measure_clock pixel | cut -d'=' -f2)"
 	if ((PIXEL_CLOCK > 121750000)); then
