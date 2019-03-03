@@ -56,8 +56,6 @@ dtparam=audio=on
 
 # retain fake kms mode; on the pi-top, true kms does not yet
 # allow speaker module with current (4.19) kernels
-# you may need to switch to 'true' kms to get some other
-# features fully working however
 # see /boot/overlays/README
 # we use a CMA of 256MB, 256MB-aligned (needs 1GB)
 dtoverlay=vc4-fkms-v3d,cma-256

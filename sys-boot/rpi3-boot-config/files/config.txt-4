@@ -55,10 +55,12 @@ dtparam=audio=on
 # uncomment to assume display supports all audio formats
 hdmi_force_edid_audio=1
 
-# select true kms mode; better performance with >=4.19 kernels
+# retain fake kms mode for now, as it plays nicely with
+# window manager compositing; for somewhat better peformance
+# with >=4.19 kernels, consider switching to true kms
 # see /boot/overlays/README
 # we use a CMA of 256MB, 256MB-aligned (needs 1GB)
-dtoverlay=vc4-kms-v3d,cma-256
+dtoverlay=vc4-fkms-v3d,cma-256
 # now the camera and v4l2 m2m codecs are usable for 64-bit systems
 # a modest amount of gpu_mem *is* advised; see e.g.
 # https://www.raspberrypi.org/forums/viewtopic.php?p=1436162#p1436162
