@@ -64,7 +64,7 @@ dtoverlay=vc4-fkms-v3d,cma-256
 # now the camera and v4l2 m2m codecs are usable for 64-bit systems
 # a modest amount of gpu_mem *is* advised; see e.g.
 # https://www.raspberrypi.org/forums/viewtopic.php?p=1436162#p1436162
-gpu_mem=64
+gpu_mem=128
 
 # enable camera interfaces (v4l2); requires >=4.19 kernel
 start_x=1
