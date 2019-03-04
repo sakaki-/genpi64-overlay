@@ -53,7 +53,7 @@ dtparam=spi=on
 dtparam=audio=on
 
 # uncomment to assume display supports all audio formats
-hdmi_force_edid_audio=1
+#hdmi_force_edid_audio=1
 
 # retain fake kms mode for now, as it plays nicely with
 # window manager compositing; for somewhat better peformance
