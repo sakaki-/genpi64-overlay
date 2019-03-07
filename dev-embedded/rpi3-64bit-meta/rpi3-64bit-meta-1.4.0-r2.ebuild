@@ -223,7 +223,7 @@ RDEPEND="
 		>=net-irc/hexchat-2.14.2
 		>=sys-apps/gnome-disk-utility-3.30.2
 		>=sys-devel/portage-distccmon-gui-1.0
-		>=www-client/chromium-72.0.3626.96-r1
+		>=www-client/chromium-72.0.3626.28-r2
 		>=www-client/firefox-65.0.1
 		>=www-client/links-2.18
 		dev-java/icedtea:8
