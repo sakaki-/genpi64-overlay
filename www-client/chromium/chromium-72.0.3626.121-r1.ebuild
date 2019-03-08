@@ -42,7 +42,7 @@ COMMON_DEPEND="
 	media-libs/libjpeg-turbo:=
 	media-libs/libpng:=
 	system-libvpx? ( media-libs/libvpx:=[postproc,svc] )
-	>=media-libs/openh264-1.6.0:=
+	openh264? ( >=media-libs/openh264-1.6.0:= )
 	pulseaudio? ( media-sound/pulseaudio:= )
 	system-ffmpeg? (
 		>=media-video/ffmpeg-4:=
@@ -447,12 +447,14 @@ src_configure() {
 		libwebp
 		libxml
 		libxslt
-		openh264
 		re2
 		snappy
 		yasm
 		zlib
 	)
+	if use openh264; then
+		gn_system_libraries+=( openh264 )
+	fi
 	if use system-ffmpeg; then
 		gn_system_libraries+=( ffmpeg opus )
 	fi
