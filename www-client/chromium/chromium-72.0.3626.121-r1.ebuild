@@ -182,6 +182,8 @@ src_prepare() {
 	# Calling this here supports resumption via FEATURES=keepwork
 	python_setup
 
+	use arm64 && PATCHES+=( "${FILESDIR}/chromium-72-skia-aarch64.patch" )
+
 	default
 
 	pushd third_party/webrtc >/dev/null || die
