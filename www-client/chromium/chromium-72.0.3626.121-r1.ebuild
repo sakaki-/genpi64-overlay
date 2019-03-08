@@ -477,6 +477,7 @@ src_configure() {
 	myconf_gn+=" use_gnome_keyring=$(usex gnome-keyring true false)"
 	myconf_gn+=" use_kerberos=$(usex kerberos true false)"
 	myconf_gn+=" use_pulseaudio=$(usex pulseaudio true false)"
+	myconf_gn+=" use_openh264=$(usex openh264 true false)"
 
 	# TODO: link_pulseaudio=true for GN.
 
