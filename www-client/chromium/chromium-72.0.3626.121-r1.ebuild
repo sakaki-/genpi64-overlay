@@ -183,6 +183,7 @@ src_prepare() {
 	python_setup
 
 	use arm64 && PATCHES+=( "${FILESDIR}/chromium-72-skia-aarch64.patch" )
+	use arm64 && PATCHES+=( "${FILESDIR}/chromium-crashpad.patch" )
 
 	default
 
