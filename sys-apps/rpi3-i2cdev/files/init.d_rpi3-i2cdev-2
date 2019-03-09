@@ -8,14 +8,19 @@ description="Ensures I2C device kernel module loaded on RPi3, if requested"
 depend() {
 	need localmount
 	after modules
+	after rpi3-config-mv
 }
 
 start() {
 	local RC=0
 	ebegin "Starting ${SVCNAME}"
-	if grep "${ROOT%/}/boot" /proc/mounts &>/dev/null && \
-		[ -s "/boot/config.txt" ] && \
-		! grep -q "^\s*dtparam=i2c_arm=on" /boot/config.txt &>/dev/null; then
+	local CFILE="/boot/config.txt"
+	# if a tbc file exists, we booted under that,
+	# so check it instead
+	if [[ -s "/boot/config.txt.tbc" ]]; then
+		CFILE="/boot/config.txt.tbc"
+	fi
+	if ! grep -q "^\s*dtparam=i2c_arm=on" "${CFILE}" &>/dev/null; then
 		einfo "I2C not enabled in /boot/config.txt, skipping"
 		# do not treat this as an error, and don't modprobe
 		eend $RC
