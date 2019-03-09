@@ -26,11 +26,11 @@ RDEPEND="${DEPEND}"
 src_install() {
 	insinto "/lib/udev/rules.d"
 	doins "${FILESDIR}/60-i2c-wheel-group-access.rules"
-	newinitd "${FILESDIR}/init.d_${PN}-2" "${PN}"
+	newinitd "${FILESDIR}/init.d_${PN}-3" "${PN}"
 }
 
 pkg_postinst() {
-	if [[ -z ${REPLACING_VERSIONS} ]] || [[ ${REPLACING_VERSIONS} < 1.0.1 ]]; then
+	if [[ -z ${REPLACING_VERSIONS} ]] ; then
 		if ! grep -q "^\s*${PN}\s" <(rc-update show boot) &>/dev/null; then
 			rc-update add "${PN}" boot
 			elog "The ${PN} service has been added to your boot runlevel."
