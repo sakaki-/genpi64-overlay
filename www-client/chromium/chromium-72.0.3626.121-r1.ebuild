@@ -109,7 +109,7 @@ BDEPEND="
 	virtual/pkgconfig
 "
 
-: ${CHROMIUM_FORCE_CLANG=no}
+: ${CHROMIUM_FORCE_CLANG=yes}
 
 if [[ ${CHROMIUM_FORCE_CLANG} == yes ]]; then
 	BDEPEND+=" >=sys-devel/clang-5"
