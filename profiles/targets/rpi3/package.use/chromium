@@ -1,9 +1,10 @@
 # build bindist-friendly variant, with no system openh264, and no
 # proprietary codecs (disables bundled h264 codec, inter alia)
 <www-client/chromium-72.0.3626.121 -proprietary-codecs -openh264
-# allow proprietary codecs when system-ffmpeg used
-# Gentoo has this marked as not violating bindist
->=www-client/chromium-72.0.3626.121 proprietary-codecs -openh264
+>=www-client/chromium-72.0.3626.121 -proprietary-codecs -openh264
+# turn on jumbo builds for efficiency - no one is going to be building
+# this natively on an RPi3 anyhow
+>=www-client/chromium-72.0.3626.121 jumbo-build
 # requirements of www-client/chromium
 dev-libs/libxml2 icu
 net-libs/nodejs inspector icu
