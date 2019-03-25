@@ -1,0 +1,49 @@
+Author: jbeich <jbeich@FreeBSD.org>
+Date: Wed Mar 20 00:19:00 2019
+New Revision: 496299
+URL: https://svnweb.freebsd.org/changeset/ports/496299
+
+Log:
+  www/firefox: unbreak on aarch64 after r495403
+  
+  media/libopus/silk/arm/arm_silk_map.c:31:10: fatal error: 'main_FIX.h' file not found
+   #include "main_FIX.h"
+            ^~~~~~~~~~~~
+  
+  Reported by:  pkg-fallout
+
+Added:
+  head/www/firefox/files/patch-bug1530659   (contents, props changed)
+
+Added: head/www/firefox/files/patch-bug1530659
+
+Trivially adapted for use as Gentoo patch by sakaki <sakaki@deciban.com>
+==============================================================================
+--- a/media/libopus/moz.build
++++ b/media/libopus/moz.build
+@@ -63,6 +63,8 @@
+     'celt',
+     'include',
+     'silk',
++    'silk/fixed',
++    'silk/float',
+     'src',
+ ]
+ 
+@@ -76,15 +78,9 @@
+ SOURCES += opus_nonunified_sources
+ 
+ if CONFIG['MOZ_SAMPLE_TYPE_FLOAT32']:
+-    LOCAL_INCLUDES += [
+-        'silk/float',
+-    ]
+     UNIFIED_SOURCES += silk_sources_float
+     UNIFIED_SOURCES += opus_sources_float
+ else:
+-    LOCAL_INCLUDES += [
+-        'silk/fixed',
+-    ]
+     UNIFIED_SOURCES += silk_sources_fixed
+ 
+ if CONFIG['CPU_ARCH'] in ('x86', 'x86_64'):
+
