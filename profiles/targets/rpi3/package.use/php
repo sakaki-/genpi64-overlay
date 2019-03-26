@@ -1,3 +1,4 @@
 # build some generally useful options for php
 >=dev-lang/php-7.2 bcmath curl sockets threads zip
 >=dev-lang/php-7.2.16 sqlite
+>=dev-lang/php-7.2.16 mysqli
