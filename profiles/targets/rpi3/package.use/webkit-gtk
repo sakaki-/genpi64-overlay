@@ -1,0 +1,2 @@
+# can't have both, so choose more general opengl USE
+net-libs/webkit-gtk opengl -gles2
