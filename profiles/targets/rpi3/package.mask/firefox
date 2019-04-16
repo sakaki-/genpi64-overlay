@@ -1,2 +1,4 @@
 # problems building on arm64 atm (skia etc)
 =www-client/firefox-60.0
+# hold pending testing
+>www-client/firefox-66.0.1-r1
