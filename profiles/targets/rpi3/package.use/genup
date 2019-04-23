@@ -1,0 +1,2 @@
+# ensure the (often) more efficient @world updater emtee is used
+>=app-portage/genup-1.0.20 emtee
