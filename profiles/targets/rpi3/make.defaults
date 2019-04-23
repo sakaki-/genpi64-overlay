@@ -52,8 +52,8 @@ PYTHON_TARGETS="python2_7 python3_5 python3_6"
 
 # conservative build parallelism, to avoid hitting swap
 # override locally if desired
-MAKEOPTS="-j2 -l1"
-EMERGE_DEFAULT_OPTS="--jobs=2 --load-average=1"
+MAKEOPTS="-j1 -l1"
+EMERGE_DEFAULT_OPTS="--jobs=1 --load-average=1"
 
 # use modern PHP for module build
 PHP_TARGETS="-* php7-2"
