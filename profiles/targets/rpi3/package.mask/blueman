@@ -1,5 +1,3 @@
 # misc. freezes, handshake failures etc.
-=net-wireless/blueman-2.1_alpha2
 # issues pairing with some BT keyboards
-=net-wireless/blueman-2.1_alpha3
-
+>=net-wireless/blueman-2.0.5
