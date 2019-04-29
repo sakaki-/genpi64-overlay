@@ -1,3 +1,6 @@
 # not required; prevent any systems building locally
 # until upgrade to slot 7 completed
 =sys-devel/llvm-6.0.1-r2
+# temporary hold (slot conflict)
+sys-devel/llvm:7/7.1
+
