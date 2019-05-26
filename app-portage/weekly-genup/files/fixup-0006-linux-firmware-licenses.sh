@@ -14,6 +14,6 @@ echo "Ensuring linux-firmware allowed licenses are up-to-date"
 
 if [[ -s "${LF}" ]]; then
     if ! grep -q "linux-fw-redistributable" 2>/dev/null "${LF}"; then
-        sed -e 's/^sys-kernel/linux-firmware freedist/sys-kernel/linux-firmware freedist linux-fw-redistributable/' "${LF}"
+        sed -i 's#^sys-kernel/linux-firmware freedist#sys-kernel/linux-firmware freedist linux-fw-redistributable#' "${LF}"
     fi
 fi
