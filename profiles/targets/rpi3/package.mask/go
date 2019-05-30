@@ -1,4 +1,2 @@
 # temporary hold (stability)
 dev-lang/go:0/1.12.4
-# temporary hold (build process)
->dev-lang/go-1.12.3
