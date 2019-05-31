@@ -5,7 +5,8 @@ www-client/firefox -gmp-autoupdate
 # (doesn't currently work for 62.0.3)
 # turn link-time optimization (lto) on for better performance
 =www-client/firefox-62.0.2 clang eme-free hwaccel lto
->=www-client/firefox-62.0.3 eme-free hwaccel lto
+<www-client/firefox-67.0 eme-free
+>=www-client/firefox-62.0.3 hwaccel lto
 
 # requirements of firefox
 dev-lang/python:2.7 sqlite
