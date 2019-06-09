@@ -155,6 +155,7 @@ PATCHES=(
 	"${DISTDIR}"/chromium-74-2f28731.patch
 	"${FILESDIR}"/chromium-74-7685422.patch
 	"${FILESDIR}"/quiche-00f47df.patch
+	"${FILESDIR}"/chromium-non-const-deltas.patch
 )
 
 pre_build_checks() {
