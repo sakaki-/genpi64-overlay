@@ -1,2 +1,5 @@
-# only allow bindist friendly versions from rpi3 overlay
-net-libs/nodejs::gentoo
+# prevent upgrade dragging in -bindist openssl, for now
+>=net-libs/nodejs-10
+
+# dependencies of nodejs
+=net-libs/nghttp2-1.35.0
