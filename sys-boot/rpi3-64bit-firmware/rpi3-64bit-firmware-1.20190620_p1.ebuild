@@ -6,7 +6,9 @@ EAPI=6
 
 DESCRIPTION="Raspberry PI boot loader and firmware, for 64-bit mode"
 HOMEPAGE="https://github.com/raspberrypi/firmware"
-SRC_URI="https://github.com/raspberrypi/firmware/archive/${PV}.tar.gz -> ${P}.tar.gz"
+UPSTREAM_PV="${PV/_p/+}"
+DOWNLOAD_PV="${PV/_p/-}"
+SRC_URI="https://github.com/raspberrypi/firmware/archive/${UPSTREAM_PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2 raspberrypi-videocore-bin Broadcom"
 SLOT="0"
@@ -20,7 +22,7 @@ RDEPEND="
 	!sys-boot/raspberrypi-firmware
 	${DEPEND}"
 
-S="${WORKDIR}/firmware-${PV}"
+S="${WORKDIR}/firmware-${DOWNLOAD_PV}"
 
 pkg_preinst() {
 	if ! grep "${ROOT%/}/boot" /proc/mounts >/dev/null 2>&1; then
