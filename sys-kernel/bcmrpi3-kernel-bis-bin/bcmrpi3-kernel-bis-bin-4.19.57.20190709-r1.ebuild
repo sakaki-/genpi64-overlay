@@ -47,6 +47,8 @@ src_install() {
 	# just copy tarball contents into temporary install root
 	insinto /boot
 	doins -r "${S%/}/boot"/*
+	# remove the pi4 dtb, if we installed it
+	rm -f "${D%/}/boot/bcm2711-rpi-4-b.dtb"
 	insinto /lib/modules
 	doins -r "${S%/}/lib/modules"/*
 
