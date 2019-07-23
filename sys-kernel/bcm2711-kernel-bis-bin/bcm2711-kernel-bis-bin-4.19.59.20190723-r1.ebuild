@@ -24,6 +24,10 @@ DEPEND="
 RDEPEND="
 	with-matching-boot-fw? ( ~sys-boot/rpi3-64bit-firmware-1.20190718[pitop(-)?,-dtbo(+)] )
 	pi3multiboot? ( ~sys-kernel/bcmrpi3-kernel-bis-bin-${PV}[checkboot=,with-matching-boot-fw=,pitop=] )
+	!pi3multiboot? (
+		!sys-kernel/bcmrpi3-kernel-bin
+		!sys-kernel/bcmrpi3-kernel-bis-bin
+	)
 	${DEPEND}"
 
 QA_PREBUILT="*"
