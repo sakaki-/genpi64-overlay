@@ -52,8 +52,10 @@ src_install() {
 	doins -r "${S%/}/boot"/*
 	# only copy overlays/ directory if not multibooting with a pi3 kernel
 	# (it owns them if this flag is set)
+	# also, don't duplicate COPYING.linux in this case
 	if use pi3multiboot; then
 		rm -rf "${D%/}/boot/overlays"
+		rm -f "${D%/}/boot/COPYING.linux"
 	fi
 	insinto /lib/modules
 	doins -r "${S%/}/lib/modules"/*
