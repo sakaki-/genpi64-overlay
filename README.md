@@ -1,9 +1,9 @@
 # genpi64-overlay
 Gentoo overlay (ebuild repository) for the Raspberry Pi 3 Model B and B+, and Raspberry Pi 4 Model B. Used by my bootable [`gentoo-on-rpi3-64bit`](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image.
 
-> NB: this repository has been renamed, from `rpi3-overlay` to `genpi64-overlay`, to reflect its applicability to the new Pi4.
-
 <img src="https://raw.githubusercontent.com/sakaki-/resources/master/raspberrypi/pi3/Raspberry_Pi_3_B_and_B_plus.jpg" alt="Raspberry Pi 3 B" width="250px" align="right"/>
+
+> NB: this repository has been renamed, from `rpi3-overlay` to `genpi64-overlay`, to reflect its applicability to the new Pi4.
 
 ## List of ebuilds
 
@@ -158,114 +158,4 @@ The overlay provides the following ebuilds:
 * **net-libs/nodejs** [upstream](https://nodejs.org/)
   * Provides `nodejs-9.11.2-r2`, a version that can work under `bindist`, by using the EC-patched `openssl` libraries.
 
-* **net-libs/nghttp2** [upstream](https://nghttp2.org/)
-  * Provides `ngtttp2-1.34.0-r2`, a version that can work under `bindist`, by using the EC-patched `openssl` libraries.
-
-* **media-video/ffmpeg** [upstream](https://ffmpeg.org)
-  * Provides `ffmpeg-4.1.1-r2.ebuild`; a version patched to work correctly with the RPi3's hardware video codecs and (optional) camera module.
-
-* **media-video/pi-ffplay**
-  * Provides a trivial video player app (based on `ffplay`) that uses the RPi3's hardware video codecs where possible.
-
-* **media-video/pi-ffcam**
-  * Provides a trivial live view app for the RPi3's (optional) camera module.
-
-* **xfce-extra/xfce4-cpugraph-plugin** [upstream](https://goodies.xfce.org/projects/panel-plugins/xfce4-cpugraph-plugin)
-  * Provides a version of this plugin that periodically completely redraws, as the original is subject to occasional display corruption.
-
-## Other ebuilds
-
-* **dev-lang/rust** [upstream](http://www.rust-lang.org/)
-  * Provides `rust-1.19.0-r1.ebuild`; adapted from the Gentoo tree version to build under `arm64`; build system also respects the `nativeonly` USE flag and user `MAKEOPTS` for efficiency (thanks to [NeddySeagoon](https://github.com/sakaki-/rpi3-overlay/commit/3abb46bcff04d9b66c8b3c50d309f199606ac0fa##commitcomment-23709642)). The system-programming language `dev-lang/rust` is a hard dependency for `www-client/firefox` versions 55 and above (as is `sys-devel/cargo`). Also provides `rust-1.29.2.ebuild`. However, as the (more modern) main Gentoo tree version now also builds, these are no longer necessary.
-
-* **virtual/rust** [upstream](http://www.rust-lang.org/)
-  * Provides `rust-1.31.1-r1.ebuild`; adapted from the Gentoo tree version to fix a missing symlink that occurred during the transition to rust 'owning' the installation of `cargo`. As the transition has now happened (and more modern versions are in the Gentoo tree), this is no longer necessary.
-
-* **dev-util/cargo** [upstream](http://crates.io)
-  * Provides `cargo-0.20.0.ebuild`, adapted from the Gentoo tree version to build under `arm64`. `dev-util/cargo` is the package manager for `dev-lang/rust`. However, as `rust` has now taken over installation responsibility for `cargo`, this is no longer necessary.
-
-* **x11-base/xorg-server** [upstream](https://www.x.org/wiki/)
-  * Provides `xorg-server-1.19.6-r1.ebuild`; this has been removed from the main Gentoo tree. However, as the (more modern) main Gentoo tree version now also builds, this is no longer necessary.
-
-* **app-office/libreoffice** [upstream](https://www.libreoffice.org)
-  * Provides `libreoffice-5.4.4.2-r1.ebuild`, patched for [bug 641812](https://bugs.gentoo.org/641812). However, as the (more modern) main Gentoo tree version now also builds, this is no longer necessary.
-
-* **dev-python/pyopenssl** [upstream](https://pypi.org/project/pyOpenSSL/)
-  * Provides `pyopenssl-17.0.0`; this has been removed from the main Gentoo tree. However, now the ec workarounds for `dev-libs/openssl` are in use (making it `bindist` compatible), this legacy version is no longer required.
-
-* **dev-libs/openssl** [upstream](https://www.openssl.org/)
-  * Provides `openssl-1.0.2o-r6.ebuild`; with ec workaround patch for `bindist`. However, now the version in the main Gentoo tree also has this patch, this version is no longer required.
-
-* **net-fs/nfs-utils** [upstream](http://linux-nfs.org/)
-  * Provides `nfs-utils-2.1.1-r2.ebuild`; this has been removed from the main Gentoo tree. However, as the (more modern) main Gentoo tree version is now also usable, this is no longer necessary.
-
-* **net-p2p/cpuminer-multi** [upstream](https://github.com/tpruvot/cpuminer-multi)
-  * Provides `cpuminer-multi-1.3.3.ebuild`; a multi-threaded cryptocurrency CPU miner that builds on arm64. Not currently included on the image by default.
-
-* **net-misc/m-minerd** [upstream](https://github.com/magi-project/m-cpuminer-v2)
-  * Provides `m-minerd-2.4.ebuild`; a multi-threaded CPU pool miner for M7M/Magi (XMG) that builds on arm64. Not currently included on the image by default.
-
-* **media-tv/kodi** [upstream](https://github.com/xbmc/xbmc)
-  * Provides `kodi-17.4_rc1.ebuild`; adapted from the version in the main Gentoo tree (with `~arm64` keyworded, and the dependency list modified to avoid relying on MS fonts with a non-free licence (the remaining deps and the package itself being FOSS licensed)). As the main tree versions have now also dropped the dep, this is no longer necessary.
-
-* **sys-apps/portage** [upstream](https://wiki.gentoo.org/wiki/Project:Portage)
-  * Provides `portage-2.3.48`; this has been removed from the main Gentoo tree, but is still required to ensure those upgrading the image from a pre-1.3.0 release can do so successfully (with legacy `porthash` authentication); also `portage-2.3.52-r1` (another legacy requirement). The image however currently uses the main tree version (which is more up-to-date).
-
-* **dev-lang/pony** [upstream](https://www.ponylang.io/)
-  * Provides `pony-0.25.0{,-r1}.ebuild`; an open-source, object-oriented, actor-model, programming language. Not currently included on the image by default.
-
-* **net-misc/xrdp** [upstream](https://github.com/neutrinolabs/xrdp)
-  * Provides `xrdp-0.9.8e.ebuild`; an open-source Remote Desktop Protocol server. Not currently included on the image by default.
-
-* **net-misc/xorgxrdp** [upstream](https://github.com/neutrinolabs/xrdp)
-  * Provides `xorgxrdp-0.2.8.ebuild`; Xorg drivers for `xrdp`. Not currently included on the image by default.
-
-* **dev-php/pthreads** [upstream](https://github.com/krakjoe/pthreads)
-  * Provides `pthreads-3.2.0.ebuild`; a threading extension for PHP. Not currently included on the image by default.
-
-## Custom profile
-
-The overlay also provides a custom profile, [`rpi3:default/linux/arm64/17.0/desktop/rpi3`](https://github.com/sakaki-/rpi3-overlay/tree/master/profiles/targets/rpi3), for use on the [`gentoo-on-rpi3-64bit`](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image. For futher details, please see [these notes](https://github.com/sakaki-/gentoo-on-rpi3-64bit#profile).
-
-## Installation
-
-As of version >= 2.2.16 of Portage, **rpi3-overlay** is best installed (on Gentoo) via the [new plug-in sync system](https://wiki.gentoo.org/wiki/Project:Portage/Sync). It will supply a repository named **rpi3**.
-
-The following are short form instructions. If you haven't already installed **git**(1), do so first:
-
-    # emerge --ask --verbose dev-vcs/git 
-
-Next, create a custom `/etc/portage/repos.conf` entry for the **genpi64** overlay, so Portage knows what to do. Make sure that `/etc/portage/repos.conf` exists, and is a directory. Then, fire up your favourite editor:
-
-    # nano -w /etc/portage/repos.conf/genpi64.conf
-
-and put the following text in the file:
-```ini
-[genpi64]
-
-# Overlay for 64-bit Gentoo on the RPi3 and RPi4 SBCs
-# Maintainer: sakaki (sakaki@deciban.com)
-
-location = /usr/local/portage/genpi64
-sync-type = git
-sync-uri = https://github.com/sakaki-/genpi64-overlay.git
-priority = 100
-auto-sync = yes
-```
-
-Then issue:
-
-    # emaint sync --repo genpi64
-
-If you are running on the stable branch by default, allow **~arm64** keyword files from this repository. Make sure that `/etc/portage/package.accept_keywords` exists, and is a directory. Then issue:
-
-    # echo "*/*::genpi64 ~arm64" >> /etc/portage/package.accept_keywords/genpi64-repo
-    
-Now you can install packages from the overlay. For example:
-
-    # emerge --ask --verbose sys-kernel/bcm2711-kernel-bin
-
-## Maintainers
-
-* [sakaki](mailto:sakaki@deciban.com)
-
+* **net-libs/nghttp2
