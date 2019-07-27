@@ -1,5 +1,7 @@
-# rpi3-overlay
-Gentoo overlay (ebuild repository) for the Raspberry Pi 3 Model B and B+. Used by my bootable [`gentoo-on-rpi3-64bit`](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image.
+# genpi64-overlay
+Gentoo overlay (ebuild repository) for the Raspberry Pi 3 Model B and B+, and Raspberry Pi 4 Model B. Used by my bootable [`gentoo-on-rpi3-64bit`](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image.
+
+> NB: this repository has been renamed, from `rpi3-overlay` to `genpi64-overlay`, to reflect its applicability to the new Pi4.
 
 <img src="https://raw.githubusercontent.com/sakaki-/resources/master/raspberrypi/pi3/Raspberry_Pi_3_B_and_B_plus.jpg" alt="Raspberry Pi 3 B" width="250px" align="right"/>
 
@@ -233,35 +235,35 @@ The following are short form instructions. If you haven't already installed **gi
 
     # emerge --ask --verbose dev-vcs/git 
 
-Next, create a custom `/etc/portage/repos.conf` entry for the **rpi3** overlay, so Portage knows what to do. Make sure that `/etc/portage/repos.conf` exists, and is a directory. Then, fire up your favourite editor:
+Next, create a custom `/etc/portage/repos.conf` entry for the **genpi64** overlay, so Portage knows what to do. Make sure that `/etc/portage/repos.conf` exists, and is a directory. Then, fire up your favourite editor:
 
-    # nano -w /etc/portage/repos.conf/rpi3.conf
+    # nano -w /etc/portage/repos.conf/genpi64.conf
 
 and put the following text in the file:
 ```ini
-[rpi3]
+[genpi64]
 
-# Overlay for Gentoo on the RPi3 SBC
+# Overlay for 64-bit Gentoo on the RPi3 and RPi4 SBCs
 # Maintainer: sakaki (sakaki@deciban.com)
 
-location = /usr/local/portage/rpi3
+location = /usr/local/portage/genpi64
 sync-type = git
-sync-uri = https://github.com/sakaki-/rpi3-overlay.git
+sync-uri = https://github.com/sakaki-/genpi64-overlay.git
 priority = 100
 auto-sync = yes
 ```
 
 Then issue:
 
-    # emaint sync --repo rpi3
+    # emaint sync --repo genpi64
 
 If you are running on the stable branch by default, allow **~arm64** keyword files from this repository. Make sure that `/etc/portage/package.accept_keywords` exists, and is a directory. Then issue:
 
-    # echo "*/*::rpi3 ~arm64" >> /etc/portage/package.accept_keywords/rpi3-repo
+    # echo "*/*::genpi64 ~arm64" >> /etc/portage/package.accept_keywords/genpi64-repo
     
 Now you can install packages from the overlay. For example:
 
-    # emerge --ask --verbose sys-kernel/bcmrpi3-kernel-bin
+    # emerge --ask --verbose sys-kernel/bcm2711-kernel-bin
 
 ## Maintainers
 
