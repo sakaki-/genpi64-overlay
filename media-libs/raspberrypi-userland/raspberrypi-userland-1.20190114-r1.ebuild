@@ -54,14 +54,14 @@ src_install() {
 	rm -rf "${D}/usr/include/EGL"
 	rm -rf "${D}/usr/include/KHR"
 
+	# causes problems with fkms etc., so remove
+	rm -fv "${D}/usr/lib/libbcm_host.so"
+
 	# hacky fix for multilib issue
 	mkdir -pv "${D}/usr/lib64"
 	mv "${D}/usr/lib/"*.so "${D}/usr/lib64/"
 
 	# hacky fix for /usr/etc path
 	mv "${D}/usr/etc" "${D}/"
-
-	# causes problems with fkms etc., so remove
-	rm -fv "${D}/usr/lib64/libbcm_host.so"
 }
 
