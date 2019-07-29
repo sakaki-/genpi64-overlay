@@ -62,6 +62,6 @@ src_install() {
 	mv "${D}/usr/etc" "${D}/"
 
 	# causes problems with fkms etc., so remove
-	rm -f "${D}/usr/lib64/libbcm_host.so"
+	rm -fv "${D}/usr/lib64/libbcm_host.so"
 }
 
