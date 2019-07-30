@@ -1,0 +1,11 @@
+--- a/ufraw_exiv2.cc
++++ b/ufraw_exiv2.cc
+@@ -16,6 +16,7 @@
+ 
+ #ifdef HAVE_EXIV2
+ #include <exiv2/exiv2.hpp>
++#include <iostream>
+ #include <sstream>
+ #include <cassert>
+ 
+
