@@ -1,0 +1,3 @@
+# prevent slot conflict
+>=media-libs/libvpx-1.8.0
+

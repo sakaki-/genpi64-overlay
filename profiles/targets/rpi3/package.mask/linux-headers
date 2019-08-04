@@ -1,0 +1,3 @@
+# mask to RPF default branch version, for now
+>=sys-kernel/linux-headers-4.20
+

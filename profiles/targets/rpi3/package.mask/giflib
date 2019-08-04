@@ -1,0 +1,4 @@
+# prevent slot conflict
+=media-libs/giflib-5.2.1
+=media-libs/giflib-5.1.9
+
