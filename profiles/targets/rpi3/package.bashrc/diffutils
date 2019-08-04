@@ -1,0 +1,2 @@
+# problems building when distributed
+sys-apps/diffutils suppress-distcc.conf

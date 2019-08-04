@@ -1,0 +1,2 @@
+# problems building when distributed
+media-libs/libaom suppress-distcc.conf

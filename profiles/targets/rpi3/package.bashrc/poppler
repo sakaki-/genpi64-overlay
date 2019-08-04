@@ -1,0 +1,2 @@
+# compile sometimes fails if distributed
+app-text/poppler suppress-distcc.conf

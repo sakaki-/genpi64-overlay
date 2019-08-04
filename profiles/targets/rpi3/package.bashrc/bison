@@ -1,0 +1,2 @@
+# problems building when distributed
+sys-devel/bison suppress-distcc.conf

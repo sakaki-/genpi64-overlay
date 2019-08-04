@@ -1,0 +1,2 @@
+# problems building when distributed
+net-misc/wget suppress-distcc.conf

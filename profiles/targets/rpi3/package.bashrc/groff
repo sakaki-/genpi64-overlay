@@ -1,0 +1,2 @@
+# problems building when distributed
+sys-apps/groff suppress-distcc.conf
