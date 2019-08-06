@@ -5,11 +5,6 @@
 # hold back too for now
 ~dev-util/cargo-0.28.0
 
-# hold (wasm issues)
->=virtual/rust-1.33.0
->=dev-lang/rust-1.33.0
 # make sure don't end up using rust-bin either
 dev-lang/rust-bin
-# hold matching cargo too
->=virtual/cargo-1.33.0
 
