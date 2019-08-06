@@ -1,6 +1,7 @@
-# Common build settings for Raspberry Pi 3 Model B, in 64-bit mode
+# Common build settings for Raspberry Pi 3 and Pi 4, in 64-bit mode
 
-CFLAGS="-march=armv8-a+crc -mtune=cortex-a53 -O2 -pipe"
+# Target Cortex-A72 (Pi 4 SoC); code will still run on Pi 3 (A53)
+CFLAGS="-march=armv8-a+crc -mtune=cortex-a72 -O2 -pipe"
 CXXFLAGS="${CFLAGS}"
 
 # WARNING: Changing your CHOST is not something that should be done lightly.
@@ -46,10 +47,6 @@ QEMU_USER_TARGETS="aarch64"
 # Override if desired
 L10N="en"
 
-# for upgrade stability only (see news item)
-# will be deleted shortly
-PYTHON_TARGETS="python2_7 python3_5 python3_6"
-
 # conservative build parallelism, to avoid hitting swap
 # override locally if desired
 MAKEOPTS="-j1 -l1"
@@ -57,3 +54,6 @@ EMERGE_DEFAULT_OPTS="--jobs=1 --load-average=1"
 
 # use modern PHP for module build
 PHP_TARGETS="-* php7-2"
+
+# required for modern rust etc.
+LLVM_TARGETS="${LLVM_TARGETS} WebAssembly BPF"
