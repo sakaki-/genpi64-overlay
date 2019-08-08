@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -15,50 +15,49 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
-        !media-libs/raspberrypi-userland-bin"
+		!media-libs/raspberrypi-userland-bin"
 
 EGIT_REPO_URI="https://github.com/raspberrypi/userland"
 # latest commit, as of of ebuild's version (datestamp)
-EGIT_COMMIT="e5803f2c986cbf8c919c60278b3231dcdf4271a6"
+EGIT_COMMIT="2f85f2db007fb7b15ed1b485f42eae4cc6bc2bf4"
 
 #PATCHES=( "${FILESDIR}"/${P}-gentoo.patch )
 
 pkg_setup() {
-        append-ldflags $(no-as-needed)
+		append-ldflags $(no-as-needed)
 }
 
 src_configure() {
-        local mycmakeargs=(
-                -DVMCS_INSTALL_PREFIX="/usr"
-        )
-        if use arm64; then
-                mycmakeargs+=(-DARM64=ON)
-        fi
+		local mycmakeargs=(
+				-DVMCS_INSTALL_PREFIX="/usr"
+		)
+		if use arm64; then
+				mycmakeargs+=(-DARM64=ON)
+		fi
 
-        cmake-utils_src_configure
+		cmake-utils_src_configure
 }
 
 src_install() {
-        cmake-utils_src_install
+		cmake-utils_src_install
 
-        insinto /lib/udev/rules.d
-        doins "${FILESDIR}"/92-local-vchiq-permissions.rules
+		insinto /lib/udev/rules.d
+		doins "${FILESDIR}"/92-local-vchiq-permissions.rules
 
-        dodir /usr/share/doc/${PF}
-        mv "${D}"/usr/src/hello_pi "${D}"/usr/share/doc/${PF}/
-        rmdir "${D}"/usr/src
+		dodir /usr/share/doc/${PF}
+		mv "${D}"/usr/src/hello_pi "${D}"/usr/share/doc/${PF}/
+		rmdir "${D}"/usr/src
 
-        # remove potential collisions
-        rm -rf "${D}/usr/include/GLES"
-        rm -rf "${D}/usr/include/GLES2"
-        rm -rf "${D}/usr/include/EGL"
-        rm -rf "${D}/usr/include/KHR"
+		# remove potential collisions
+		rm -rf "${D}/usr/include/GLES"
+		rm -rf "${D}/usr/include/GLES2"
+		rm -rf "${D}/usr/include/EGL"
+		rm -rf "${D}/usr/include/KHR"
 
-        # hacky fix for multilib issue
-        mkdir -pv "${D}/usr/lib64"
-        mv "${D}/usr/lib/"*.so "${D}/usr/lib64/"
+		# hacky fix for multilib issue
+		mkdir -pv "${D}/usr/lib64"
+		mv "${D}/usr/lib/"*.so "${D}/usr/lib64/"
 
-        # hacky fix for /usr/etc path
-        mv "${D}/usr/etc" "${D}/"
+		# hacky fix for /usr/etc path
+		mv "${D}/usr/etc" "${D}/"
 }
-
