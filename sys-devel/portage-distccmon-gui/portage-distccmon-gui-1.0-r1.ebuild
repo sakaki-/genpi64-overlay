@@ -1,6 +1,5 @@
 # Copyright (c) 2016-7 sakaki <sakaki@deciban.com>
 # Distributed under the terms of the GNU General Public License v2
-# $Header$
 
 EAPI="6"
 
@@ -34,6 +33,11 @@ src_install() {
 }
 
 pkg_postinst() {
+	xdg_desktop_database_update
 	elog "You need to be a member of the portage group to see output as a normal."
 	elog "user."
+}
+
+pkg_postrm() {
+	xdg_desktop_database_update
 }
