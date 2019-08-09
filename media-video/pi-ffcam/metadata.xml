@@ -7,6 +7,6 @@
 </maintainer>
 <longdescription>
 	Simple app to provide a live view of the camera's output
-	on the RPi3.
+	on the RPi3 and RPi4.
 </longdescription>
 </pkgmetadata>
