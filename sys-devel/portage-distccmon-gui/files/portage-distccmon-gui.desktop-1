@@ -1,0 +1,11 @@
+[Desktop Entry]
+Exec=/usr/bin/portage-distccmon-gui.sh
+Name=distcc monitor (Portage)
+GenericName=Distributed Compile Monitor
+Comment=Graphical view of Portage distributed compile tasks
+Icon=distccmon-gnome
+TryExec=/usr/bin/portage-distccmon-gui.sh
+Terminal=false
+Type=Application
+Categories=GNOME;Development;
+StartupNotify=true
