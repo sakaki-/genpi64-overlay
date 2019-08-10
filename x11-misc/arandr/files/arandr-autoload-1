@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# Simple arandr saved settings autoload script.
+#
+# When invoked on login, will check to see if there is exactly one
+# executable ~/.screenlayout/*.sh file, OR if there exists
+# an executable ~/.screenlayout/default.sh file, and if so
+# runs it after a short delay (to set the saved screen layout).
+#
+# Copyright (c) 2019 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+DELAY_SECS=2
+CONF_DIR="${HOME}/.screenlayout"
+DEFAULT_SCRIPT="${CONF_DIR}/default.sh"
+
+if [[ "${XDG_CURRENT_DESKTOP}" != "XFCE" || ! -d "${CONF_DIR}" ]]; then
+	exit 0
+fi
+
+# we always run the ~/.screenlayout/default.sh script, if found
+if [[ -x "${DEFAULT_SCRIPT}" ]]; then
+    sleep ${DELAY_SECS}
+    exec "${DEFAULT_SCRIPT}"
+else
+    NUM_SCRIPTS="$(find "${CONF_DIR}" -mindepth 1 -maxdepth 1 -executable -type f -name '*.sh' | wc -l)"
+    if ((NUM_SCRIPTS==1)); then
+	SCRIPT_NAME="$(find "${CONF_DIR}" -mindepth 1 -maxdepth 1 -executable -type f -name '*.sh')"
+	sleep ${DELAY_SECS}
+	exec "${SCRIPT_NAME}"
+    fi
+fi
+exit 0
