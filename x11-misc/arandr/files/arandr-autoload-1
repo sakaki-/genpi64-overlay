@@ -11,7 +11,7 @@
 # License: GPL v3+
 # NO WARRANTY
 
-DELAY_SECS=2
+DELAY_SECS=0
 CONF_DIR="${HOME}/.screenlayout"
 DEFAULT_SCRIPT="${CONF_DIR}/default.sh"
 
