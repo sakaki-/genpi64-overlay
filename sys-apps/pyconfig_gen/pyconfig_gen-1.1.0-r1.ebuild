@@ -28,6 +28,7 @@ RDEPEND="${DEPEND}
 	dev-python/PyQt5[${PYTHON_USEDEP}]
 	>=media-libs/raspberrypi-userland-1.20190808
 	>=net-wireless/rpi3-wifi-regdom-1.0
+	>=sys-boot/rpi3-64bit-firmware-1.20190718
 	>=sys-process/at-3.1.23
 	>=x11-misc/arandr-0.1.10
 	>=x11-misc/wmctrl-1.07-r2
