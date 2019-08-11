@@ -54,13 +54,15 @@ dtparam=spi=on
 
 # Enable audio (loads snd_bcm2835)
 dtparam=audio=on
-# improve output quality from built-in headphone jack
-audio_pwm_mode=2
+
+# uncomment to assume display supports all audio formats
+#hdmi_force_edid_audio=1
 
 # retain fake kms mode for now, as it plays nicely with
 # window manager compositing and is upstream's choice for
 # Buster; CMA implicitly handled now
 dtoverlay=vc4-fkms-v3d
+
 # now the camera and v4l2 m2m codecs are usable for 64-bit systems
 # a modest amount of gpu_mem *is* advised; see e.g.
 # https://www.raspberrypi.org/forums/viewtopic.php?p=1436162#p1436162
@@ -72,6 +74,11 @@ start_x=1
 # force 64-bit mode, new way
 arm_64bit=1
 
+[pi3]
+# specific configuration for RPi3 models
+# improve output quality from built-in headphone jack
+audio_pwm_mode=2
+
 [pi4]
 # specific configuration for RPi4 models
 max_framebuffers=2
@@ -81,4 +88,8 @@ total_mem=3072
 # differentiate from Pi3 64-bit kernels
 # (kernel8.img, by default)
 kernel=kernel8-p4.img
+# settings for HDMI1 port use a :1 suffix, for example, to force VGA:
+#hdmi_group:1=1
+#hdmi_mode:1=1
+
 [all]
