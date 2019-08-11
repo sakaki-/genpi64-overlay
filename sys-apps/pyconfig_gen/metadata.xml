@@ -7,7 +7,7 @@
 </maintainer>
 <longdescription>
 	Service to enable modifed /boot/config.txt files to be safely
-	tried out on the RPi3, by rotating in the old, last-known-good
+	tried out on the RPi3/4, by rotating in the old, last-known-good
 	version and scheduling an automatic reboot to take place after
 	a few minutes delay. The user can elect to keep the modified
 	config prior to this reboot, by using the pyconfig_gen
