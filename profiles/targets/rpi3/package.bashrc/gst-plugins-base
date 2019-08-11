@@ -1,0 +1,3 @@
+# link fails if distributed
+media-libs/gst-plugins-base suppress-distcc.conf
+
