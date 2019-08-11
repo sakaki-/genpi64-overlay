@@ -40,7 +40,7 @@ python_install_all() {
 	distutils-r1_python_install_all
 
 	newicon "${S}/pixmaps/gear-3d.png" pyconfig_gen.png
-	make_desktop_entry "sudo pyconfig_gen" "RPi3 Config Tool" /usr/share/pixmaps/pyconfig_gen.png "Settings"
+	make_desktop_entry "sudo pyconfig_gen" "RPi Config Tool" /usr/share/pixmaps/pyconfig_gen.png "Settings"
 
 	newinitd "${FILESDIR}/init.d_${SERVICENAME}-1" "${SERVICENAME}"
 	newconfd "${FILESDIR}/conf.d_${SERVICENAME}-1" "${SERVICENAME}"
