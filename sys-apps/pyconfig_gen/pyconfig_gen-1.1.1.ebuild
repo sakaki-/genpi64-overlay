@@ -36,12 +36,6 @@ RDEPEND="${DEPEND}
 
 SERVICENAME="rpi3-config-mv"
 
-python_prepare_all() {
-	# remove junk debug print
-	sed -i 's/print(self.original_uid, self.original_uid)/#print(self.original_uid, self.original_uid)/' "${PN}/main_dialog.py"
-	distutils-r1_python_prepare_all
-}
-
 python_install_all() {
 	distutils-r1_python_install_all
 
