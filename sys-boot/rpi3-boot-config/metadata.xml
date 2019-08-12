@@ -9,6 +9,6 @@
 		<flag name="pitop">Modify installed config.txt for Pi-Top (most users will NOT want this).</flag>
 	</use>
 	<longdescription>
-		Raspberry Pi 3 /boot/{config,cmdline}.txt, for 64-bit mode.
+		RPi3 and RPi4 /boot/{config,cmdline}.txt, for 64-bit mode.
 	</longdescription>
 </pkgmetadata>

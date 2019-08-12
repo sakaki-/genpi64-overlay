@@ -1,0 +1,2 @@
+# turns of 3GiB clamp, so hold until kernel tested
+>=sys-boot/rpi3-boot-config-1.0.6
