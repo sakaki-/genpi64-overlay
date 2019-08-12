@@ -1,3 +1,0 @@
-# ensure this really is masked, as set in make.defaults too
-# (and clashes with opengl for this package)
-net-libs/webkit-gtk gles2
