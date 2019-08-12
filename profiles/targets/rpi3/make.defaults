@@ -60,4 +60,4 @@ EMERGE_DEFAULT_OPTS="--jobs=1 --load-average=1"
 PHP_TARGETS="-* php7-2"
 
 # required for modern rust etc.
-LLVM_TARGETS="${LLVM_TARGETS} WebAssembly BPF"
+LLVM_TARGETS="WebAssembly BPF"
