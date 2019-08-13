@@ -1,3 +1,4 @@
+media-gfx/gimp doc python xpm
 # requirements of media-gfx/gimp
 media-libs/libmypaint gegl
 
