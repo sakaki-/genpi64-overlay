@@ -1,0 +1,3 @@
+# cannot combine with opengl
+dev-games/mygui -ogre
+
