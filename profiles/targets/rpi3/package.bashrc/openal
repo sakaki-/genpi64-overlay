@@ -1,0 +1,3 @@
+# build issues when distributed
+media-libs/openal suppress-distcc.conf
+

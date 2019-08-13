@@ -1,0 +1,3 @@
+# build issues when distributed
+media-gfx/gimp suppress-distcc.conf
+

@@ -1,0 +1,2 @@
+# build issues when distributed
+games-engines/openmw suppress-distcc.conf
