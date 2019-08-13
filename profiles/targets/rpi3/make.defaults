@@ -10,7 +10,7 @@ CHOST="aarch64-unknown-linux-gnu"
 
 # Additional USE flags in addition to those specified by the current profile.
 USE="bindist -mudflap -sanitize"
-USE="${USE} bluetooth egl gles1 gles2 lock thunar qt4 ffmpeg"
+USE="${USE} bluetooth egl gles1 gles2 lock thunar qt4 ffmpeg pulseaudio"
 USE="${USE} -gnome -kde"
 
 # Common directories (NB you may also need to define PORTDIR directly
