@@ -26,7 +26,7 @@ if [[ -s "${OLD_RC}" ]]; then
         -e 's#RPi3 SBC#RPi3 and RPi4 SBCs#g' \
         -e 's#for Gentoo#for 64-bit Gentoo#g' "${NEW_RC}"
     sed -i -e 's#rpi3-overlay#genpi64-overlay#g' "${OLD_REPO}/.git/config"
-    if [[ "${CURR_SYML}" == "OLD_TARGET" ]]; then
+    if [[ "${CURR_SYML}" == "${OLD_TARGET}" ]]; then
         unlink "${PR_SYML}"
         ln -s "${NEW_TARGET}" "${PR_SYML}"
         echo "Profile updated"
