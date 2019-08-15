@@ -14,8 +14,9 @@ OLD_REPO="/usr/local/portage/rpi3"
 NEW_REPO="/usr/local/portage/genpi64"
 PR_SYML="/etc/portage/make.profile"
 OLD_TARGET="/usr/local/portage/rpi3/profiles/default/linux/arm64/17.0/desktop/rpi3"
-NEW_TARGET="/usr/local/portage/rpi3/profiles/default/linux/arm64/17.0/desktop/genpi64"
+NEW_TARGET="/usr/local/portage/genpi64/profiles/default/linux/arm64/17.0/desktop/genpi64"
 echo "Ensuring that rpi3-overlay correctly migrated to genpi64-overlay"
+CURR_SYML="$(readlink --canonicalize "${PR_SYML}")"
 
 if [[ -s "${OLD_RC}" ]]; then
     # update the repos.conf file
@@ -28,7 +29,6 @@ if [[ -s "${OLD_RC}" ]]; then
     mv -fv "${OLD_REPO}" "${NEW_REPO}"
     echo "Setting new origin URL for repo"
     sed -i -e 's#rpi3-overlay#genpi64-overlay#s' "${NEW_REPO}/.git/config"
-    CURR_SYML="$(readlink --canonicalize "${PR_SYML}")"
     if [[ "${CURR_SYML}" == "OLD_TARGET" ]]; then
         unlink "${PR_SYML}"
         ln -s "${NEW_TARGET}" "${PR_SYML}"
