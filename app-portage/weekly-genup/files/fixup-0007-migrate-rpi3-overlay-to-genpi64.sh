@@ -41,5 +41,5 @@ if [[ -s "${OLD_RC}" ]]; then
     find "/var/db/pkg" -mindepth 3 -maxdepth 3 -type f \
          -name repository -exec \
          sed -i -e 's#^rpi3$#genpi64#g' {} +
-    echo "Done!"
+    echo "Done! Run 'eix-sync -0' to update eix cache"
 fi
