@@ -1,4 +1,4 @@
-Title: change of repo name (rpi3-overlay -> genpi64 overlay)
+Title: change of repo name (rpi3 -> genpi64)
 Author: sakaki <sakaki@deciban.com>
 Content-Type: text/plain
 Posted: 2019-08-15
