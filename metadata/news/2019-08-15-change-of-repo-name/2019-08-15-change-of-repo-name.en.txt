@@ -1,0 +1,104 @@
+Title: change of repo name (rpi3-overlay -> genpi64 overlay)
+Author: sakaki <sakaki@deciban.com>
+Content-Type: text/plain
+Posted: 2019-08-15
+Revision: 1
+News-Item-Format: 2.0
+Display-If-Installed: dev-embedded/rpi3-64bit-meta
+Display-If-Installed: dev-embedded/rpi-64bit-meta
+
+Introduction
+------------
+
+In light of the forthcoming Pi4 support, I have decided to rename the
+main ebuild user repository, from rpi3-overlay (repo name "rpi3" [1]) to
+genpi64-overlay (repo name "genpi64"). The custom profile name has also
+been changed (from default/linux/arm64/17.0/desktop/rpi3 to
+default/linux/arm64/17.0/desktop/genpi64).
+
+
+Migration
+---------
+
+Along with the commits migrating the repository name, you will also have
+received a 'fixup' script, which will correct your
+/etc/portage/repos.conf entry, and also change the repo name in entries
+in the /var/db/pkg/... database.
+
+(The GitHub URI for the project has changed, from [2] to [3], but as they
+automatically redirect moved project links, your old URI should still
+refer, while the migration is happening.)
+
+This fixup script will be run automatically, within a week at most, by a
+cron.weekly service already installed on your RPi. However, if you wish
+to correct the repo name immediately (or you have the weekly fixup
+service disabled), then simply issue the following command on your RPi
+(if running as demouser, prefix them with sudo):
+
+pi64 ~ # /etc/cron.weekly/fixup
+
+Results may be viewed in /var/log/latest-fixup-run.log (the relevant
+fixup is number 0007, and lives at [4] pre-migration, and [5]
+post-migration). It does nothing on a system where the name has already
+been migrated.
+
+Once complete, run the follow to update your eix cache:
+
+pi64 ~ # eix-sync -0
+
+(that's a zero).
+
+Then, run the following, to make sure your weekly fixup service can
+still locate files in the moved repo:
+
+pi64 ~ # emerge -vu app-portage/weekly-genup
+
+
+Testing
+-------
+
+Once migration has completed, make sure that:
+
+pi64 ~ # emaint sync --repo genpi64
+
+completes without errors. Also run
+
+pi64 ~ # eselect profile show
+
+and check it returns
+
+  Current /etc/portage/make.profile symlink:
+    genpi64:default/linux/arm64/17.0/desktop/genpi64
+
+If so, congratulations! You have successfully migrated repos.
+
+
+Post-Migration Use
+------------------
+
+Once the migration has taken place, you will need to use:
+
+pi64 ~ # emaint sync --repo genpi64
+
+wherever once you used:
+
+pi64 ~ # emaint sync --repo rpi3
+
+Otherwise, nothing else should change (packages installed from the
+binhost do not need reinstallation, or anything like that).
+
+If you experience any issues with this migration process, please feel
+free to contact me.
+
+Best, sakaki <sakaki@deciban.com>
+
+
+References
+----------
+
+[1] Yes, this wasn't the most future-proof choice of name on my
+part. Apologies ><
+[2] https://github.com/sakaki-/rpi3-overlay
+[3] https://github.com/sakaki-/genpi64-overlay
+[4] /usr/local/portage/rpi3/app-portage/weekly-genup/files/fixup-0007-migrate-rpi3-overlay-to-genpi64.sh
+[5] /usr/local/portage/genpi64/app-portage/weekly-genup/files/fixup-0007-migrate-rpi3-overlay-to-genpi64.sh
