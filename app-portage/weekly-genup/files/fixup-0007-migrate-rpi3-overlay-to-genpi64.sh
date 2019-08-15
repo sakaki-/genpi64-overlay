@@ -25,6 +25,7 @@ if [[ -s "${OLD_RC}" ]]; then
     sed -i -e 's#rpi3#genpi64#g' \
         -e 's#RPi3 SBC#RPi3 and RPi4 SBCs#g' \
         -e 's#for Gentoo#for 64-bit Gentoo#g' "${NEW_RC}"
+    echo "Setting new origin URL for repo"
     sed -i -e 's#rpi3-overlay#genpi64-overlay#g' "${OLD_REPO}/.git/config"
     if [[ "${CURR_SYML}" == "${OLD_TARGET}" ]]; then
         unlink "${PR_SYML}"
@@ -36,5 +37,9 @@ if [[ -s "${OLD_RC}" ]]; then
     fi
     echo "Moving repo itself"
     mv -fv "${OLD_REPO}" "${NEW_REPO}"
-    echo "Setting new origin URL for repo"
+    echo "Fixing up package database"
+    find "/var/db/pkg" -mindepth 3 -maxdepth 3 -type f \
+         -name repository -exec \
+         sed -i -e 's#^rpi3$#genpi64#g' {} +
+    echo "Done!"
 fi
