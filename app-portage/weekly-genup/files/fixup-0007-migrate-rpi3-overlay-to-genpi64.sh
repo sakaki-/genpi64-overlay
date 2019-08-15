@@ -25,15 +25,16 @@ if [[ -s "${OLD_RC}" ]]; then
     sed -i -e 's#rpi3#genpi64#g' \
         -e 's#RPi3 SBC#RPi3 and RPi4 SBCs#g' \
         -e 's#for Gentoo#for 64-bit Gentoo#g' "${NEW_RC}"
-    echo "Moving repo itself"
-    mv -fv "${OLD_REPO}" "${NEW_REPO}"
-    echo "Setting new origin URL for repo"
-    sed -i -e 's#rpi3-overlay#genpi64-overlay#s' "${NEW_REPO}/.git/config"
+    sed -i -e 's#rpi3-overlay#genpi64-overlay#g' "${OLD_REPO}/.git/config"
     if [[ "${CURR_SYML}" == "OLD_TARGET" ]]; then
         unlink "${PR_SYML}"
         ln -s "${NEW_TARGET}" "${PR_SYML}"
         echo "Profile updated"
     else
         echo "Not using 17.0/desktop/rpi3 - profile unchanged"
+        echo "Profile link: ${CURR_SYML}"
     fi
+    echo "Moving repo itself"
+    mv -fv "${OLD_REPO}" "${NEW_REPO}"
+    echo "Setting new origin URL for repo"
 fi
