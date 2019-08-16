@@ -1,2 +1,3 @@
 # allow specific tested 4.19 kernels, for use in the released image
 ~sys-kernel/bcm2711-kernel-bis-bin-4.19.65.20190815
+~sys-kernel/bcm2711-kernel-bis-bin-4.19.66.20190816
