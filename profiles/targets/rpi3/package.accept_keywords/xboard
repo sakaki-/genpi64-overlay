@@ -1,0 +1,4 @@
+games-board/xboard * ~*
+# dependencies of xboard
+games-board/gnuchess-book * ~*
+
