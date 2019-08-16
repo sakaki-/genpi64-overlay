@@ -30,14 +30,14 @@ RDEPEND="
 	kernel-bin? (
 		boot-fw? (
 			|| (
-				>=sys-kernel/bcm2711-kernel-bin-4.19.65.20190815[with-matching-boot-fw(-),pitop(-)?,pi3multiboot]
-				>=sys-kernel/bcm2711-kernel-bis-bin-4.19.65.20190815[with-matching-boot-fw(-),pitop(-)?,pi3multiboot]
+				>=sys-kernel/bcm2711-kernel-bin-4.19.66.20190816[with-matching-boot-fw(-),pitop(-)?,pi3multiboot]
+				>=sys-kernel/bcm2711-kernel-bis-bin-4.19.66.20190816[with-matching-boot-fw(-),pitop(-)?,pi3multiboot]
 			)
 		)
 		!boot-fw? (
 			|| (
-				>=sys-kernel/bcm2711-kernel-bin-4.19.65.20190815[-with-matching-boot-fw(-),pi3multiboot]
-				>=sys-kernel/bcm2711-kernel-bis-bin-4.19.65.20190815[-with-matching-boot-fw(-),pi3multiboot]
+				>=sys-kernel/bcm2711-kernel-bin-4.19.66.20190816[-with-matching-boot-fw(-),pi3multiboot]
+				>=sys-kernel/bcm2711-kernel-bis-bin-4.19.66.20190816[-with-matching-boot-fw(-),pi3multiboot]
 			)
 		)
 	)
@@ -162,8 +162,8 @@ RDEPEND="
 		>=media-libs/mesa-19.1.4-r1
 		>=media-sound/pavucontrol-4.0
 		>=media-tv/v4l-utils-1.16.3-r1
-		>=media-video/pi-ffcam-1.0.2
-		>=media-video/pi-ffplay-1.0.4
+		>=media-video/pi-ffcam-1.0.4
+		>=media-video/pi-ffplay-1.0.6
 		>=net-misc/tigervnc-1.9.0-r1
 		>=net-misc/xorgxrdp-0.2.8
 		>=net-wireless/blueman-2.0.4-r1
