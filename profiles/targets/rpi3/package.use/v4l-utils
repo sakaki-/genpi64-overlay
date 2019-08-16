@@ -1,0 +1,3 @@
+# don't build the GUI apps; don't work that well
+# command-line tools are useful though
+media-tv/v4l-utils -qt5
