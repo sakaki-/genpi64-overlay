@@ -1,0 +1,43 @@
+From d1f3bc81d924d8ff4383f752eedcd094fd3c3949 Mon Sep 17 00:00:00 2001
+From: PB <pjbanasik@gmail.com>
+Date: Fri, 16 Aug 2019 10:26:05 +0200
+Subject: [PATCH] Fix network communication on arm64 - continued
+
+The 55d8b880fca26ccf4b897bca1fe66796b9972345 commit on the original pigpio repo fixed parsing data received from a socket on 64bit systems.
+This one fixes also the response that is being sent back to the socket - 64bit array is translated back to a 32bit array that is passed to the send function.
+---
+ pigpio.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/pigpio.c b/pigpio.c
+index cbe818f..47c5838 100644
+--- a/pigpio.c
++++ b/pigpio.c
+@@ -6953,7 +6953,8 @@ static void *pthSocketThreadHandler(void *fdC)
+ {
+    int sock = *(int*)fdC;
+    uintptr_t p[10];
+-   uint32_t tmp;
++   uint32_t tmp, response[4];
++   int i;
+    int opt;
+    char buf[CMD_MAX_EXTENSION];
+ 
+@@ -7043,7 +7044,16 @@ static void *pthSocketThreadHandler(void *fdC)
+             p[3] = myDoCommand(p, sizeof(buf)-1, buf);
+       }
+ 
+-      if (write(sock, p, 16) == -1) { /* ignore errors */ }
++      if (sizeof(uintptr_t) == 8) // 64-bit system
++      {
++         for (i = 0; i < 4; i++)
++            response[i] = (uint32_t)p[i];
++         if (write(sock, response, 16) == -1) { /* ignore errors */ }
++      }
++      else // 32-bit system
++      {
++         if (write(sock, p, 16) == -1) { /* ignore errors */ }
++      }
+ 
+       switch (p[0])
+       {
