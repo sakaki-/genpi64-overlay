@@ -33,7 +33,7 @@ src_install() {
 	if use pitop; then
 		newins "${FILESDIR}/config.pitop.txt-8" config.txt
 	else
-		newins "${FILESDIR}/config.txt-8" config.txt
+		newins "${FILESDIR}/config.txt-9" config.txt
 	fi
 	newins "${FILESDIR}/cmdline.txt-1" cmdline.txt
 	newenvd "${FILESDIR}"/config_protect-1 99${PN}
