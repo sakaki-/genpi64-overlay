@@ -1,0 +1,1 @@
+sys-cluster/mpich -fortran mpi-threads threads
