@@ -49,7 +49,7 @@ L10N="en en-GB"
 
 # for upgrade stability only (see news item)
 # will be deleted shortly
-PYTHON_TARGETS="python2_7 python3_5 python3_6"
+PYTHON_TARGETS="python2_7 python3_5 python3_6 python3_7"
 
 # conservative build parallelism, to avoid hitting swap
 # override locally if desired
