@@ -1,1 +1,1 @@
-sys-cluster/mpich mpi-threads threads
+sys-cluster/mpich mpi-threads romio threads
