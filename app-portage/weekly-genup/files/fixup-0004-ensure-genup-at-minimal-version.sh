@@ -10,16 +10,20 @@
 # of genup cannot be helped out by this feature, if already in a
 # situation where the @world update will not run.
 #
+# Also, >=app-portage/genup-1.0.24 will not fail even if the initial
+# update of Portage does; which is safer (since if this is failing
+# due to deps, the following @world emerge may fix any soft blocks).
+#
 # Accordingly, this fixup script simply checks if genup is installed
-# and, if so, whether its version is >=1.0.18; if <, it attempts to
+# and, if so, whether its version is >=1.0.24; if <, it attempts to
 # update it (the cost of doing so is small, since genup, being a
 # script, requires no compilation etc.)
 #
-# Copyright (c) 2018 sakaki <sakaki@deciban.com>
+# Copyright (c) 2018-19 sakaki <sakaki@deciban.com>
 # License: GPL v3+
 # NO WARRANTY
 
-MIN_GENUP_VERSION="1.0.18"
+MIN_GENUP_VERSION="1.0.24"
 GENUP="/usr/sbin/genup"
 GENUP_PKG="app-portage/genup"
 
