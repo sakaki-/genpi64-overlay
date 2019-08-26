@@ -1,0 +1,2 @@
+# use -O3 as debian does
+dev-lang/python build-opt.conf
