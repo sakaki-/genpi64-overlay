@@ -1,0 +1,3 @@
+games-emulation/dolphin portaudio
+# requirements of games-emulation/dolphin:
+media-libs/libsdl2 haptic
