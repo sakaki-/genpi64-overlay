@@ -1,0 +1,2 @@
+# use profile-guided optimization where available
+dev-lang/python pgo
