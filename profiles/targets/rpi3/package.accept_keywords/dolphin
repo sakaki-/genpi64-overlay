@@ -1,0 +1,4 @@
+games-emulation/dolphin * ~*
+# dependencies of dolphin
+media-libs/libsfml * ~*
+net-libs/enet * ~*
