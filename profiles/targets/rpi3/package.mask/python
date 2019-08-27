@@ -1,0 +1,2 @@
+# ensure installed from overlay (-O3 optimized, pgo version)
+>dev-lang/python-3.7.4-r2
