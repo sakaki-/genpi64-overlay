@@ -1,0 +1,6 @@
+# attempt to workaround glitchy audio playback on RPi4
+# (turns on tsched=0 param to module-udev-detect in
+# /etc/pulse/default.pa)
+# see e.g.
+# https://forum.manjaro.org/t/manjaro-arm-19-08-released/99031/72
+>=media-sound/pulseaudio-12.2-r3 rpi-deglitch
