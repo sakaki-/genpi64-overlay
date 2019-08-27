@@ -109,6 +109,7 @@ RDEPEND="
 		>=sys-fs/fuse-2.9.9-r1
 		>=sys-fs/multipath-tools-0.8.2
 		>=sys-process/cronie-1.5.4
+		dev-lang/python:3.7[pgo(-)]
 	)
 	core? (
 		>=app-arch/lzop-1.04
