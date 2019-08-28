@@ -22,7 +22,7 @@ REQUIRED_USE="
 S="${WORKDIR}"
 
 DEPEND="
-	>=sys-apps/openrc-0.40
+	>=sys-apps/openrc-0.42.1-r1[swclock-fix(-)]
 	>=app-shells/bash-5.0"
 # pi3multiboot flag pulls in matching bcmrpi3-kernel{,-bis}-bin package also
 RDEPEND="
@@ -83,6 +83,7 @@ RDEPEND="
 		>=dev-vcs/git-2.22.0
 		>=media-libs/raspberrypi-userland-1.20190808
 		>=media-sound/alsa-tools-1.1.7
+		>=media-sound/pulseaudio-12.2-r3[rpi-deglitch(-)]
 		>=net-fs/nfs-utils-2.4.1
 		>=net-misc/bridge-utils-1.6
 		>=net-misc/chrony-3.5
