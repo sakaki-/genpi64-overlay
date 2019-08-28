@@ -31,20 +31,20 @@ RDEPEND="
 	kernel-bin? (
 		boot-fw? (
 			|| (
-				>=sys-kernel/bcm2711-kernel-bin-4.19.66.20190816[with-matching-boot-fw(-),pitop(-)?,pi3multiboot]
-				>=sys-kernel/bcm2711-kernel-bis-bin-4.19.66.20190816[with-matching-boot-fw(-),pitop(-)?,pi3multiboot]
+				>=sys-kernel/bcm2711-kernel-bin-4.19.67.20190827[with-matching-boot-fw(-),pitop(-)?,pi3multiboot]
+				>=sys-kernel/bcm2711-kernel-bis-bin-4.19.67.20190827[with-matching-boot-fw(-),pitop(-)?,pi3multiboot]
 			)
 		)
 		!boot-fw? (
 			|| (
-				>=sys-kernel/bcm2711-kernel-bin-4.19.66.20190816[-with-matching-boot-fw(-),pi3multiboot]
-				>=sys-kernel/bcm2711-kernel-bis-bin-4.19.66.20190816[-with-matching-boot-fw(-),pi3multiboot]
+				>=sys-kernel/bcm2711-kernel-bin-4.19.67.20190827[-with-matching-boot-fw(-),pi3multiboot]
+				>=sys-kernel/bcm2711-kernel-bis-bin-4.19.67.20190827[-with-matching-boot-fw(-),pi3multiboot]
 			)
 		)
 	)
 	!kernel-bin? (
 		boot-fw? (
-			>=sys-boot/rpi3-64bit-firmware-1.20190718[pitop(-)?,dtbo(+)]
+			>=sys-boot/rpi3-64bit-firmware-1.20190819[pitop(-)?,dtbo(+)]
 		)
 		!boot-fw? (
 			!sys-boot/rpi3-64bit-firmware
