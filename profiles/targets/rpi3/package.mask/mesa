@@ -1,4 +1,2 @@
 # problems building
 =media-libs/mesa-18.2.0_rc2
-# ensure v3d-friendly version from overlay used
->media-libs/mesa-19.2.0_rc1-r1
