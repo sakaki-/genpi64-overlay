@@ -1,0 +1,2 @@
+# fix up annoying clock skew boot messages when using swclock
+>=sys-apps/openrc-0.42.1-r1 swclock-fix
