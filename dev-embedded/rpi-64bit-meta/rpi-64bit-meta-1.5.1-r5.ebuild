@@ -22,7 +22,7 @@ REQUIRED_USE="
 S="${WORKDIR}"
 
 DEPEND="
-	>=sys-apps/openrc-0.42.1-r1[swclock-fix(-)]
+	>=sys-apps/openrc-0.42.1-r2[swclock-fix(-)]
 	>=app-shells/bash-5.0"
 # pi3multiboot flag pulls in matching bcmrpi3-kernel{,-bis}-bin package also
 RDEPEND="
