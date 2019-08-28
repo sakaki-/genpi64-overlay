@@ -26,6 +26,8 @@ RDEPEND="${DEPEND}
 src_install() {
 	newinitd "${FILESDIR}/init.d_${PN}-1" "${PN}"
 	newconfd "${FILESDIR}/conf.d_${PN}-1" "${PN}"
+	insinto "/etc/modprobe.d"
+	newins "${FILESDIR}/modprobe.d_${PN}-1" "${PN}.conf"
 }
 
 pkg_postinst() {
@@ -36,4 +38,3 @@ pkg_postinst() {
 		elog "appropriate ISO / IEC 3166 alpha2 country code therein."
 	fi
 }
-
