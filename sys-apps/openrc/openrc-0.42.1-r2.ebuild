@@ -64,7 +64,8 @@ PDEPEND="netifrc? ( net-misc/netifrc )"
 PATCHES=()
 
 src_prepare() {
-	use swclock-fix && PATCHES+=("${FILESDIR}/${P}-swclock-fix.patch")
+	# patch does not work in all cases; holding for now
+	#use swclock-fix && PATCHES+=("${FILESDIR}/${P}-swclock-fix.patch")
 	default
 	if [[ ${PV} == "9999" ]] ; then
 		local ver="git-${EGIT_VERSION:0:6}"
@@ -157,6 +158,11 @@ src_install() {
 	dodoc ChangeLog *.md
 	if use newnet; then
 		dodoc README.newnet
+	fi
+	# don't run hwclock by default on swclock systems
+	if use swclock-fix; then
+		rm -f "${ED}"/etc/runlevels/boot/hwclock
+		ln -s /etc/init.d/swclock "${ED}"/etc/runlevels/boot/swclock
 	fi
 }
 

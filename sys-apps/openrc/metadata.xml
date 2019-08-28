@@ -11,7 +11,7 @@
 		</flag>
 		<flag name="netifrc">enable Gentoo's network stack (net.* scripts)</flag>
 		<flag name="newnet">enable the new network stack (experimental)</flag>
-                <flag name="swclock-fix">If swclock enabled, use it when creating /run, to avoid startup message</flag>
+                <flag name="swclock-fix">Prevent hwclock boot dep being created (swclock in use)</flag>
 		<flag name="sysv-utils">Install sysvinit compatibility scripts for halt, init, poweroff, reboot and shutdown</flag>
 	</use>
 	<upstream>
