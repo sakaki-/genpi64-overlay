@@ -1,2 +1,4 @@
 # Per https://wiki.gentoo.org/wiki/Raspberry_Pi_VC4
 media-libs/mesa -classic xa xvmc
+# force on v3d support
+>=media-libs/mesa-19.2.0_rc1-r2 rpi-v3d
