@@ -57,14 +57,14 @@ RDEPEND="
 	>=sys-firmware/bluez-firmware-1.2
 	>=sys-firmware/brcm43430-firmware-20190812
 	porthash? (
-		<sys-apps/portage-2.3.71
+		<sys-apps/portage-2.3.72
 		>=app-portage/rpi3-check-porthash-1.0.0-r3
 	)
 	!porthash? (
 		!app-portage/rpi3-check-porthash
-		>=sys-apps/portage-2.3.71
+		>=sys-apps/portage-2.3.72
 	)
-	weekly-genup? ( >=app-portage/weekly-genup-1.1.0-r2 )
+	weekly-genup? ( >=app-portage/weekly-genup-1.1.1 )
 	!weekly-genup? ( !app-portage/weekly-genup )
 	innercore? (
 		>=app-admin/logrotate-3.15.0
@@ -74,26 +74,26 @@ RDEPEND="
 		>=app-editors/nano-4.3
 		>=app-portage/eix-0.33.8
 		>=app-portage/euses-2.5.9
-		>=app-portage/gentoolkit-0.4.5
-		>=app-portage/genup-1.0.23
+		>=app-portage/gentoolkit-0.4.6
+		>=app-portage/genup-1.0.24
 		>=app-portage/mirrorselect-2.2.6
 		>=app-portage/showem-1.0.3
 		>=app-text/dos2unix-7.4.0
-		>=dev-libs/elfutils-0.176-r1
-		>=dev-vcs/git-2.22.0
+		>=dev-libs/elfutils-0.177
+		>=dev-vcs/git-2.23.0
 		>=media-libs/raspberrypi-userland-1.20190808
 		>=media-sound/alsa-tools-1.1.7
 		>=media-sound/pulseaudio-12.2-r3[rpi-deglitch(-)]
 		>=net-fs/nfs-utils-2.4.1
 		>=net-misc/bridge-utils-1.6
 		>=net-misc/chrony-3.5
-		>=net-misc/dhcpcd-8.0.2-r1
+		>=net-misc/dhcpcd-8.0.3
 		>=net-misc/rpi3-ethfix-1.0.0-r1
 		>=net-wireless/iw-5.3
 		|| ( >=sys-apps/util-linux-2.34-r2 >=net-wireless/rfkill-0.5-r1 )
-		>=net-wireless/rpi3-wifi-regdom-1.0
+		>=net-wireless/rpi3-wifi-regdom-1.1
 		>=net-wireless/wireless-tools-30_pre9
-		>=net-wireless/wpa_supplicant-2.8-r1
+		>=net-wireless/wpa_supplicant-2.9
 		>=sys-apps/mlocate-0.26-r2
 		>=sys-apps/rpi3-expand-swap-1.0-r4
 		>=sys-apps/rpi3-i2cdev-1.0.1-r1
@@ -102,7 +102,7 @@ RDEPEND="
 		>=sys-apps/rng-tools-6.7-r1
 		>=sys-apps/usbutils-012
 		>=sys-boot/rpi3-boot-config-1.0.8[pitop(-)?]
-		>=sys-devel/distcc-3.3.2-r5
+		>=sys-devel/distcc-3.3.3
 		>=sys-fs/btrfs-progs-5.2.1
 		>=sys-fs/dosfstools-4.1
 		>=sys-fs/eudev-3.2.8
@@ -120,7 +120,7 @@ RDEPEND="
 		>=app-portage/porthash-1.0.7
 		>=app-text/psutils-1.17-r3
 		>=dev-embedded/wiringpi-2.44-r7
-		>=dev-lang/go-1.12.7
+		>=dev-lang/go-1.12.9
 		>=dev-libs/pigpio-71
 		>=dev-python/pip-10.0.1
 		>=dev-tcltk/expect-5.45.4
@@ -128,10 +128,10 @@ RDEPEND="
 		>=mail-client/mailx-8.1.2.20160123
 		>=mail-client/mailx-support-20060102-r2
 		>=net-analyzer/iptraf-ng-1.1.4-r2
-		>=net-analyzer/nmap-7.70
+		>=net-analyzer/nmap-7.80
 		>=net-analyzer/tcpdump-4.9.2
 		>=net-dialup/lrzsz-0.12.20-r4
-		>=net-fs/samba-4.10.6
+		>=net-fs/samba-4.10.7
 		>=net-irc/irssi-1.2.1
 		>=net-misc/iperf-3.7
 		>=net-misc/keychain-2.8.5
@@ -156,7 +156,7 @@ RDEPEND="
 	xfce? (
 		>=app-arch/xarchiver-0.5.4.14
 		>=app-accessibility/onboard-1.4.1
-		>=app-emulation/qemu-4.0.0-r4
+		>=app-emulation/qemu-4.0.0-r50
 		>=app-misc/mc-4.8.23-r1
 		>=app-office/orage-4.12.1-r1
 		>=media-fonts/cantarell-0.111
@@ -167,7 +167,7 @@ RDEPEND="
 		>=media-libs/gst-plugins-bad-1.14.3
 		>=media-libs/mesa-19.2.0_rc1-r2[rpi-v3d(-)]
 		>=media-sound/pavucontrol-4.0
-		>=media-tv/v4l-utils-1.16.3-r1
+		>=media-tv/v4l-utils-1.16.6
 		>=media-video/pi-ffcam-1.0.5
 		>=media-video/pi-ffplay-1.0.6
 		>=net-misc/tigervnc-1.9.0-r1
@@ -176,7 +176,7 @@ RDEPEND="
 		>=sci-calculators/qalculate-gtk-3.2.0-r1
 		>=sci-calculators/speedcrunch-0.12.0
 		>=sys-apps/firejail-0.9.60-r1
-		>=sys-apps/pyconfig_gen-1.1.4
+		>=sys-apps/pyconfig_gen-1.1.7
 		>=sys-block/gparted-0.33.0
 		>=x11-apps/mesa-progs-8.4.0
 		>=x11-apps/xclock-1.0.9
@@ -196,8 +196,8 @@ RDEPEND="
 		>=x11-themes/gnome-icon-theme-3.12.0-r1
 		>=xfce-base/xfce4-meta-4.12-r1
 		>=xfce-extra/thunar-archive-plugin-0.4.0
-		>=xfce-extra/thunar-volman-0.9.4
-		>=xfce-extra/tumbler-0.2.6
+		>=xfce-extra/thunar-volman-0.9.5
+		>=xfce-extra/tumbler-0.2.7
 		>=xfce-extra/xfce4-alsa-plugin-0.1.1
 		>=xfce-extra/xfce4-cpufreq-plugin-1.2.1
 		>=xfce-extra/xfce4-cpugraph-plugin-1.0.5-r3
@@ -205,10 +205,10 @@ RDEPEND="
 		>=xfce-extra/xfce4-indicator-plugin-2.3.3-r2
 		>=xfce-extra/xfce4-mixer-4.99.0-r1
 		>=xfce-extra/xfce4-noblank-1.0.0-r2
-		>=xfce-extra/xfce4-notes-plugin-1.8.1-r1
-		>=xfce-extra/xfce4-power-manager-1.6.4
+		>=xfce-extra/xfce4-notes-plugin-1.8.1-r2
+		>=xfce-extra/xfce4-power-manager-1.6.5
 		>=xfce-extra/xfce4-screenshooter-1.9.5
-		>=xfce-extra/xfce4-systemload-plugin-1.2.2
+		>=xfce-extra/xfce4-systemload-plugin-1.2.3
 		>=xfce-extra/xfce4-taskmanager-1.2.2
 	)
 	pitop? (
@@ -220,7 +220,7 @@ RDEPEND="
 	apps? (
 		>=app-arch/p7zip-16.02-r4
 		>=app-crypt/seahorse-3.30.1.1
-		>=app-editors/emacs-26.2
+		>=app-editors/emacs-26.3_rc1
 		>=app-editors/mousepad-0.4.1
 		>=app-office/abiword-3.0.2-r2
 		>=app-office/libreoffice-6.3.0.4
@@ -235,7 +235,7 @@ RDEPEND="
 		>=media-gfx/ristretto-0.10.0
 		>=media-sound/clementine-1.3.1_p20190609
 		>=media-sound/mpc-0.32
-		>=media-sound/mpd-0.21.13
+		>=media-sound/mpd-0.21.14
 		>=media-tv/kodi-18.0
 		>=media-video/mplayer-1.3.0-r5
 		>=media-video/mpv-0.29.1-r1
@@ -246,7 +246,7 @@ RDEPEND="
 		>=sys-apps/gnome-disk-utility-3.30.2-r1
 		>=sys-devel/portage-distccmon-gui-1.1
 		>=www-client/chromium-76.0.3809.87-r1
-		>=www-client/firefox-68.0.1
+		>=www-client/firefox-68.0.2
 		>=www-client/links-2.18
 		dev-java/icedtea:8
 	)
