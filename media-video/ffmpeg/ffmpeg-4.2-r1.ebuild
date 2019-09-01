@@ -98,7 +98,7 @@ FFMPEG_ENCODER_FLAG_MAP=(
 )
 
 IUSE="
-	alsa chromium doc +encode oss pic static-libs test v4l
+	alsa chromium doc +encode oss pic static-libs test v4l v4l2m2m-fix
 	${FFMPEG_FLAG_MAP[@]%:*}
 	${FFMPEG_ENCODER_FLAG_MAP[@]%:*}
 "
@@ -301,6 +301,7 @@ GPL_REQUIRED_USE="
 REQUIRED_USE="
 	cuda? ( video_cards_nvidia )
 	libv4l? ( v4l )
+	v4l2m2m-fix? ( v4l )
 	fftools_cws2fws? ( zlib )
 	test? ( encode )
 	${GPL_REQUIRED_USE}
@@ -326,6 +327,14 @@ build_separate_libffmpeg() {
 src_prepare() {
 	if [[ "${PV%_p*}" != "${PV}" ]] ; then # Snapshot
 		export revision=git-N-${FFMPEG_REVISION}
+	fi
+	# per https://www.raspberrypi.org/forums/viewtopic.php?p=1436166#p1436166
+	if use v4l2m2m-fix; then
+		PATCHES+=(
+#			"${FILESDIR}"/v4l2-larger-buffers.patch
+			"${FILESDIR}"/v4l2-nv21-yuv420p-handling.patch
+			"${FILESDIR}"/v4l2-selection-crop.patch
+		)
 	fi
 	default
 	echo 'include $(SRC_PATH)/ffbuild/libffmpeg.mak' >> Makefile || die
