@@ -168,6 +168,7 @@ RDEPEND="
 		>=media-libs/mesa-19.2.0_rc1-r2[rpi-v3d(-)]
 		>=media-sound/pavucontrol-4.0
 		>=media-tv/v4l-utils-1.16.6
+		>=media-video/ffmpeg-4.2-r1[v4l2m2m-fix(-)]
 		>=media-video/pi-ffcam-1.0.5
 		>=media-video/pi-ffplay-1.0.6
 		>=net-misc/tigervnc-1.9.0-r1
