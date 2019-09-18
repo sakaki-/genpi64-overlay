@@ -1,5 +1,6 @@
 media-tv/kodi java
-# requirements of media-tv/kodi
-media-video/ffmpeg openssl
 # user-requested additional flag
 >=media-tv/kodi-18.0 samba
+# requirements of media-tv/kodi
+media-video/ffmpeg openssl
+net-misc/curl http2
