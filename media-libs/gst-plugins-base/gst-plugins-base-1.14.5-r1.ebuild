@@ -93,6 +93,10 @@ DEPEND="${RDEPEND}
 src_prepare() {
 	# Disable GL tests for now; prone to fail with EGL_NOT_INITIALIZED, etc
 	sed -i -e '/^@USE_GL_TRUE@/d' tests/check/Makefile.in
+	# prevent detection of RPI platform on arm64
+	if use arm64; then
+		sed -i -e 's/ac_cv_lib_bcm_host_bcm_host_init=yes/ac_cv_lib_bcm_host_bcm_host_init=no/g' configure
+	fi
 	default
 }
 
