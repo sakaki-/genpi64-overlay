@@ -33,6 +33,8 @@ RDEPEND="
 			~dev-libs/openssl-1.0.2o:0=
 			~dev-libs/openssl-1.0.2q:0=
 			~dev-libs/openssl-1.0.2r:0=
+			~dev-libs/openssl-1.0.2s:0=
+			~dev-libs/openssl-1.0.2t:0=
 			>=dev-libs/openssl-1.1.0:0=[-bindist]
 		)
 	)
