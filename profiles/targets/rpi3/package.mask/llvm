@@ -2,5 +2,4 @@
 # until upgrade to slot 7 completed
 =sys-devel/llvm-6.0.1-r2
 # not quite ready for prime-time on arm64 yet
-sys-devel/llvm:9
 sys-devel/clang:9
