@@ -1,0 +1,4 @@
+# temporary hold while buildserver updated
+>=media-libs/mesa-19.2.0
+>=media-libs/gst-plugins-base-1.14.5-r1
+>=mail-client/thunderbird-68.1.1-r1
