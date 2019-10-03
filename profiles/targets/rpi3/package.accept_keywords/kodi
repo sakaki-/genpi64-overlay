@@ -1,7 +1,7 @@
 =media-tv/kodi-18.0* * ~*
 ~media-tv/kodi-18.4 * ~*
 # requirements of media-tv/kodi
-sys-fs/udisks   * ~*
+sys-fs/udisks
 dev-libs/crossguid      * ~*
 dev-libs/libfstrcmp * ~*
 dev-libs/libfmt * ~*

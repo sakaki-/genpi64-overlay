@@ -1,9 +1,9 @@
 app-emulation/virt-manager * ~*
 # dependencies of virt-manager
-app-emulation/spice-protocol * ~*
-net-libs/gtk-vnc * ~*
-dev-perl/Text-CSV * ~*
+app-emulation/spice-protocol
+net-libs/gtk-vnc
+dev-perl/Text-CSV
 net-misc/x11-ssh-askpass * ~*
-net-misc/spice-gtk * ~*
+net-misc/spice-gtk
 app-emulation/libvirt-glib * ~*
 

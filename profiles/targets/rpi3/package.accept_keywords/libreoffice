@@ -36,6 +36,6 @@ dev-libs/libixion	* ~*
 app-text/liblangtag	* ~*
 dev-libs/xmlsec	* ~*
 dev-perl/X11-Protocol	* ~*
-app-text/libepubgen * ~*
-app-text/libqxp * ~*
+app-text/libepubgen
+app-text/libqxp
 

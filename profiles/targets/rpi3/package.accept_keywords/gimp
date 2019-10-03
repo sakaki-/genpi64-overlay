@@ -1,8 +1,8 @@
-media-gfx/gimp  * ~*
+media-gfx/gimp
 # requirements of gimp
 
-media-libs/libmypaint   * ~*
-media-libs/gexiv2       * ~*
-media-libs/babl * ~*
-media-libs/gegl * ~*
-media-gfx/mypaint-brushes       * ~*
+media-libs/libmypaint
+media-libs/gexiv2
+media-libs/babl
+media-libs/gegl
+media-gfx/mypaint-brushes
