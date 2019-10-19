@@ -20,7 +20,7 @@ SRC_URI="https://commondatastorage.googleapis.com/chromium-browser-official/${P}
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~x86"
-IUSE="+closure-compile component-build cups cpu_flags_arm_neon gnome-keyring +hangouts jumbo-build kerberos pic +proprietary-codecs pulseaudio selinux +suid +system-ffmpeg +system-icu +system-libvpx +tcmalloc widevine"
+IUSE="+closure-compile component-build cups cpu_flags_arm_neon gnome-keyring +hangouts jumbo-build kerberos +openh264 pic +proprietary-codecs pulseaudio selinux +suid +system-ffmpeg +system-icu +system-libvpx +tcmalloc widevine"
 RESTRICT="!system-ffmpeg? ( proprietary-codecs? ( bindist ) )"
 REQUIRED_USE="component-build? ( !suid )"
 
@@ -45,7 +45,7 @@ COMMON_DEPEND="
 	media-libs/libjpeg-turbo:=
 	media-libs/libpng:=
 	system-libvpx? ( media-libs/libvpx:=[postproc,svc] )
-	>=media-libs/openh264-1.6.0:=
+	openh264? ( >=media-libs/openh264-1.6.0:= )
 	pulseaudio? ( media-sound/pulseaudio:= )
 	system-ffmpeg? (
 		>=media-video/ffmpeg-4:=
@@ -111,7 +111,8 @@ BDEPEND="
 	virtual/pkgconfig
 "
 
-: ${CHROMIUM_FORCE_CLANG=no}
+# arm64 has several build failures under gcc
+: ${CHROMIUM_FORCE_CLANG=yes}
 
 if [[ ${CHROMIUM_FORCE_CLANG} == yes ]]; then
 	BDEPEND+=" >=sys-devel/clang-7"
@@ -480,12 +481,14 @@ src_configure() {
 		libwebp
 		libxml
 		libxslt
-		openh264
 		re2
 		snappy
 		yasm
 		zlib
 	)
+	if use openh264; then
+		gn_system_libraries+=( openh264 )
+	fi
 	if use system-ffmpeg; then
 		gn_system_libraries+=( ffmpeg opus )
 	fi
@@ -508,6 +511,7 @@ src_configure() {
 	myconf_gn+=" use_gnome_keyring=$(usex gnome-keyring true false)"
 	myconf_gn+=" use_kerberos=$(usex kerberos true false)"
 	myconf_gn+=" use_pulseaudio=$(usex pulseaudio true false)"
+	myconf_gn+=" use_openh264=$(usex openh264 true false)"
 
 	# TODO: link_pulseaudio=true for GN.
 
