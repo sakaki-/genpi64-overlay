@@ -1,4 +1,2 @@
 # currently with build problems
 =mail-client/thunderbird-52.4.0
-# mask while testing
-~mail-client/thunderbird-68.1.2
