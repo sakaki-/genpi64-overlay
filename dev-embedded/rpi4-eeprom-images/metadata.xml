@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer type="person">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+</maintainer>
+<upstream>
+		<maintainer status="active">
+				<name>Serge Schneider</name>
+				<email>serge@raspberrypi.org</email>
+		</maintainer>
+</upstream>
+<longdescription>
+		This package contains firmware images for the
+		Raspberry Pi 4 SBC. Images for both the VLI USB
+                controller and the boot EEPROM are included.
+</longdescription>
+</pkgmetadata>
