@@ -5,7 +5,7 @@
 EAPI=7
 inherit unpacker
 
-DESCRIPTION="RPi 4 VLI and bootloader EEPROM images"
+DESCRIPTION="RPi4 VLI (USB) and bootloader EEPROM images"
 HOMEPAGE="https://github.com/raspberrypi/rpi-eeprom/"
 MY_PN="rpi-eeprom-images"
 SRC_URI="http://archive.raspberrypi.org/debian/pool/main/r/rpi-eeprom/${MY_PN}_$(ver_rs 2 '-')_all.deb"
@@ -22,7 +22,7 @@ S="${WORKDIR}"
 
 src_unpack() {
 	unpack_deb ${A}
-	cd "${WORKDIR}/usr/share/doc/${MY_PN}" && ls && unpack ./changelog.Debian.gz && rm -f ./changelog.Debian.gz
+	cd "${WORKDIR}/usr/share/doc/${MY_PN}" && unpack ./changelog.Debian.gz && rm -f ./changelog.Debian.gz
 }
 
 src_install() {
