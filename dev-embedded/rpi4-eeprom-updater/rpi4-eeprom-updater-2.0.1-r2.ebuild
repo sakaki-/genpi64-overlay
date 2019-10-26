@@ -15,17 +15,21 @@ RESTRICT="mirror"
 KEYWORDS="~arm ~arm64"
 IUSE=""
 
+DEPEND="
+	>=app-shells/bash-4.0"
 RDEPEND="
+	${DEPEND}
 	~dev-embedded/rpi4-eeprom-images-${PV}
 	>=sys-apps/flashrom-1.0
-	>=media-libs/raspberrypi-userland-1.20190808
-	>=app-shells/bash-4.0"
-DEPEND="${RDEPEND}"
+	>=media-libs/raspberrypi-userland-1.20190808"
+
+QA_PREBUILT="usr/bin/vl805"
+QA_PRESTRIPPED="${QA_PREBUILT}"
 
 S="${WORKDIR}"
 
 src_unpack() {
-	unpack_deb ${A}
+	unpack_deb "${A}"
 	cd "${WORKDIR}/usr/share/doc/${MY_PN}" && unpack ./changelog.Debian.gz && rm -f ./changelog.Debian.gz
 	cd "${WORKDIR}/usr/share/man/man1" && unpack ./*.1.gz && rm -f ./*.1.gz
 }
