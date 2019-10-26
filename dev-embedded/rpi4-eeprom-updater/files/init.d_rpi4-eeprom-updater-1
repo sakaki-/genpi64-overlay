@@ -1,0 +1,22 @@
+#!/sbin/openrc-run
+# Run the eeprom check / update program on startup.
+#
+# Default configuration settings can be overridden via
+# /etc/default/rpi-eeprom-update
+
+# Copyright (c) 2019 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+description="RPi 4 VLI and bootloader EEPROM updater"
+
+depend() {
+	need localmount
+}
+
+start() {
+	ebegin "Starting ${SVCNAME}"
+	/usr/bin/rpi-eeprom-update -a
+	RC=$?
+	eend $RC
+}
