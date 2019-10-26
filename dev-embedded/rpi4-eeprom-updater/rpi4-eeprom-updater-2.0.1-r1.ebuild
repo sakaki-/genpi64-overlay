@@ -17,6 +17,8 @@ IUSE=""
 
 RDEPEND="
 	~dev-embedded/rpi4-eeprom-images-${PV}
+	>=sys-apps/flashrom-1.0
+	>=media-libs/raspberrypi-userland-1.20190808
 	>=app-shells/bash-4.0"
 DEPEND="${RDEPEND}"
 
