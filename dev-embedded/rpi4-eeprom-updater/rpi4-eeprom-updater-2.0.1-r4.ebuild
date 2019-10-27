@@ -19,7 +19,6 @@ DEPEND="
 	>=app-shells/bash-4.0"
 RDEPEND="
 	${DEPEND}
-	>=sys-boot/rpi3-64bit-firmware-1.20190925
 	~dev-embedded/rpi4-eeprom-images-${PV}
 	>=sys-apps/flashrom-1.0
 	>=media-libs/raspberrypi-userland-1.20190808"
