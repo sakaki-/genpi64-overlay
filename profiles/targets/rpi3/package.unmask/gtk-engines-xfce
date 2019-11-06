@@ -1,0 +1,4 @@
+# supplied from our overlay pro tem, masked in main Gentoo repo
+# pending treecleaning, but required for the current image Xfce4-4.12
+=x11-themes/gtk-engines-xfce-3.2.0-r201
+
