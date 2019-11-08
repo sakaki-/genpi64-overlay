@@ -190,7 +190,7 @@ multilib_src_configure() {
 		$(multilib_native_usex gdbm '--with-database=gdbm' '--with-database=simple')
 		$(use_enable glib glib2)
 		$(use_enable asyncns)
-		$(use_enable cpu_flags_arm_neon neon-opt)
+		$(use arm64 || use_enable cpu_flags_arm_neon neon-opt)
 		$(use_enable tcpd tcpwrap)
 		$(use_enable dbus)
 		$(use_enable X x11)
