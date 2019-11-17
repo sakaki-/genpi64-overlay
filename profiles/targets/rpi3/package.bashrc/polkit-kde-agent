@@ -1,0 +1,3 @@
+# problems building when distributed
+kde-plasma/polkit-kde-agent suppress-distcc.conf
+
