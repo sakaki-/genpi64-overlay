@@ -1,0 +1,49 @@
+#!/bin/bash
+#
+# Simple script to run all 'fixup-<foo>.sh' scripts
+# in the ${SCRIPTDIR} directory
+#
+# Files must be owned by root, and be executable, in
+# order to be run. All output is sent to ${LOGFILE}.
+#
+# The purpose of this is to allow small fixes to be distributed
+# in case e.g. the main tree cannot be sync'd due to a prior
+# configuration error.
+#
+# To be placed in /etc/cron.weekly/fixup
+#
+# Copyright (c) 2018-9 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+shopt -s nullglob
+
+SCRIPTDIR="$(portageq get_repo_path / rpi3)" || SCRIPTDIR="$(portageq get_repo_path / genpi64)"
+SCRIPTDIR="${SCRIPTDIR}/app-portage/weekly-genup/files"
+
+SCRIPTDIR="$(portageq get_repo_path / rpi3)" || SCRIPTDIR="$(portageq get_repo_path / genpi64)"
+SCRIPTDIR="${SCRIPTDIR}/app-portage/weekly-genup/files"
+LOGFILE="/var/log/latest-fixup-run.log"
+CUMLOGFILE="/var/log/fixup.log"
+DATE=$(date +%d-%m-%Y" "%H:%M:%S);
+if [[ -d "${SCRIPTDIR}" ]]; then
+	echo -e "fixup run started ${DATE}\n" > "${LOGFILE}"
+	for NEXTSCRIPT in "${SCRIPTDIR}"/fixup-*.sh; do
+		if [[ -x "${NEXTSCRIPT}" ]] && (($(stat -c %u "${NEXTSCRIPT}") == 0)); then
+			echo "Running: '${NEXTSCRIPT##*/}'" >> "${LOGFILE}"
+			echo "--------------------------------------------" >> "${LOGFILE}"
+			"${NEXTSCRIPT}" &>>"${LOGFILE}"
+			RC=$?
+			echo "--------------------------------------------" >> "${LOGFILE}"
+			echo -e "Exit status: ${RC}\n" >> "${LOGFILE}"
+		fi
+	done
+	DATE=$(date +%d-%m-%Y" "%H:%M:%S);
+	echo -e "fixup run completed ${DATE}\n\n" >> "${LOGFILE}"
+	cat "${LOGFILE}" >> "${CUMLOGFILE}"
+fi
+
+# if you have mail sending from your RPi3/4 configured, modify the
+# below appropriately, and uncomment
+#mail -s "RPi3 ($(hostname)) fixup run completed" your@email.address <"${LOGFILE}"
+exit 0

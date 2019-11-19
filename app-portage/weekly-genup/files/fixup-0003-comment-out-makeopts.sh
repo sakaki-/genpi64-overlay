@@ -16,7 +16,8 @@
 # License: GPL v3+
 # NO WARRANTY
 
-SCRIPTDIR="$(portageq get_repo_path / rpi3)/app-portage/weekly-genup/files"
+SCRIPTDIR="$(portageq get_repo_path / rpi3)" || SCRIPTDIR="$(portageq get_repo_path / genpi64)"
+SCRIPTDIR="${SCRIPTDIR}/app-portage/weekly-genup/files"
 PATCHFILE="${SCRIPTDIR}/fixup-0003-comment-out-makeopts.patch"
 PCDIR="/etc/portage"
 MC="${PCDIR}/make.conf"

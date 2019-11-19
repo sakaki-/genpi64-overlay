@@ -27,7 +27,7 @@ RDEPEND="${DEPEND}
 src_install() {
 	exeinto /etc/cron.weekly
 	newexe "${FILESDIR}/cron.weekly_genup-2" "genup"
-	newexe "${FILESDIR}/cron.weekly_fixup-3" "fixup"
+	newexe "${FILESDIR}/cron.weekly_fixup-5" "fixup"
 }
 
 pkg_postinst() {
