@@ -1,6 +1,4 @@
 # currently with build problems
 =mail-client/thunderbird-52.4.0
 =mail-client/thunderbird-68.2.1
-# hold while testing
-~mail-client/thunderbird-68.2.2
 
