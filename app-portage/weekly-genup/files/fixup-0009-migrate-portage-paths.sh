@@ -12,7 +12,8 @@
 # This script simply checks if the old paths are currently being
 # used and, if so, changes them over. It will edit the file
 # /etc/portage/make.conf, and any
-# /etc/portage/repos.conf/<overlay>.conf files too.
+# /etc/portage/repos.conf/<overlay>.conf files too. Layman overlays
+# are not moved.
 #
 # Copyright (c) 2019 sakaki <sakaki@deciban.com>
 # License: GPL v3+
