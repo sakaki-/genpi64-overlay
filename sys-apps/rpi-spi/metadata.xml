@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer type="person">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+</maintainer>
+<longdescription>
+		udev rule for SPI access on the Raspberry Pi 3 and 4.
+		Ensures SPI can be used by anyone in the spi group
+                (not just root).
+</longdescription>
+</pkgmetadata>
