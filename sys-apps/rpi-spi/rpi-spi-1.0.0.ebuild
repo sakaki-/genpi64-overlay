@@ -43,5 +43,8 @@ pkg_postinst() {
 	if [[ -z ${REPLACING_VERSIONS} ]] ; then
 		elog "Adding all members of wheel to the spi group"
 		add_wheel_members_to_spi_group
+		elog "To use the SPI interface, please ensure:"
+		elog "  dtparam=spi=on"
+		elog "is set in /boot/config.txt."
 	fi
 }
