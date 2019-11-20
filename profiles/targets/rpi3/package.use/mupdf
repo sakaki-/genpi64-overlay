@@ -1,0 +1,3 @@
+# avoid issues with openssl slotting (we only need mupdf for
+# cups-filters, really)
+>app-text/mupdf-1.14.0-r2 -ssl
