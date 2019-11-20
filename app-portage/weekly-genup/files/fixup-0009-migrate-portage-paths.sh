@@ -32,6 +32,9 @@ RCONFDIR="${PCDIR}/repos.conf"
 SENTINEL="${PCDIR}/.fixup-0009-done"
 RC=0
 
+# don't apply this fixup, yet
+exit $RC
+
 # short-circuit exit if we can; portageq takes some time to run
 if [[ -f "${SENTINEL}" ]]; then
     echo "Sentinel file found: files already migrated"
