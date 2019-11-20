@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer type="person">
+		<email>sakaki@deciban.com</email>
+		<name>sakaki</name>
+</maintainer>
+<longdescription>
+	Simple service that is run a single time only, upon first
+	boot. This may be used to e.g. set up initial WiFi network
+	settings for headless systems etc. The script,
+	/boot/startup.sh, if present will be run as root.  NB the
+	script will _not_ be run if this service cannot be disabled.
+</longdescription>
+</pkgmetadata>

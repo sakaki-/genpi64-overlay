@@ -1,0 +1,38 @@
+#!/sbin/openrc-run
+# If a script /boot/startup.sh exists, run it (one time).
+#
+# Copyright (c) 2019 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+description="Run one-time startup script, if present"
+readonly SCRIPT="/boot/startup.sh"
+
+depend() {
+	need localmount
+	after local
+}
+
+_run_startup_script_if_present() {
+	local RC=0
+	if [[ -x "${SCRIPT}" ]]; then
+		einfo "Running ${SCRIPT}..."
+		${SCRIPT}
+		RC=$?
+	fi
+	return $RC
+}
+
+_disable_this_service() {
+	einfo "Disabling service ${SVCNAME}"
+	# don't continue if we can't disable (because might
+	# have e.g. a read-only root)
+	rc-update del ${SVCNAME} default || die "Cannot disable ${SVCNAME}"
+}
+
+start() {
+   	ebegin "Starting ${SVCNAME}"
+	_disable_this_service
+	_run_startup_script_if_present
+	eend $?
+}
