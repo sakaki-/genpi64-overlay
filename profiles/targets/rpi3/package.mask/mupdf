@@ -1,5 +1,3 @@
 # build errors on arm64
 =app-text/mupdf-1.12.0
-# mask to prevent pull-in of non-bindist openssl (for now)
->=app-text/mupdf-1.14.0-r3
 
