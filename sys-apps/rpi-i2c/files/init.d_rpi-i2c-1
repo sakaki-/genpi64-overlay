@@ -1,0 +1,39 @@
+#!/sbin/openrc-run
+# Copyright (c) 2017-19 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+description="Ensures I2C device kernel module loaded on RPi3/4, if requested"
+
+depend() {
+	need localmount
+	after modules
+	after rpi3-config-mv
+}
+
+start() {
+	local RC=0
+	ebegin "Starting ${SVCNAME}"
+	local CFILE="/boot/config.txt"
+	# if a tbc file exists, we booted under that,
+	# so check it instead
+	if [[ -s "/boot/config.txt.tbc" ]]; then
+		CFILE="/boot/config.txt.tbc"
+	fi
+	if ! grep -q "^\s*dtparam=i2c_arm=on" "${CFILE}" &>/dev/null; then
+		einfo "I2C not enabled in /boot/config.txt, skipping"
+		# do not treat this as an error, and don't modprobe
+		eend $RC
+		return 0
+	fi
+	/sbin/modprobe i2c_dev
+	RC=$?
+	sleep 1
+	# warn if nothing has appeared in /dev, despite /boot/config.txt
+	# activation
+	if find "/dev" -maxdepth 1 -name 'i2c-*' -exec false {} +; then
+		ewarn "No I2C devices are visible."
+	fi
+	eend $RC
+}
+
