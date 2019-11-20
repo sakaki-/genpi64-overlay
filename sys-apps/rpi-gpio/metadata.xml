@@ -6,8 +6,8 @@
 		<name>sakaki</name>
 </maintainer>
 <longdescription>
-		OpenRC service and udev rule for I2C access on the Raspberry Pi 3.
-		Ensures i2c-dev module modprobed, and the /dev/i2c-[0-9] devices are
-		read/write by the wheel group, not just root.
+		udev rules for GPIO access on the Raspberry Pi 3 and 4.
+		Ensures GPIO can be used by anyone in the gpio group
+                (not just root).
 </longdescription>
 </pkgmetadata>
