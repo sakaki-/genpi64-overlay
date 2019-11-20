@@ -13,63 +13,59 @@
 #                 Networking setup examples                     #
 #################################################################
 
-# NetworkManager connections belong to logged-in _users_, so we make
-# the calls via su; connections are also persistent once created
-#
 # Some simple examples follow.
 
+# Example 1
 # To setup WiFi to ESSID "MyWiFi", passphrase "my secret passphrase"
-# fixed IP 192.168.1.100/24, DNS 8.8.8.8 and 8.8.4.4 (Google),
+# fixed IP 192.168.1.111/24, DNS 8.8.8.8 and 8.8.4.4 (Google),
 # gateway 192.168.1.1, uncomment the following
 # (obviously, adapt as appropriate)
 #
 #echo "Setting up WiFi with fixed IP address..."
-#su --login demouser -- \
-#  nmcli con del "MyWiFi-fixed-IP" &>/dev/null
-#su --login demouser -- \
-#  nmcli con add con-name "MyWiFi-fixed-IP" type wifi \
-#    ifname wlan0 ssid "MyWiFi" \
-#    -- wifi-sec.key-mgmt wpa-psk wifi-sec.psk "my secret passsphrase" \
-#    ipv4.method manual ipv4.address 192.168.1.100/24 \
-#    ipv4.dns 8.8.8.8,8.8.4.4 \
-#    ipv4.gateway 192.168.1.1
-#su --login demouser -- \
-    #  nmcli con up "MyWiFi-fixed-IP"
+#nmcli con del "MyWiFi-fixed-IP"
+#nmcli con add con-name "MyWiFi-fixed-IP" type wifi \
+#  ifname wlan0 ssid "MyWiFi" -- \
+#  wifi-sec.key-mgmt wpa-psk \
+#  wifi-sec.psk "my secret passphrase" \
+#  ipv4.method manual \
+#  ipv4.address 192.168.1.111/24 \
+#  ipv4.dns 8.8.8.8,8.8.4.4 \
+#  ipv4.gateway 192.168.1.1
+#nmcli con up "MyWiFi-fixed-IP"
 
+# Example 2
 # To setup WiFi to ESSID "MyWiFi", passphrase "my secret passphrase"
 # DHCP-assigned (automatic) IP address, gateway and
 # DNS, uncomment the following
 # (obviously, adapt as appropriate)
 #
 #echo "Setting up WiFi with automatically assigned address..."
-#su --login demouser -- \
-#  nmcli con del "MyWiFi-DHCP-IP" &>/dev/null
-#su --login demouser -- \
-#  nmcli con add con-name "MyWiFi-DHCP-IP" type wifi \
-#    ifname wlan0 ssid "MyWiFi" \
-#    -- wifi-sec.key-mgmt wpa-psk wifi-sec.psk "my secret passphrase" \
-#    ipv4.method auto
-#su --login demouser -- \
-    #  nmcli con up "MyWiFi-DHCP-IP"
+#nmcli con del "MyWiFi-DHCP-IP"
+#nmcli con add con-name "MyWiFi-DHCP-IP" type wifi \
+#  ifname wlan0 ssid "MyWiFi" -- \
+#  wifi-sec.key-mgmt wpa-psk \
+#  wifi-sec.psk "my secret passphrase" \
+#  ipv4.method auto
+#nmcli con up "MyWiFi-DHCP-IP"
 
+# Example 3
 # To setup the Pi's Ethernet port with a
-# fixed IP 192.168.1.100/24, DNS 8.8.8.8 and 8.8.4.4 (Google),
+# fixed IP 192.168.1.111/24, DNS 8.8.8.8 and 8.8.4.4 (Google),
 # gateway 192.168.1.1, uncomment the following
 # (obviously, adapt as appropriate)
 #
 #echo "Setting up Ethernet with fixed IP address..."
-#su --login demouser -- \
-#  nmcli con del "eth0-fixed-IP" &>/dev/null
-#su --login demouser -- \
-#  nmcli con add con-name "eth0-fixed-IP" type ethernet \
-#    ifname eth0 \
-#    ipv4.method manual ipv4.address 192.168.1.100/24 \
-#    ipv4.dns 8.8.8.8,8.8.4.4 \
-#    ipv4.gateway 192.168.1.1
-#su --login demouser -- \
-    #  nmcli con up "eth0-fixed-IP"
+#nmcli con del "eth0-fixed-IP"
+#nmcli con add con-name "eth0-fixed-IP" type ethernet \
+#  ifname eth0 -- \
+#  ipv4.method manual \
+#  ipv4.address 192.168.1.111/24 \
+#  ipv4.dns 8.8.8.8,8.8.4.4 \
+#  ipv4.gateway 192.168.1.1
+#nmcli con up "eth0-fixed-IP"
 
-# DHCP on eth0 is enabled automatically
+# DHCP client on eth0 is enabled automatically in absence
+# of any other settings
 
 #################################################################
 #          Running this script again on next boot               #

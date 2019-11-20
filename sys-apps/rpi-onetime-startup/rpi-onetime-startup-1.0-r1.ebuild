@@ -25,7 +25,7 @@ RDEPEND="${DEPEND}
 src_install() {
 	newinitd "${FILESDIR}/init.d_${PN}-1" "${PN}"
 	exeinto /boot
-	newexe "${FILESDIR}/startup.sh-1" "startup.sh"
+	newexe "${FILESDIR}/startup.sh-2" "startup.sh"
 }
 
 pkg_postinst() {
