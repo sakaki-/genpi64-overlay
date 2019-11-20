@@ -1,0 +1,9 @@
+# ensure members of gpio group can read/write GPIO devices
+# taken from Raspbian /etc/udev/rules.d/99-com.rules
+SUBSYSTEM=="bcm2835-gpiomem", GROUP="gpio", MODE="0660"
+SUBSYSTEM=="gpio", GROUP="gpio", MODE="0660"
+SUBSYSTEM=="gpio*", PROGRAM="/bin/sh -c '\
+	chown -R root:gpio /sys/class/gpio && chmod -R 770 /sys/class/gpio;\
+	chown -R root:gpio /sys/devices/virtual/gpio && chmod -R 770 /sys/devices/virtual/gpio;\
+	chown -R root:gpio /sys$devpath && chmod -R 770 /sys$devpath\
+'"
