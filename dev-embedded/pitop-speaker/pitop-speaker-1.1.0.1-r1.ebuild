@@ -21,7 +21,7 @@ RESTRICT="mirror"
 RDEPEND="
 	|| (
 		>=sys-apps/rpi3-i2cdev-1.0.0-r1
-		>=sys-apps/rpi-i2c
+		>=sys-apps/rpi-i2c-1.0.0
 	)
 	>=sys-apps/i2c-tools-3.1.1-r1[python]
 	>=media-sound/alsa-utils-1.1.2

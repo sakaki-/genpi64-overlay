@@ -24,7 +24,7 @@ RDEPEND=">=dev-libs/glib-2.24:2=
 		>=dev-embedded/wiringpi-2.44-r3
 		|| (
 			>=sys-apps/rpi3-i2cdev-1.0.0-r1
-			>=sys-apps/rpi-i2c
+			>=sys-apps/rpi-i2c-1.0.0
 		)
 	)"
 DEPEND="${RDEPEND}
