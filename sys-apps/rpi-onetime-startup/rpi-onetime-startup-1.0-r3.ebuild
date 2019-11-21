@@ -23,7 +23,7 @@ RDEPEND="${DEPEND}
 	>=app-shells/bash-4.0"
 
 src_install() {
-	newinitd "${FILESDIR}/init.d_${PN}-1" "${PN}"
+	newinitd "${FILESDIR}/init.d_${PN}-2" "${PN}"
 	exeinto /boot
 	newexe "${FILESDIR}/startup.sh-2" "startup.sh"
 	newenvd "${FILESDIR}"/config_protect-1 99${PN}

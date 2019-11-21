@@ -7,6 +7,8 @@
 
 description="Run one-time startup script, if present"
 readonly SCRIPT="/boot/startup.sh"
+readonly SENTINEL="/boot/autoexpand_root_partition"
+readonly SENTINEL_H="/boot/autoexpand_root_partition.hold"
 
 depend() {
 	need localmount
@@ -24,10 +26,14 @@ _run_startup_script_if_present() {
 }
 
 _disable_this_service() {
-	einfo "Disabling service ${SVCNAME}"
-	# don't continue if we can't disable (because might
-	# have e.g. a read-only root)
-	rc-update del ${SVCNAME} default || die "Cannot disable ${SVCNAME}"
+	# don't disable during first automatic boot cycle, nor
+	# during image construction
+	if [[ ! -f "${SENTINEL}" && ! -f "${SENTINEL_H}" ]]; then
+		einfo "Disabling service ${SVCNAME}"
+		# don't continue if we can't disable (because might
+		# have e.g. a read-only root)
+		rc-update del ${SVCNAME} default || die "Cannot disable ${SVCNAME}"
+	fi
 }
 
 start() {
