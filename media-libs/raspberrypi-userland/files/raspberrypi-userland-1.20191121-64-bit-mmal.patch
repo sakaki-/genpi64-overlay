@@ -1,0 +1,1558 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index fe67fc87..d8ba238f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -8,13 +8,9 @@ SET(PROJECT_VER_PATCH 0)
+ SET(PROJECT_VER "${PROJECT_VER_MAJOR}.${PROJECT_VER_MINOR}.${PROJECT_VER_PATCH}")
+ SET(PROJECT_APIVER "${PROJECT_VER}")
+ 
+-if(ARM64)
+-   set(BUILD_MMAL FALSE)
+-   set(BUILD_MMAL_APPS FALSE)
+-else()
+-   set(BUILD_MMAL TRUE)
+-   set(BUILD_MMAL_APPS TRUE)
+-endif()
++set(BUILD_MMAL TRUE)
++set(BUILD_MMAL_APPS TRUE)
++
+ set(vmcs_root ${PROJECT_SOURCE_DIR})
+ get_filename_component(VIDEOCORE_ROOT . ABSOLUTE)
+ 
+@@ -78,9 +74,11 @@ if(BUILD_MMAL)
+ endif()
+ 
+ # VidTex supports Android and Linux
+-if(BUILD_MMAL_APPS)
+-add_subdirectory(host_applications/android/apps/vidtex)
+-endif(BUILD_MMAL_APPS)
++if(NOT ARM64)
++   if(BUILD_MMAL_APPS)
++   add_subdirectory(host_applications/android/apps/vidtex)
++   endif(BUILD_MMAL_APPS)
++endif()
+ 
+ if(NOT ARM64)
+    add_subdirectory(middleware/openmaxil)
+diff --git a/host_applications/linux/CMakeLists.txt b/host_applications/linux/CMakeLists.txt
+index 928b6375..4bb1e98f 100644
+--- a/host_applications/linux/CMakeLists.txt
++++ b/host_applications/linux/CMakeLists.txt
+@@ -4,9 +4,9 @@ add_subdirectory(libs/bcm_host)
+ add_subdirectory(apps/gencmd)
+ add_subdirectory(apps/tvservice)
+ add_subdirectory(apps/vcmailbox)
++add_subdirectory(apps/raspicam)
++add_subdirectory(libs/sm)
+ if(NOT ARM64)
+-   add_subdirectory(apps/raspicam)
+-   add_subdirectory(libs/sm)
+    add_subdirectory(apps/smem)
+ endif()
+ add_subdirectory(libs/debug_sym)
+diff --git a/host_applications/linux/apps/raspicam/CMakeLists.txt b/host_applications/linux/apps/raspicam/CMakeLists.txt
+index f7db21e1..656a9a06 100644
+--- a/host_applications/linux/apps/raspicam/CMakeLists.txt
++++ b/host_applications/linux/apps/raspicam/CMakeLists.txt
+@@ -29,15 +29,6 @@ execute_process(
+ )
+ add_definitions("-DGIT_TAINTED=${GIT_TAINTED}")
+ 
+-set (GL_SCENE_SOURCES
+-   gl_scenes/models.c
+-   gl_scenes/mirror.c
+-   gl_scenes/yuv.c
+-   gl_scenes/sobel.c
+-   gl_scenes/square.c
+-   gl_scenes/teapot.c
+-   gl_scenes/vcsm_square.c)
+-
+ set (COMMON_SOURCES
+    RaspiCamControl.c
+    RaspiCLI.c
+@@ -47,14 +38,28 @@ set (COMMON_SOURCES
+    RaspiGPS.c
+    libgps_loader.c)
+ 
+-add_executable(raspistill ${COMMON_SOURCES} RaspiStill.c  RaspiTex.c RaspiTexUtil.c tga.c ${GL_SCENE_SOURCES} )
++if(NOT ARM64)
++  set (EGL_LIBS brcmGLESv2 brcmEGL)
++  set (EGL_SOURCES RaspiTex.c RaspiTexUtil.c tga.c)
++  set (GL_SCENE_SOURCES
++     gl_scenes/models.c
++     gl_scenes/mirror.c
++     gl_scenes/yuv.c
++     gl_scenes/sobel.c
++     gl_scenes/square.c
++     gl_scenes/teapot.c
++     gl_scenes/vcsm_square.c)
++else()
++  set (EGL_SOURCES RaspiTexStub.c)
++endif()
++
++add_executable(raspistill ${COMMON_SOURCES} RaspiStill.c  ${EGL_SOURCES} ${GL_SCENE_SOURCES} )
+ add_executable(raspiyuv   ${COMMON_SOURCES} RaspiStillYUV.c)
+ add_executable(raspivid   ${COMMON_SOURCES} RaspiVid.c)
+ add_executable(raspividyuv  ${COMMON_SOURCES} RaspiVidYUV.c)
+ 
+ set (MMAL_LIBS mmal_core mmal_util mmal_vc_client)
+-
+-target_link_libraries(raspistill ${MMAL_LIBS} vcos bcm_host brcmGLESv2 brcmEGL m dl)
++target_link_libraries(raspistill ${MMAL_LIBS} vcos bcm_host ${EGL_LIBS} m dl)
+ target_link_libraries(raspiyuv   ${MMAL_LIBS} vcos bcm_host)
+ target_link_libraries(raspivid   ${MMAL_LIBS} vcos bcm_host)
+ target_link_libraries(raspividyuv   ${MMAL_LIBS} vcos bcm_host)
+diff --git a/host_applications/linux/apps/raspicam/RaspiTexStub.c b/host_applications/linux/apps/raspicam/RaspiTexStub.c
+new file mode 100644
+index 00000000..60820a79
+--- /dev/null
++++ b/host_applications/linux/apps/raspicam/RaspiTexStub.c
+@@ -0,0 +1,240 @@
++/*
++Copyright (c) 2013, Broadcom Europe Ltd
++Copyright (c) 2013, Tim Gover
++All rights reserved.
++
++Redistribution and use in source and binary forms, with or without
++modification, are permitted provided that the following conditions are met:
++    * Redistributions of source code must retain the above copyright
++      notice, this list of conditions and the following disclaimer.
++    * Redistributions in binary form must reproduce the above copyright
++      notice, this list of conditions and the following disclaimer in the
++      documentation and/or other materials provided with the distribution.
++    * Neither the name of the copyright holder nor the
++      names of its contributors may be used to endorse or promote products
++      derived from this software without specific prior written permission.
++
++THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
++ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
++WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
++DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY
++DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
++(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
++LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
++ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
++(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
++SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++*/
++
++#include "RaspiTex.h"
++#include "RaspiCLI.h"
++#include "interface/vcos/vcos.h"
++#include "interface/mmal/mmal_buffer.h"
++#include "interface/mmal/util/mmal_util.h"
++#include "interface/mmal/util/mmal_util_params.h"
++
++/**
++ * \file RaspiTex.c
++ *
++ * A simple framework for extending a MMAL application to render buffers via
++ * OpenGL.
++ *
++ * MMAL buffers are often in YUV colour space and in either a planar or
++ * tile format which is not supported directly by V3D. Instead of copying
++ * the buffer from the GPU and doing a colour space / pixel format conversion
++ * the GL_OES_EGL_image_external is used. This allows an EGL image to be
++ * created from GPU buffer handle (MMAL opaque buffer handle). The EGL image
++ * may then be used to create a texture (glEGLImageTargetTexture2DOES) and
++ * drawn by either OpenGL ES 1.0 or 2.0 contexts.
++ *
++ * Notes:
++ * 1) GL_OES_EGL_image_external textures always return pixels in RGBA format.
++ *    This is also the case when used from a fragment shader.
++ *
++ * 2) The driver implementation creates a new RGB_565 buffer and does the color
++ *    space conversion from YUV. This happens in GPU memory using the vector
++ *    processor.
++ *
++ * 3) Each EGL external image in use will consume GPU memory for the RGB 565
++ *    buffer. In addition, the GL pipeline might require more than one EGL image
++ *    to be retained in GPU memory until the drawing commands are flushed.
++ *
++ *    Typically 128 MB of GPU memory is sufficient for 720p viewfinder and 720p
++ *    GL surface. If both the viewfinder and the GL surface are 1080p then
++ *    256MB of GPU memory is recommended, otherwise, for non-trivial scenes
++ *    the system can run out of GPU memory whilst the camera is running.
++ *
++ * 4) It is important to make sure that the MMAL opaque buffer is not returned
++ *    to MMAL before the GL driver has completed the asynchronous call to
++ *    glEGLImageTargetTexture2DOES. Deferring destruction of the EGL image and
++ *    the buffer return to MMAL until after eglSwapBuffers is the recommended.
++ *
++ * See also: http://www.khronos.org/registry/gles/extensions/OES/OES_EGL_image_external.txt
++ */
++
++#define DEFAULT_WIDTH   640
++#define DEFAULT_HEIGHT  480
++
++enum
++{
++   CommandGLScene,
++   CommandGLWin
++};
++
++static COMMAND_LIST cmdline_commands[] =
++{
++   { CommandGLScene, "-glscene",  "gs",  "GL scene square,teapot,mirror,yuv,sobel,vcsm_square", 1 },
++   { CommandGLWin,   "-glwin",    "gw",  "GL window settings <'x,y,w,h'>", 1 },
++};
++
++static int cmdline_commands_size = sizeof(cmdline_commands) / sizeof(cmdline_commands[0]);
++
++/**
++ * Parse a possible command pair - command and parameter
++ * @param arg1 Command
++ * @param arg2 Parameter (could be NULL)
++ * @return How many parameters were used, 0,1,2
++ */
++int raspitex_parse_cmdline(RASPITEX_STATE *state,
++                           const char *arg1, const char *arg2)
++{
++   int command_id, used = 0, num_parameters;
++
++   if (!arg1)
++      return 0;
++
++   command_id = raspicli_get_command_id(cmdline_commands,
++                                        cmdline_commands_size, arg1, &num_parameters);
++
++   // If invalid command, or we are missing a parameter, drop out
++   if (command_id==-1 || (command_id != -1 && num_parameters > 0 && arg2 == NULL))
++      return 0;
++
++   switch (command_id)
++   {
++   case CommandGLWin: // Allows a GL window to be different to preview-res
++   {
++      int tmp;
++      tmp = sscanf(arg2, "%d,%d,%d,%d",
++                   &state->x, &state->y, &state->width, &state->height);
++      if (tmp != 4)
++      {
++         // Default to safe size on parse error
++         state->x = state->y = 0;
++         state->width = DEFAULT_WIDTH;
++         state->height = DEFAULT_HEIGHT;
++      }
++      else
++      {
++         state->gl_win_defined = 1;
++      }
++
++      used = 2;
++      break;
++   }
++
++   case CommandGLScene: // Selects the GL scene
++   {
++      if (strcmp(arg2, "square") == 0)
++         state->scene_id = RASPITEX_SCENE_SQUARE;
++      else if (strcmp(arg2, "teapot") == 0)
++         state->scene_id = RASPITEX_SCENE_TEAPOT;
++      else if (strcmp(arg2, "mirror") == 0)
++         state->scene_id = RASPITEX_SCENE_MIRROR;
++      else if (strcmp(arg2, "yuv") == 0)
++         state->scene_id = RASPITEX_SCENE_YUV;
++      else if (strcmp(arg2, "sobel") == 0)
++         state->scene_id = RASPITEX_SCENE_SOBEL;
++      else if (strcmp(arg2, "vcsm_square") == 0)
++         state->scene_id = RASPITEX_SCENE_VCSM_SQUARE;
++      else
++         fprintf(stderr, "Unknown scene %s", arg2);
++
++      used = 2;
++      break;
++   }
++   }
++   return used;
++}
++
++/**
++ * Display help for command line options
++ */
++void raspitex_display_help()
++{
++   fprintf(stdout, "\nGL parameter commands\n\n");
++   raspicli_display_help(cmdline_commands, cmdline_commands_size);
++}
++
++
++/* Registers a callback on the camera preview port to receive
++ * notifications of new frames.
++ * This must be called before rapitex_start and may not be called again
++ * without calling raspitex_destroy first.
++ *
++ * @param state Pointer to the GL preview state.
++ * @param port  Pointer to the camera preview port
++ * @return Zero if successful.
++ */
++int raspitex_configure_preview_port(RASPITEX_STATE *state,
++                                    MMAL_PORT_T *preview_port)
++{
++   return -1;
++}
++
++/* Initialises GL preview state and creates the dispmanx native window.
++ * @param state Pointer to the GL preview state.
++ * @return Zero if successful.
++ */
++int raspitex_init(RASPITEX_STATE *state)
++{
++   return -1;
++}
++
++/* Destroys the pools of buffers used by the GL renderer.
++ * @param  state Pointer to the GL preview state.
++ */
++void raspitex_destroy(RASPITEX_STATE *state)
++{
++}
++
++/* Initialise the GL / window state to sensible defaults.
++ * Also initialise any rendering parameters e.g. the scene
++ *
++ * @param state Pointer to the GL preview state.
++ * @return Zero if successful.
++ */
++void raspitex_set_defaults(RASPITEX_STATE *state)
++{
++}
++
++/* Stops the rendering loop and destroys MMAL resources
++ * @param state  Pointer to the GL preview state.
++ */
++void raspitex_stop(RASPITEX_STATE *state)
++{
++}
++
++/**
++ * Starts the worker / GL renderer thread.
++ * @pre raspitex_init was successful
++ * @pre raspitex_configure_preview_port was successful
++ * @param state Pointer to the GL preview state.
++ * @return Zero on success, otherwise, -1 is returned
++ * */
++int raspitex_start(RASPITEX_STATE *state)
++{
++   return -1;
++}
++
++/**
++ * Writes the next GL frame-buffer to a RAW .ppm formatted file
++ * using the specified file-handle.
++ * @param state Pointer to the GL preview state.
++ * @param outpt_file Output file handle for the ppm image.
++ * @return Zero on success.
++ */
++int raspitex_capture(RASPITEX_STATE *state, FILE *output_file)
++{
++   return -1;
++}
+diff --git a/host_applications/linux/libs/sm/user-vcsm.c b/host_applications/linux/libs/sm/user-vcsm.c
+index daff99cb..6adf0bd5 100644
+--- a/host_applications/linux/libs/sm/user-vcsm.c
++++ b/host_applications/linux/libs/sm/user-vcsm.c
+@@ -906,7 +906,7 @@ unsigned int vcsm_vc_hdl_from_ptr( void *usr_ptr )
+       memset( &map, 0, sizeof(map) );
+ 
+       map.pid  = getpid();
+-      map.addr = (unsigned int) usr_ptr;
++      map.addr = (uintptr_t) usr_ptr;
+ 
+       rc = ioctl( vcsm_handle,
+                   VMCS_SM_IOCTL_MAP_VC_HDL_FR_ADDR,
+@@ -1163,7 +1163,7 @@ void *vcsm_usr_address( unsigned int handle )
+                          map.handle,
+                          map.addr );
+ 
+-         return (void*)map.addr;
++         return (void*)(uintptr_t)map.addr;
+       }
+    }
+ }
+@@ -1211,7 +1211,7 @@ unsigned int vcsm_usr_handle( void *usr_ptr )
+       memset( &map, 0, sizeof(map) );
+ 
+       map.pid = getpid();
+-      map.addr = (unsigned int) usr_ptr;
++      map.addr = (uintptr_t) usr_ptr;
+ 
+       rc = ioctl( vcsm_handle,
+                   VMCS_SM_IOCTL_MAP_USR_HDL,
+@@ -1360,14 +1360,14 @@ void *vcsm_lock( unsigned int handle )
+          goto out;
+       }
+ 
+-      usr_ptr = (void *) lock_unlock.addr;
++      usr_ptr = (void *) (uintptr_t)lock_unlock.addr;
+ 
+       /* If applicable, invalidate the cache now.
+       */
+       if ( usr_ptr && sz.size )
+       {
+          cache.handle = sz.handle;
+-         cache.addr   = (unsigned int) usr_ptr;
++         cache.addr   = (uintptr_t) usr_ptr;
+          cache.size   = sz.size;
+ 
+          rc = ioctl( vcsm_handle,
+@@ -1527,7 +1527,7 @@ void *vcsm_lock_cache( unsigned int handle,
+       */
+       if ( chk.addr && chk.size )
+       {
+-         munmap( (void *)chk.addr, chk.size );
++         munmap( (void *)(uintptr_t)chk.addr, chk.size );
+ 
+          vcos_log_trace( "[%s]: [%d]: ioctl unmap hdl: %x",
+                          __func__,
+@@ -1608,7 +1608,7 @@ void *vcsm_lock_cache( unsigned int handle,
+       if ( usr_ptr && cache.size )
+       {
+          cache.handle = chk.handle;
+-         cache.addr   = (unsigned int) usr_ptr;
++         cache.addr   = (uintptr_t) usr_ptr;
+ 
+          rc = ioctl( vcsm_handle,
+                      VMCS_SM_IOCTL_MEM_INVALID,
+@@ -1728,7 +1728,7 @@ int vcsm_unlock_ptr_sp( void *usr_ptr, int cache_no_flush )
+       /* Retrieve the handle of the memory we want to unlock.
+       */
+       map.pid = getpid();
+-      map.addr = (unsigned int) usr_ptr;
++      map.addr = (uintptr_t) usr_ptr;
+ 
+       rc = ioctl( vcsm_handle,
+                   VMCS_SM_IOCTL_MAP_USR_HDL,
+diff --git a/host_applications/vmcs/test_apps/mmalcam/mmalcam.c b/host_applications/vmcs/test_apps/mmalcam/mmalcam.c
+index 294349e6..0b13668f 100644
+--- a/host_applications/vmcs/test_apps/mmalcam/mmalcam.c
++++ b/host_applications/vmcs/test_apps/mmalcam/mmalcam.c
+@@ -136,7 +136,7 @@ static void *test_mmal_camcorder(void *id)
+    value = test_mmal_start_camcorder(&stop, behaviour);
+ 
+    LOG_TRACE("Thread terminating, result %d", value);
+-   return (void *)value;
++   return (void *)(uintptr_t)value;
+ }
+ 
+ /*****************************************************************************/
+diff --git a/interface/mmal/CMakeLists.txt b/interface/mmal/CMakeLists.txt
+index 46f149df..8208f7c9 100644
+--- a/interface/mmal/CMakeLists.txt
++++ b/interface/mmal/CMakeLists.txt
+@@ -11,8 +11,10 @@ add_subdirectory(core)
+ add_subdirectory(util)
+ add_subdirectory(vc)
+ add_subdirectory(components)
+-add_subdirectory(openmaxil)
+-add_subdirectory(client)
++if(NOT ARM64)
++   add_subdirectory(openmaxil)
++   add_subdirectory(client)
++endif()
+ 
+ target_link_libraries(mmal mmal_core mmal_util mmal_vc_client vcos mmal_components)
+ 
+diff --git a/interface/mmal/components/spdif.c b/interface/mmal/components/spdif.c
+index d5747eee..d9cdc349 100644
+--- a/interface/mmal/components/spdif.c
++++ b/interface/mmal/components/spdif.c
+@@ -189,7 +189,7 @@ static MMAL_BOOL_T spdif_do_processing(MMAL_COMPONENT_T *component)
+       goto end;
+    }
+ 
+-   LOG_DEBUG("frame: %lld, size %i", in->pts, in->length);
++   LOG_DEBUG("frame: %" PRId64 ", size %i", in->pts, in->length);
+    mmal_buffer_header_mem_lock(out);
+    mmal_buffer_header_mem_lock(in);
+    in_data = in->data + in->offset;
+diff --git a/interface/mmal/core/mmal_port_clock.c b/interface/mmal/core/mmal_port_clock.c
+index 1eb7d105..0fd81f78 100644
+--- a/interface/mmal/core/mmal_port_clock.c
++++ b/interface/mmal/core/mmal_port_clock.c
+@@ -102,7 +102,7 @@ static MMAL_STATUS_T mmal_port_clock_process_buffer(MMAL_PORT_T *port, MMAL_BUFF
+ 
+    if (buffer->length != sizeof(MMAL_CLOCK_EVENT_T))
+    {
+-      LOG_ERROR("invalid buffer length %d expected %d",
++      LOG_ERROR("invalid buffer length %d expected %zu",
+                 buffer->length, sizeof(MMAL_CLOCK_EVENT_T));
+       return MMAL_EINVAL;
+    }
+diff --git a/interface/mmal/vc/mmal_vc_api.c b/interface/mmal/vc/mmal_vc_api.c
+index d7625181..7462727a 100644
+--- a/interface/mmal/vc/mmal_vc_api.c
++++ b/interface/mmal/vc/mmal_vc_api.c
+@@ -85,8 +85,10 @@ typedef struct MMAL_COMPONENT_MODULE_T
+ 
+    MMAL_BOOL_T event_ctx_initialised;
+    MMAL_VC_CLIENT_BUFFER_CONTEXT_T event_ctx; /**< Used as the ctx for event buffers */
++   uint32_t event_ctx_handle; /**< Used as the ctx for event buffers */
+ } MMAL_COMPONENT_MODULE_T;
+ 
++
+ /*****************************************************************************
+  * Local function prototypes
+  *****************************************************************************/
+@@ -148,7 +150,8 @@ static MMAL_STATUS_T mmal_vc_port_requirements_set(MMAL_PORT_T *port)
+    msg.component_handle = module->component_handle;
+    msg.action = MMAL_WORKER_PORT_ACTION_SET_REQUIREMENTS;
+    msg.port_handle = module->port_handle;
+-   msg.param.enable.port = *port;
++   msg.param.enable.port.buffer_num = port->buffer_num;
++   msg.param.enable.port.buffer_size = port->buffer_size;
+ 
+    status = mmal_vc_sendwait_message(mmal_vc_get_client(), &msg.header, sizeof(msg),
+                                      MMAL_WORKER_PORT_ACTION, &reply, &replylen, MMAL_FALSE);
+@@ -224,7 +227,7 @@ static MMAL_STATUS_T mmal_vc_port_enable(MMAL_PORT_T *port, MMAL_PORT_BH_CB_T cb
+       for (i = 0; i < pool->headers_num; i++)
+       {
+          drv = mmal_buffer_header_driver_data(pool->header[i]);
+-         drv->client_context = &port->component->priv->module->event_ctx;
++         drv->client_context = port->component->priv->module->event_ctx_handle;
+          drv->magic = MMAL_MAGIC;
+       }
+ 
+@@ -255,7 +258,8 @@ static MMAL_STATUS_T mmal_vc_port_enable(MMAL_PORT_T *port, MMAL_PORT_BH_CB_T cb
+    msg.component_handle = module->component_handle;
+    msg.action = MMAL_WORKER_PORT_ACTION_ENABLE;
+    msg.port_handle = module->port_handle;
+-   msg.param.enable.port = *port;
++   msg.param.enable.port.buffer_num = port->buffer_num;
++   msg.param.enable.port.buffer_size = port->buffer_size;
+ 
+    status = mmal_vc_sendwait_message(mmal_vc_get_client(), &msg.header, sizeof(msg),
+                                      MMAL_WORKER_PORT_ACTION, &reply, &replylen, MMAL_FALSE);
+@@ -368,7 +372,7 @@ static MMAL_STATUS_T mmal_vc_port_flush_sync(MMAL_PORT_T *port)
+    client_context.magic = MMAL_MAGIC;
+    client_context.port = port;
+ 
+-   msg->drvbuf.client_context = &client_context;
++   msg->drvbuf.client_context = mmal_vc_allocate_client_context(&client_context);
+    msg->drvbuf.component_handle = module->component_handle;
+    msg->drvbuf.port_handle = module->port_handle;
+    msg->drvbuf.magic = MMAL_MAGIC;
+@@ -384,6 +388,7 @@ static MMAL_STATUS_T mmal_vc_port_flush_sync(MMAL_PORT_T *port)
+    if (status != MMAL_SUCCESS)
+       LOG_ERROR("failed to disable port - reason %d", status);
+ 
++   mmal_vc_release_client_context(&client_context);
+    return status;
+ }
+ 
+@@ -502,7 +507,7 @@ static void mmal_vc_do_callback(MMAL_COMPONENT_T *component)
+ 
+    /* Events generated by this component are handled differently */
+    if (mmal_buffer_header_driver_data(buffer)->client_context ==
+-       &component->priv->module->event_ctx)
++       component->priv->module->event_ctx_handle)
+    {
+       mmal_port_event_send(port, buffer);
+       return;
+@@ -528,14 +533,16 @@ static void mmal_vc_port_send_callback(mmal_worker_buffer_from_host *msg)
+ {
+    MMAL_BUFFER_HEADER_T *buffer;
+    MMAL_PORT_T *port;
+-   MMAL_VC_CLIENT_BUFFER_CONTEXT_T *client_context = msg->drvbuf.client_context;
++   MMAL_VC_CLIENT_BUFFER_CONTEXT_T *client_context = mmal_vc_lookup_client_context(msg->drvbuf.client_context);
+ 
+    vcos_assert(client_context);
+    vcos_assert(client_context->magic == MMAL_MAGIC);
+ 
+    buffer = client_context->buffer;
+    port = client_context->port;
+-   vcos_blockpool_free(msg->drvbuf.client_context);
++
++   vcos_blockpool_free(client_context);
++   mmal_vc_release_client_context(client_context);
+ 
+    vcos_assert(port->priv->module->magic == MMAL_MAGIC);
+    mmal_vc_msg_to_buffer_header(buffer, msg);
+@@ -614,7 +621,7 @@ static MMAL_STATUS_T mmal_vc_port_send(MMAL_PORT_T *port, MMAL_BUFFER_HEADER_T *
+    client_context->callback_event = NULL;
+    client_context->port = port;
+ 
+-   msg->drvbuf.client_context = client_context;
++   msg->drvbuf.client_context = mmal_vc_allocate_client_context(client_context);
+    msg->drvbuf.component_handle = module->component_handle;
+    msg->drvbuf.port_handle = module->port_handle;
+    msg->drvbuf.magic = MMAL_MAGIC;
+@@ -641,12 +648,14 @@ static MMAL_STATUS_T mmal_vc_port_send(MMAL_PORT_T *port, MMAL_BUFFER_HEADER_T *
+    if (!VCOS_BLOCKPOOL_IS_VALID_HANDLE_FORMAT(msg->drvbuf.component_handle, 256))
+    {
+       LOG_ERROR("bad component handle 0x%x", msg->drvbuf.component_handle);
++      mmal_vc_release_client_context(client_context);
+       return MMAL_EINVAL;
+    }
+ 
+    if (msg->drvbuf.port_handle > 255)
+    {
+       LOG_ERROR("bad port handle 0x%x", msg->drvbuf.port_handle);
++      mmal_vc_release_client_context(client_context);
+       return MMAL_EINVAL;
+    }
+ 
+@@ -693,7 +702,8 @@ static MMAL_STATUS_T mmal_vc_port_send(MMAL_PORT_T *port, MMAL_BUFFER_HEADER_T *
+    if (status != MMAL_SUCCESS)
+    {
+       LOG_INFO("failed %d", status);
+-      vcos_blockpool_free(msg->drvbuf.client_context);
++      vcos_blockpool_free(client_context);
++      mmal_vc_release_client_context(client_context);
+       buffer->data = mmal_vc_shm_lock(buffer->data, port->priv->module->zero_copy_workaround);
+    }
+ 
+@@ -795,6 +805,7 @@ static MMAL_STATUS_T mmal_vc_component_destroy(MMAL_COMPONENT_T *component)
+       mmal_ports_free(component->clock, component->clock_num);
+ 
+    mmal_queue_destroy(component->priv->module->callback_queue);
++   mmal_vc_release_client_context(&component->priv->module->event_ctx);
+ 
+    vcos_free(component->priv->module);
+    component->priv->module = NULL;
+@@ -802,8 +813,11 @@ static MMAL_STATUS_T mmal_vc_component_destroy(MMAL_COMPONENT_T *component)
+ fail:
+    // no longer require videocore
+    mmal_vc_release();
++   mmal_vc_release_client_component(component);
+    mmal_vc_shm_exit();
+    mmal_vc_deinit();
++   mmal_vc_dump_client_components();
++   mmal_vc_dump_client_contexts();
+    return status;
+ }
+ 
+@@ -928,6 +942,29 @@ MMAL_STATUS_T mmal_vc_get_core_stats(MMAL_CORE_STATISTICS_T *stats,
+    return status;
+ }
+ 
++static void mmal_vc_copy_es_format_to_vc(MMAL_ES_FORMAT_T *src, MMAL_VC_ES_FORMAT_T *dest)
++{
++   // IPC MMAL_VC_ES_FORMAT_T is not necessarily the same as MMAL_ES_FORMAT_T,
++   // so copy fields individually.
++   dest->type = src->type;
++   dest->encoding = src->encoding;
++   dest->encoding_variant = src->encoding_variant;
++   dest->bitrate = src->bitrate;
++   dest->flags = src->flags;
++   dest->extradata_size = src->extradata_size;
++}
++
++static void mmal_vc_copy_es_format_from_vc(MMAL_VC_ES_FORMAT_T *src, MMAL_ES_FORMAT_T *dest)
++{
++   // IPC MMAL_VC_ES_FORMAT_T is not necessarily the same as MMAL_ES_FORMAT_T,
++   // so copy fields individually.
++   dest->type = src->type;
++   dest->encoding = src->encoding;
++   dest->encoding_variant = src->encoding_variant;
++   dest->bitrate = src->bitrate;
++   dest->flags = src->flags;
++   dest->extradata_size = src->extradata_size;
++}
+ 
+ /** Get port context data. */
+ static MMAL_STATUS_T mmal_vc_port_info_get(MMAL_PORT_T *port)
+@@ -969,9 +1006,9 @@ static MMAL_STATUS_T mmal_vc_port_info_get(MMAL_PORT_T *port)
+    port->buffer_alignment_min = reply.port.buffer_alignment_min;
+    port->is_enabled = reply.port.is_enabled;
+    port->capabilities = reply.port.capabilities;
+-   reply.format.extradata = port->format->extradata;
+-   reply.format.es = port->format->es;
+-   *port->format = reply.format;
++
++   mmal_vc_copy_es_format_from_vc(&reply.format, port->format);
++
+    *port->format->es = reply.es;
+    if(port->format->extradata_size)
+    {
+@@ -1001,15 +1038,22 @@ static MMAL_STATUS_T mmal_vc_port_info_set(MMAL_PORT_T *port)
+    msg.component_handle = module->component_handle;
+    msg.port_type = port->type;
+    msg.index = port->index;
+-   msg.port = *port;
+-   msg.format = *port->format;
++
++   //Only copy the values that are used into the MMAL_PORT_T of the IPC.
++   msg.port.buffer_num = port->buffer_num;
++   msg.port.buffer_size = port->buffer_size;
++   msg.port.is_enabled = port->is_enabled;
++
++   mmal_vc_copy_es_format_to_vc(port->format, &msg.format);
++
+    msg.es = *port->format->es;
++
+    if(msg.format.extradata_size > MMAL_FORMAT_EXTRADATA_MAX_SIZE)
+    {
+       vcos_assert(0);
+       msg.format.extradata_size = MMAL_FORMAT_EXTRADATA_MAX_SIZE;
+    }
+-   memcpy(msg.extradata, msg.format.extradata, msg.format.extradata_size);
++   memcpy(msg.extradata, port->format->extradata, msg.format.extradata_size);
+ 
+    LOG_TRACE("set port info (%i:%i)", port->type, port->index);
+ 
+@@ -1037,9 +1081,9 @@ static MMAL_STATUS_T mmal_vc_port_info_set(MMAL_PORT_T *port)
+    port->buffer_alignment_min = reply.port.buffer_alignment_min;
+    port->is_enabled = reply.port.is_enabled;
+    port->capabilities = reply.port.capabilities;
+-   reply.format.extradata = port->format->extradata;
+-   reply.format.es = port->format->es;
+-   *port->format = reply.format;
++
++   mmal_vc_copy_es_format_from_vc(&reply.format, port->format);
++
+    *port->format->es = reply.es;
+    if(port->format->extradata_size)
+    {
+@@ -1115,7 +1159,7 @@ static MMAL_STATUS_T mmal_vc_port_parameter_set(MMAL_PORT_T *port, const MMAL_PA
+ 
+    if(param->size > MMAL_WORKER_PORT_PARAMETER_SET_MAX)
+    {
+-      LOG_ERROR("parameter too large (%u > %u)", param->size, MMAL_WORKER_PORT_PARAMETER_SET_MAX);
++      LOG_ERROR("parameter too large (%u > %zu)", param->size, MMAL_WORKER_PORT_PARAMETER_SET_MAX);
+       return MMAL_ENOSPC;
+    }
+ 
+@@ -1174,7 +1218,7 @@ static MMAL_STATUS_T mmal_vc_port_parameter_get(MMAL_PORT_T *port, MMAL_PARAMETE
+ 
+    if(param->size > MMAL_WORKER_PORT_PARAMETER_GET_MAX)
+    {
+-      LOG_ERROR("parameter too large (%u > %u) id %u", param->size,
++      LOG_ERROR("parameter too large (%u > %zu) id %u", param->size,
+             MMAL_WORKER_PORT_PARAMETER_GET_MAX, param->id);
+       return MMAL_ENOMEM;
+    }
+@@ -1245,7 +1289,7 @@ static uint8_t *mmal_vc_port_payload_alloc(MMAL_PORT_T *port, uint32_t payload_s
+    {
+       MMAL_OPAQUE_IMAGE_HANDLE_T h = mmal_vc_opaque_alloc_desc(port->name);
+       can_deref = MMAL_FALSE;
+-      ret = (void*)h;
++      ret = (void*)(uintptr_t)h;
+       if (!ret)
+       {
+          LOG_ERROR("%s: failed to allocate %d bytes opaque memory",
+@@ -1294,7 +1338,7 @@ static void mmal_vc_port_payload_free(MMAL_PORT_T *port, uint8_t *payload)
+    if (module->opaque_allocs)
+    {
+       module->opaque_allocs--;
+-      mmal_vc_opaque_release((MMAL_OPAQUE_IMAGE_HANDLE_T)payload);
++      mmal_vc_opaque_release((MMAL_OPAQUE_IMAGE_HANDLE_T)(uintptr_t)payload);
+       return;
+    }
+ 
+@@ -1328,7 +1372,6 @@ static MMAL_STATUS_T mmal_vc_component_create(const char *name, MMAL_COMPONENT_T
+       return MMAL_EINVAL;
+    }
+ 
+-   msg.client_component = component;
+    /* coverity[secure_coding] Length tested above */
+    strcpy(msg.name, basename);
+ #ifdef __linux__
+@@ -1351,6 +1394,8 @@ static MMAL_STATUS_T mmal_vc_component_create(const char *name, MMAL_COMPONENT_T
+       return status;
+    }
+ 
++   msg.client_component = mmal_vc_allocate_client_component(component);
++
+    // claim VC for entire duration of component.
+    status = mmal_vc_use();
+ 
+@@ -1371,6 +1416,7 @@ static MMAL_STATUS_T mmal_vc_component_create(const char *name, MMAL_COMPONENT_T
+       LOG_ERROR("failed to create component '%s' (%i:%s)", name, status,
+                 mmal_status_to_string(status));
+       mmal_vc_release();
++      mmal_vc_release_client_component(component);
+       mmal_vc_shm_exit();
+       mmal_vc_deinit();
+       return status;
+@@ -1391,6 +1437,7 @@ static MMAL_STATUS_T mmal_vc_component_create(const char *name, MMAL_COMPONENT_T
+                                MMAL_WORKER_COMPONENT_DESTROY, &reply, &replylen, MMAL_FALSE);
+       vcos_assert(destroy_status == MMAL_SUCCESS);
+       mmal_vc_release();
++      mmal_vc_release_client_component(component);
+       mmal_vc_shm_exit();
+       mmal_vc_deinit();
+       return status;
+@@ -1496,6 +1543,7 @@ static MMAL_STATUS_T mmal_vc_component_create(const char *name, MMAL_COMPONENT_T
+    module->event_ctx_initialised = MMAL_FALSE;
+    module->event_ctx.magic = MMAL_MAGIC;
+    module->event_ctx.callback_event = mmal_vc_port_send_event_callback;
++   module->event_ctx_handle = mmal_vc_allocate_client_context(&module->event_ctx);
+ 
+    /* populate component structure */
+    component->priv->pf_enable = mmal_vc_component_enable;
+diff --git a/interface/mmal/vc/mmal_vc_client.c b/interface/mmal/vc/mmal_vc_client.c
+index 6339a93a..aa49eab9 100644
+--- a/interface/mmal/vc/mmal_vc_client.c
++++ b/interface/mmal/vc/mmal_vc_client.c
+@@ -53,6 +53,7 @@ static VCOS_LOG_CAT_T mmal_ipc_log_category;
+  */
+ typedef struct MMAL_WAITER_T
+ {
++   int index;
+    VCOS_SEMAPHORE_T sem;
+    unsigned inuse;
+    void *dest;                   /**< Where to write reply */
+@@ -82,6 +83,187 @@ struct MMAL_CLIENT_T
+    MMAL_BOOL_T inited;
+ };
+ 
++/*****************************************************************************
++ * Lookup table functions for client_component handles.
++ * Required as the IPC is strictly 32bit, therefore 64bit userland can not
++ * pass in the required pointers.
++ *****************************************************************************/
++#define MAX_COMPONENT_HANDLES 64
++
++typedef struct
++{
++   int index;
++   unsigned inuse;
++   MMAL_COMPONENT_T *component;
++} MMAL_CLIENT_COMPONENT_T;
++
++typedef struct
++{
++   MMAL_CLIENT_COMPONENT_T components[MAX_COMPONENT_HANDLES];
++   VCOS_MUTEX_T lock;
++} MMAL_CLIENT_COMPONENT_POOL_T;
++
++static MMAL_CLIENT_COMPONENT_POOL_T client_component_pool;
++
++uint32_t mmal_vc_allocate_client_component(MMAL_COMPONENT_T *component)
++{
++   int i;
++
++   vcos_mutex_lock(&client_component_pool.lock);
++   for (i=0; i<MAX_COMPONENT_HANDLES; i++)
++   {
++      if (client_component_pool.components[i].inuse == 0)
++         break;
++   }
++
++   if (vcos_verify(i != MAX_COMPONENT_HANDLES))
++   {
++      client_component_pool.components[i].index = i;
++      client_component_pool.components[i].component = component;
++      client_component_pool.components[i].inuse = 1;
++   }
++   vcos_mutex_unlock(&client_component_pool.lock);
++
++   return i;
++}
++
++static MMAL_COMPONENT_T *lookup_client_component(int index)
++{
++   if (vcos_verify(index < MAX_COMPONENT_HANDLES))
++   {
++      vcos_assert(client_component_pool.components[index].inuse);
++      return client_component_pool.components[index].component;
++   }
++
++   return NULL;
++}
++
++void mmal_vc_release_client_component(MMAL_COMPONENT_T *component)
++{
++   int i;
++
++   vcos_mutex_lock(&client_component_pool.lock);
++   for (i=0; i<MAX_COMPONENT_HANDLES; i++)
++   {
++      if (client_component_pool.components[i].component == component)
++      {
++         client_component_pool.components[i].component = NULL;
++         client_component_pool.components[i].inuse = 0;
++      }
++   }
++   vcos_mutex_unlock(&client_component_pool.lock);
++}
++
++void mmal_vc_dump_client_components(void)
++{
++   int i;
++   int count = 0;
++
++   vcos_mutex_lock(&client_component_pool.lock);
++   for (i=0; i<MAX_COMPONENT_HANDLES; i++)
++   {
++      if (client_component_pool.components[i].inuse)
++      {
++         LOG_ERROR("%s: Entry %d in use for context %p", __func__, i, client_component_pool.components[i].component);
++         count++;
++      }
++   }
++   vcos_mutex_unlock(&client_component_pool.lock);
++   LOG_ERROR("%s: %u entries in use", __func__, count);
++}
++
++#define MAX_CLIENT_CONTEXTS 128
++
++typedef struct
++{
++   int index;
++   unsigned inuse;
++   MMAL_VC_CLIENT_BUFFER_CONTEXT_T *ctx;
++} MMAL_CLIENT_CONTEXT_T;
++
++typedef struct
++{
++   MMAL_CLIENT_CONTEXT_T contexts[MAX_CLIENT_CONTEXTS];
++   VCOS_MUTEX_T lock;
++} MMAL_CLIENT_CONTEXT_POOL_T;
++
++static MMAL_CLIENT_CONTEXT_POOL_T client_context_pool;
++#define CLIENT_CONTEXT_MAGIC 0xFEDC0000
++#define CLIENT_CONTEXT_MAGIC_MASK(a) (a & 0xFFFF)
++#define CLIENT_CONTEXT_MAGIC_CHECK(a) (a & 0xFFFF0000)
++
++uint32_t mmal_vc_allocate_client_context(MMAL_VC_CLIENT_BUFFER_CONTEXT_T *context)
++{
++   int i;
++
++   vcos_mutex_lock(&client_context_pool.lock);
++   for (i=0; i<MAX_CLIENT_CONTEXTS; i++)
++   {
++      if (client_context_pool.contexts[i].inuse == 0)
++         break;
++   }
++
++   if (vcos_verify(i != MAX_CLIENT_CONTEXTS))
++   {
++      client_context_pool.contexts[i].index = i;
++      client_context_pool.contexts[i].ctx = context;
++      client_context_pool.contexts[i].inuse = 1;
++   }
++   vcos_mutex_unlock(&client_context_pool.lock);
++
++   return i | CLIENT_CONTEXT_MAGIC;
++}
++
++MMAL_VC_CLIENT_BUFFER_CONTEXT_T *mmal_vc_lookup_client_context(int index)
++{
++   if (vcos_verify((CLIENT_CONTEXT_MAGIC_CHECK(index) == CLIENT_CONTEXT_MAGIC) &&
++                   (CLIENT_CONTEXT_MAGIC_MASK(index) < MAX_CLIENT_CONTEXTS)))
++   {
++      vcos_assert(client_context_pool.contexts[CLIENT_CONTEXT_MAGIC_MASK(index)].inuse);
++      return client_context_pool.contexts[CLIENT_CONTEXT_MAGIC_MASK(index)].ctx;
++   }
++
++   return NULL;
++}
++
++void mmal_vc_release_client_context(MMAL_VC_CLIENT_BUFFER_CONTEXT_T *context)
++{
++   int i;
++
++   vcos_mutex_lock(&client_context_pool.lock);
++   for (i=0; i<MAX_CLIENT_CONTEXTS; i++)
++   {
++      if (client_context_pool.contexts[i].ctx == context)
++      {
++         client_context_pool.contexts[i].ctx = NULL;
++         client_context_pool.contexts[i].inuse = 0;
++         break;
++      }
++   }
++   if (i >= MAX_CLIENT_CONTEXTS)
++      LOG_ERROR("Failed to release context %p - not found", context);
++
++   vcos_mutex_unlock(&client_context_pool.lock);
++}
++
++void mmal_vc_dump_client_contexts(void)
++{
++   int i;
++   int count = 0;
++
++   vcos_mutex_lock(&client_context_pool.lock);
++   for (i=0; i<MAX_CLIENT_CONTEXTS; i++)
++   {
++      if (client_context_pool.contexts[i].inuse)
++      {
++         LOG_ERROR("%s: Entry %d in use for context %p", __func__, i, client_context_pool.contexts[i].ctx);
++         count++;
++      }
++   }
++   vcos_mutex_unlock(&client_context_pool.lock);
++   LOG_ERROR("%s: %u entries in use", __func__, count);
++}
++
+ /* One client per process/VC connection. Multiple threads may
+  * be using a single client.
+  */
+@@ -90,6 +272,8 @@ static MMAL_CLIENT_T client;
+ static void init_once(void)
+ {
+    vcos_mutex_create(&client.lock, VCOS_FUNCTION);
++   vcos_mutex_create(&client_component_pool.lock, VCOS_FUNCTION);
++   vcos_mutex_create(&client_context_pool.lock, VCOS_FUNCTION);
+ }
+ 
+ /** Create a pool of wait-structures.
+@@ -107,6 +291,7 @@ static MMAL_STATUS_T create_waitpool(MMAL_WAITPOOL_T *waitpool)
+    for (i=0; i<MAX_WAITERS; i++)
+    {
+       waitpool->waiters[i].inuse = 0;
++      waitpool->waiters[i].index = i;
+       status = vcos_semaphore_create(&waitpool->waiters[i].sem,
+                                      "mmal waiter", 0);
+       if (status != VCOS_SUCCESS)
+@@ -161,6 +346,19 @@ static MMAL_WAITER_T *get_waiter(MMAL_CLIENT_T *client)
+    return waiter;
+ }
+ 
++/** Look up a waiter reference based on the static client
++  */
++static MMAL_WAITER_T *lookup_waiter(uint32_t index)
++{
++   //NB this uses the static client variable, whilst most others use the client
++   //variable passed in. I don't believe there is a way to have multiple clients
++   //in one process, so this should be safe.
++   if (vcos_verify(index < MAX_WAITERS))
++      return &client.waitpool.waiters[index];
++
++   return NULL;
++}
++
+ /** Return a waiter to the pool.
+   */
+ static void release_waiter(MMAL_CLIENT_T *client, MMAL_WAITER_T *waiter)
+@@ -198,13 +396,15 @@ static void mmal_vc_handle_event_msg(VCHIQ_HEADER_T *vchiq_header,
+                                     void *context)
+ {
+    mmal_worker_event_to_host *msg = (mmal_worker_event_to_host *)vchiq_header->data;
+-   MMAL_COMPONENT_T *component = msg->client_component;
++   MMAL_COMPONENT_T *component = lookup_client_component(msg->client_component);
++   MMAL_VC_CLIENT_BUFFER_CONTEXT_T *client_context;
+    MMAL_BUFFER_HEADER_T *buffer;
+    MMAL_STATUS_T status;
+    MMAL_PORT_T *port;
+ 
+-   LOG_DEBUG("event to host, cmd 0x%08x len %d to component %p port (%d,%d)",
+-         msg->cmd, msg->length, msg->client_component, msg->port_type, msg->port_num);
++   LOG_DEBUG("event to host, cmd 0x%08x len %d to component %u/%p port (%d,%d)",
++         msg->cmd, msg->length, msg->client_component, component, msg->port_type,
++         msg->port_num);
+    (void)context;
+ 
+    port = mmal_vc_port_by_number(component, msg->port_type, msg->port_num);
+@@ -229,11 +429,12 @@ static void mmal_vc_handle_event_msg(VCHIQ_HEADER_T *vchiq_header,
+    }
+    buffer->length = msg->length;
+ 
++   client_context = mmal_vc_lookup_client_context(mmal_buffer_header_driver_data(buffer)->client_context);
+    /* Sanity check that the event buffers have the proper vc client context */
+    if (!vcos_verify(mmal_buffer_header_driver_data(buffer)->magic == MMAL_MAGIC &&
+-          mmal_buffer_header_driver_data(buffer)->client_context &&
+-          mmal_buffer_header_driver_data(buffer)->client_context->magic == MMAL_MAGIC &&
+-          mmal_buffer_header_driver_data(buffer)->client_context->callback_event))
++          client_context &&
++          client_context->magic == MMAL_MAGIC &&
++          client_context->callback_event))
+    {
+       LOG_ERROR("event buffers not configured properly by component");
+       goto error;
+@@ -260,7 +461,7 @@ static void mmal_vc_handle_event_msg(VCHIQ_HEADER_T *vchiq_header,
+       if (msg->length)
+          memcpy(buffer->data, msg->data, msg->length);
+ 
+-      mmal_buffer_header_driver_data(buffer)->client_context->callback_event(port, buffer);
++      client_context->callback_event(port, buffer);
+       LOG_DEBUG("done callback back to client");
+       vchiq_release_message(service, vchiq_header);
+    }
+@@ -324,29 +525,32 @@ static VCHIQ_STATUS_T mmal_vc_vchiq_callback(VCHIQ_REASON_T reason,
+ 
+          if (msg->msgid == MMAL_WORKER_BUFFER_TO_HOST)
+          {
++            MMAL_VC_CLIENT_BUFFER_CONTEXT_T *client_context;
+             LOG_TRACE("buffer to host");
+             mmal_worker_buffer_from_host *msg = (mmal_worker_buffer_from_host *)vchiq_header->data;
+-            LOG_TRACE("len %d context %p", msg->buffer_header.length, msg->drvbuf.client_context);
+-            vcos_assert(msg->drvbuf.client_context);
+-            vcos_assert(msg->drvbuf.client_context->magic == MMAL_MAGIC);
++            client_context = mmal_vc_lookup_client_context(msg->drvbuf.client_context);
++            LOG_TRACE("len %d context %p (%08x)", msg->buffer_header.length, client_context, msg->drvbuf.client_context);
++            vcos_assert(client_context);
++            vcos_assert(client_context->magic == MMAL_MAGIC);
+ 
+             /* If the buffer is referencing another, need to replicate it here
+              * in order to use the reference buffer's payload and ensure the
+              * reference is not released prematurely */
+             if (msg->has_reference)
+-               mmal_buffer_header_replicate(msg->drvbuf.client_context->buffer,
+-                                            msg->drvbuf_ref.client_context->buffer);
++               mmal_buffer_header_replicate(client_context->buffer,
++                                             //FIXME
++                                            /*msg->drvbuf_ref.*/client_context->buffer);
+ 
+             /* Sanity check the size of the transfer so we don't overrun our buffer */
+             if (!vcos_verify(msg->buffer_header.offset + msg->buffer_header.length <=
+-                             msg->drvbuf.client_context->buffer->alloc_size))
++                             client_context->buffer->alloc_size))
+             {
+                LOG_TRACE("buffer too small (%i, %i)",
+                          msg->buffer_header.offset + msg->buffer_header.length,
+-                         msg->drvbuf.client_context->buffer->alloc_size);
++                         client_context->buffer->alloc_size);
+                msg->buffer_header.length = 0;
+                msg->buffer_header.flags |= MMAL_BUFFER_HEADER_FLAG_TRANSMISSION_FAILED;
+-               msg->drvbuf.client_context->callback(msg);
++               client_context->callback(msg);
+                vchiq_release_message(service, vchiq_header);
+                break;
+             }
+@@ -357,7 +561,7 @@ static VCHIQ_STATUS_T mmal_vc_vchiq_callback(VCHIQ_REASON_T reason,
+             {
+                /* a buffer full of data for us to process */
+                VCHIQ_STATUS_T vst = VCHIQ_SUCCESS;
+-               LOG_TRACE("queue bulk rx: %p, %d", msg->drvbuf.client_context->buffer->data +
++               LOG_TRACE("queue bulk rx: %p, %d", client_context->buffer->data +
+                          msg->buffer_header.offset, msg->buffer_header.length);
+                int len = msg->buffer_header.length;
+                len = (len+3) & (~3);
+@@ -370,7 +574,7 @@ static VCHIQ_STATUS_T mmal_vc_vchiq_callback(VCHIQ_REASON_T reason,
+                {
+                   /* buffer transferred using vchiq bulk xfer */
+                   vst = vchiq_queue_bulk_receive(service,
+-                     msg->drvbuf.client_context->buffer->data + msg->buffer_header.offset,
++                     client_context->buffer->data + msg->buffer_header.offset,
+                      len, vchiq_header);
+ 
+                   if (vst != VCHIQ_SUCCESS)
+@@ -378,20 +582,20 @@ static VCHIQ_STATUS_T mmal_vc_vchiq_callback(VCHIQ_REASON_T reason,
+                      LOG_TRACE("queue bulk rx len %d failed to start", msg->buffer_header.length);
+                      msg->buffer_header.length = 0;
+                      msg->buffer_header.flags |= MMAL_BUFFER_HEADER_FLAG_TRANSMISSION_FAILED;
+-                     msg->drvbuf.client_context->callback(msg);
++                     client_context->callback(msg);
+                      vchiq_release_message(service, vchiq_header);
+                   }
+                }
+                else if (msg->payload_in_message <= MMAL_VC_SHORT_DATA)
+                {
+                   /* we have already received the buffer data in the message! */
+-                  MMAL_BUFFER_HEADER_T *dst = msg->drvbuf.client_context->buffer;
++                  MMAL_BUFFER_HEADER_T *dst = client_context->buffer;
+                   LOG_TRACE("short data: dst = %p, dst->data = %p, len %d short len %d", dst, dst? dst->data : 0, msg->buffer_header.length, msg->payload_in_message);
+                   memcpy(dst->data, msg->short_data, msg->payload_in_message);
+                   dst->offset = 0;
+                   dst->length = msg->payload_in_message;
+                   vchiq_release_message(service, vchiq_header);
+-                  msg->drvbuf.client_context->callback(msg);
++                  client_context->callback(msg);
+                }
+                else
+                {
+@@ -409,9 +613,9 @@ static VCHIQ_STATUS_T mmal_vc_vchiq_callback(VCHIQ_REASON_T reason,
+                 * be picked up in the callback to complete the sequence.
+                 */
+                LOG_TRACE("doing cb (%p) context %p",
+-                         msg->drvbuf.client_context, msg->drvbuf.client_context ?
+-                         msg->drvbuf.client_context->callback : 0);
+-               msg->drvbuf.client_context->callback(msg);
++                         client_context, client_context ?
++                         client_context->callback : 0);
++               client_context->callback(msg);
+                LOG_TRACE("done callback back to client");
+                vchiq_release_message(service, vchiq_header);
+             }
+@@ -422,7 +626,7 @@ static VCHIQ_STATUS_T mmal_vc_vchiq_callback(VCHIQ_REASON_T reason,
+          }
+          else
+          {
+-            MMAL_WAITER_T *waiter = msg->u.waiter;
++            MMAL_WAITER_T *waiter = lookup_waiter(msg->u.waiter);
+             LOG_TRACE("waking up waiter at %p", waiter);
+             vcos_assert(waiter->inuse);
+             int len = vcos_min(waiter->destlen, vchiq_header->size);
+@@ -443,7 +647,7 @@ static VCHIQ_STATUS_T mmal_vc_vchiq_callback(VCHIQ_REASON_T reason,
+ #ifdef VCOS_LOGGING_ENABLED
+          mmal_worker_buffer_from_host *msg = (mmal_worker_buffer_from_host *)context;
+ #endif
+-         LOG_TRACE("bulk tx done: %p, %d", msg->buffer_header.data, msg->buffer_header.length);
++         LOG_TRACE("bulk tx done: %08x, %d", msg->buffer_header.data, msg->buffer_header.length);
+       }
+       break;
+    case VCHIQ_BULK_RECEIVE_DONE:
+@@ -453,18 +657,21 @@ static VCHIQ_STATUS_T mmal_vc_vchiq_callback(VCHIQ_REASON_T reason,
+          if (msg_hdr->msgid == MMAL_WORKER_BUFFER_TO_HOST)
+          {
+             mmal_worker_buffer_from_host *msg = (mmal_worker_buffer_from_host *)msg_hdr;
+-            vcos_assert(msg->drvbuf.client_context->magic == MMAL_MAGIC);
+-            msg->drvbuf.client_context->callback(msg);
+-            LOG_TRACE("bulk rx done: %p, %d", msg->buffer_header.data, msg->buffer_header.length);
++            MMAL_VC_CLIENT_BUFFER_CONTEXT_T *client_context = mmal_vc_lookup_client_context(msg->drvbuf.client_context);
++            vcos_assert(client_context->magic == MMAL_MAGIC);
++            client_context->callback(msg);
++            LOG_TRACE("bulk rx done: %08x, %d", msg->buffer_header.data, msg->buffer_header.length);
+          }
+          else
+          {
+             mmal_worker_event_to_host *msg = (mmal_worker_event_to_host *)msg_hdr;
+-            MMAL_PORT_T *port = mmal_vc_port_by_number(msg->client_component, msg->port_type, msg->port_num);
++            MMAL_COMPONENT_T *component = lookup_client_component(msg->client_component);
++            MMAL_VC_CLIENT_BUFFER_CONTEXT_T *client_context =
++                  mmal_vc_lookup_client_context(mmal_buffer_header_driver_data(msg->delayed_buffer)->client_context);
++            MMAL_PORT_T *port = mmal_vc_port_by_number(component, msg->port_type, msg->port_num);
+ 
+             vcos_assert(port);
+-            mmal_buffer_header_driver_data(msg->delayed_buffer)->
+-               client_context->callback_event(port, msg->delayed_buffer);
++            client_context->callback_event(port, msg->delayed_buffer);
+             LOG_DEBUG("event bulk rx done, length %d", msg->length);
+          }
+          vchiq_release_message(service, header);
+@@ -477,21 +684,25 @@ static VCHIQ_STATUS_T mmal_vc_vchiq_callback(VCHIQ_REASON_T reason,
+          if (msg_hdr->msgid == MMAL_WORKER_BUFFER_TO_HOST)
+          {
+             mmal_worker_buffer_from_host *msg = (mmal_worker_buffer_from_host *)msg_hdr;
+-            LOG_TRACE("bulk rx aborted: %p, %d", msg->buffer_header.data, msg->buffer_header.length);
+-            vcos_assert(msg->drvbuf.client_context->magic == MMAL_MAGIC);
++            MMAL_VC_CLIENT_BUFFER_CONTEXT_T *client_context = mmal_vc_lookup_client_context(msg->drvbuf.client_context);
++            LOG_TRACE("bulk rx aborted: %08x, %d", msg->buffer_header.data, msg->buffer_header.length);
++            vcos_assert(client_context->magic == MMAL_MAGIC);
+             msg->buffer_header.flags |= MMAL_BUFFER_HEADER_FLAG_TRANSMISSION_FAILED;
+-            msg->drvbuf.client_context->callback(msg);
++            client_context->callback(msg);
+          }
+          else
+          {
+             mmal_worker_event_to_host *msg = (mmal_worker_event_to_host *)msg_hdr;
+-            MMAL_PORT_T *port = mmal_vc_port_by_number(msg->client_component, msg->port_type, msg->port_num);
++            MMAL_COMPONENT_T *component = lookup_client_component(msg->client_component);
++            MMAL_VC_CLIENT_BUFFER_CONTEXT_T *client_context =
++                  mmal_vc_lookup_client_context(mmal_buffer_header_driver_data(msg->delayed_buffer)->client_context);
++            MMAL_PORT_T *port = mmal_vc_port_by_number(component, msg->port_type, msg->port_num);
+ 
+             vcos_assert(port);
+             LOG_DEBUG("event bulk rx aborted");
+             msg->delayed_buffer->flags |= MMAL_BUFFER_HEADER_FLAG_TRANSMISSION_FAILED;
+-            mmal_buffer_header_driver_data(msg->delayed_buffer)->
+-               client_context->callback_event(port, msg->delayed_buffer);
++
++            client_context->callback_event(port, msg->delayed_buffer);
+          }
+          vchiq_release_message(service, header);
+       }
+@@ -499,9 +710,12 @@ static VCHIQ_STATUS_T mmal_vc_vchiq_callback(VCHIQ_REASON_T reason,
+    case VCHIQ_BULK_TRANSMIT_ABORTED:
+       {
+          mmal_worker_buffer_from_host *msg = (mmal_worker_buffer_from_host *)context;
+-         LOG_INFO("bulk tx aborted: %p, %d", msg->buffer_header.data, msg->buffer_header.length);
+-         vcos_assert(msg->drvbuf.client_context->magic == MMAL_MAGIC);
++         MMAL_VC_CLIENT_BUFFER_CONTEXT_T *client_context =
++               mmal_vc_lookup_client_context(msg->drvbuf.client_context);
++         LOG_INFO("bulk tx aborted: %08x, %d", msg->buffer_header.data, msg->buffer_header.length);
++         vcos_assert(client_context->magic == MMAL_MAGIC);
+          /* Nothing to do as the VC side will release the buffer and notify us of the error */
++         client_context = NULL;    // Avoid warnings in release builds
+       }
+       break;
+    default:
+@@ -548,7 +762,7 @@ MMAL_STATUS_T mmal_vc_sendwait_message(struct MMAL_CLIENT_T *client,
+ 
+    waiter = get_waiter(client);
+    msg_header->msgid  = msgid;
+-   msg_header->u.waiter = waiter;
++   msg_header->u.waiter = waiter->index;
+    msg_header->magic  = MMAL_MAGIC;
+ 
+    waiter->dest    = dest;
+@@ -628,7 +842,7 @@ MMAL_STATUS_T mmal_vc_send_message(MMAL_CLIENT_T *client,
+    VCHIQ_ELEMENT_T elems[] = {{msg_header, size}};
+    MMAL_BOOL_T using_bulk_transfer = (data_size != 0);
+ 
+-   LOG_TRACE("len %d", data_size);
++   LOG_TRACE("len %zu", data_size);
+    vcos_assert(size >= sizeof(mmal_worker_msg_header));
+ 
+    if (!client->inited)
+@@ -656,7 +870,7 @@ MMAL_STATUS_T mmal_vc_send_message(MMAL_CLIENT_T *client,
+ 
+    if (using_bulk_transfer)
+    {
+-      LOG_TRACE("bulk transmit: %p, %i", data, data_size);
++      LOG_TRACE("bulk transmit: %p, %zu", data, data_size);
+ 
+       data_size = (data_size + 3) & ~3;
+       vst = vchiq_queue_bulk_transmit(client->service, data, data_size, msg_header);
+diff --git a/interface/mmal/vc/mmal_vc_client_priv.h b/interface/mmal/vc/mmal_vc_client_priv.h
+index 0fc3aaa9..52158e69 100644
+--- a/interface/mmal/vc/mmal_vc_client_priv.h
++++ b/interface/mmal/vc/mmal_vc_client_priv.h
+@@ -76,5 +76,13 @@ MMAL_STATUS_T mmal_vc_send_message(MMAL_CLIENT_T *client,
+                                    uint8_t *data, size_t data_size,
+                                    uint32_t msgid);
+ 
++uint32_t mmal_vc_allocate_client_component(MMAL_COMPONENT_T *component);
++void mmal_vc_release_client_component(MMAL_COMPONENT_T *component);
++void mmal_vc_dump_client_components(void);
++
++uint32_t mmal_vc_allocate_client_context(MMAL_VC_CLIENT_BUFFER_CONTEXT_T *context);
++MMAL_VC_CLIENT_BUFFER_CONTEXT_T *mmal_vc_lookup_client_context(int index);
++void mmal_vc_release_client_context(MMAL_VC_CLIENT_BUFFER_CONTEXT_T *context);
++void mmal_vc_dump_client_contexts(void);
+ #endif
+ 
+diff --git a/interface/mmal/vc/mmal_vc_diag.c b/interface/mmal/vc/mmal_vc_diag.c
+index e9712afb..a082e4f0 100644
+--- a/interface/mmal/vc/mmal_vc_diag.c
++++ b/interface/mmal/vc/mmal_vc_diag.c
+@@ -379,13 +379,13 @@ static int do_eventlog(int argc, const char **argv)
+    }
+    if (log.size != sizeof(log))
+    {
+-      fprintf(stderr,"MMAL Log size mismatch (got %d, expected %d)\n",
++      fprintf(stderr,"MMAL Log size mismatch (got %d, expected %zu)\n",
+               log.size, sizeof(log));
+       goto fail;
+    }
+    if (log.elemsize != sizeof(MMAL_DBG_ENTRY_T))
+    {
+-      fprintf(stderr,"MMAL log element size mismatch (got %d, expected %d)\n",
++      fprintf(stderr,"MMAL log element size mismatch (got %d, expected %zu)\n",
+               log.elemsize, sizeof(MMAL_DBG_ENTRY_T));
+       goto fail;
+    }
+diff --git a/interface/mmal/vc/mmal_vc_msgs.h b/interface/mmal/vc/mmal_vc_msgs.h
+index 343922b5..cbd32c74 100644
+--- a/interface/mmal/vc/mmal_vc_msgs.h
++++ b/interface/mmal/vc/mmal_vc_msgs.h
+@@ -112,10 +112,10 @@ typedef struct
+ {
+    uint32_t magic;
+    uint32_t msgid;
+-   struct MMAL_CONTROL_SERVICE_T *control_service;       /** Handle to the control service */
++   uint32_t control_service;       /** Handle to the control service (unused) */
+ 
+    union {
+-      struct MMAL_WAITER_T *waiter;    /** User-land wait structure, passed back */
++      uint32_t waiter;             /** User-land wait structure, passed back */
+    } u;
+ 
+    MMAL_STATUS_T status;            /** Result code, passed back */
+@@ -152,7 +152,7 @@ typedef struct
+ typedef struct
+ {
+    mmal_worker_msg_header header;
+-   void *client_component;             /** Client component */
++   uint32_t client_component;          /** Client component */
+    char name[128];
+    uint32_t pid;                       /**< For debug */
+ } mmal_worker_component_create;
+@@ -206,6 +206,71 @@ typedef struct
+ } mmal_worker_port_info_get;
+ vcos_static_assert(sizeof(mmal_worker_port_info_get) <= MMAL_WORKER_MAX_MSG_LEN);
+ 
++typedef struct
++{
++   MMAL_ES_TYPE_T type;           /**< Type of the elementary stream */
++
++   MMAL_FOURCC_T encoding;        /**< FourCC specifying the encoding of the elementary stream.
++                                    * See the \ref MmalEncodings "pre-defined encodings" for some
++                                    * examples.
++                                    */
++   MMAL_FOURCC_T encoding_variant;/**< FourCC specifying the specific encoding variant of
++                                    * the elementary stream. See the \ref MmalEncodingVariants
++                                    * "pre-defined encoding variants" for some examples.
++                                    */
++
++   uint32_t es; /**< Type specific information for the elementary stream */
++
++   uint32_t bitrate;              /**< Bitrate in bits per second */
++   uint32_t flags;                /**< Flags describing properties of the elementary stream.
++                                    * See \ref elementarystreamflags "Elementary stream flags".
++                                    */
++
++   uint32_t extradata_size;       /**< Size of the codec specific data */
++   uint32_t extradata;           /**< Codec specific data */
++
++} MMAL_VC_ES_FORMAT_T;
++
++typedef struct
++{
++   uint32_t priv;                    /**< Private member used by the framework */
++   uint32_t name;                    /**< Port name. Used for debugging purposes (Read Only) */
++
++   MMAL_PORT_TYPE_T type;            /**< Type of the port (Read Only) */
++   uint16_t index;                   /**< Index of the port in its type list (Read Only) */
++   uint16_t index_all;               /**< Index of the port in the list of all ports (Read Only) */
++
++   uint32_t is_enabled;              /**< Indicates whether the port is enabled or not (Read Only) */
++   uint32_t format;                  /**< Format of the elementary stream */
++
++   uint32_t buffer_num_min;          /**< Minimum number of buffers the port requires (Read Only).
++                                          This is set by the component. */
++   uint32_t buffer_size_min;         /**< Minimum size of buffers the port requires (Read Only).
++                                          This is set by the component. */
++   uint32_t buffer_alignment_min;    /**< Minimum alignment requirement for the buffers (Read Only).
++                                          A value of zero means no special alignment requirements.
++                                          This is set by the component. */
++   uint32_t buffer_num_recommended;  /**< Number of buffers the port recommends for optimal performance (Read Only).
++                                          A value of zero means no special recommendation.
++                                          This is set by the component. */
++   uint32_t buffer_size_recommended; /**< Size of buffers the port recommends for optimal performance (Read Only).
++                                          A value of zero means no special recommendation.
++                                          This is set by the component. */
++   uint32_t buffer_num;              /**< Actual number of buffers the port will use.
++                                          This is set by the client. */
++   uint32_t buffer_size;             /**< Actual maximum size of the buffers that will be sent
++                                          to the port. This is set by the client. */
++
++   uint32_t component;               /**< Component this port belongs to (Read Only) */
++   uint32_t userdata;                /**< Field reserved for use by the client */
++
++   uint32_t capabilities;            /**< Flags describing the capabilities of a port (Read Only).
++                                       * Bitwise combination of \ref portcapabilities "Port capabilities"
++                                       * values.
++                                       */
++
++} MMAL_VC_PORT_T;
++
+ /** Component port info. Used to set port info.
+   */
+ typedef struct
+@@ -214,8 +279,8 @@ typedef struct
+    uint32_t component_handle;          /**< Which component */
+    MMAL_PORT_TYPE_T port_type;         /**< Type of port */
+    uint32_t index;                     /**< Which port of given type to get */
+-   MMAL_PORT_T port;
+-   MMAL_ES_FORMAT_T format;
++   MMAL_VC_PORT_T port;
++   MMAL_VC_ES_FORMAT_T format;
+    MMAL_ES_SPECIFIC_FORMAT_T es;
+    uint8_t  extradata[MMAL_FORMAT_EXTRADATA_MAX_SIZE];
+ } mmal_worker_port_info_set;
+@@ -231,8 +296,8 @@ typedef struct
+    uint32_t index;                     /**< Which port of given type to get */
+    int32_t found;                      /**< Did we find anything? */
+    uint32_t port_handle;               /**< Handle to use for this port */
+-   MMAL_PORT_T port;
+-   MMAL_ES_FORMAT_T format;
++   MMAL_VC_PORT_T port;
++   MMAL_VC_ES_FORMAT_T format;
+    MMAL_ES_SPECIFIC_FORMAT_T es;
+    uint8_t  extradata[MMAL_FORMAT_EXTRADATA_MAX_SIZE];
+ } mmal_worker_port_info;
+@@ -285,7 +350,7 @@ typedef struct
+    /** Action parameter */
+    union {
+       struct {
+-         MMAL_PORT_T port;
++         MMAL_VC_PORT_T port;
+       } enable;
+       struct {
+          uint32_t component_handle;
+@@ -357,9 +422,41 @@ struct MMAL_DRIVER_BUFFER_T
+    uint32_t port_handle;         /**< Index into array of ports for this component */
+ 
+    /** Client side uses this to get back to its context structure. */
+-   struct MMAL_VC_CLIENT_BUFFER_CONTEXT_T *client_context;
++   uint32_t client_context;
+ };
+ 
++typedef struct MMAL_VC_BUFFER_HEADER_T
++{
++   uint32_t next;             /**< Used to link several buffer headers together */
++
++   uint32_t priv;             /**< Data private to the framework */
++
++   uint32_t cmd;              /**< Defines what the buffer header contains. This is a FourCC
++                                   with 0 as a special value meaning stream data */
++
++   uint32_t data;             /**< Pointer to the start of the payload buffer (should not be
++                                   changed by component) */
++   uint32_t alloc_size;       /**< Allocated size in bytes of payload buffer */
++   uint32_t length;           /**< Number of bytes currently used in the payload buffer (starting
++                                   from offset) */
++   uint32_t offset;           /**< Offset in bytes to the start of valid data in the payload buffer */
++
++   uint32_t flags;            /**< Flags describing properties of a buffer header (see
++                                   \ref bufferheaderflags "Buffer header flags") */
++
++   int64_t  pts;              /**< Presentation timestamp in microseconds. \ref MMAL_TIME_UNKNOWN
++                                   is used when the pts is unknown. */
++   int64_t  dts;              /**< Decode timestamp in microseconds (dts = pts, except in the case
++                                   of video streams with B frames). \ref MMAL_TIME_UNKNOWN
++                                   is used when the dts is unknown. */
++
++   /** Type specific data that's associated with a payload buffer */
++   uint32_t type;
++
++   uint32_t user_data;           /**< Field reserved for use by the client */
++
++} MMAL_VC_BUFFER_HEADER_T;
++
+ /** Receive a buffer from the host.
+   *
+   * @sa mmal_port_send_buffer()
+@@ -382,7 +479,7 @@ typedef struct mmal_worker_buffer_from_host
+    struct MMAL_DRIVER_BUFFER_T drvbuf_ref;
+ 
+    /** the buffer header itself */
+-   MMAL_BUFFER_HEADER_T buffer_header;
++   MMAL_VC_BUFFER_HEADER_T buffer_header;
+    MMAL_BUFFER_HEADER_TYPE_SPECIFIC_T buffer_header_type_specific;
+ 
+    MMAL_BOOL_T is_zero_copy;
+@@ -411,14 +508,14 @@ typedef struct mmal_worker_event_to_host
+ {
+    mmal_worker_msg_header header;
+ 
+-   struct MMAL_COMPONENT_T *client_component;
++   uint32_t client_component;
+    uint32_t port_type;
+    uint32_t port_num;
+ 
+    uint32_t cmd;
+    uint32_t length;
+    uint8_t data[MMAL_WORKER_EVENT_SPACE];
+-   MMAL_BUFFER_HEADER_T *delayed_buffer;  /* Only used to remember buffer for bulk rx */
++   MMAL_BUFFER_HEADER_T *delayed_buffer;  /* Only used to remember buffer for bulk rx */  // FIXME
+ } mmal_worker_event_to_host;
+ vcos_static_assert(sizeof(mmal_worker_event_to_host) <= MMAL_WORKER_MAX_MSG_LEN);
+ 
+@@ -515,7 +612,7 @@ static inline void mmal_vc_buffer_header_to_msg(mmal_worker_buffer_from_host *ms
+    msg->buffer_header.pts           = header->pts;
+    msg->buffer_header.dts           = header->dts;
+    msg->buffer_header.alloc_size    = header->alloc_size;
+-   msg->buffer_header.data          = header->data;
++   msg->buffer_header.data          = (uintptr_t)header->data;
+    msg->buffer_header_type_specific = *header->type;
+ }
+ 
+diff --git a/interface/mmal/vc/mmal_vc_shm.c b/interface/mmal/vc/mmal_vc_shm.c
+index 87df3668..aa81309a 100644
+--- a/interface/mmal/vc/mmal_vc_shm.c
++++ b/interface/mmal/vc/mmal_vc_shm.c
+@@ -218,8 +218,8 @@ uint8_t *mmal_vc_shm_alloc(uint32_t size)
+    vcsm_unlock_hdl(vcsm_handle);
+ 
+    payload_elem->mem = mem;
+-   payload_elem->handle = (void *)vcsm_handle;
+-   payload_elem->vc_handle = (void *)vc_handle;
++   payload_elem->handle = (void *)(intptr_t)vcsm_handle;
++   payload_elem->vc_handle = (void *)(intptr_t)vc_handle;
+ #else /* ENABLE_MMAL_VCSM */
+    MMAL_PARAM_UNUSED(size);
+    mmal_vc_payload_list_release(payload_elem);
+@@ -235,7 +235,7 @@ MMAL_STATUS_T mmal_vc_shm_free(uint8_t *mem)
+    if (payload_elem)
+    {
+ #ifdef ENABLE_MMAL_VCSM
+-      vcsm_free((unsigned int)payload_elem->handle);
++      vcsm_free((uintptr_t)payload_elem->handle);
+ #endif /* ENABLE_MMAL_VCSM */
+       mmal_vc_payload_list_release(payload_elem);
+       return MMAL_SUCCESS;
+@@ -254,7 +254,7 @@ uint8_t *mmal_vc_shm_lock(uint8_t *mem, uint32_t workaround)
+    if (elem) {
+       mem = elem->mem;
+ #ifdef ENABLE_MMAL_VCSM
+-      void *p = vcsm_lock((unsigned int)elem->handle);
++      void *p = vcsm_lock((uintptr_t)elem->handle);
+       if (!p)
+          assert(0);
+ #endif /* ENABLE_MMAL_VCSM */
