@@ -1,0 +1,4 @@
+# ensure members of video group can read/write argon,rpivid devices
+# taken from Raspbian /etc/udev/rules.d/99-com.rules
+SUBSYSTEM=="argon-*", GROUP="video", MODE="0660"
+SUBSYSTEM=="rpivid-*", GROUP="video", MODE="0660"
