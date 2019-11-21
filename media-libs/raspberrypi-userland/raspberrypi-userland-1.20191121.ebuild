@@ -28,6 +28,12 @@ pkg_setup() {
 		append-ldflags $(no-as-needed)
 }
 
+src_prepare() {
+		default
+		sed -i 's/__bitwise/FDT_BITWISE/' "${S}/opensrc/helpers/libfdt/libfdt_env.h"
+		sed -i 's/__force/FDT_FORCE/' "${S}/opensrc/helpers/libfdt/libfdt_env.h"
+}
+
 src_configure() {
 		local mycmakeargs=(
 				-DVMCS_INSTALL_PREFIX="/usr"
