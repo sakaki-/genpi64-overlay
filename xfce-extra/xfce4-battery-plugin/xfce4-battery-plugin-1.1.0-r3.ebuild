@@ -22,7 +22,10 @@ RDEPEND=">=dev-libs/glib-2.24:2=
 		>=dev-util/xfce4-dev-tools-4.12.0
 		>=xfce-base/xfconf-4.12.0-r1
 		>=dev-embedded/wiringpi-2.44-r3
-		>=sys-apps/rpi3-i2cdev-1.0.0-r1
+		|| (
+			>=sys-apps/rpi3-i2cdev-1.0.0-r1
+			>=sys-apps/rpi-i2c
+		)
 	)"
 DEPEND="${RDEPEND}
 	dev-util/intltool
