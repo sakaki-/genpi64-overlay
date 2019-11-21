@@ -22,6 +22,7 @@ ACCT_DEPEND="
 "
 DEPEND="
 	${ACCT_DEPEND}
+	!sys-apps/rpi3-spidev
 	>=sys-apps/openrc-0.21
 	>=virtual/udev-215
 	>=app-shells/bash-4.0"
