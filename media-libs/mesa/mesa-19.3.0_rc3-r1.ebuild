@@ -36,7 +36,7 @@ done
 
 IUSE="${IUSE_VIDEO_CARDS}
 	+classic d3d9 debug +dri3 +egl +gallium +gbm gles1 +gles2 libglvnd +llvm
-	lm-sensors opencl osmesa pax_kernel selinux test unwind vaapi valgrind
+	lm-sensors opencl osmesa pax_kernel rpi-v3d selinux test unwind vaapi valgrind
 	vdpau vulkan vulkan-overlay wayland +X xa xvmc"
 
 REQUIRED_USE="
@@ -69,6 +69,7 @@ REQUIRED_USE="
 	video_cards_vmware? ( gallium )
 	xa? ( X )
 	xvmc? ( X )
+	rpi-v3d? ( arm64 video_cards_vc4 )
 "
 
 LIBDRM_DEPSTRING=">=x11-libs/libdrm-2.4.100"
@@ -420,6 +421,8 @@ multilib_src_configure() {
 		gallium_enable video_cards_lima lima
 		gallium_enable video_cards_panfrost panfrost
 		gallium_enable video_cards_vc4 vc4
+		# enable for Pi4 also
+		use rpi-v3d && gallium_enable video_cards_vc4 v3d
 		gallium_enable video_cards_vivante etnaviv
 		gallium_enable video_cards_vmware svga
 		gallium_enable video_cards_nouveau nouveau
