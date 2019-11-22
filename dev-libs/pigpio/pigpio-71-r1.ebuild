@@ -34,7 +34,7 @@ src_install() {
 		mandir="${EPREFIX}/usr/share/man" install
 	einstalldocs
 	newinitd "${FILESDIR}"/pigpiod.initd pigpiod
-	newconfd "${FILESDIR}"/pigpiod.confd pigpiod
+	newconfd "${FILESDIR}"/pigpiod.confd-1 pigpiod
 	systemd_newunit "${FILESDIR}"/pigpiod.systemd pigpiod.service
 	use python && distutils-r1_src_install
 }
