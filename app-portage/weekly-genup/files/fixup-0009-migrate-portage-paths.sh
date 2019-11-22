@@ -13,7 +13,8 @@
 # used and, if so, changes them over. It will edit the file
 # /etc/portage/make.conf, and any
 # /etc/portage/repos.conf/<overlay>.conf files too. Layman overlays
-# are not moved.
+# are not moved. The current profile will be re-established at the end,
+# to ensure the /etc/portage/make.profile link still refers.
 #
 # Copyright (c) 2019 sakaki <sakaki@deciban.com>
 # License: GPL v3+
@@ -32,9 +33,6 @@ RCONFDIR="${PCDIR}/repos.conf"
 SENTINEL="${PCDIR}/.fixup-0009-done"
 RC=0
 
-# don't apply this fixup, yet
-exit $RC
-
 # short-circuit exit if we can; portageq takes some time to run
 if [[ -f "${SENTINEL}" ]]; then
     echo "Sentinel file found: files already migrated"
@@ -48,8 +46,8 @@ CURRPORTDIR="$(portageq get_repo_path / gentoo)"
 CURRPKGDIR="$(portageq pkgdir)"
 CURRDISTDIR="$(portageq distdir)"
 
-# archive the canonicalized old profile link too
-# as this will break when we migrate
+# archive the canonicalized old profile name too
+# as its symlink will break when we migrate
 CURRPROFILE="$(eselect profile show | tr -d '\n \t')"
 CURRPROFILE="${CURRPROFILE##*symlink:}"
 
@@ -125,6 +123,7 @@ else
     # variable not explicitly set in make.conf
     echo "PORTDIR=${NEWPORTDIR}" >> "${MC}"
 fi
+
 # correct for a migrated profile (as most likely broken by migrations above)
 echo "Resetting profile symlink"
 eselect profile set "${CURRPROFILE}"
