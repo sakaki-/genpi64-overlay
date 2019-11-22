@@ -9,6 +9,7 @@ depend() {
 	need localmount
 	after modules
 	after rpi3-config-mv
+	provide i2c
 }
 
 start() {

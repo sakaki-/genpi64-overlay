@@ -26,7 +26,7 @@ RDEPEND="${DEPEND}"
 src_install() {
 	insinto "/lib/udev/rules.d"
 	doins "${FILESDIR}/60-i2c-wheel-group-access.rules"
-	newinitd "${FILESDIR}/init.d_${PN}-3" "${PN}"
+	newinitd "${FILESDIR}/init.d_${PN}-4" "${PN}"
 }
 
 pkg_postinst() {
