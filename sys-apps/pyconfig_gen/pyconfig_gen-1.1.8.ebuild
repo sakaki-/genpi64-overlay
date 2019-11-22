@@ -6,10 +6,10 @@ PYTHON_COMPAT=( python{3_5,3_6} )
 
 inherit distutils-r1 desktop xdg-utils
 
-DESCRIPTION="GUI editor for /boot/config.txt on RPi3 SBCs"
+DESCRIPTION="GUI editor for /boot/config.txt on RPi3 and RPi4 SBCs"
 BASE_SERVER_URI="https://github.com/sakaki-"
 HOMEPAGE="${BASE_SERVER_URI}/${PN}"
-SRC_URI="${BASE_SERVER_URI}/${PN}/releases/download/v${PV}/${P}.tar.gz"
+SRC_URI="${BASE_SERVER_URI}/${PN}/releases/download/v${PV}/${PN}-v${PV}.tar.gz"
 
 RESTRICT="mirror"
 
@@ -26,8 +26,12 @@ RDEPEND="${DEPEND}
 	>=sys-apps/openrc-0.21
 	>=app-shells/bash-4.0
 	dev-python/PyQt5[${PYTHON_USEDEP}]
-	>=media-libs/raspberrypi-userland-1.20170721-r1
+	>=media-libs/raspberrypi-userland-1.20190808
+	>=net-wireless/rpi3-wifi-regdom-1.1
+	>=sys-boot/rpi3-64bit-firmware-1.20190819
 	>=sys-process/at-3.1.23
+	>=x11-misc/arandr-0.1.10
+	>=x11-misc/wmctrl-1.07-r2
 "
 
 SERVICENAME="rpi3-config-mv"
@@ -36,7 +40,7 @@ python_install_all() {
 	distutils-r1_python_install_all
 
 	newicon "${S}/pixmaps/gear-3d.png" pyconfig_gen.png
-	make_desktop_entry "sudo pyconfig_gen" "RPi3 Config Tool" /usr/share/pixmaps/pyconfig_gen.png "Settings"
+	make_desktop_entry "sudo pyconfig_gen" "RPi Config Tool" /usr/share/pixmaps/pyconfig_gen.png "Settings"
 
 	newinitd "${FILESDIR}/init.d_${SERVICENAME}-1" "${SERVICENAME}"
 	newconfd "${FILESDIR}/conf.d_${SERVICENAME}-1" "${SERVICENAME}"
