@@ -20,8 +20,8 @@ RESTRICT="mirror"
 
 RDEPEND="
 	|| (
-		>=sys-apps/rpi3-i2cdev-1.0.0-r1
-		>=sys-apps/rpi-i2c-1.0.0
+		>=sys-apps/rpi3-i2cdev-1.0.0-r2
+		>=sys-apps/rpi-i2c-1.0.0-r2
 	)
 	>=sys-apps/i2c-tools-3.1.1-r1[python]
 	>=media-sound/alsa-utils-1.1.2
@@ -53,7 +53,7 @@ python_install_all() {
 	doins "${S}/${MY_PN}/setup.cfg"
 	doins "${S}/${MY_PN}/copyright"
 
-	newinitd "${FILESDIR}/init.d_${PN}-1" "${PN}"
+	newinitd "${FILESDIR}/init.d_${PN}-2" "${PN}"
 	newconfd "${FILESDIR}/conf.d_${PN}-1" "${PN}"
 }
 

@@ -6,7 +6,7 @@
 description="Initialize pitopSPEAKERs, to play HDMI audio"
 
 depend() {
-	need rpi3-i2cdev alsasound
+	need i2c alsasound
 }
 
 _trim() {
