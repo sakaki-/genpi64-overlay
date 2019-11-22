@@ -31,7 +31,7 @@ RDEPEND="${DEPEND}"
 src_install() {
 	insinto "/lib/udev/rules.d"
 	doins "${FILESDIR}/99-i2c-group-access.rules"
-	newinitd "${FILESDIR}/init.d_${PN}-1" "${PN}"
+	newinitd "${FILESDIR}/init.d_${PN}-2" "${PN}"
 }
 
 add_wheel_members_to_i2c_group() {
