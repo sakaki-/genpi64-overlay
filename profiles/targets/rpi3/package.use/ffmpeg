@@ -3,3 +3,5 @@
 # Apply 6by9's patches for V4L2-M2M
 # https://www.raspberrypi.org/forums/viewtopic.php?p=1436166#p1436166
 >=media-video/ffmpeg-4.2 v4l2m2m-fix
+# use mmal for versions with dep on appropriate raspberrypi-userland
+>=media-video/ffmpeg-4.2.1-r3 mmal
