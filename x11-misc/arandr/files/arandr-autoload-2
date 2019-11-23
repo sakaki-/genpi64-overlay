@@ -19,7 +19,28 @@ if [[ "${XDG_CURRENT_DESKTOP}" != "XFCE" || ! -d "${CONF_DIR}" ]]; then
 	exit 0
 fi
 
+# check if Ctrl key (scancode 37) is depressed on any
+# X input device from 1 to 20
+# (assume this will be enough to catch most attached keyboards)
+# return 0 if Ctrl depressed, 1 if not
+ctrl_is_pressed() {
+	local pressed=1
+	local D
+	for ((D=1;D<=20;D++)); do
+		if xinput --query-state ${D} |& grep -q "key\[37\]=down"; then
+			pressed=0
+			break
+		fi
+	done
+	return ${pressed}
+}
+
 # we always run the ~/.screenlayout/default.sh script, if found
+# unless the Ctrl key (scan code 37) is pressed; this allows a
+# way out if a bad default has been accidentally set
+if ctrl_is_pressed; then
+	exit 0
+fi
 if [[ -x "${DEFAULT_SCRIPT}" ]]; then
     sleep ${DELAY_SECS}
     exec "${DEFAULT_SCRIPT}"

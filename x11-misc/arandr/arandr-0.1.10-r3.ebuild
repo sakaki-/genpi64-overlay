@@ -16,6 +16,7 @@ KEYWORDS="~amd64 ~x86"
 RDEPEND="
 	dev-python/pygobject:3=[${PYTHON_USEDEP}]
 	x11-apps/xrandr
+	>=x11-apps/xinput-1.6.3
 "
 DEPEND="
 	>=dev-python/docutils-0.6[${PYTHON_USEDEP}]
@@ -46,7 +47,7 @@ src_install() {
 	# one ~/.screenlayout/*.sh found, and it is executable (or if there
 	# is a default.sh present and executable, even if there is more
 	# than one *.sh)
-	newbin "${FILESDIR}/${PN}-autoload-1" "${PN}-autoload"
+	newbin "${FILESDIR}/${PN}-autoload-2" "${PN}-autoload"
 	insinto "/etc/xdg/autostart/"
 	newins "${FILESDIR}/${PN}-autoload.desktop-1" "${PN}-autoload.desktop"
 }
