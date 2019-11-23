@@ -226,7 +226,7 @@ RDEPEND="
 	libxml2? ( dev-libs/libxml2:=[${MULTILIB_USEDEP}] )
 	lv2? ( media-libs/lv2[${MULTILIB_USEDEP}] media-libs/lilv[${MULTILIB_USEDEP}] )
 	lzma? ( >=app-arch/xz-utils-5.0.5-r1[${MULTILIB_USEDEP}] )
-	mmal? ( media-libs/raspberrypi-userland )
+	mmal? ( >=media-libs/raspberrypi-userland-1.20191121 )
 	modplug? ( >=media-libs/libmodplug-0.8.8.4-r1[${MULTILIB_USEDEP}] )
 	openal? ( >=media-libs/openal-1.15.1[${MULTILIB_USEDEP}] )
 	opencl? ( virtual/opencl[${MULTILIB_USEDEP}] )
