@@ -22,7 +22,6 @@ EGIT_REPO_URI="https://github.com/raspberrypi/userland"
 EGIT_COMMIT="9238b8c5eb79590ccd0ef0284c8e49306219fcf0"
 
 #PATCHES=( "${FILESDIR}"/${P}-gentoo.patch )
-PATCHES=( "${FILESDIR}"/${P}-64-bit-mmal.patch )
 
 pkg_setup() {
 		append-ldflags $(no-as-needed)
@@ -30,6 +29,7 @@ pkg_setup() {
 
 src_prepare() {
 		default
+		epatch "${FILESDIR}"/${P}-64-bit-mmal.patch
 		sed -i 's/__bitwise/FDT_BITWISE/' "${S}/opensrc/helpers/libfdt/libfdt_env.h"
 		sed -i 's/__force/FDT_FORCE/' "${S}/opensrc/helpers/libfdt/libfdt_env.h"
 }
