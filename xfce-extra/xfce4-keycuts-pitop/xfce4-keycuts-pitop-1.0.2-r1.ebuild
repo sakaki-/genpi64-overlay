@@ -11,7 +11,7 @@ HOMEPAGE="https://github.com/sakaki-/gentoo-on-rpi3-64bit"
 SRC_URI=""
 LICENSE="GPL-3+"
 SLOT="0"
-IUSE=""
+IUSE="-systemd"
 RESTRICT="mirror"
 
 # required by Portage, as we have no SRC_URI...
@@ -19,7 +19,8 @@ S="${WORKDIR}"
 
 DEPEND="
 	>=xfce-base/xfce4-meta-4.12
-	>=sys-apps/openrc-0.21"
+	systemd?  ( >=sys-apps/systemd-242-r6 )
+	!systemd? ( >=sys-apps/openrc-0.41 )"
 RDEPEND="${DEPEND}
 	>=xfce-extra/xfce4-fixups-rpi3-1.0.0
 	>=sci-calculators/qalculate-gtk-0.9.9
@@ -43,5 +44,10 @@ pkg_postinst() {
 		elog "as desired (via the ~/.Xmodmap file, and the menu item:"
 		elog "Applications -> Settings -> Keyboard, under the"
 		elog "'Application Shortcuts' tab)."
+	fi
+	if use systemd; then
+		ewarn "You are running with the systemd USE flag set!"
+		ewarn "However, this package does not yet formally support systemd, so"
+		ewarn "you are on your own to get things working ><"
 	fi
 }

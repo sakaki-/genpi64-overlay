@@ -6,7 +6,7 @@ EAPI=6
 
 KEYWORDS="~arm ~arm64"
 
-DESCRIPTION="udev rule to create appropriate serial port device alias(es)"
+DESCRIPTION="udev rule to allow video group RPi argon, rpivid access"
 HOMEPAGE="https://github.com/sakaki-/gentoo-on-rpi-64bit"
 SRC_URI=""
 LICENSE="GPL-3+"
@@ -17,14 +17,17 @@ RESTRICT="mirror"
 # required by Portage, as we have no SRC_URI...
 S="${WORKDIR}"
 
+ACCT_DEPEND="
+	acct-group/video
+"
 DEPEND="
-	>=sys-apps/openrc-0.21
+	${ACCT_DEPEND}
 	>=virtual/udev-215
 	>=app-shells/bash-4.0"
 RDEPEND="${DEPEND}"
 
 src_install() {
 	insinto "/lib/udev/rules.d"
-	doins "${FILESDIR}/99-serial-port-aliases.rules"
+	doins "${FILESDIR}/99-video-group-access.rules"
 }
 

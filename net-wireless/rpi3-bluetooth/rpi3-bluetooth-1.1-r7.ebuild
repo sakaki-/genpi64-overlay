@@ -12,7 +12,7 @@ HOMEPAGE="https://aur.archlinux.org/packages/pi-bluetooth/"
 SRC_URI=""
 LICENSE="GPL-3+"
 SLOT="0"
-IUSE=""
+IUSE="-systemd"
 RESTRICT="mirror"
 
 EGIT_REPO_URI="https://aur.archlinux.org/pi-bluetooth.git"
@@ -24,7 +24,8 @@ DEPEND=""
 RDEPEND="
 	${DEPEND}
 	~sys-firmware/bcm4340a1-firmware-${PV}
-	>=sys-apps/openrc-0.21
+	systemd?  ( >=sys-apps/systemd-242-r6 )
+	!systemd? ( >=sys-apps/openrc-0.41 )
 	|| (	~net-wireless/bluez-5.43
 		>=net-wireless/bluez-5.44[deprecated] )
 	>=virtual/udev-215
@@ -47,5 +48,10 @@ pkg_postinst() {
 		elog "Please run:"
 		elog "  rc-update add ${PN} default"
 		elog "to enable the ${PN} service"
+	fi
+	if use systemd; then
+		ewarn "You are running with the systemd USE flag set!"
+		ewarn "However, this package does not yet formally support systemd, so"
+		ewarn "you are on your own to get things working ><"
 	fi
 }

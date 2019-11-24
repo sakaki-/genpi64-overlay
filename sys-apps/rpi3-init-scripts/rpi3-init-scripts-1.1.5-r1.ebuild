@@ -11,7 +11,7 @@ HOMEPAGE="https://github.com/sakaki-/gentoo-on-rpi3-64bit"
 SRC_URI=""
 LICENSE="GPL-3+"
 SLOT="0"
-IUSE=""
+IUSE="-systemd"
 RESTRICT="mirror"
 AR_SVCNAME="autoexpand-root"
 
@@ -22,7 +22,8 @@ DEPEND=""
 RDEPEND="${DEPEND}
 	>=net-misc/networkmanager-1.8.2
 	>=x11-apps/xdm-1.1.11-r3
-	>=sys-apps/openrc-0.21
+	systemd?  ( >=sys-apps/systemd-242-r6 )
+	!systemd? ( >=sys-apps/openrc-0.41 )
 	>=app-shells/bash-4.0"
 
 src_install() {
@@ -52,6 +53,11 @@ pkg_postinst() {
 		elog "Removing old XVideo disable rule"
 		elog "New managed version is in /usr/share/X11/xorg.conf.d"
 		rm "${OLDRULE}"
+	fi
+	if use systemd; then
+		ewarn "You are running with the systemd USE flag set!"
+		ewarn "However, this package does not yet formally support systemd, so"
+		ewarn "you are on your own to get things working ><"
 	fi
 }
 

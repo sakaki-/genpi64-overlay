@@ -11,7 +11,7 @@ SRC_URI=""
 LICENSE="metapackage"
 SLOT="0"
 KEYWORDS="~arm64"
-IUSE="+boot-fw +kernel-bin -porthash +weekly-genup +innercore +core +xfce pitop apps"
+IUSE="apps +boot-fw +core +innercore +kernel-bin pitop -porthash -systemd +weekly-genup +xfce"
 REQUIRED_USE="
 	core? ( innercore )
 	xfce? ( core )
@@ -22,7 +22,8 @@ REQUIRED_USE="
 S="${WORKDIR}"
 
 DEPEND="
-	>=sys-apps/openrc-0.42.1-r2[swclock-fix(-)]
+	systemd?  ( >=sys-apps/systemd-242-r6 )
+	!systemd? ( >=sys-apps/openrc-0.42.1-r2[swclock-fix(-)] )
 	>=app-shells/bash-5.0"
 # pi3multiboot flag pulls in matching bcmrpi3-kernel{,-bis}-bin package also
 RDEPEND="
@@ -314,5 +315,10 @@ pkg_postinst() {
 		fi
 		# otherwise assume user knows what they are doing and is using the
 		# main gentoo repo or similar
+	fi
+	if use systemd; then
+		ewarn "You are running with the systemd USE flag set!"
+		ewarn "However, this package does not yet formally support systemd, so"
+		ewarn "you are on your own to get things working ><"
 	fi
 }

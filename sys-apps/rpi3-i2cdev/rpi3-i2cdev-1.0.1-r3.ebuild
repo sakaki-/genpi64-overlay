@@ -11,14 +11,15 @@ HOMEPAGE="https://github.com/sakaki-/gentoo-on-rpi3-64bit"
 SRC_URI=""
 LICENSE="GPL-3+"
 SLOT="0"
-IUSE=""
+IUSE="-systemd"
 RESTRICT="mirror"
 
 # required by Portage, as we have no SRC_URI...
 S="${WORKDIR}"
 
 DEPEND="
-	>=sys-apps/openrc-0.21
+	systemd?  ( >=sys-apps/systemd-242-r6 )
+	!systemd? ( >=sys-apps/openrc-0.41 )
 	>=virtual/udev-215
 	>=app-shells/bash-4.0"
 RDEPEND="${DEPEND}"
@@ -38,5 +39,10 @@ pkg_postinst() {
 			elog "  dtparam=i2c_arm=on"
 			elog "in /boot/config.txt, and reboot."
 		fi
+	fi
+	if use systemd; then
+		ewarn "You are running with the systemd USE flag set!"
+		ewarn "However, this package does not yet formally support systemd, so"
+		ewarn "you are on your own to get things working ><"
 	fi
 }

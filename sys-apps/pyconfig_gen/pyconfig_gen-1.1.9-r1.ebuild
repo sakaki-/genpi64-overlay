@@ -16,14 +16,15 @@ RESTRICT="mirror"
 SLOT="0"
 LICENSE="GPL-3+"
 KEYWORDS="~arm ~arm64"
-IUSE=""
+IUSE="-systemd"
 
 DEPEND="${PYTHON_DEPS}
 	>=xfce-base/xfce4-meta-4.12
 "
 
 RDEPEND="${DEPEND}
-	>=sys-apps/openrc-0.21
+	systemd?  ( >=sys-apps/systemd-242-r6 )
+	!systemd? ( >=sys-apps/openrc-0.41 )
 	>=app-shells/bash-4.0
 	dev-python/PyQt5[${PYTHON_USEDEP}]
 	>=media-libs/raspberrypi-userland-1.20190808
@@ -62,6 +63,11 @@ pkg_postinst() {
 		elog ""
 		elog "Both autostart and regular .desktop files have also"
 		elog "been installed."
+	fi
+	if use systemd; then
+		ewarn "You are running with the systemd USE flag set!"
+		ewarn "However, this package does not yet formally support systemd, so"
+		ewarn "you are on your own to get things working ><"
 	fi
 }
 

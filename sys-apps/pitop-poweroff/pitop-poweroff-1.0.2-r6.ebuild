@@ -11,7 +11,7 @@ HOMEPAGE="https://github.com/sakaki-/gentoo-on-rpi3-64bit"
 SRC_URI=""
 LICENSE="GPL-3+"
 SLOT="0"
-IUSE=""
+IUSE="-systemd"
 RESTRICT="mirror"
 
 # required by Portage, as we have no SRC_URI...
@@ -19,7 +19,8 @@ S="${WORKDIR}"
 
 RDEPEND="
 	>=dev-embedded/pitop-utils-1.20170723-r1
-	>=sys-apps/openrc-0.21"
+	systemd?  ( >=sys-apps/systemd-242-r6 )
+	!systemd? ( >=sys-apps/openrc-0.41 )"
 DEPEND="${RDEPEND}"
 
 src_install() {
@@ -35,6 +36,11 @@ pkg_postinst() {
 		elog ""
 		elog "You will also need SPI turned on"
                 elog "(set 'dtparam=spi=on' in /boot/config.txt)."
+	fi
+	if use systemd; then
+		ewarn "You are running with the systemd USE flag set!"
+		ewarn "However, this package does not yet formally support systemd, so"
+		ewarn "you are on your own to get things working ><"
 	fi
 }
 

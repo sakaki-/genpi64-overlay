@@ -5,7 +5,7 @@ EAPI=6
 
 inherit desktop xdg-utils
 
-DESCRIPTION="GUI to live view camera output on RPi3/4 SBCs"
+DESCRIPTION="GUI to play videos via v4l2 m2m codecs on RPi3/4 SBCs"
 BASE_SERVER_URI="https://github.com/sakaki-"
 HOMEPAGE="${BASE_SERVER_URI}/${PN}"
 SRC_URI="${BASE_SERVER_URI}/${PN}/releases/download/${PV}/${P}.tar.gz"
@@ -22,17 +22,16 @@ DEPEND="
 "
 
 RDEPEND="${DEPEND}
-	>=app-admin/sudo-1.8.27-r1
 	>=app-shells/bash-4.0
 	>=gnome-extra/zenity-3.28.1
 	>=media-video/ffmpeg-4.1.1-r2[sdl,v4l]
 	>=media-libs/raspberrypi-userland-1.20190114
-	>=sys-apps/openrc-0.21
+	>=sys-process/procps-3.3.15-r1
 "
 
 src_install() {
 	doicon "${S}/${PN}.png"
-	make_desktop_entry "${PN}" "RPi Camera Live View" /usr/share/pixmaps/"${PN}".png "AudioVideo"
+	make_desktop_entry "${PN}" "RPi Video Player (HW Codecs)" /usr/share/pixmaps/"${PN}".png "AudioVideo"
 	dobin "${S}/${PN}"
 	dodoc README.md
 }
