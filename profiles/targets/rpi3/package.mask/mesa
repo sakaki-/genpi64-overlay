@@ -1,2 +1,4 @@
 # problems building
 =media-libs/mesa-18.2.0_rc2
+# issues with egl
+=media-libs/mesa-19.3*
