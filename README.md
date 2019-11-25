@@ -52,7 +52,7 @@ The overlay provides the following ebuilds:
   * Provides `orage-4.12.1-r1.ebuild`, patched for [bug 657542](https://bugs.gentoo.org/657542). Once this revbumps in the main Gentoo tree, `orage` should revert to using that version instead.
 
 * **app-portage/rpi3-check-porthash**
-  * Provides a [`porthash`](https://github.com/sakaki-/porthash) signed hash check for the [isshoni.org](https://isshoni.org) rsync gentoo ebuild repository, implemented as a `repo.postsync.d` hook. NB not used as of v1.3.0 of the image, as Gentoo's official `gemato` signature check is used instead; please see the release notes [here](https://github.com/sakaki-/gentoo-on-rpi3-64bit/releases/tag/v1.3.0).
+  * Provides a [`porthash`](https://github.com/sakaki-/porthash) signed hash check for the [isshoni.org](https://isshoni.org) rsync gentoo ebuild repository, implemented as a `repo.postsync.d` hook. NB not used as of v1.3.0 of the image, as Gentoo's official `gemato` signature check is used instead; please see the release notes [here](https://github.com/sakaki-/gentoo-on-rpi-64bit/releases/tag/v1.3.0).
 
 * **app-portage/weekly-genup**
   * Installs a simple cron.weekly script, to automate `genup`, and another, to run 'fixups' (small scripts to correct issues that may e.g. prevent correct `genup` operation, effect upstream file hierarchy migrations etc.).
@@ -201,7 +201,7 @@ The overlay provides the following ebuilds:
   * Provides an OpenRC service and `udev` rule for I2C access on the RPi3/4. Ensures that the `i2c-dev` module is `modprobe`d, and that the `/dev/i2c-[0-9]` devices are read/write for all members of the `wheel` group, not just `root`. Originally installed by the `pitop` USE flag on `rpi-64bit-meta`, it has since been superseded by `rpi-i2c`, above.
 
 * **sys-apps/rpi3-init-scripts**
-  * Provides a few simple init scripts for the [gentoo-on-rpi-64bit](https://github.com/sakaki-/gentoo-on-rpi3-64bit) image (to autoexpand the root partition on first boot, inhibit XVideo, setup cache usage appropriate for a low-memory environment etc.).
+  * Provides a few simple init scripts for the [gentoo-on-rpi-64bit](https://github.com/sakaki-/gentoo-on-rpi-64bit) image (to autoexpand the root partition on first boot, inhibit XVideo, setup cache usage appropriate for a low-memory environment etc.).
 
 * **sys-apps/rpi3-ondemand-cpufreq**
   * Provides the `rpi3-ondemand` OpenRC `sysinit` service, to switch the RPi3 and RPi4 from its (`bcmrpi3_defconfig` and `bcm2711_defconfig`) default `powersave` CPU frequency governor, to `ondemand`, for better performance.
