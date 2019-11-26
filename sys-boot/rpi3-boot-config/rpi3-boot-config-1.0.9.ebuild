@@ -35,7 +35,7 @@ src_install() {
 	else
 		newins "${FILESDIR}/config.txt-10" config.txt
 	fi
-	newins "${FILESDIR}/cmdline.txt-1" cmdline.txt
+	newins "${FILESDIR}/cmdline.txt-2" cmdline.txt
 	newenvd "${FILESDIR}"/config_protect-1 99${PN}
 }
 
