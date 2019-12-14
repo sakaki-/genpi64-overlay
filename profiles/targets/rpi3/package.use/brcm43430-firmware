@@ -1,2 +1,4 @@
 # use Raspbian's version of the uploadable RPi4 WiFi chip driver
 >=sys-firmware/brcm43430-firmware-20190812-r1 43455-fix
+# deps of brcm43430-firmware
+>=sys-kernel/linux-firmware-20191108-r1 43455-fix
