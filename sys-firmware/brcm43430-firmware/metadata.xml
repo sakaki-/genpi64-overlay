@@ -8,6 +8,9 @@
 	<upstream>
 		<remote-id type="github">RPi-Distro/firmware-nonfree</remote-id>
 	</upstream>
+	<use>
+		<flag name="43455-fix">Use RPF's brcmfmac43455-sdio.bin in /lib/firmware/brcm.</flag>
+	</use>
 	<longdescription>
 		Adds text files that are necessary for
                 operation of the RPi3 and RPi4's integrated WiFi,
