@@ -1,0 +1,10 @@
+--- alsa-lib-1.2.1.2/src/conf/cards/aliases.conf.orig	2019-12-15 08:02:45.501174228 +0000
++++ alsa-lib-1.2.1.2/src/conf/cards/aliases.conf	2019-12-15 08:03:25.260600934 +0000
+@@ -57,6 +57,7 @@
+ CMI8787 cards.CMI8788
+ pistachio cards.pistachio-card
+ VC4-HDMI cards.vc4-hdmi
++bcm2835_alsa cards.bcm2835
+ 
+ <confdir:pcm/default.conf>
+ <confdir:pcm/dmix.conf>
