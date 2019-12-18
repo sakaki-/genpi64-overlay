@@ -1,0 +1,2 @@
+# required by xfce4-panel
+>=xfce-base/garcon-0.6.4-r2 gtk2
