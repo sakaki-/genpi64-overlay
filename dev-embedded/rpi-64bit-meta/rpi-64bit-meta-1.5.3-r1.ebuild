@@ -45,7 +45,7 @@ RDEPEND="
 	)
 	!kernel-bin? (
 		boot-fw? (
-			>=sys-boot/rpi3-64bit-firmware-1.20190819[pitop(-)?,dtbo(+)]
+			>=sys-boot/rpi3-64bit-firmware-1.20190819[pitop(-)?]
 		)
 		!boot-fw? (
 			!sys-boot/rpi3-64bit-firmware
