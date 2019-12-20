@@ -14,7 +14,7 @@ SRC_URI="https://www.alsa-project.org/files/pub/lib/${P}.tar.bz2"
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~amd64-linux ~x86-linux"
-IUSE="alisp debug doc elibc_uclibc python +thread-safety"
+IUSE="alisp bcm2835 debug doc elibc_uclibc python +thread-safety"
 
 RDEPEND="python? ( ${PYTHON_DEPS} )"
 DEPEND="${RDEPEND}
@@ -24,7 +24,6 @@ REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 PATCHES=(
 	"${FILESDIR}/${PN}-1.1.6-missing_files.patch" #652422
-	"${FILESDIR}/add_bcm2835_alias.patch"
 )
 
 pkg_setup() {
@@ -32,6 +31,7 @@ pkg_setup() {
 }
 
 src_prepare() {
+	use bcm2835 && PATCHES+=( "${FILESDIR}/add_bcm2835_alias.patch" )
 	find . -name Makefile.am -exec sed -i -e '/CFLAGS/s:-g -O2::' {} + || die
 	# https://bugs.gentoo.org/509886
 	if use elibc_uclibc ; then
@@ -78,8 +78,10 @@ multilib_src_install() {
 		docinto html
 		dodoc -r doc/doxygen/html/.
 	fi
-	insinto /usr/share/alsa/cards
-	doins ${FILESDIR}/bcm2835.conf
+	if use bcm2835; then
+		insinto /usr/share/alsa/cards
+		doins ${FILESDIR}/bcm2835.conf
+	fi
 }
 
 multilib_src_install_all() {
