@@ -85,6 +85,7 @@ RDEPEND="
 		>=dev-embedded/rpi4-eeprom-updater-2.4.1
 		>=dev-libs/elfutils-0.178
 		>=dev-vcs/git-2.24.1
+		>=media-libs/alsa-lib-1.2.1.2-r1[bcm2835]
 		>=media-libs/raspberrypi-userland-1.20191214
 		>=media-sound/alsa-tools-1.1.7
 		>=media-sound/alsa-utils-1.2.1
