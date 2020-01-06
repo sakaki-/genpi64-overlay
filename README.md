@@ -153,7 +153,7 @@ The overlay provides the following ebuilds:
 * **net-p2p/cpuminer-multi** [upstream](https://github.com/tpruvot/cpuminer-multi)
   * Provides `cpuminer-multi-1.3.3.ebuild`, a multi-algorithm CPU cryptocurrency miner adapted to build correctly under `arm64`. Not currently included on the image. Please see [this post *ff.*](https://www.raspberrypi.org/forums/viewtopic.php?p=1317164#p1317164) for further details.
 
-* **net-wireless/blueman** [updstream](https://github.com/blueman-project/blueman)
+* **net-wireless/blueman** [upstream](https://github.com/blueman-project/blueman)
   * Provides `blueman-2.0.4-r1.ebuild`; this has been removed from the main Gentoo tree, but is in use on the image (until the current version proves stable, at which point it will be unmasked, and `blueman` will revert to using the main-tree ebuild).
 
 * **net-wireless/rpi3-bluetooth** [upstream](https://aur.archlinux.org/packages/pi-bluetooth/)
