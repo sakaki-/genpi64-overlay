@@ -1,10 +1,10 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 # Ebuild from: https://bitbucket.org/wjn/wjn-overlay (thanks!)
 
 EAPI=6
 
-PYTHON_COMPAT=( python3_{4,5} )
+PYTHON_COMPAT=( python3_{4,5,6,7} )
 
 inherit distutils-r1 gnome2-utils versionator
 
