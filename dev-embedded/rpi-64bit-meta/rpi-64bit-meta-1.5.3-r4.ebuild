@@ -220,6 +220,7 @@ RDEPEND="
 		>=xfce-extra/xfce4-screenshooter-1.9.7
 		>=xfce-extra/xfce4-systemload-plugin-1.2.3
 		>=xfce-extra/xfce4-taskmanager-1.2.2
+		>=xfce-extra/xfce4-xkb-plugin-0.8.1
 	)
 	pitop? (
 		>=dev-embedded/pitop-speaker-1.1.0.1-r2
