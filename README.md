@@ -225,7 +225,7 @@ The overlay provides the following ebuilds:
   * Provides firmware (`/etc/firmware/BCM43430A1.hcd`) for the RPi's integrated Bluetooth transceiver. Adapted from the [`pi-bluetooth`](https://aur.archlinux.org/packages/pi-bluetooth/) package from ArchLinux. Required by `net-wireless/rpi3-bluetooth` package (see above).
 
 * **sys-firmware/brcm43430-firmware** [upstream](https://github.com/RPi-Distro/firmware-nonfree)
-  * Just provides a configuration file (`brcmfmac43430-sdio.txt`) that is required for the RPi3/4's integrated WiFi (the main firmware is provided already, by [`sys-kernel/linux-firmware`](http://packages.gentoo.org/package/sys-kernel/linux-firmware)). Now also provides the equivalent file `brcmfmac43455-sdio.txt`, for use with the RPi3 B+ / RPi 4 B's [dual-band WiFi](https://www.raspberrypi.com.tw/tag/bcm2837/) WiFi chip set (Cypress CYW43455), plus the matching `brcmfmac43430-sdio.clm_blob`.
+  * Provides a configuration file (`brcmfmac43430-sdio.txt`) that is required for the RPi3/4's integrated WiFi (the main firmware is provided already, by [`sys-kernel/linux-firmware`](http://packages.gentoo.org/package/sys-kernel/linux-firmware)). Now also provides the equivalent file `brcmfmac43455-sdio.txt`, for use with the RPi3 B+ / RPi 4 B's [dual-band WiFi](https://www.raspberrypi.com.tw/tag/bcm2837/) WiFi chip set (Cypress CYW43455), plus the matching `brcmfmac43430-sdio.clm_blob`, and, when the `43455-fix` USE flag is set, also provides a more modern copy of the uploadable file `/lib/firmware/brcm/brcmfmac43455-sdio.bin` (in preference to the older version shipped with `sys-kernel/linux-firmware`; see below).
 
 * **sys-kernel/bcm2711-kernel-bin**
   * Provides ebuilds to install the available binary packages for the 64-bit `bcm2711_defconfig` Linux kernels (for the Raspberry Pi 4 model B), which are updated weekly [here](https://github.com/sakaki-/bcm2711-kernel).
@@ -239,6 +239,9 @@ The overlay provides the following ebuilds:
 
 * **sys-kernel/bcmrpi3-kernel-bis-bin**
   * Provides ebuilds to install the available binary packages for (slightly tweaked versions of) the 64-bit `bcmrpi3_defconfig` Linux kernels (for the Raspberry Pi 3 model B and B+), which are updated weekly [here](https://github.com/sakaki-/bcmrpi3-kernel-bis). This version is used in preference to `bcmrpi3-kernel-bin` as of v1.2.2 of the bootable image, since it includes some additional kernel configuration items such as KVM (but either is acceptable).
+
+* **sys-kernel/linux-firmware** [upstream](https://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git)
+  * Provides a large collection of redistributable Linux firmware files. The version in this overlay supports the `43455-fix` USE flag, which when set does _not_ install the file `/lib/firmware/brcm/brcmfmac43455-sdio.bin` (allowing a more modern version to be supplied by `sys-firmware/brcm43430-firmware`; see above).
 
 * **virtual/pam**
   * Just provides a shadow copy of `virtual/pam-0-r1`, preparatory to this being removed from the main tree (announced but not yet effected at the time of writing) &mdash; as it is still a dep of some packages currently in use on the image.
