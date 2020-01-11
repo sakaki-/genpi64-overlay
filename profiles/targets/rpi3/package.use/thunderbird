@@ -2,3 +2,6 @@
 mail-client/thunderbird lightning
 # force Clang compiler to avoid occasional startup segfaults
 >=mail-client/thunderbird-60.8.0-r1 clang
+# no sneaky downloading of binary blobs on first run, please...
+>=mail-client/thunderbird-68.3.1 -gmp-autoupdate
+
