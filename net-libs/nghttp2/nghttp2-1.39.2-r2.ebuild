@@ -30,6 +30,7 @@ SSL_DEPEND="
 			~dev-libs/openssl-1.0.2r:0=[${MULTILIB_USEDEP}]
 			~dev-libs/openssl-1.0.2s:0=[${MULTILIB_USEDEP}]
 			~dev-libs/openssl-1.0.2t:0=[${MULTILIB_USEDEP}]
+			~dev-libs/openssl-1.0.2u:0=[${MULTILIB_USEDEP}]
 			>=dev-libs/openssl-1.1.0:0=[-bindist,${MULTILIB_USEDEP}]
 		)
 	)
