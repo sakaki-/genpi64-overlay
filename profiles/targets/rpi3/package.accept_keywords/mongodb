@@ -1,0 +1,4 @@
+dev-db/mongodb * ~*
+# dependencies of mongodb
+app-admin/mongo-tools * ~*
+dev-python/cheetah3 * ~*
