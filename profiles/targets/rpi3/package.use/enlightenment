@@ -1,0 +1,3 @@
+# dependencies of enlightenment
+dev-libs/efl -opengl lua
+
