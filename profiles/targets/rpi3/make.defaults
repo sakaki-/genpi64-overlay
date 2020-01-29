@@ -61,3 +61,6 @@ PHP_TARGETS="-* php7-2"
 
 # required for modern rust etc.
 LLVM_TARGETS="WebAssembly BPF"
+
+# transitional assist
+RUBY_TARGETS="ruby24 ruby25 ruby27"
