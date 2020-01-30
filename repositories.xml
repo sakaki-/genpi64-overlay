@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <repositories version="1.0">
     <repo priority="100" quality="experimental" status="unofficial">
-        <name>rpi3</name>
+        <name>genpi64</name>
         <description lang="en">Overlay for 64-bit Gentoo on the RPi3 and RPi4 SBCs</description>
         <homepage>https://github.com/sakaki-/rpi3-overlay</homepage>
         <owner>
