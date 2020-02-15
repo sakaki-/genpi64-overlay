@@ -11,7 +11,7 @@ HOMEPAGE="https://github.com/sakaki-/gentoo-on-rpi3-64bit"
 SRC_URI=""
 LICENSE="GPL-3+"
 SLOT="0"
-IUSE="-systemd"
+IUSE="-systemd +X"
 RESTRICT="mirror"
 AR_SVCNAME="autoexpand-root"
 
@@ -21,7 +21,7 @@ S="${WORKDIR}"
 DEPEND=""
 RDEPEND="${DEPEND}
 	>=net-misc/networkmanager-1.8.2
-	>=x11-apps/xdm-1.1.11-r3
+	X? ( >=x11-apps/xdm-1.1.11-r3 )
 	systemd?  ( >=sys-apps/systemd-242-r6 )
 	!systemd? ( >=sys-apps/openrc-0.41 )
 	>=app-shells/bash-4.0"
