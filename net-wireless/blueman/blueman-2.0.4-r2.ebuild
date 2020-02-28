@@ -27,12 +27,16 @@ COMMON_DEPEND="
 	>=net-wireless/bluez-4.61:=
 	${PYTHON_DEPS}"
 DEPEND="${COMMON_DEPEND}
-	dev-python/cython[${PYTHON_MULTI_USEDEP}]
+	$(python_gen_cond_dep '
+		dev-python/cython[${PYTHON_MULTI_USEDEP}]
+	')
 	virtual/pkgconfig
 	nls? ( dev-util/intltool sys-devel/gettext )"
 RDEPEND="${COMMON_DEPEND}
-	dev-python/dbus-python[${PYTHON_MULTI_USEDEP}]
-	dev-python/pycairo[${PYTHON_MULTI_USEDEP}]
+	$(python_gen_cond_dep '
+		dev-python/dbus-python[${PYTHON_MULTI_USEDEP}]
+		dev-python/pycairo[${PYTHON_MULTI_USEDEP}]
+	')
 	sys-apps/dbus
 	x11-libs/gtk+:3[introspection]
 	x11-libs/libnotify[introspection]
