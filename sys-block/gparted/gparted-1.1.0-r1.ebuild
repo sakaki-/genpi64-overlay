@@ -83,7 +83,7 @@ src_install() {
 	else
 		if use sudo; then
 			# assume passwordless sudo a thing on this platform
-			sed -i -e '/Exec/ s:gparted:sudo gparted:' "${_ddir}"/gparted.desktop || die
+			sed -i -e '/Exec/ s:gparted:sudo /usr/bin/gparted:' "${_ddir}"/gparted.desktop || die
 		fi
 		sed -i -e 's:kdesu::' "${_bdir}"/gparted || die
 	fi
