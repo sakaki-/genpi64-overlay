@@ -163,6 +163,7 @@ RDEPEND="
 		>=sys-process/iotop-0.6
 	)
 	xfce? (
+		>=app-admin/usbimager-0.0.1
 		>=app-arch/xarchiver-0.5.4.14
 		>=app-accessibility/onboard-1.4.1-r1
 		>=app-emulation/qemu-4.2.0-r1
