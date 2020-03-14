@@ -14,6 +14,7 @@ SRC_URI="mirror://sourceforge/smtube/${P}.tar.bz2"
 LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="amd64 x86"
+IUSE="+category-fix"
 
 BDEPEND="
 	dev-qt/linguist-tools:5
@@ -43,8 +44,10 @@ gen_translation() {
 
 src_prepare() {
 	default
-	sed -i 's/AudioVideo;Player;Video;/Network;/' ${PN}.desktop
-	sed -i 's/Name=SMTube/Name=SMTube (YouTube, Hi-Res)/' ${PN}.desktop
+	if use category-fix; then
+		sed -i 's/AudioVideo;Player;Video;/Network;/' ${PN}.desktop
+		sed -i 's/Name=SMTube/Name=SMTube (YouTube, Hi-Res)/' ${PN}.desktop
+	fi
 }
 
 src_compile() {
