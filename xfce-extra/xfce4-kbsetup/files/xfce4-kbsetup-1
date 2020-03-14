@@ -1,0 +1,29 @@
+#!/bin/bash
+#
+# Check if the current user has keyboard layouts set up, and if so,
+# apply them; used to get around bug where Xfce does not set up the correct
+# initial keyboard on login.
+#
+# Copyright (c) 2020 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+if [[ "${XDG_CURRENT_DESKTOP}" != "XFCE" ]]; then
+	exit 0
+fi
+
+if [[ "$(xfconf-query --channel keyboard-layout --property /Default/XkbDisable 2>/dev/null)" == "false" ]]; then
+    LAYOUT="$(xfconf-query --channel keyboard-layout --property /Default/XkbLayout 2>/dev/null)"
+    VARIANT="$(xfconf-query --channel keyboard-layout --property /Default/XkbVariant 2>/dev/null)"
+    GROUP="$(xfconf-query --channel keyboard-layout --property /Default/XkbOptions/Group 2>/dev/null)"
+    COMPOSE="$(xfconf-query --channel keyboard-layout --property /Default/XkbOptions/Compose 2>/dev/null)"
+    OPTS=""
+    if [[ "${GROUP}" ]]; then
+        OPTS+="-option '${GROUP}' "
+    fi
+    if [[ "${COMPOSE}" ]]; then
+        OPTS+=" -option '${COMPOSE}' "
+    fi
+    echo $LAYOUT $VARIANT $OPTS
+    setxkbmap -layout "${LAYOUT}" -variant "${VARIANT}" ${OPTS}
+fi

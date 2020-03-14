@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Run kbsetup
+Comment=Ensure correct keyboard layout applied on graphical login
+Exec=/usr/bin/kbsetup
+Terminal=false
+Type=Application
+Categories=
+NoDisplay=true
+OnlyShowIn=XFCE;
+StartupNotify=false
