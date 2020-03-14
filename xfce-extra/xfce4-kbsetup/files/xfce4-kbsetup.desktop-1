@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Run kbsetup
-Comment=Ensure correct keyboard layout applied on graphical login
+Comment=Ensures correct keyboard layout applied on graphical login
 Exec=/usr/bin/kbsetup
 Terminal=false
 Type=Application
