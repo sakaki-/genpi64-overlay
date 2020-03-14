@@ -214,6 +214,7 @@ RDEPEND="
 		>=xfce-extra/xfce4-cpugraph-plugin-1.0.5-r3
 		>=xfce-extra/xfce4-fixups-rpi3-1.0.4-r1
 		>=xfce-extra/xfce4-indicator-plugin-2.3.3-r2
+		>=xfce-extra/xfce4-kbsetup-1.0.0
 		>=xfce-extra/xfce4-mixer-4.99.0-r1
 		>=xfce-extra/xfce4-noblank-1.0.0-r3
 		>=xfce-extra/xfce4-notes-plugin-1.8.1-r4
