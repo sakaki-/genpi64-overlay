@@ -10,3 +10,18 @@
     Only effective when library is statically linked.
     You have to manually edit this file. */
 
+--- a/src/video/raspberry/SDL_rpivideo.h
++++ b/src/video/raspberry/SDL_rpivideo.h
+@@ -30,6 +30,12 @@
+ #include "EGL/egl.h"
+ #include "EGL/eglext.h"
+ 
++typedef struct {
++	DISPMANX_ELEMENT_HANDLE_T element;
++	int width; /* This is necessary because dispmanx elements are not queriable. */
++	int height;
++} EGL_DISPMANX_WINDOW_T;
++
+ typedef struct SDL_VideoData
+ {
+     uint32_t egl_refcount;      /* OpenGL ES reference count              */
