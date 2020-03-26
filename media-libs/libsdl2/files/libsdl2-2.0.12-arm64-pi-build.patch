@@ -1,0 +1,12 @@
+--- a/src/SDL_internal.h
++++ b/src/SDL_internal.h
+@@ -50,7 +50,7 @@
+ #endif
+ 
+ #include "SDL_config.h"
+-
++#include <unistd.h>
+ #endif /* SDL_internal_h_ */
+ 
+ /* vi: set ts=4 sw=4 expandtab: */
+
