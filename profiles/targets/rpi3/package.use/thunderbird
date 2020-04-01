@@ -4,4 +4,5 @@ mail-client/thunderbird lightning
 >=mail-client/thunderbird-60.8.0-r1 clang
 # no sneaky downloading of binary blobs on first run, please...
 >=mail-client/thunderbird-68.3.1 -gmp-autoupdate
-
+# enable link-time optimization (lto)
+>=mail-client/thunderbird-68.6.0 lto
