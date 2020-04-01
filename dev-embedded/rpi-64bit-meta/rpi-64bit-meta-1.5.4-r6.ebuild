@@ -125,6 +125,7 @@ RDEPEND="
 	)
 	core? (
 		>=app-arch/lzop-1.04
+		>=app-crypt/libu2f-host-1.1.10
 		>=app-editors/vim-8.2.0210
 		>=app-editors/vim-core-8.2.0210
 		>=app-misc/screen-4.8.0
