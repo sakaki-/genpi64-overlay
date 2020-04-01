@@ -14,4 +14,5 @@ media-libs/harfbuzz icu
 media-libs/libvpx postproc
 # required by >=www-client/firefox-65
 dev-db/sqlite secure-delete
-
+# pgo needs xvfb (not used on aarch64 yet, but possibly will be soon)
+>=x11-base/xorg-server-1.19.6-r1 xvfb
