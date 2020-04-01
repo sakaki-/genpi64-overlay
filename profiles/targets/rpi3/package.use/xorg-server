@@ -1,2 +1,4 @@
 # Per https://wiki.gentoo.org/wiki/Raspberry_Pi_VC4
 x11-base/xorg-server glamor
+# Enable libglvnd, migration from app-eselect/eselect-opengl
+>=x11-base/xorg-server-1.20.6 libglvnd
