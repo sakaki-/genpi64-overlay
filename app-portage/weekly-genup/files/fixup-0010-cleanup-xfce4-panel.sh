@@ -26,7 +26,7 @@ for UP in /home/*; do
     if [[ -e "${SENTINEL}" || ! -s "${TARGET}" || ! -d "${PDIR}" ]]; then
         continue
     fi
-    su - "${U}" --command='PLUGIN=$(xfconf-query --channel xfce4-panel --list --verbose | grep systray | head -n 1 | cut -d " " -f 1); xfconf-query --channel xfce4-panel --property "${PLUGIN}/square-icons" --create --type bool --set false; xfconf-query --channel xfce4-panel --property "${PLUGIN}/show-frame" --create --type bool --set false' &>/dev/null || true
+    su - "${U}" --command='PLUGIN=$(xfconf-query --channel xfce4-panel --list --verbose | grep systray | head -n 1 | cut -d " " -f 1); xfconf-query --channel xfce4-panel --property "${PLUGIN}/square-icons" --create --type bool --set false; xfconf-query --channel xfce4-panel --property "${PLUGIN}/show-frame" --create --type bool --set false; xfconf-query --channel xfce4-panel --property /panels/panel-2/size --create --type uint --set 48' &>/dev/null || true
     for PLUGIN in "${PDIR}/cpugraph-"*.rc*; do
         sed -i 's/^Frame=1/Frame=0/;s/^Border=0/Border=1/' "${PLUGIN}"
     done
