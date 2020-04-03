@@ -18,12 +18,14 @@ S="${WORKDIR}"
 
 RDEPEND="
 	>=xfce-base/xfce4-meta-4.12
+	>=xfce-base/xfconf-4.14.1
+	>=x11-apps/setxkbmap-1.3.2
 	>=x11-terms/xfce4-terminal-0.8.6"
 DEPEND="${RDEPEND}
 	>=app-shells/bash-4.0"
 
 src_install() {
-	newbin "${FILESDIR}/xfce4-kbsetup-1" "kbsetup"
+	newbin "${FILESDIR}/xfce4-kbsetup-2" "kbsetup"
 	insinto "/etc/xdg/autostart/"
 	newins "${FILESDIR}/${PN}.desktop-1" "kbsetup.desktop" 
 }
