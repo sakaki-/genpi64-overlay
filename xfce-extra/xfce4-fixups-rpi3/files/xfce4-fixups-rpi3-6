@@ -70,10 +70,6 @@ if ! xfconf-query --channel xfce4-panel --property /general/setup_complete &>/de
 	if ! [[ -z ${PLUGIN} ]]; then
 		xfconf-query --channel xfce4-panel --property "${PLUGIN}/size-max" \
 			--create --type int --set 20
-		xfconf-query --channel xfce4-panel --property "${PLUGIN}/square-icons" \
-			--create --type bool --set false
-		xfconf-query --channel xfce4-panel --property "${PLUGIN}/show-frame" \
-			--create --type bool --set false
 	fi
 	# insert sentinel
 	xfconf-query --channel xfce4-panel --property /general/setup_complete \
@@ -91,7 +87,13 @@ if [[ ! -e "${SENTINEL}" && -s "${TARGET}" && -d "${PDIR}" ]]; then
 	sed -i -e 's#<property name="square-icons" type="bool" value="true"/>#<property name="square-icons" type="bool" value="false"/>#g' "${TARGET}"
 	sed -i -e 's#<property name="show-frame" type="bool" value="true"/>#<property name="show-frame" type="bool" value="false"/>#g' "${TARGET}"
 	G="$(id -gn "${U}")"
-
+	PLUGIN="$(xfconf-query --channel xfce4-panel --list --verbose | grep systray | cut -d " " -f 1)"
+	if ! [[ -z ${PLUGIN} ]]; then
+		xfconf-query --channel xfce4-panel --property "${PLUGIN}/square-icons" \
+			--create --type bool --set false
+		xfconf-query --channel xfce4-panel --property "${PLUGIN}/show-frame" \
+			--create --type bool --set false
+	fi
 	for PLUGIN in "${PDIR}/cpugraph-"*.rc*; do
 		sed -i 's/^Frame=0/Frame=1/;s/^Border=1/Border=0/' "${PLUGIN}"
 	done

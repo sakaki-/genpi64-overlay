@@ -19,16 +19,14 @@ declare -i PLUGIN_MODIFIED=0
 echo "Cleaning up Xfce4 panel"
 for UP in /home/*; do
     U="$(basename "${UP}")"
+    G="$(id -gn "${U}")"
     PDIR="${UP}/.config/xfce4/panel"
     SENTINEL="${PDIR}/.fixup-0010-done"
     TARGET="${UP}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
     if [[ -e "${SENTINEL}" || ! -s "${TARGET}" || ! -d "${PDIR}" ]]; then
         continue
     fi
-    sed -i -e 's#<property name="square-icons" type="bool" value="true"/>#<property name="square-icons" type="bool" value="false"/>#g' "${TARGET}"
-    sed -i -e 's#<property name="show-frame" type="bool" value="true"/>#<property name="show-frame" type="bool" value="false"/>#g' "${TARGET}"
-    G="$(id -gn "${U}")"
-    
+    su - "${U}" --command='PLUGIN=$(xfconf-query --channel xfce4-panel --list --verbose | grep systray | cut -d " " -f 1); xfconf-query --channel xfce4-panel --property "${PLUGIN}/square-icons" --create --type bool --set false; xfconf-query --channel xfce4-panel --property "${PLUGIN}/show-frame" --create --type bool --set false' &>/dev/null || true
     for PLUGIN in "${PDIR}/cpugraph-"*.rc*; do
         sed -i 's/^Frame=1/Frame=0/;s/^Border=0/Border=1/' "${PLUGIN}"
     done
