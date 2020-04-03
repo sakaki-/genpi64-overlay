@@ -1,6 +1,0 @@
-# various Xfce4 components held temporarily for display integrity
->=xfce-base/xfconf-4.13.3
->=xfce-base/xfce4-panel-4.13.0
->=xfce-base/xfce4-settings-4.13.1
->=xfce-extra/xfce4-indicator-plugin-2.3.4
->=xfce-base/xfwm4-4.13.1

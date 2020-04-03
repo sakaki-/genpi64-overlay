@@ -1,5 +1,0 @@
-# above this version, long text no longer wrapped, but truncated
-# makes e.g. PIN notifications on BlueTooth unreadable
-# mask for now
->xfce-extra/xfce4-notifyd-0.4.0
-
