@@ -239,7 +239,6 @@ RDEPEND="
 		>=app-office/abiword-3.0.4
 		>=app-office/libreoffice-6.3.5.2
 		>=app-office/libreoffice-l10n-6.3.5.2
-		>=app-portage/porthole-0.6.1-r6
 		>=app-text/evince-3.34.2
 		>=dev-util/meld-3.20.2
 		>=mail-client/claws-mail-3.17.5
