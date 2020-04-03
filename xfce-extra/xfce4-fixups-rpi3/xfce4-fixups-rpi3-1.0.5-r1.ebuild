@@ -25,7 +25,7 @@ RDEPEND="${DEPEND}
 	>=app-shells/bash-4.0"
 
 src_install() {
-	newbin "${FILESDIR}/${PN}-6" "${PN}"
+	newbin "${FILESDIR}/${PN}-7" "${PN}"
 	insinto "/etc/xdg/autostart/"
 	newins "${FILESDIR}/${PN}.desktop-1" "${PN}.desktop" 
 }
