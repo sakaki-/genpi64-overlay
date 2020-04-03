@@ -94,8 +94,8 @@ if [[ ! -e "${SENTINEL}" && -s "${TARGET}" && -d "${PDIR}" ]]; then
 		xfconf-query --channel xfce4-panel --property "${PLUGIN}/show-frame" \
 			--create --type bool --set false
 	fi
-	for PLUGIN in "${PDIR}/cpugraph-"*.rc*; do
-		sed -i 's/^Frame=0/Frame=1/;s/^Border=1/Border=0/' "${PLUGIN}"
+	for PFILE in "${PDIR}/cpugraph-"*.rc*; do
+		sed -i 's/^Frame=1/Frame=0/;s/^Border=0/Border=1/' "${PFILE}"
 	done
 	# force panel plugin reload
 	pkill -f -HUP libcpugraph
