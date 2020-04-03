@@ -16,11 +16,11 @@ PCDIR="/etc/portage"
 SENTINEL="${PCDIR}/.fixup-0011-done"
 
 if [[ -f "${SENTINEL}" ]]; then
-    echo "Sentinel file found: porthole already deselected"
+    echo "Sentinel file found: porthole already depcleaned"
     exit 0
 fi
 
 echo "Depcleaning app-portage/porthole (bug #708096)"
-emerge --depclean app-portage/porthole
+emerge --depclean app-portage/porthole || emerge --deselect app-portage/porthole
 
 echo -e "This sentinel file prevents fixup-0011 from trying to depclean\napp-portage/porthole a second time." > "${SENTINEL}"
