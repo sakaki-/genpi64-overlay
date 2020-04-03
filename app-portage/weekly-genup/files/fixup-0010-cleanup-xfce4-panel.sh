@@ -30,7 +30,7 @@ for UP in /home/*; do
     G="$(id -gn "${U}")"
     
     for PLUGIN in "${PDIR}/cpugraph-"*.rc*; do
-        sed -i 's/^Frame=0/Frame=1/;s/^Border=1/Border=0/' "${PLUGIN}"
+        sed -i 's/^Frame=1/Frame=0/;s/^Border=0/Border=1/' "${PLUGIN}"
     done
     touch "${SENTINEL}"
     chown "${U}:${G}" "${SENTINEL}"
