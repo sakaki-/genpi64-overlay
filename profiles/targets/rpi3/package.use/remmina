@@ -1,0 +1,4 @@
+# enable a baseline set of protocols
+net-misc/remmina crypt cups gnome-keyring nls rdp spice ssh vnc
+# optional runtime dep: enable encrypted VNC connections
+net-libs/libvncserver gcrypt
