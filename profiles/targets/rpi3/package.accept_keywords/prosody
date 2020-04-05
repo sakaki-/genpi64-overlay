@@ -1,0 +1,5 @@
+net-im/prosody * ~*
+# dependencies of prosody
+net-im/jabber-base * ~*
+dev-lua/luasec * ~*
+dev-lua/lua-zlib * ~*
