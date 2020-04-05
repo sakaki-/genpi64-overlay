@@ -1,0 +1,3 @@
+# Use standard paths for config and data
+# https://forums.gentoo.org/viewtopic-t-1098706.html
+net-im/prosody prosody-paths.conf
