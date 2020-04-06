@@ -1,2 +1,0 @@
-# prevent upgrade dragging in -bindist openssl, for now
->=net-libs/nodejs-10
