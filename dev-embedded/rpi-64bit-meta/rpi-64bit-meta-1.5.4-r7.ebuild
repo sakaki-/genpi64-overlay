@@ -23,7 +23,10 @@ S="${WORKDIR}"
 
 DEPEND="
 	systemd?  ( >=sys-apps/systemd-242-r6 )
-	!systemd? ( >=sys-apps/openrc-0.42.1-r2[swclock-fix(-)] )
+	!systemd? (
+		>=sys-apps/openrc-0.42.1-r2[swclock-fix(-)]
+		>=sys-fs/eudev-3.2.9
+	)
 	>=app-shells/bash-5.0"
 # pi3multiboot flag pulls in matching bcmrpi3-kernel{,-bis}-bin package also
 RDEPEND="
@@ -116,7 +119,6 @@ RDEPEND="
 		>=sys-devel/distcc-3.3.3-r1
 		>=sys-fs/btrfs-progs-5.4.1
 		>=sys-fs/dosfstools-4.1
-		>=sys-fs/eudev-3.2.9
 		>=sys-fs/f2fs-tools-1.13.0
 		>=sys-fs/fuse-3.9.0
 		>=sys-fs/multipath-tools-0.8.3-r1
