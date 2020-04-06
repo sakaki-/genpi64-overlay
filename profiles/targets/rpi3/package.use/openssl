@@ -1,0 +1,2 @@
+# safe to enable this for these later versions of openssl
+>=dev-libs/openssl-1.1.1e tls-heartbeat
