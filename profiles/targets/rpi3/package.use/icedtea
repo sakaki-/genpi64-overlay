@@ -1,0 +1,2 @@
+# turn on sctp, for jitsi and friends
+>=dev-java/icedtea-3.15.0 sctp
