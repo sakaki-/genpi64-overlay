@@ -1,6 +1,3 @@
 # problems applying patchset
 =dev-libs/openssl-1.0.2p
-# prevent bindist issue, for now
-dev-libs/openssl:0/1.1
-dev-libs/openssl:1.0.0
 
