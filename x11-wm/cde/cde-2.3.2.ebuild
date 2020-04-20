@@ -17,6 +17,7 @@ IUSE=""
 S="${WORKDIR}/${P}"
 
 DEPEND="
+		>=x11-base/xorg-proto-2019.2
 		x11-libs/libXt
 		x11-libs/libXmu
 		x11-libs/libXft
