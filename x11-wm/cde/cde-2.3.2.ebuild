@@ -88,9 +88,9 @@ src_install() {
 	einfo "possible.  More probably requires patching ..."
 	mv -v "${D}"/usr/dt/{bin,lib} "${D}"/usr/
 	mkdir -pv "${D}"/usr/share/man
-	mv -v "${D}"/usr/dt/share/man/* "${D}"/usr/share/man/
 	# remove collision
-	rm -fv "${D}/usr/share/man/man1/ksh.1.bz2"
+	rm -fv "${D}"/usr/dt/share/man/man1/ksh.1.bz2
+	mv -v "${D}"/usr/dt/share/man/* "${D}"/usr/share/man/
 	ln -sfv "${D}"/usr/share/man "${D}"/usr/dt/man
 	#
 	# Misc directories
