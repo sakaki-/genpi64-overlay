@@ -40,7 +40,9 @@ DEPEND="
 		media-fonts/font-bh-lucidatypewriter-100dpi
 		media-fonts/font-bitstream-100dpi
 		net-nds/rpcbind
-		x11-misc/xbitmaps"
+		x11-misc/xbitmaps
+		x11-base/xorg-server
+"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
@@ -82,16 +84,7 @@ src_install() {
 		einfo "    ${T}/${db}.lst -> ${D}"
 		/bin/ksh ./mkProd -D "${D}" -S "${S}" "${T}"/"${db}".lst
 	done
-	# Move stuff that we can out of /usr/dt to comply with FHS
-	# as much as possible (more probably requires patching)
-	einfo "Relocating some files to comply with FHS as much as"
-	einfo "possible.  More probably requires patching ..."
-	mv -v "${D}"/usr/dt/{bin,lib} "${D}"/usr/
-	mkdir -pv "${D}"/usr/share/man
-	# remove collision
-	rm -fv "${D}"/usr/dt/share/man/man1/ksh.1.bz2
-	mv -v "${D}"/usr/dt/share/man/* "${D}"/usr/share/man/
-	ln -sfv "${D}"/usr/share/man "${D}"/usr/dt/man
+	# Note the above is non-FHS compliant
 	#
 	# Misc directories
 	#
@@ -102,7 +95,7 @@ src_install() {
 	dodir /usr/spool/calendar
 	#
 	# env.d for /usr/dt paths
-	#doenvd "${FILESDIR}"/95cde  # NO LONGER REQUIRED WITH mv ABOVE
+	doenvd "${FILESDIR}"/95cde  # NO LONGER REQUIRED WITH mv ABOVE
 }
 
 pkg_postinst() {
