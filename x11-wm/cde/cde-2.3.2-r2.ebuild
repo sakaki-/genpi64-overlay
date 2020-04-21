@@ -95,7 +95,7 @@ src_install() {
 	dodir /usr/spool/calendar
 	#
 	# env.d for /usr/dt paths
-	doenvd "${FILESDIR}"/95cde  # NO LONGER REQUIRED WITH mv ABOVE
+	doenvd "${FILESDIR}"/95cde
 }
 
 pkg_postinst() {
