@@ -4,3 +4,5 @@
 =mail-client/thunderbird-68.3.0
 # hold until overlay version bumped
 ~mail-client/thunderbird-68.4.1
+# hold while testing
+=mail-client/thunderbird-68.7.0
