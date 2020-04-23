@@ -1,2 +1,5 @@
 # temporarily mask while testing
 ~dev-lang/python-3.7.5
+=dev-lang/python-3.6.10-r2
+=dev-lang/python-3.7.7-r2
+=dev-lang/python-3.8.2-r2
