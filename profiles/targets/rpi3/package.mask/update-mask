@@ -1,0 +1,5 @@
+# hold new packages added to overlay, before gated Portage tree updated
+>sys-kernel/linux-firmware-20200413
+>media-libs/mesa-20.0.6
+>mail-client/thunderbird-68.7.0
+# chromium is masked separately
