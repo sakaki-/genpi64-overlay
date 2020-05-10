@@ -1,0 +1,2 @@
+# requirements for sci-misc boinc
+>=x11-libs/wxGTK-3.0.4-r302 webkit
