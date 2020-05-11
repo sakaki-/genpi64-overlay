@@ -1,5 +1,3 @@
 # misc. freezes, handshake failures etc.
 # issues pairing with some BT keyboards
 >=net-wireless/blueman-2.0.5
-# hold while testing
-=net-wireless/blueman-2.0.4-r3
