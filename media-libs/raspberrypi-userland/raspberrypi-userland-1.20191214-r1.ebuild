@@ -1,7 +1,7 @@
 # Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 inherit cmake-utils flag-o-matic git-r3
 
 DESCRIPTION="Raspberry Pi userspace tools and libraries"
@@ -21,7 +21,7 @@ EGIT_REPO_URI="https://github.com/raspberrypi/userland"
 # latest commit, as of of ebuild's version (datestamp)
 EGIT_COMMIT="7d3c6b9f4c3ddeecefdeb2b882bada74a235249b"
 
-#PATCHES=( "${FILESDIR}"/${P}-gentoo.patch )
+PATCHES=( "${FILESDIR}/${P}-fix-gcc10-build.patch" )
 
 pkg_setup() {
 		append-ldflags $(no-as-needed)
