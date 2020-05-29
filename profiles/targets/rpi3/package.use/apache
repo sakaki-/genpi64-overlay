@@ -1,0 +1,8 @@
+# turn on necessary modules for jitsi meet
+>=www-servers/apache-2.4.41 apache2_modules_access_compat apache2_modules_alias 
+>=www-servers/apache-2.4.41 apache2_modules_authz_core apache2_modules_authz_host
+>=www-servers/apache-2.4.41 apache2_modules_dir apache2_modules_headers
+>=www-servers/apache-2.4.41 apache2_modules_include apache2_modules_mime
+>=www-servers/apache-2.4.41 apache2_modules_proxy apache2_modules_proxy_http
+>=www-servers/apache-2.4.41 apache2_modules_rewrite apache2_modules_socache_shmcb
+>=www-servers/apache-2.4.41 apache2_modules_unixd
