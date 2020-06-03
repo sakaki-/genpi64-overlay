@@ -1,0 +1,6 @@
+# hold while testing
+>=sys-kernel/linux-firmware-20200519
+>=media-video/ffmpeg-4.2.3
+>=mail-client/thunderbird-68.8.1
+>=media-libs/mesa-20.0.7
+>=media-video/smtube-20.1.0
