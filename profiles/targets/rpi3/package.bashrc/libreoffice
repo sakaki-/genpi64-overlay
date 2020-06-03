@@ -1,2 +1,2 @@
 # prevent overload when building
-app-office/libreoffice makeopts-j4.conf
+<app-office/libreoffice-6.4.4.2 makeopts-j4.conf

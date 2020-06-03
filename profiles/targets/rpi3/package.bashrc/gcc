@@ -1,3 +1,3 @@
 # prevent the stage 3 bootstrap choking on a distcc-enabled system
 # (this must run locally)
-sys-devel/gcc	makeopts-j4.conf
+<sys-devel/gcc-10	makeopts-j4.conf
