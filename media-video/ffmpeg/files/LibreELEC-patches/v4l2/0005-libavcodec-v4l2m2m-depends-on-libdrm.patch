@@ -29,7 +29,7 @@ index 897c3c4636..d6838866b7 100644
   */
  
 -#include <drm/drm_fourcc.h>
-+#include <drm_fourcc.h>
++#include <libdrm/drm_fourcc.h>
  #include <linux/videodev2.h>
  #include <sys/ioctl.h>
  #include <sys/mman.h>
