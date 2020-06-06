@@ -27,6 +27,7 @@ src_unpack() {
 
 src_install() {
 	insinto /
-	doins -r lib
 	dodoc -r usr/share/doc/${MY_PN}/*
+	# install images if shipped as part of this deb
+	[[ -d lib ]] && doins -r lib
 }

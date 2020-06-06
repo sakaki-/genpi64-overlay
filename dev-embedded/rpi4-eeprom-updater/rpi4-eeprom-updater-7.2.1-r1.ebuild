@@ -31,6 +31,7 @@ S="${WORKDIR}"
 src_unpack() {
 	unpack_deb "${A}"
 	cd "${WORKDIR}/usr/share/doc/${MY_PN}" && unpack ./changelog.Debian.gz && rm -f ./changelog.Debian.gz
+	[[ -s release-notes.md.gz ]] && unpack ./release-notes.md.gz && rm -f ./release-notes.md.gz
 	cd "${WORKDIR}/usr/share/man/man1" && unpack ./*.1.gz && rm -f ./*.1.gz
 }
 
@@ -42,6 +43,9 @@ src_install() {
 	insinto /etc/default
 	doins etc/default/*
 	newinitd "${FILESDIR}/init.d_${PN}-1" "${PN}"
+	# install images if shipped as part of this deb
+	insinto /
+	[[ -d lib ]] && doins -r lib
 }
 
 pkg_postinst() {
