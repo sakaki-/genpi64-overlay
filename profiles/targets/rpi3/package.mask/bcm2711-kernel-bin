@@ -1,2 +1,3 @@
 # we only unmask specific kernels for production use
 =sys-kernel/bcm2711-kernel-bin-4.19*
+=sys-kernel/bcm2711-kernel-bin-5.4*
