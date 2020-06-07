@@ -6,8 +6,10 @@ EAPI=6
 
 DESCRIPTION="Raspberry PI boot loader and firmware, for 64-bit mode"
 HOMEPAGE="https://github.com/raspberrypi/firmware"
-UPSTREAM_PV="${PV/_p/+}"
-DOWNLOAD_PV="${PV/_p/-}"
+UPSTREAM_PV="${PV/_p64/+arm64}"
+UPSTREAM_PV="${UPSTREAM_PV/_p/+}"
+DOWNLOAD_PV="${PV/_p64/-arm64}"
+DOWNLOAD_PV="${DOWNLOAD_PV/_p/-}"
 SRC_URI="https://github.com/raspberrypi/firmware/archive/${UPSTREAM_PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2 raspberrypi-videocore-bin Broadcom"
