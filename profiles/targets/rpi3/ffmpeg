@@ -1,0 +1,2 @@
+# required by certain codecs
+>=media-video/ffmpeg-4.2.3-r1 libdrm
