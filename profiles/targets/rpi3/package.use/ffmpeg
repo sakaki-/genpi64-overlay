@@ -5,3 +5,5 @@
 >=media-video/ffmpeg-4.2 v4l2m2m-fix
 # use mmal for versions with dep on appropriate raspberrypi-userland
 >=media-video/ffmpeg-4.2.1-r3 mmal
+# required by certain codecs
+>=media-video/ffmpeg-4.2.3-r1 libdrm
