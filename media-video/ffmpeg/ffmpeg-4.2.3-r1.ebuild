@@ -347,6 +347,9 @@ src_prepare() {
 			#"${LEP}/rpi-hevc"
 			"${LEP}/v4l2"
 			"${LEP}/v4l2-request-api"
+#			"${FILESDIR}"/v4l2-larger-buffers.patch
+			"${FILESDIR}"/v4l2-nv21-yuv420p-handling-2.patch
+			"${FILESDIR}"/v4l2-selection-crop.patch
 		)
 	fi
 
