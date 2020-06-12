@@ -1,4 +1,5 @@
 media-tv/kodi java
+>=media-tv/kodi-18.7.1 cec
 # user-requested additional flags
 >=media-tv/kodi-18.0 samba
 >=media-tv/kodi-18.4 upnp
