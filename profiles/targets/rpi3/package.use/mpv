@@ -1,2 +1,3 @@
 # ensure video4linux enabled
 media-video/mpv v4l
+>=media-video/mpv-0.32.0-r1 drm
