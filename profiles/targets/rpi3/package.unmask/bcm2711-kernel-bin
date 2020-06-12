@@ -12,3 +12,5 @@
 ~sys-kernel/bcm2711-kernel-bin-4.19.106.20200225
 ~sys-kernel/bcm2711-kernel-bin-4.19.115.20200421
 ~sys-kernel/bcm2711-kernel-bin-4.19.122.20200602
+# ditto for 5.4 kernels
+~sys-kernel/bcm2711-kernel-bin-5.4.44.20200609

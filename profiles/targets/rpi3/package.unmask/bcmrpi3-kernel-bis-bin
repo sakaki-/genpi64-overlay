@@ -22,3 +22,5 @@
 ~sys-kernel/bcmrpi3-kernel-bis-bin-4.19.106.20200225
 ~sys-kernel/bcmrpi3-kernel-bis-bin-4.19.115.20200421
 ~sys-kernel/bcmrpi3-kernel-bis-bin-4.19.122.20200602
+# ditto for 5.4 kernels
+~sys-kernel/bcmrpi3-kernel-bis-bin-5.4.44.20200609
