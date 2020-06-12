@@ -25,7 +25,7 @@ DEPEND="${RDEPEND}
 	>=app-shells/bash-4.0"
 
 src_install() {
-	newbin "${FILESDIR}/xfce4-kbsetup-2" "kbsetup"
+	newbin "${FILESDIR}/xfce4-kbsetup-3" "kbsetup"
 	insinto "/etc/xdg/autostart/"
 	newins "${FILESDIR}/${PN}.desktop-1" "kbsetup.desktop" 
 }
