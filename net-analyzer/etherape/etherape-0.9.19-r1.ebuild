@@ -26,10 +26,10 @@ DEPEND="
 	virtual/pkgconfig
 "
 
-src_prepare() {
-	default
+src_install() {
 	if use sudo; then
 		# assume passwordless sudo a thing on this platform
 		sed -i -e '/Exec/ s:etherape:sudo /usr/bin/etherape:' "${S}"/etherape.desktop || die
 	fi
+	default
 }
