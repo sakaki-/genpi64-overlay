@@ -30,7 +30,7 @@
 		(<pkg>sys-fs/reiser4progs</pkg>)</flag>
 		<flag name="reiserfs">Include ReiserFS support
 		(<pkg>sys-fs/reiserfsprogs</pkg>)</flag>
-		<flag name="sudo">Assume passwordless sudo can be used
+		<flag name="sudo">Assume passwordless sudo can be used</flag>
 		(<pkg>app-admin/sudo</pkg>)</flag>
 		<flag name="udf">Include UDF support (<pkg>sys-fs/udftools</pkg>)</flag>
 		<flag name="wayland">Enable interim workaround to allow running GParted under
