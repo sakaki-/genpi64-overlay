@@ -15,3 +15,4 @@
 # ditto for 5.4 kernels
 ~sys-kernel/bcm2711-kernel-bis-bin-5.4.44.20200609
 ~sys-kernel/bcm2711-kernel-bis-bin-5.4.45.20200613
+~sys-kernel/bcm2711-kernel-bis-bin-5.4.45.20200616
