@@ -59,12 +59,12 @@ RDEPEND="
 	>=sys-firmware/bluez-firmware-1.2
 	>=sys-firmware/brcm43430-firmware-20200612[43455-fix]
 	porthash? (
-		<sys-apps/portage-2.3.100-r1
+		<sys-apps/portage-2.3.49
 		>=app-portage/rpi3-check-porthash-1.0.0-r3
 	)
 	!porthash? (
 		!app-portage/rpi3-check-porthash
-		>=sys-apps/portage-2.3.100-r1
+		>=sys-apps/portage-2.3.49
 	)
 	weekly-genup? ( >=app-portage/weekly-genup-1.1.1-r2 )
 	!weekly-genup? ( !app-portage/weekly-genup )
