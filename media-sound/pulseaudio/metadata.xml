@@ -76,5 +76,9 @@
     <flag name="rpi-deglitch">
       Set tsched=0 by default, as workaround for audio glitchiness on the RPi.
     </flag>
+    <flag name="pi4-workaround">
+      Prevent second HDMI port being managed by pulseaudio (as doing so seems
+      to cause problems with the headphone jack under pulseaudio, 5.4 kernels).
+    </flag>
   </use>
 </pkgmetadata>
