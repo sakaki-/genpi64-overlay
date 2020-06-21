@@ -1,0 +1,13 @@
+SUBSYSTEM!="sound*", GOTO="end"
+ACTION!="change", GOTO="end"
+KERNEL!="card*", GOTO="end"
+
+# remove the 'internal' sound form factor, so more descriptive
+# names are used in pulseaudio for bcm... entries
+ENV{SOUND_FORM_FACTOR}=="internal", ENV{SOUND_FORM_FACTOR}=""
+
+# uncomment to ignore audio sink on HDMI1, even if present, so that
+# headphones + HDMI0 audio will work in pulseaudio - temporary workaround
+#ATTRS{id}=="b2", ENV{PULSE_IGNORE}="1"
+
+LABEL="end"

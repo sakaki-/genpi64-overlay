@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -15,14 +15,15 @@ SRC_URI="https://freedesktop.org/software/pulseaudio/releases/${P}.tar.xz"
 LICENSE="!gdbm? ( LGPL-2.1 ) gdbm? ( GPL-2 )"
 
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm arm64 ~hppa ~ia64 ppc ppc64 sparc x86 ~amd64-linux ~x86-linux"
 
 # +alsa-plugin as discussed in bug #519530
 IUSE="+alsa +alsa-plugin +asyncns bluetooth +caps dbus doc equalizer elogind gconf
 +gdbm +glib gtk ipv6 jack libsamplerate libressl lirc native-headset cpu_flags_arm_neon
-ofono-headset +orc oss qt5 realtime rpi-deglitch selinux sox ssl systemd system-wide tcpd test
+ofono-headset +orc oss pi4-workaround qt5 realtime rpi-deglitch selinux sox ssl systemd system-wide tcpd test
 +udev +webrtc-aec +X zeroconf"
 
+RESTRICT="!test? ( test )"
 # See "*** BLUEZ support not found (requires D-Bus)" in configure.ac
 REQUIRED_USE="
 	?? ( elogind systemd )
@@ -30,6 +31,7 @@ REQUIRED_USE="
 	equalizer? ( dbus )
 	ofono-headset? ( bluetooth )
 	native-headset? ( bluetooth )
+	pi4-workaround? ( udev )
 	realtime? ( dbus )
 	udev? ( || ( alsa oss ) )
 "
@@ -98,7 +100,7 @@ DEPEND="${RDEPEND}
 	)
 	dev-libs/libatomic_ops
 	virtual/pkgconfig
-	system-wide? ( || ( dev-util/unifdef sys-freebsd/freebsd-ubin ) )
+	system-wide? ( dev-util/unifdef )
 	>=sys-devel/gettext-0.19.3
 "
 # This is a PDEPEND to avoid a circular dep
@@ -190,7 +192,7 @@ multilib_src_configure() {
 		$(multilib_native_usex gdbm '--with-database=gdbm' '--with-database=simple')
 		$(use_enable glib glib2)
 		$(use_enable asyncns)
-		$(use arm64 || use_enable cpu_flags_arm_neon neon-opt)
+		$(use_enable cpu_flags_arm_neon neon-opt)
 		$(use_enable tcpd tcpwrap)
 		$(use_enable dbus)
 		$(use_enable X x11)
@@ -311,6 +313,17 @@ multilib_src_install_all() {
 	fi
 
 	dodoc NEWS README todo
+
+	if use udev; then
+		cp "${FILESDIR}/79-rpi-pulseaudio-fixes.rules-1" \
+			"${T}/79-rpi-pulseaudio-fixes.rules"
+		if use pi4-workaround; then
+			# ignore HDMI1 port in pulseaudio
+			sed -i 's/^#ATTRS/ATTRS/g' "${T}/79-rpi-pulseaudio-fixes.rules"
+		fi
+		insinto /lib/udev/rules.d
+		doins "${T}/79-rpi-pulseaudio-fixes.rules"
+	fi
 
 	# Create the state directory
 	use prefix || diropts -o pulse -g pulse -m0755
