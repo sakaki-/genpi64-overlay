@@ -4,3 +4,7 @@
 # see e.g.
 # https://forum.manjaro.org/t/manjaro-arm-19-08-released/99031/72
 >=media-sound/pulseaudio-12.2-r3 rpi-deglitch
+
+# prevent second HDMI port being managed by pulseaudio, so headphones
+# are useable under 5.4 kernels
+>=media-sound/pulseaudio-13.0-r2 pi4-workaround
