@@ -77,7 +77,7 @@ COMMON_DEPEND="
 	sys-libs/zlib:=[minizip]
 	kerberos? ( virtual/krb5 )
 	vaapi? (
-		>=x11-libs/libva-1.7.3:=[${MULTILIB_USEDEP}]
+		>=x11-libs/libva-1.7.3
 	)
 "
 # For nvidia-drivers blocker, see bug #413637 .
