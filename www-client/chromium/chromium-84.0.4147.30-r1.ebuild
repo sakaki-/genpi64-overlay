@@ -76,6 +76,9 @@ COMMON_DEPEND="
 	>=media-libs/libwebp-0.4.0:=
 	sys-libs/zlib:=[minizip]
 	kerberos? ( virtual/krb5 )
+	vaapi? (
+		>=x11-libs/libva-1.7.3:=[${MULTILIB_USEDEP}]
+	)
 "
 # For nvidia-drivers blocker, see bug #413637 .
 RDEPEND="${COMMON_DEPEND}
