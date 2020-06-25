@@ -5,6 +5,8 @@
 # turn on jumbo builds for efficiency - no one is going to be building
 # this natively on an RPi3 anyhow
 >=www-client/chromium-72.0.3626.121 jumbo-build
+# use vaapi (to access v4l2m2m shim driver for codecs)
+>=www-client/chromium-84.0.4147.30-r1 vaapi
 # requirements of www-client/chromium
 dev-libs/libxml2 icu
 net-libs/nodejs inspector icu
