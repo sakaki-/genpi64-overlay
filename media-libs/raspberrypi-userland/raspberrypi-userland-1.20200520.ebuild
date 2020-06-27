@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -61,8 +61,8 @@ src_install() {
 		rm -rf "${D}/usr/include/KHR"
 
 		# hacky fix for multilib issue
-		mkdir -pv "${D}/usr/lib64"
-		mv "${D}/usr/lib/"*.so "${D}/usr/lib64/"
+		dodir "/usr/$(get_libdir)"
+		mv "${D}/usr/lib/"*.so "${D}/usr/$(get_libdir)/"
 
 		# hacky fix for /usr/etc path
 		mv "${D}/usr/etc" "${D}/"
