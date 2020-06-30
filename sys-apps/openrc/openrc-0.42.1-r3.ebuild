@@ -61,7 +61,7 @@ RDEPEND="${COMMON_DEPEND}
 
 PDEPEND="netifrc? ( net-misc/netifrc )"
 
-PATCHES=()
+PATCHES=( "${FILESDIR}"/${P}-gcc-10.patch )
 
 src_prepare() {
 	# patch does not work in all cases; holding for now
