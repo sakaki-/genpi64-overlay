@@ -1,0 +1,6 @@
+# hold back some packages while testing
+>media-video/ffmpeg-4.2.3-r1
+=dev-lang/python-3.7.8
+=dev-lang/python-3.8.3
+=sys-kernel/linux-firmware-20200619
+
