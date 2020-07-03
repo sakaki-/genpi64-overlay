@@ -6,7 +6,7 @@
 # this natively on an RPi3 anyhow
 >=www-client/chromium-72.0.3626.121 jumbo-build
 # access v4l2m2m codecs (requires ozone)
->=www-client/chromium-84.0.4147.68 ozone v4l2m2m
+#>=www-client/chromium-84.0.4147.68 ozone v4l2m2m
 # requirements of www-client/chromium
 dev-libs/libxml2 icu
 net-libs/nodejs inspector icu
