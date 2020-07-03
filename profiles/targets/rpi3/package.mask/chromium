@@ -1,5 +1,5 @@
 # prevent accidental version bump triggering large client compiles
->www-client/chromium-84.0.4147.30
+>www-client/chromium-84.0.4147.68
 # issue with video codecs (affects youtube etc.)
 # hold for now
 ~www-client/chromium-72.0.3626.96
