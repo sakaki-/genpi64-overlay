@@ -9,7 +9,7 @@
 #>=www-client/chromium-84.0.4147.68 ozone v4l2m2m
 # test use of proprietary codecs (given system-ffmpeg, this does
 # not by itself break bindist)
->=www-client/chromium-84.0.4147.68-r1 system-ffmpeg proprietary-codecs
+#>=www-client/chromium-84.0.4147.68-r1 system-ffmpeg proprietary-codecs
 
 # requirements of www-client/chromium
 dev-libs/libxml2 icu
