@@ -7,6 +7,8 @@ www-client/firefox -gmp-autoupdate
 =www-client/firefox-62.0.2 clang eme-free hwaccel lto
 <www-client/firefox-67.0 eme-free
 >=www-client/firefox-62.0.3 hwaccel lto
+# don't pull in patent-restricted code
+>=www-client/firefox-78.0.2 -openh264
 
 # requirements of firefox
 dev-lang/python:2.7 sqlite
