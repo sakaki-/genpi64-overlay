@@ -1,0 +1,2 @@
+# increase competences of gvfs
+>=gnome-base/gvfs-1.42.2 afp archive fuse gnome-keyring gphoto2 ios mtp nfs samba zeroconf
