@@ -11,7 +11,7 @@ SRC_URI=""
 LICENSE="metapackage"
 SLOT="0"
 KEYWORDS="~arm64"
-IUSE="apps +boot-fw +core +init-scripts +innercore +kernel-bin pitop -porthash -systemd +weekly-genup +xfce"
+IUSE="apps +boot-fw +core +init-scripts +innercore +kernel-bin pitop -porthash pulseaudio -systemd +weekly-genup +xfce"
 REQUIRED_USE="
 	core? ( innercore )
 	xfce? ( core )
@@ -66,6 +66,7 @@ RDEPEND="
 		!app-portage/rpi3-check-porthash
 		>=sys-apps/portage-2.3.49
 	)
+	pulseaudio? ( >=media-sound/pulseaudio-13.0-r2[rpi-deglitch(-)] )
 	weekly-genup? ( >=app-portage/weekly-genup-1.1.1-r2 )
 	!weekly-genup? ( !app-portage/weekly-genup )
 	innercore? (
@@ -88,7 +89,6 @@ RDEPEND="
 		>=media-libs/raspberrypi-userland-1.20200520
 		>=media-sound/alsa-tools-1.2.2-r1
 		>=media-sound/alsa-utils-1.2.2
-		>=media-sound/pulseaudio-13.0-r2[rpi-deglitch(-)]
 		>=net-fs/nfs-utils-2.4.3
 		>=net-misc/bridge-utils-1.6
 		>=net-misc/chrony-4.0_pre2-r1
