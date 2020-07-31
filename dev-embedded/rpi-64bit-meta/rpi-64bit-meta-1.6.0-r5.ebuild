@@ -220,7 +220,6 @@ RDEPEND="
 		>=xfce-extra/xfce4-kbsetup-1.0.2
 		>=xfce-extra/xfce4-mixer-4.99.0-r1
 		>=xfce-extra/xfce4-noblank-1.0.0-r3
-		>=xfce-extra/xfce4-notes-plugin-1.8.1-r4
 		>=xfce-extra/xfce4-power-manager-1.7.0
 		>=xfce-extra/xfce4-screenshooter-1.9.7
 		>=xfce-extra/xfce4-systemload-plugin-1.2.3
