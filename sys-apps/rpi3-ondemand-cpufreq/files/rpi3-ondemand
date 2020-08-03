@@ -1,0 +1,42 @@
+#!/bin/bash
+# Set on-demand frequency scaling in early boot
+# Copyright (c) 2017 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+# Gentoo functions for ebegin etc
+source /lib/gentoo/functions.sh
+
+SCPU=/sys/devices/system/cpu
+SCPU_GOV=${SCPU}/cpu0/cpufreq/scaling_governor
+SCPU_OD=${SCPU}/cpufreq/ondemand
+
+_activate_ondemand() {
+	if [ -e "${SCPU_GOV}" ]; then
+		echo "ondemand" > "${SCPU_GOV}"
+		echo 50 > ${SCPU_OD}/up_threshold
+		echo 100000 > ${SCPU_OD}/sampling_rate
+		echo 50 > ${SCPU_OD}/sampling_down_factor
+    		echo 1 > ${SCPU_OD}/io_is_busy
+		einfo "On-demand CPU frequency scaling is active"
+		return 0
+	else
+		eerror "Unable to set on-demand CPU frequency scaling!"
+		return 1
+	fi
+}
+
+
+case "$1" in
+
+  start)
+    _activate_ondemand
+    eend $?
+    ;;
+
+  *)
+    einfo "Usage: $0 {start}"
+    eend 1
+    ;;
+
+esac
