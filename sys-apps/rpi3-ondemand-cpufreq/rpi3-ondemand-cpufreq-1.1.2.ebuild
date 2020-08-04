@@ -26,10 +26,10 @@ RDEPEND="${DEPEND}
 
 src_install() {
 	newinitd "${FILESDIR}/init.d_rpi3-ondemand-2" "rpi3-ondemand"
-	systemd_dounit "${FILESDIR}/rpi3-ondemand-cpufreq.service"
+	systemd_dounit "${FILESDIR}/1.1.2/rpi3-ondemand-cpufreq.service"
 	dodir "/usr/lib/rpi-scripts/bin"
 	into "/usr/lib/rpi-scripts"
-	dobin "${FILESDIR}/rpi3-ondemand"
+	dobin "${FILESDIR}/1.1.2/rpi3-ondemand"
 }
 
 pkg_postinst() {
