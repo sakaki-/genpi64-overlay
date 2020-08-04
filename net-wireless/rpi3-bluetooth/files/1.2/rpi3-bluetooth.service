@@ -1,0 +1,11 @@
+[Unit]
+Description=Starts up integrated bluetooth on the RPi3"
+After=bluetooth.service
+
+[Service]
+ExecStart=/usr/lib/rpi-scripts/bin/rpi3-bluetooth start
+ExecStop=/usr/lib/rpi-scripts/bin/rpi3-bluetooth stop
+Type=forking
+
+[Install]
+WantedBy=multi-user.target

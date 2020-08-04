@@ -36,8 +36,8 @@ pkg_postinst() {
 	elog "To start the service and enable on bootup"
 	if use systemd; then
 		elog "  systemctl daemon-reload"
-        elog "  systemctl start rpi3-ondemand-cpufreq.service"
-		elog "  systemctl enable rpi3-ondemand-cpufreq.service"
+        elog "  systemctl start ${PN}.service"
+		elog "  systemctl enable ${PN}.service"
 	else
 		elog "  /etc/init.d/rpi3-ondemand start "
 		elog "  rc-update add rpi3-ondemand sysinit "
