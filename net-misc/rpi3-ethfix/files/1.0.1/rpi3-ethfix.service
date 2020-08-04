@@ -1,0 +1,10 @@
+[Unit]
+Description=Work around RPi3B+ Ethernet performance issues
+After=network.target
+
+[Service]
+ExecStart=/usr/lib/rpi-scripts/bin/rpi3-ethfix start
+Type=oneshot
+
+[Install]
+WantedBy=multi-user.target
