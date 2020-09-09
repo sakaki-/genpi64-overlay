@@ -178,7 +178,10 @@ RDEPEND="
 		>=media-fonts/libertine-5.3.0.20120702-r3
 		>=media-fonts/ttf-bitstream-vera-1.10-r3
 		>=media-libs/gst-plugins-bad-1.16.2
-		>=media-libs/mesa-20.1.1[rpi-v3d(-)]
+		|| (
+			<media-libs/mesa-20.2.0_rc1[rpi-v3d(-)]
+			>=media-libs/mesa-20.2.0_rc1[video_cards_v3d(-),video_cards_vc4(-)]
+		)
 		>=media-sound/pavucontrol-4.0
 		>=media-tv/v4l-utils-1.18.0
 		>=media-video/ffmpeg-4.2.3-r1[v4l2m2m-fix(-)]
