@@ -2,5 +2,6 @@
 media-libs/mesa -classic xa xvmc
 # force on v3d support
 >=media-libs/mesa-19.2.0_rc1-r2 rpi-v3d
+>=media-libs/mesa-20.2.0_rc1 video_cards_v3d video_cards_vc4
 # allow use of libglvnd; migration from app-eselect/eselect-opengl
 >=media-libs/mesa-20.0.2 libglvnd
