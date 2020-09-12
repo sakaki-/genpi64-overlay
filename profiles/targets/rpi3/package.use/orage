@@ -1,0 +1,2 @@
+# requires <xfce-base/xfce4-panel-4.15:=[gtk2(+)] if set
+>=app-office/orage-4.12.1-r2 -clock-panel-plugin
