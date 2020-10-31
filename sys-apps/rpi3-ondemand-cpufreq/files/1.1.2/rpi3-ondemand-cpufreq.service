@@ -1,0 +1,10 @@
+[Unit]
+Description=Switches RPi3 to on-demand CPU frequency scaling
+After=local-fs.target
+
+[Service]
+ExecStart=/usr/lib/rpi-scripts/bin/rpi3-ondemand start
+Type=oneshot
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,51 @@
+#!/bin/bash
+# Start up integrated bluetooth on Raspberry Pi 3
+# Adapted from https://aur.archlinux.org/packages/pi-bluetooth/
+# Copyright (c) 2017 sakaki <sakaki@deciban.com>
+# License: GPL v3+
+# NO WARRANTY
+
+# Gentoo functions for ebegin etc
+source /lib/gentoo/functions.sh
+
+# only match on common part of attach command
+HCMD="/usr/bin/hciattach /dev/ttyAMA0 bcm43xx"
+
+start() {
+   	ebegin "Starting ${SVCNAME}"
+   	if ! [ -d /proc/device-tree/soc/gpio@7e200000/bt_pins ]; then
+   		eend 1 "Bluetooth not found"
+   		return 1
+   	fi
+	declare -i I
+	# attach process is unreliable, so we do it this way
+	# rather than via start-stop-daemon
+	nohup /usr/sbin/rpi3-attach-bluetooth &>/dev/null&
+	return $?
+}
+
+stop() {
+	ebegin "Shutting down ${SVCNAME}"
+	pkill -f "${HCMD}"
+	return $?
+}
+
+
+case "$1" in
+
+  start)
+    start
+    eend $?
+    ;;
+
+  stop)
+    stop
+    eend $?
+    ;;
+
+  *)
+    einfo "Usage: $0 {start,stop}"
+    eend 1
+    ;;
+
+esac
