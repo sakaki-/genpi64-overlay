@@ -46,9 +46,6 @@ The overlay provides the following ebuilds:
 * **app-accessibility/onboard** [upstream](https://launchpad.net/onboard)
   * Provides a flexible onscreen keyboard. Included primarily for use with the official 7" RPi touchscreen. Adapted with thanks from original ebuild, [here](https://bitbucket.org/wjn/wjn-overlay).
 
-* **app-office/libreoffice** [upstream](https://www.libreoffice.org)
-  * Provides patched ebuilds for the full-scale office productivity suite `libreoffice`. Retained in the overlay for historical interest only, as modern (>=6.2.8.2) main-tree versions build successfully under `arm64` (and just such a main-tree build is currently used on the image).
-
 * **app-office/orage** [upstream](https://git.xfce.org/apps/orage/)
   * Provides `orage-4.12.1-r1.ebuild`, patched for [bug 657542](https://bugs.gentoo.org/657542). Once this revbumps in the main Gentoo tree, `orage` should revert to using that version instead.
 
@@ -79,11 +76,6 @@ The overlay provides the following ebuilds:
 * **dev-lang/python** [upstream](https:/www.python.org)
   * Provides builds of the `python` language interpreter (for slots 3.6 and 3.7) that have profile guided optimisation (`pgo`) turned on, as this can yield a significant performance improvement (see e.g. [these notes](https://www.raspberrypi.org/forums/viewtopic.php?p=1528347#p1528347)).
 
-* **dev-lang/rust** [upstream](https://www.rust-lang.org)
-  * Provides a number of tweaked ebuilds for the `rust` programming language. Retained for historical interest only - more modern (>=1.32.2) main tree versions are now used in the image.
-
-* **dev-libs/openssl** [upstream](https://www.openssl.org/)
-  * Provides a number of builds of `openssl` with the Fedora EC patchset, that allow use / distribution in `bindist` builds. These fixes are now present in the main tree ebuilds also (which are now used in preference), so this package is now retained on the overlay for historical interest only.
 
 * **dev-libs/pigpio** [upstream](http://abyz.me.uk/rpi/pigpio/index.html)
   * Provides a library, daemon (`pigpiod`), `python` bindings and CLI client (`pigs`), allowing control of the GPIOs on the RPi 3 and 4. A useful replacement for `wiringpi`, the version included here includes the necessary patches to work on an `arm64` system, and sets up the server to run, by default, on IPv4 `127.0.0.1`, port `8888` only.
@@ -91,17 +83,8 @@ The overlay provides the following ebuilds:
 * **dev-php/pthreads** [upstream](https://github.com/krakjoe/phthreads/)
   * Provides `pthreads-3.2.0`, a threading extension for `php`. Not required on the image, but used by some other packages, such as `minecraft` (see [this thread](https://www.raspberrypi.org/forums/viewtopic.php?p=1418762#p1418762) for further details).
 
-* **dev-python/pyopenssl** [upstream](http://pyopenssl.sourceforge.net/)
-  * Provides a version of `pyopenssl` that can use with the above `openssl` builds, with `bindist` set. And, for the same reason as with `dev-libs/openssl` (see below), the main tree versions are now used in preference.
-
-* **dev-util/cargo**
-  * Provides `cargo-0.20.0.ebuild`; now of historical interest only since `cargo` has been merged into `dev-lang/rust`. May be removed from the repo at some point in the future.
-
 * **mail-client/thunderbird** [upstream](https://www.mozilla.org/thunderbird)
   * Provides a number of ebuilds for this popular email client, in which attempts to use the `--disable-elf-hack` configuration option under the `clang` compiler are suppressed on `arm64` (as this breaks the build otherwise).
-
-* **media-gfx/ufraw** [upstream](http://ufraw.sourceforge.net)
-  * Provides a patched ebuild for this RAW image format viewer / `gimp` plugin. Now of historical interest only since the main-tree version (>=0.22-r3) now builds, and is used on the image.
 
 * **media-libs/gst-plugins-base** [upstream](https://gstreamer.freedesktop.org)
   * Provides a modified ebuild (`gst-plugins-base-1.14.5-r1`) patched to build correctly under `arm64` (prevents detection of the RPi platform, as not all interfaces are yet available within a 64-bit userland). Will be replaced by a main-tree variant on the image once one becomes available.
@@ -118,9 +101,6 @@ The overlay provides the following ebuilds:
 * **media-sound/pulseaudio** [upstream](https://www.freedesktop.org/wiki/Software/PulseAudio/)
   * Provides a number of ebuilds for `pulseaudio` supporting the extra `rpi-deglitch` USE flag; this sets `tsched=0` by default, as a [workaround](https://forum.manjaro.org/t/manjaro-arm-19-08-released/99031/72) for choppy audio under certain 64-bit kernels.
 
-* **media-tv/kodi** [upstream](https://kodi.tv/)
-  * Provides `kodi-17.4_rc1.ebuild`, which is adapted to build correctly under `arm64`. Retained for historical interest only - more modern (>=18.4) main tree versions are now used in the image.
-
 * **media-video/ffmpeg** [upstream](https://ffmpeg.org/)
   * Provides a version of `ffmpeg` that has been patched to allow leverage of the RPi3/4's hardware video codecs, via V4L2 M2M, and also (>=4.2.1-r3) can use MMAL from a 64-bit userspace.
 
@@ -129,9 +109,6 @@ The overlay provides the following ebuilds:
 
 * **media-video/pi-ffplay**
   * Provides a trivial video player app (based on `ffplay`) that uses the RPi3/4's V4L2 M2M hardware video codecs where possible.
-
-* **net-fs/nfs-utils** [upstream](http://linux-nfs.org)
-  * Provides `nfs-utils-2.1.1-r2.ebuild`, which is adapted to build correctly under `arm64`. Retained for historical interest only - more modern (>=2.4.1-r3) main tree versions are now used in the image.
 
 * **net-libs/nghttp2** [upstream](https://nghttp2.org/)
   * Provides  version of `nghttp2` that can work under `bindist`, by using the EC-patched `dev-libs/openssl` libraries (see above). Still in use on the image (as the main tree version unnecessarily forces `-bindist`).
@@ -168,14 +145,10 @@ The overlay provides the following ebuilds:
 * **sys-apps/pitop-poweroff**<a id="ptpoweroff"></a>
   * Provides a simple OpenRC shutdown service, to ensure that the Pi-Top's onboard hub controller is properly powered down. Only installed when the `pitop` USE flag is set on `rpi-64bit-meta`.
 
-* **sys-apps/portage** [upstream](https://wiki.gentoo.org/wiki/Project:Portage)
-  * Provides versions of `portage`, Gentoo's package manager, adapted to build correctly under `arm64`. Retained for historical interest only - more modern (>=2.3.66-r1) main tree versions are now used on the image.
 
 * **sys-apps/pyconfig_gen** [upstream](https://github.com/sakaki-/pyconfig_gen)
   * Provides a simple, PyQt5 dialog-based app, to allow the `/boot/config.txt` file to be edited in a structured manner, together with some support services (to revert the new config automatically, unless ratified upon reboot).
 
-* **sys-apps/qdiskusage** [upstream](http://www.qt-apps.org/content/show.php/QDiskUsage?content=107012)
-  * Provides `qdiskusage-1.99.ebuild`, a dummy, as this has now been removed from the main Gentoo tree, and the local copy no longer builds, due to missing deps.
 
 * **sys-apps/rpi-gpio**
   * Sets up a `udev` rule to allow GPIO access (on the RPi3/4) for members of the `gpio` group.  On installation, all current members of `wheel` are automatically made members of `gpio`. Now installed for all users of the `rpi-64bit-meta` package (with `innercore` USE).
@@ -210,8 +183,6 @@ The overlay provides the following ebuilds:
 * **sys-apps/rpi3-spidev**
   * Provides a `udev` rule for SPI access on the RPi3; ensures that the `/dev/spidevN.M` devices are read/write for all members of the `wheel` group, not just `root`. Originally installed by the `pitop` USE flag on `rpi-64bit-meta`, it has since been superseded by `rpi-spi`, above.
 
-* **sys-apps/rpi3-zswap**
-  * Activates the `zswap` kernel facility to transparently compress, and cache in RAM, pages that are being evicted to swap. Can significantly improve responsiveness of the RPi3 (and smaller-memory variants of the RPi4) when a number of large applications are open. Configured via `/etc/conf.d/rpi3-zswap`.
 
 * **sys-boot/rpi3-64bit-firmware** [upstream](https://github.com/raspberrypi/firmware)
   * Provides the firmware and config files required in `/boot` to boot the RPi3/4 in 64-bit mode. Does not provide the kernel or DTBs (see `sys-kernel/bcmrpi3-kernel<-bis>-bin`, above, for that). A weekly check is made to see if a new tag has been added to the official [`raspberrypi/firmware/boot`](https://github.com/raspberrypi/firmware/tree/master/boot) upstream, and, if so, a matching ebuild is automatically created here. With the `dtbo` USE flag off (as forced [by the profile](https://github.com/sakaki-/genpi64-overlay/blob/master/profiles/targets/rpi3/package.use/rpi3-64bit-firmware), currently), does _not_ provide or populate the `/boot/overlays` directory - this then being the responsibility of the binary kernel package.
