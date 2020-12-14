@@ -192,7 +192,6 @@ RDEPEND="
 		>=sci-calculators/qalculate-gtk-3.2.0-r1
 		>=sci-calculators/speedcrunch-0.12.0
 		>=sys-apps/firejail-0.9.62
-		>=sys-apps/pyconfig_gen-1.1.9-r1
 		>=sys-block/gparted-1.1.0-r1[sudo(-)]
 		>=x11-apps/mesa-progs-8.4.0
 		>=x11-apps/xclock-1.0.9
