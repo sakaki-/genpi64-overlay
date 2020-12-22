@@ -1,3 +1,0 @@
-# compilation fails if distributed
-net-libs/webkit-gtk suppress-distcc.conf
-

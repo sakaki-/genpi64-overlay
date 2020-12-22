@@ -1,2 +1,0 @@
-# problems building when distributed
-app-editors/nano suppress-distcc.conf

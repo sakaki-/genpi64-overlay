@@ -1,5 +1,0 @@
-# See https://forums.gentoo.org/viewtopic-p-8081866.html#8081866
->=mail-client/thunderbird-48 disable-sandbox.conf
-<mail-client/thunderbird-78.3.1 disable-content-sandbox.conf
->=mail-client/thunderbird-48 suppress-distcc.conf
-<mail-client/thunderbird-68.8 makeopts-j4.conf

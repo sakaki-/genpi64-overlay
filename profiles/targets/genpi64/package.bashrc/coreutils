@@ -1,3 +1,0 @@
-# problems building when distributed
-sys-apps/coreutils suppress-distcc.conf
-

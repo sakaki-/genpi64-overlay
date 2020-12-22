@@ -1,6 +1,0 @@
-# See https://forums.gentoo.org/viewtopic-p-8081866.html#8081866
-<www-client/firefox-74 disable-sandbox.conf makeopts-j4.conf
-<www-client/firefox-74 disable-content-sandbox.conf
->=www-client/firefox-74 disable-base-sandbox.conf
-# Switch to clang
-<www-client/firefox-74 suppress-distcc.conf

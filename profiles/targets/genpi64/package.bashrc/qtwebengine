@@ -1,2 +1,0 @@
-# problems compiling if distributed
-dev-qt/qtwebengine suppress-distcc.conf

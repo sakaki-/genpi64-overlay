@@ -1,2 +1,0 @@
-# dialog corruption if config distributed, sometimes
-xfce-extra/xfce4-screenshooter suppress-distcc.conf
