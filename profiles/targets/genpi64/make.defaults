@@ -13,11 +13,6 @@ USE="bindist -mudflap -sanitize"
 USE="${USE} bluetooth egl gles1 gles2 lock thunar qt4 ffmpeg pulseaudio"
 USE="${USE} -gnome -kde"
 
-# Common directories (NB you may also need to define PORTDIR directly
-# in /etc/portage/make.conf; some scripts look for it there)
-PORTDIR="/usr/portage"
-DISTDIR="${PORTDIR}/distfiles"
-PKGDIR="${PORTDIR}/packages"
 
 # Only free software, please.
 ACCEPT_LICENSE="-* @FREE CC-Sampling-Plus-1.0"
