@@ -1,2 +1,0 @@
-# configure fails if distributed
-sys-block/parted suppress-distcc.conf

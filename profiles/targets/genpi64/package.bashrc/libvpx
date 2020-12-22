@@ -1,3 +1,0 @@
-# doesn't seem to work well with distcc, at all
-media-libs/libvpx suppress-distcc.conf
-

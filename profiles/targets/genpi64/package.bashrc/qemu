@@ -1,2 +1,0 @@
-# configure phase fails if distributed
-app-emulation/qemu suppress-distcc.conf

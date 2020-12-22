@@ -1,2 +1,0 @@
-# unicode corruption (sometimes) when distributed
-gnome-extra/nm-applet suppress-distcc.conf

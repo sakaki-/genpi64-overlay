@@ -1,3 +1,0 @@
-# doesn't seem to work well in pump mode
-media-video/ffmpeg suppress-distcc-pump.conf
-

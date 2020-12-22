@@ -1,3 +1,0 @@
-# problems building when distributed
-sys-apps/findutils suppress-distcc.conf
-

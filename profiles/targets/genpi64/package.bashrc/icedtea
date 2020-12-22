@@ -1,1 +1,1 @@
-dev-java/icedtea suppress-distcc.conf serialize-make.conf
+dev-java/icedtea serialize-make.conf
