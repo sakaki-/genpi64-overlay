@@ -1,12 +1,11 @@
 # genpi64-overlay
 
-Gentoo overlay (ebuild repository) for the Raspberry Pi 3 Model B and B+, and Raspberry Pi 4 Model B. Used by my bootable [`gentoo-on-rpi-64bit`](https://github.com/sakaki-/gentoo-on-rpi-64bit) image.
+Gentoo overlay (ebuild repository) for the Raspberry Pi 3 Model B and B+, and Raspberry Pi 4 Model B. Used by [`GenPi64`](https://github.com/GenPi64/gentoo-on-rpi-64bit) image.
 
 <img src="https://raw.githubusercontent.com/sakaki-/resources/master/raspberrypi/pi4/Raspberry_Pi_3_B_and_B_plus_and_4_B.jpg" alt="RPi 3 B/B+ and 4B" width="200px" align="right"/>
 
 > NB: this repository has been renamed, from `rpi3-overlay` to `genpi64-overlay`, to reflect its applicability to the new Pi4.
 
-> 30 Oct 2020: sadly, due legal obligations arising from a recent change in my 'real world' job, I must announce I am **standing down as maintainer of this project with immediate effect**. For the meantime, I will leave the repo up (for historical interest, and since the ebuilds etc. may be of use for others looking to take forward Gentoo on 64-bit RPi systems); however, there will be no further updates to the underlying binhost etc., nor will I be accepting / actioning further pull requests or bug reports from this point. Email requests for support will also have to be politely declined, so, **please treat this as an effective EOL notice**.<br><br>For further details, please see my post [here](https://www.raspberrypi.org/forums/viewtopic.php?p=1750206#p1750206).<br><br>Gentoo *itself* on the aarch64 / 64-bit RPi platform remains very much a going concern of course; please see e.g. [this forum](https://forums.gentoo.org/viewforum-f-62.html) for more details.<br><br>Many thanks for your interest in this project!<br><br>With sincere apologies, sakaki ><
 
 ## <a id="list_of_ebuilds"></a>List of ebuilds
 
@@ -31,7 +30,7 @@ The overlay provides the following ebuilds:
      |  `apps` | No | Pull in baseline desktop apps (`libreoffice` etc). Requires `xfce`. |
 
 
-### Ebuilds related to the [`gentoo-on-rpi-64bit`](https://github.com/sakaki-/gentoo-on-rpi-64bit) image
+### Ebuilds related to the [`gentoo-on-rpi-64bit`](https://github.com/GenPi64/gentoo-on-rpi-64bit) image
 
 > Note that for historical reasons, many of these ebuilds may contain `rpi3-` in the name, but yet still be applicable on the RPi4.
 * **acct-group/gpio**
@@ -48,9 +47,6 @@ The overlay provides the following ebuilds:
 
 * **app-office/orage** [upstream](https://git.xfce.org/apps/orage/)
   * Provides `orage-4.12.1-r1.ebuild`, patched for [bug 657542](https://bugs.gentoo.org/657542). Once this revbumps in the main Gentoo tree, `orage` should revert to using that version instead.
-
-* **app-portage/rpi3-check-porthash**
-  * Provides a [`porthash`](https://github.com/sakaki-/porthash) signed hash check for the [isshoni.org](https://isshoni.org) rsync gentoo ebuild repository, implemented as a `repo.postsync.d` hook. NB not used as of v1.3.0 of the image, as Gentoo's official `gemato` signature check is used instead; please see the release notes [here](https://github.com/sakaki-/gentoo-on-rpi-64bit/releases/tag/v1.3.0).
 
 * **app-portage/weekly-genup**
   * Installs a simple cron.weekly script, to automate `genup`, and another, to run 'fixups' (small scripts to correct issues that may e.g. prevent correct `genup` operation, effect upstream file hierarchy migrations etc.).
@@ -116,14 +112,12 @@ The overlay provides the following ebuilds:
 * **net-libs/nodejs** [upstream](https://nodejs.org/)
   * Provides  version of `nodejs` that can work under `bindist`, by using the EC-patched `dev-libs/openssl` libraries (see above). Still in use on the image (for the same reason as `net-libs/nghttp2`).
 
-* **net-misc/m-minerd** [upstream](https://github.com/magi-project/m-cpuminer-v2)
-  * Provides `m-minerd-2.4.ebuild`, a CPU pool miner for M7M/Magi, adapted to build correctly under `arm64`. Not currently included on the image. Please see [this issue thread](https://github.com/sakaki-/gentoo-on-rpi-64bit/issues/38) for further details.
 
 * **net-misc/rpi3-ethfix**
   * Effects some simple Ethernet workarounds (using `ethtool`) for the RPi3B+. It has no effect on the RPi3B or RPi4B.
 
 * **net-misc/xorgxrdp** [upstream](http://www.xrdp.org/)
-  * Provides Xorg drivers for `xrdp` (see below). Supplied on the image to allow RDP connectivity to Windows clients; see e.g. [these notes](https://github.com/sakaki-/gentoo-on-rpi-64bit/wiki/Access-your-RPi%27s-Desktop-Remotely-from-a-Windows-Box-via-RDP).
+  * Provides Xorg drivers for `xrdp` (see below). Supplied on the image to allow RDP connectivity to Windows clients; see e.g. [these notes](https://github.com/GenPi64/gentoo-on-rpi-64bit/wiki/Access-your-RPi%27s-Desktop-Remotely-from-a-Windows-Box-via-RDP).
 
 * **net-misc/xrdp** [upstream](http://www.xrdp.org/)
   * Provides `xrdp-0.9.8.ebuild` for this open source Remote Desktop Protocol server. Supplied on the image with `xorgxrdp` above.
@@ -146,7 +140,7 @@ The overlay provides the following ebuilds:
   * Provides a simple OpenRC shutdown service, to ensure that the Pi-Top's onboard hub controller is properly powered down. Only installed when the `pitop` USE flag is set on `rpi-64bit-meta`.
 
 
-* **sys-apps/pyconfig_gen** [upstream](https://github.com/sakaki-/pyconfig_gen)
+* **sys-apps/pyconfig_gen** [upstream](https://github.com/GenPi64/pyconfig_gen)
   * Provides a simple, PyQt5 dialog-based app, to allow the `/boot/config.txt` file to be edited in a structured manner, together with some support services (to revert the new config automatically, unless ratified upon reboot).
 
 
@@ -175,7 +169,7 @@ The overlay provides the following ebuilds:
   * Provides an OpenRC service and `udev` rule for I2C access on the RPi3/4. Ensures that the `i2c-dev` module is `modprobe`d, and that the `/dev/i2c-[0-9]` devices are read/write for all members of the `wheel` group, not just `root`. Originally installed by the `pitop` USE flag on `rpi-64bit-meta`, it has since been superseded by `rpi-i2c`, above.
 
 * **sys-apps/rpi3-init-scripts**
-  * Provides a few simple init scripts for the [gentoo-on-rpi-64bit](https://github.com/sakaki-/gentoo-on-rpi-64bit) image (to autoexpand the root partition on first boot, inhibit XVideo, setup cache usage appropriate for a low-memory environment etc.).
+  * Provides a few simple init scripts for the [gentoo-on-rpi-64bit](https://github.com/GenPi64/gentoo-on-rpi-64bit) image (to autoexpand the root partition on first boot, inhibit XVideo, setup cache usage appropriate for a low-memory environment etc.).
 
 * **sys-apps/rpi3-ondemand-cpufreq**
   * Provides the `rpi3-ondemand` OpenRC `sysinit` service, to switch the RPi3 and RPi4 from its (`bcmrpi3_defconfig` and `bcm2711_defconfig`) default `powersave` CPU frequency governor, to `ondemand`, for better performance.
@@ -185,7 +179,7 @@ The overlay provides the following ebuilds:
 
 
 * **sys-boot/rpi3-64bit-firmware** [upstream](https://github.com/raspberrypi/firmware)
-  * Provides the firmware and config files required in `/boot` to boot the RPi3/4 in 64-bit mode. Does not provide the kernel or DTBs (see `sys-kernel/bcmrpi3-kernel<-bis>-bin`, above, for that). A weekly check is made to see if a new tag has been added to the official [`raspberrypi/firmware/boot`](https://github.com/raspberrypi/firmware/tree/master/boot) upstream, and, if so, a matching ebuild is automatically created here. With the `dtbo` USE flag off (as forced [by the profile](https://github.com/sakaki-/genpi64-overlay/blob/master/profiles/targets/rpi3/package.use/rpi3-64bit-firmware), currently), does _not_ provide or populate the `/boot/overlays` directory - this then being the responsibility of the binary kernel package.
+  * Provides the firmware and config files required in `/boot` to boot the RPi3/4 in 64-bit mode. Does not provide the kernel or DTBs (see `sys-kernel/bcmrpi3-kernel<-bis>-bin`, above, for that). A weekly check is made to see if a new tag has been added to the official [`raspberrypi/firmware/boot`](https://github.com/raspberrypi/firmware/tree/master/boot) upstream, and, if so, a matching ebuild is automatically created here. With the `dtbo` USE flag off (as forced [by the profile](https://github.com/GenPi64/genpi64-overlay/blob/master/profiles/targets/rpi3/package.use/rpi3-64bit-firmware), currently), does _not_ provide or populate the `/boot/overlays` directory - this then being the responsibility of the binary kernel package.
 
 * **sys-boot/rpi3-boot-config**
   * Provides the 'starter' RPi3/4 configuration files `/boot/cmdline.txt` and `/boot/config.txt` (in both standard and Pi-Top trim).
@@ -200,17 +194,17 @@ The overlay provides the following ebuilds:
   * Provides a configuration file (`brcmfmac43430-sdio.txt`) that is required for the RPi3/4's integrated WiFi (the main firmware is provided already, by [`sys-kernel/linux-firmware`](http://packages.gentoo.org/package/sys-kernel/linux-firmware)). Now also provides the equivalent file `brcmfmac43455-sdio.txt`, for use with the RPi3 B+ / RPi 4 B's [dual-band WiFi](https://www.raspberrypi.com.tw/tag/bcm2837/) WiFi chip set (Cypress CYW43455), plus the matching `brcmfmac43430-sdio.clm_blob`, and, when the `43455-fix` USE flag is set, also provides a more modern copy of the uploadable file `/lib/firmware/brcm/brcmfmac43455-sdio.bin` (in preference to the older version shipped with `sys-kernel/linux-firmware`; see below).
 
 * **sys-kernel/bcm2711-kernel-bin**
-  * Provides ebuilds to install the available binary packages for the 64-bit `bcm2711_defconfig` Linux kernels (for the Raspberry Pi 4 model B), which are updated weekly [here](https://github.com/sakaki-/bcm2711-kernel).
+  * Provides ebuilds to install the available binary packages for the 64-bit `bcm2711_defconfig` Linux kernels (for the Raspberry Pi 4 model B), which are updated weekly [here](https://github.com/GenPi64/bcm2711-kernel).
 
 * **sys-kernel/bcm2711-kernel-bis-bin**
 
-    Provides ebuilds to install the available binary packages for (slightly tweaked versions of) the 64-bit `bcm2711_defconfig` Linux kernels (for the Raspberry Pi 4 model B), which are updated weekly [here](https://github.com/sakaki-/bcm2711-kernel-bis). This version is used by default in preference to `bcm2711-kernel-bin` as of v1.5.0 of the image, as it includes some additional kernel configuration items such as KVM (but either is acceptable).
+    Provides ebuilds to install the available binary packages for (slightly tweaked versions of) the 64-bit `bcm2711_defconfig` Linux kernels (for the Raspberry Pi 4 model B), which are updated weekly [here](https://github.com/GenPi64/bcm2711-kernel-bis). This version is used by default in preference to `bcm2711-kernel-bin` as of v1.5.0 of the image, as it includes some additional kernel configuration items such as KVM (but either is acceptable).
 
 * **sys-kernel/bcmrpi3-kernel-bin**
-  * Provides ebuilds to install the available binary packages for the 64-bit `bcmrpi3_defconfig` Linux kernels (for the Raspberry Pi 3 model B and B+), which are updated weekly [here](https://github.com/sakaki-/bcmrpi3-kernel).
+  * Provides ebuilds to install the available binary packages for the 64-bit `bcmrpi3_defconfig` Linux kernels (for the Raspberry Pi 3 model B and B+), which are updated weekly [here](https://github.com/GenPi64/bcmrpi3-kernel).
 
 * **sys-kernel/bcmrpi3-kernel-bis-bin**
-  * Provides ebuilds to install the available binary packages for (slightly tweaked versions of) the 64-bit `bcmrpi3_defconfig` Linux kernels (for the Raspberry Pi 3 model B and B+), which are updated weekly [here](https://github.com/sakaki-/bcmrpi3-kernel-bis). This version is used in preference to `bcmrpi3-kernel-bin` as of v1.2.2 of the bootable image, since it includes some additional kernel configuration items such as KVM (but either is acceptable).
+  * Provides ebuilds to install the available binary packages for (slightly tweaked versions of) the 64-bit `bcmrpi3_defconfig` Linux kernels (for the Raspberry Pi 3 model B and B+), which are updated weekly [here](https://github.com/GenPi64/bcmrpi3-kernel-bis). This version is used in preference to `bcmrpi3-kernel-bin` as of v1.2.2 of the bootable image, since it includes some additional kernel configuration items such as KVM (but either is acceptable).
 
 * **sys-kernel/linux-firmware** [upstream](https://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git)
   * Provides a large collection of redistributable Linux firmware files. The version in this overlay supports the `43455-fix` USE flag, which when set does _not_ install the file `/lib/firmware/brcm/brcmfmac43455-sdio.bin` (allowing a more modern version to be supplied by `sys-firmware/brcm43430-firmware`; see above).
@@ -278,9 +272,9 @@ The overlay provides the following ebuilds:
 The following, non-ebuild directories may also be of interest:
 
 * **metadata/news**
-  * This simply contains some [GLEP 42](https://www.gentoo.org/glep/glep-0042.html)-compliant news items, specific to users of this overlay (and/or the [bootable image](https://github.com/sakaki-/gentoo-on-rpi-64bit)).
+  * This simply contains some [GLEP 42](https://www.gentoo.org/glep/glep-0042.html)-compliant news items, specific to users of this overlay (and/or the [bootable image](https://github.com/GenPi64/gentoo-on-rpi-64bit)).
 
 * **profiles/...**
-  * This specifies the custom *profile* used by the bootable image, which contains a number of custom USE-flag assignments, package masks, keyword overrides and so forth. For more details, please see the notes [here](https://github.com/sakaki-/gentoo-on-rpi-64bit#profile).
+  * This specifies the custom *profile* used by the bootable image, which contains a number of custom USE-flag assignments, package masks, keyword overrides and so forth. For more details, please see the notes [here](https://github.com/GenPi64/gentoo-on-rpi-64bit#profile).
 
 

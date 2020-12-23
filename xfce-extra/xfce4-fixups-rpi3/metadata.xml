@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<maintainer type="person">
-		<email>sakaki@deciban.com</email>
-		<name>sakaki</name>
-</maintainer>
 <longdescription>
 		Effects some useful new-user fixups for Xfce4 on the RPi3
 		(forcing compositing to sync to vertical blank etc.).

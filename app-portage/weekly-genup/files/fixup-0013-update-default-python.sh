@@ -15,7 +15,7 @@
 # [1] https://www.gentoo.org/support/news-items/2020-04-22-python3-7.html
 #
 # Copyright (c) 2020 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 PCDIR="/etc/portage"

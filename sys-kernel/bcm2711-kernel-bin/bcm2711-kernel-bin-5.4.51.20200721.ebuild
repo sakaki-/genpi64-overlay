@@ -6,7 +6,7 @@ EAPI="6"
 inherit eutils autotools
 
 DESCRIPTION="Binary RPi4 64-bit kernel package (bcm2711_defconfig)"
-HOMEPAGE="https://github.com/sakaki-/bcm2711-kernel"
+HOMEPAGE="https://github.com/GenPi64/bcm2711-kernel"
 
 SRC_URI="${HOMEPAGE}/releases/download/${PV}/bcm2711-kernel-${PV}.tar.xz -> ${P}.tar.xz"
 

@@ -5,7 +5,7 @@
 # Perform migration of the rpi3-overlay to genpi64-overlay.
 #
 # Copyright (c) 2019 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 OLD_RC="/etc/portage/repos.conf/rpi3.conf"

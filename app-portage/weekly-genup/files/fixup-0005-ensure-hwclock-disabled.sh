@@ -6,7 +6,7 @@
 # service will fail if called. Ensure it is disabled.
 #
 # Copyright (c) 2019 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 echo "Ensuring hwclock service is disabled"

@@ -10,7 +10,7 @@
 # This is to prevent a quickfire startup on the first NTP sync.
 #
 # Copyright (c) 2017 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/bin"

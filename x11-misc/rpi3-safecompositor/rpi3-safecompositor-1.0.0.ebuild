@@ -1,5 +1,5 @@
 # Copyright (c) 2018 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 EAPI=6
@@ -7,7 +7,7 @@ EAPI=6
 KEYWORDS="~arm64"
 
 DESCRIPTION="Turn off display compositing for high RPi3 pixel clock values"
-HOMEPAGE="https://github.com/sakaki-/gentoo-on-rpi3-64bit"
+HOMEPAGE="https://github.com/GenPi64/gentoo-on-rpi3-64bit"
 SRC_URI=""
 LICENSE="GPL-3+"
 SLOT="0"

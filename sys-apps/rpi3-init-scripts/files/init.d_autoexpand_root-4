@@ -22,7 +22,7 @@
 # will still enable Xfce4, and start the demouser session.
 #
 # Copyright (c) 2017 sakaki <sakaki@deciban.com>
-# License: GPL 3.0+
+# License: GPL v2 or GPL 3.0+
 # NO WARRANTY
 
 description="Auto-expands root partition and sets passwords (for gentoo-on-rpi3-64bit)"

@@ -7,7 +7,7 @@ PYTHON_COMPAT=( python{3_5,3_6} )
 inherit distutils-r1 desktop xdg-utils
 
 DESCRIPTION="GUI editor for /boot/config.txt on RPi3 and RPi4 SBCs"
-BASE_SERVER_URI="https://github.com/sakaki-"
+BASE_SERVER_URI="https://github.com/GenPi64"
 HOMEPAGE="${BASE_SERVER_URI}/${PN}"
 SRC_URI="${BASE_SERVER_URI}/${PN}/releases/download/v${PV}/${PN}-v${PV}.tar.gz"
 

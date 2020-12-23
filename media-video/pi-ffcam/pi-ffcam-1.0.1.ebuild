@@ -6,7 +6,7 @@ EAPI=6
 inherit desktop xdg-utils
 
 DESCRIPTION="GUI to live view camera output on RPi3/4 SBCs"
-BASE_SERVER_URI="https://github.com/sakaki-"
+BASE_SERVER_URI="https://github.com/GenPi64"
 HOMEPAGE="${BASE_SERVER_URI}/${PN}"
 SRC_URI="${BASE_SERVER_URI}/${PN}/releases/download/${PV}/${P}.tar.gz"
 

@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<maintainer type="person">
-		<email>sakaki@deciban.com</email>
-		<name>sakaki</name>
-</maintainer>
 <longdescription>
 		udev rules for GPIO access on the Raspberry Pi 3 and 4.
 		Ensures GPIO can be used by anyone in the gpio group

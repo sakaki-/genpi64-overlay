@@ -1,6 +1,6 @@
 #!/sbin/openrc-run
 # Copyright (c) 2017 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 description="Ensure Pi-Top hub powered off properly on system shutdown"

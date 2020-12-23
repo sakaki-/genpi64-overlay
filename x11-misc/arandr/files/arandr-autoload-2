@@ -8,7 +8,7 @@
 # runs it after a short delay (to set the saved screen layout).
 #
 # Copyright (c) 2019 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 DELAY_SECS=0

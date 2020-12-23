@@ -98,7 +98,7 @@ References
 
 [1] Yes, this wasn't the most future-proof choice of name on my
 part. Apologies ><
-[2] https://github.com/sakaki-/rpi3-overlay
-[3] https://github.com/sakaki-/genpi64-overlay
+[2] https://github.com/GenPi64/rpi3-overlay
+[3] https://github.com/GenPi64/genpi64-overlay
 [4] /usr/local/portage/rpi3/app-portage/weekly-genup/files/fixup-0007-migrate-rpi3-overlay-to-genpi64.sh
 [5] /usr/local/portage/genpi64/app-portage/weekly-genup/files/fixup-0007-migrate-rpi3-overlay-to-genpi64.sh

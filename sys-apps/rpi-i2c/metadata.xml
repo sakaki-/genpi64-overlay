@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<maintainer type="person">
-		<email>sakaki@deciban.com</email>
-		<name>sakaki</name>
-</maintainer>
 <longdescription>
 		Service and udev rule for SPI access on the RPi 3 and 4.
 		Ensures I2C can be used by anyone in the i2c group

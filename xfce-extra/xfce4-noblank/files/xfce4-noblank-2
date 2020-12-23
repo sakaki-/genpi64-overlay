@@ -10,7 +10,7 @@
 # an unresponsive system.
 #
 # Copyright (c) 2018 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 # find pid of most recent xfce4 session

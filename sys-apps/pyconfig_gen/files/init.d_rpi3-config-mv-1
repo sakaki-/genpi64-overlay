@@ -17,7 +17,7 @@
 # /etc/conf.d/rpi3-config-mv
 
 # Copyright (c) 2018 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 description="Enables safe tryout of changed config.txt on RPi3"

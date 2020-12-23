@@ -8,7 +8,7 @@
 # attempted twice.
 #
 # Copyright (c) 2019 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 shopt -s nullglob

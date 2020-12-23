@@ -6,7 +6,7 @@ EAPI="6"
 inherit eutils autotools
 
 DESCRIPTION="Binary RPi3 64-bit kernel package (bcmrpi3_defconfig + tweaks)"
-HOMEPAGE="https://github.com/sakaki-/bcmrpi3-kernel-bis"
+HOMEPAGE="https://github.com/GenPi64/bcmrpi3-kernel-bis"
 
 SRC_URI="${HOMEPAGE}/releases/download/${PV}/bcmrpi3-kernel-bis-${PV}.tar.xz -> ${P}.tar.xz"
 

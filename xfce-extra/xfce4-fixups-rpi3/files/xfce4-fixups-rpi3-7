@@ -14,7 +14,7 @@
 # Assumes the user has at least one panel active.
 #
 # Copyright (c) 2017-2020 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 shopt -s nullglob

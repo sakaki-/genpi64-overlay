@@ -4,10 +4,6 @@
 <maintainer type="person">
 		<email>wjn@aol.jp</email>
 </maintainer>
-<maintainer type="person">
-		<email>sakaki@deciban.com</email>
-		<name>sakaki</name>
-</maintainer>
 <upstream>
 		<remote-id type="launchpad">onboard</remote-id>
 </upstream>
