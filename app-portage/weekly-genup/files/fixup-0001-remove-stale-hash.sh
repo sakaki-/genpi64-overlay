@@ -7,7 +7,7 @@
 # sync to fail)
 #
 # Copyright (c) 2018 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 PDIR="$(portageq get_repo_path / gentoo)"

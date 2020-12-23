@@ -1,6 +1,6 @@
 #!/sbin/openrc-run
 # Copyright (c) 2018 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 description="Turn off display compositing for high RPi3 pixel clock values"

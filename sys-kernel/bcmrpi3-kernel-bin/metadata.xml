@@ -11,10 +11,6 @@
 		<name>Michael Weber</name>
 		<description>Maintainer of raspberrypi-sources</description>
 	</maintainer>
-	<maintainer type="person">
-		<email>sakaki@deciban.com</email>
-		<name>sakaki</name>
-	</maintainer>
 	<use>
 		<flag name="checkboot">Check if /boot is mounted (if installing into /).".</flag>
 		<flag name="firmware">Install (kernel) firmware (avoid if sys-kernel/linux-firmware installed).".</flag>

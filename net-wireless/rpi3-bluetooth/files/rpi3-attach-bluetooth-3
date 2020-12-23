@@ -4,7 +4,7 @@
 # service.
 # Adapted from https://aur.archlinux.org/packages/pi-bluetooth/
 # Copyright (c) 2017 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 # follow Raspbian's /usr/bin/btuart logic to derive unique address

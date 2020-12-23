@@ -20,7 +20,7 @@
 # script, requires no compilation etc.)
 #
 # Copyright (c) 2018-19 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 MIN_GENUP_VERSION="1.0.24"

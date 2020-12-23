@@ -17,7 +17,7 @@
 # to ensure the /etc/portage/make.profile link still refers.
 #
 # Copyright (c) 2019 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 PCDIR="/etc/portage"

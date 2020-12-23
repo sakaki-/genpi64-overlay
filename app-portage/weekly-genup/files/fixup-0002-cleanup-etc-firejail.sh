@@ -18,7 +18,7 @@
 # /etc/firejail/<filename> counterpart exists.
 #
 # Copyright (c) 2018 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 FJDIR="/etc/firejail"

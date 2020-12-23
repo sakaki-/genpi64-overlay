@@ -3,14 +3,14 @@
     <repo priority="100" quality="experimental" status="unofficial">
         <name>genpi64</name>
         <description lang="en">Overlay for 64-bit Gentoo on the RPi3 and RPi4 SBCs</description>
-        <homepage>https://github.com/sakaki-/rpi3-overlay</homepage>
+        <homepage>https://github.com/GenPi64/rpi3-overlay</homepage>
         <owner>
             <name>sakaki</name>
             <email>sakaki@deciban.com</email>
         </owner>
-        <source type="git">https://github.com/sakaki-/genpi64-overlay.git</source>
-        <source type="git">git://github.com/sakaki-/genpi64-overlay.git</source>
-        <source type="git">git@github.com:sakaki-/genpi64-overlay.git</source>
-        <feed>https://github.com/sakaki-/genpi64-overlay/commits/master.atom</feed>
+        <source type="git">https://github.com/GenPi64/genpi64-overlay.git</source>
+        <source type="git">git://github.com/GenPi64/genpi64-overlay.git</source>
+        <source type="git">git@github.com:GenPi64/genpi64-overlay.git</source>
+        <feed>https://github.com/GenPi64/genpi64-overlay/commits/master.atom</feed>
     </repo>
 </repositories>

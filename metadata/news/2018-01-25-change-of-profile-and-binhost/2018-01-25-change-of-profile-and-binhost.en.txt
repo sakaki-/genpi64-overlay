@@ -133,6 +133,6 @@ genup run should keep your system correctly up-to-date.
 Best, sakaki <sakaki@deciban.com>
 
 [1] https://www.gentoo.org/support/news-items/2017-11-30-new-17-profiles.html
-[2] https://github.com/sakaki-/gentoo-on-rpi3-64bit/releases#upgrade_to_profile_17
-[3] https://github.com/sakaki-/gentoo-on-rpi3-64bit/releases#upgrade
+[2] https://github.com/GenPi64/gentoo-on-rpi3-64bit/releases#upgrade_to_profile_17
+[3] https://github.com/GenPi64/gentoo-on-rpi3-64bit/releases#upgrade
 

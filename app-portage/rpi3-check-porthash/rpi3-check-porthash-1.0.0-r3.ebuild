@@ -7,7 +7,7 @@ EAPI=5
 KEYWORDS="~arm64"
 
 DESCRIPTION="Post-sync signed hash check for isshoni.org rsync gentoo repo"
-HOMEPAGE="https://github.com/sakaki-/gentoo-on-rpi3-64bit"
+HOMEPAGE="https://github.com/GenPi64/gentoo-on-rpi3-64bit"
 SRC_URI=""
 LICENSE="GPL-3+"
 SLOT="0"

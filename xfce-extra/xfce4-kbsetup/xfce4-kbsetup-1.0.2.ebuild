@@ -1,11 +1,11 @@
 # Copyright (c) 2020 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 EAPI=7
 
 DESCRIPTION="Ensure correct keyboard layout applied on graphical login"
-HOMEPAGE="https://github.com/sakaki-/gentoo-on-rpi-64bit"
+HOMEPAGE="https://github.com/GenPi64/gentoo-on-rpi-64bit"
 SRC_URI=""
 
 LICENSE="GPL-3+"

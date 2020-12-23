@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<maintainer type="person">
-		<email>sakaki@deciban.com</email>
-		<name>sakaki</name>
-</maintainer>
 <longdescription>
 		Sets the WiFi regulatory domain on an RPi3, using
 		the country code from /etc/conf.d/rpi3-wifi-regdom.

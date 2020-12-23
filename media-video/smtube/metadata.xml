@@ -13,9 +13,5 @@
 		</maintainer>
 		<remote-id type="sourceforge">smtube</remote-id>
 	</upstream>
-	<maintainer type="person">
-		<email>sakaki@deciban.com</email>
-		<name>sakaki</name>
-	</maintainer>
 	<flag name="category-fix">Tweaks desktop file Categories and Name fields.</flag>
 </pkgmetadata>

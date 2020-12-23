@@ -1,7 +1,7 @@
 #!/sbin/openrc-run
 # Set on-demand frequency scaling in early boot
 # Copyright (c) 2017 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 description="Switches RPi3 to on-demand CPU frequency scaling"

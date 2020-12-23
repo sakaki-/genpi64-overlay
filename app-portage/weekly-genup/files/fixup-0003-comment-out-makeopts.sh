@@ -13,7 +13,7 @@
 # (much less aggressive) to be used by default.
 #
 # Copyright (c) 2018 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 SCRIPTDIR="$(portageq get_repo_path / rpi3)" || SCRIPTDIR="$(portageq get_repo_path / genpi64)"

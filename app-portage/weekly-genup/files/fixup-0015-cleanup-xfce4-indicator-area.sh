@@ -6,7 +6,7 @@
 # ensuring a 32-pixel top panel height, with autosized icons inside.
 #
 # Copyright (c) 2020 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 shopt -s nullglob

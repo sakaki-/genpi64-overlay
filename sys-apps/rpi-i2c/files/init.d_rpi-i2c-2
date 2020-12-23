@@ -1,6 +1,6 @@
 #!/sbin/openrc-run
 # Copyright (c) 2017-19 sakaki <sakaki@deciban.com>
-# License: GPL v3+
+# License: GPL v2 or GPL v3+
 # NO WARRANTY
 
 description="Ensures I2C device kernel module loaded on RPi3/4, if requested"

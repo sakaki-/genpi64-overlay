@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<maintainer type="person">
-		<email>sakaki@deciban.com</email>
-		<name>sakaki</name>
-</maintainer>
 <longdescription>
 	Service to enable modifed /boot/config.txt files to be safely
 	tried out on the RPi3/4, by rotating in the old, last-known-good
