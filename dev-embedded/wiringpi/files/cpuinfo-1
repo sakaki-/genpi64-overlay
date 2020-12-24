@@ -1,6 +1,0 @@
-# Adjust this to match your desired /proc/cpuinfo output
-# The RPi3 has fields missing when running in 64-bit mode, hence this file
-# You only need the missing snippets, for wiringPi to read
-Hardware	: BCM2709
-Revision	: a02082
-

@@ -13,6 +13,8 @@ The overlay provides the following ebuilds:
 
 
 ### Metapackage ebuilds
+### **No Longer Used!**
+Instead of a meta package, select the profile and sets you want.
 * **dev-embedded/rpi-64bit-meta**
 
   * This is the main `gentoo-on-rpi-64bit` metapackage - its version matches that of the image release. It replaces the prior `gentoo-on-rpi3-64bit` metapackage. The features it pulls in (via other ebuilds) can be customized via the following USE flags (edit via `/etc/portage/package.use/rpi-64bit-meta`):<a name="meta_use_flags"></a>
@@ -45,9 +47,6 @@ The overlay provides the following ebuilds:
 * **app-accessibility/onboard** [upstream](https://launchpad.net/onboard)
   * Provides a flexible onscreen keyboard. Included primarily for use with the official 7" RPi touchscreen. Adapted with thanks from original ebuild, [here](https://bitbucket.org/wjn/wjn-overlay).
 
-* **app-office/orage** [upstream](https://git.xfce.org/apps/orage/)
-  * Provides `orage-4.12.1-r1.ebuild`, patched for [bug 657542](https://bugs.gentoo.org/657542). Once this revbumps in the main Gentoo tree, `orage` should revert to using that version instead.
-
 * **app-portage/weekly-genup**
   * Installs a simple cron.weekly script, to automate `genup`, and another, to run 'fixups' (small scripts to correct issues that may e.g. prevent correct `genup` operation, effect upstream file hierarchy migrations etc.).
 
@@ -55,6 +54,7 @@ The overlay provides the following ebuilds:
   * Provides the `ptspeaker` Python 3 package and accompanying OpenRC service, to initialize pitopSPEAKER add-on-boards. The init has been adapted from the original Debian package and does _not_ use `pt-peripherals-daemon`. Only installed on the image when the `pitop` USE flag is set on `rpi-64bit-meta`.
 
 * **dev-embedded/pitop-utils**<a id="ptbrightness"></a> [upstream](https://github.com/rricharz/pi-top-install)
+  **Dead dependencies upstream, removed**
   * Provides the `pt-poweroff` and `pt-brightness` `sbin` utilities for the Pi-Top. Only installed on the image when the `pitop` USE flag is set on `rpi-64bit-meta`.
 
 * **dev-embedded/rpi4-eeprom-images** [upstream](http://archive.raspberrypi.org/debian/pool/main/r/rpi-eeprom/)
@@ -63,13 +63,12 @@ The overlay provides the following ebuilds:
 * **dev-embedded/rpi4-eeprom-updater** [upstream](http://archive.raspberrypi.org/debian/pool/main/r/rpi-eeprom/)
   * Unlike its predecessor, the RPi4B contains a bootloader EEPROM (which replaces bootcode.bin) and also has another EEPROM region holding its VL805 USB chip's firmware. This package provides a boot-time service which checks the current versions and, if out-of-date, safely reflashes them. A weekly build-server process automatically creates new ebuilds for this package, whenever upstream releases a new deb. For further details, please see [this post](https://www.raspberrypi.org/forums/viewtopic.php?p=1557653#p1557653).
 
-* **dev-embedded/wiringpi** [upstream](http://wiringpi.com/)
-  * Provides Gordon Henderson's `WiringPi`, a PIN based GPIO access library (with accompanying `gpio` utility). Now [deprecated](http://wiringpi.com/wiringpi-deprecated/), and will not work correctly on the RPi4 in any event; use e.g. the bundled `dev-libs/pigpio` library instead (see below).
-
 * **dev-lang/pony** [upstream](http://www.ponylang.org/)
   * Provides a few ebuilds for the `pony` language. Not installed on the image. Please see [this post, *ff.*](https://www.raspberrypi.org/forums/viewtopic.php?p=1414960#p1414960) for more background.
 
 * **dev-lang/python** [upstream](https:/www.python.org)
+  **Too expensive to maintain**
+  * pypy3 provides similar speedup for portage
   * Provides builds of the `python` language interpreter (for slots 3.6 and 3.7) that have profile guided optimisation (`pgo`) turned on, as this can yield a significant performance improvement (see e.g. [these notes](https://www.raspberrypi.org/forums/viewtopic.php?p=1528347#p1528347)).
 
 
@@ -100,12 +99,6 @@ The overlay provides the following ebuilds:
 * **media-video/ffmpeg** [upstream](https://ffmpeg.org/)
   * Provides a version of `ffmpeg` that has been patched to allow leverage of the RPi3/4's hardware video codecs, via V4L2 M2M, and also (>=4.2.1-r3) can use MMAL from a 64-bit userspace.
 
-* **media-video/pi-ffcam**
-  * Provides  trivial V4L2 live view app for the RPi3/4's (optional) camera module.
-
-* **media-video/pi-ffplay**
-  * Provides a trivial video player app (based on `ffplay`) that uses the RPi3/4's V4L2 M2M hardware video codecs where possible.
-
 * **net-libs/nghttp2** [upstream](https://nghttp2.org/)
   * Provides  version of `nghttp2` that can work under `bindist`, by using the EC-patched `dev-libs/openssl` libraries (see above). Still in use on the image (as the main tree version unnecessarily forces `-bindist`).
 
@@ -122,11 +115,6 @@ The overlay provides the following ebuilds:
 * **net-misc/xrdp** [upstream](http://www.xrdp.org/)
   * Provides `xrdp-0.9.8.ebuild` for this open source Remote Desktop Protocol server. Supplied on the image with `xorgxrdp` above.
 
-* **net-p2p/cpuminer-multi** [upstream](https://github.com/tpruvot/cpuminer-multi)
-  * Provides `cpuminer-multi-1.3.3.ebuild`, a multi-algorithm CPU cryptocurrency miner adapted to build correctly under `arm64`. Not currently included on the image. Please see [this post *ff.*](https://www.raspberrypi.org/forums/viewtopic.php?p=1317164#p1317164) for further details.
-
-* **net-wireless/blueman** [upstream](https://github.com/blueman-project/blueman)
-  * Provides `blueman-2.0.4-r1.ebuild`; this has been removed from the main Gentoo tree, but is in use on the image (until the current version proves stable, at which point it will be unmasked, and `blueman` will revert to using the main-tree ebuild).
 
 * **net-wireless/rpi3-bluetooth** [upstream](https://aur.archlinux.org/packages/pi-bluetooth/)
   * Provides a startup service and `udev` rule for the RPi3/4's integrated Bluetooth transceiver. Adapted from the [`pi-bluetooth`](https://aur.archlinux.org/packages/pi-bluetooth/) package from ArchLinux.
@@ -136,13 +124,8 @@ The overlay provides the following ebuilds:
 * **sys-apps/openrc** [upstream](https://github.com/openrc/openrc/)
   * Provided lightly modified ebuilds for this, Gentoo's native init system, supporting the additional `swclock-fix` USE flag. This flag (set on the image) patches the startup code to attempt to overcome annoying clock-skew messages that can occur at boot (the `swclock` service is used on systems like the RPi, which has no RTC). Please see [these notes](https://gitlab.alpinelinux.org/alpine/aports/issues/8093) for some further background.
 
-* **sys-apps/pitop-poweroff**<a id="ptpoweroff"></a>
-  * Provides a simple OpenRC shutdown service, to ensure that the Pi-Top's onboard hub controller is properly powered down. Only installed when the `pitop` USE flag is set on `rpi-64bit-meta`.
-
-
 * **sys-apps/pyconfig_gen** [upstream](https://github.com/GenPi64/pyconfig_gen)
   * Provides a simple, PyQt5 dialog-based app, to allow the `/boot/config.txt` file to be edited in a structured manner, together with some support services (to revert the new config automatically, unless ratified upon reboot).
-
 
 * **sys-apps/rpi-gpio**
   * Sets up a `udev` rule to allow GPIO access (on the RPi3/4) for members of the `gpio` group.  On installation, all current members of `wheel` are automatically made members of `gpio`. Now installed for all users of the `rpi-64bit-meta` package (with `innercore` USE).
@@ -161,9 +144,6 @@ The overlay provides the following ebuilds:
 
 * **sys-apps/rpi-video**
   * Provides a `udev` rule to allow members of the `video` group access to `/dev/rpivid*` and `/dev/argon*` devices (using code borrowed from Raspbian).
-
-* **sys-apps/rpi3-expand-swap**
-  * Expands the default swapfile (`/var/cache/swap/swap1`) to 1,024MiB on first boot (after the root filesystem has been expanded), subject to sufficient space.
 
 * **sys-apps/rpi3-i2cdev**
   * Provides an OpenRC service and `udev` rule for I2C access on the RPi3/4. Ensures that the `i2c-dev` module is `modprobe`d, and that the `/dev/i2c-[0-9]` devices are read/write for all members of the `wheel` group, not just `root`. Originally installed by the `pitop` USE flag on `rpi-64bit-meta`, it has since been superseded by `rpi-i2c`, above.
@@ -209,20 +189,10 @@ The overlay provides the following ebuilds:
 * **sys-kernel/linux-firmware** [upstream](https://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git)
   * Provides a large collection of redistributable Linux firmware files. The version in this overlay supports the `43455-fix` USE flag, which when set does _not_ install the file `/lib/firmware/brcm/brcmfmac43455-sdio.bin` (allowing a more modern version to be supplied by `sys-firmware/brcm43430-firmware`; see above).
 
-* **virtual/pam**
-  * Just provides a shadow copy of `virtual/pam-0-r1`, preparatory to this being removed from the main tree (announced but not yet effected at the time of writing) &mdash; as it is still a dep of some packages currently in use on the image.
-
-* **virtual/rust**
-  * Provides a virtual for version 1.31.1-r1 of the `rust` compiler. Retained for historical interest only - more modern (>=1.32.2) main tree versions are now used in the image.
 
 * **www-client/chromium** [upstream](http://chromium.org/)
   * Provides a number of versions of the open-source browser `chromium`, capable of being built in a `bindist` compatible manner (by suppressing all software-based `h264` codec inclusions). Also forces the use of `clang` as the compiler.
 
-* **www-client/firefox** [upstream](http://www.mozilla.com/firefox)
-  * Provides patched ebuilds for the full-scale `firefox` browser. Retained in the overlay for historical interest only, as modern (>=68.2.0) main-tree versions of `firefox` build successfully under `arm64` (and just such a main-tree build is currently used on the image).
-
-* **x11-base/xorg-server** [upstream](https://gitlab.freedesktop.org/xorg/xserver/xorg-server)
-  * Provides `xorg-server-1.19.6-r1.ebuild` for the X11 server, adapted to build correctly under `arm64`. Retained for historical interest only - more modern (>=1.20.5) main tree versions are now used in the image.
 
 * **x11-misc/arandr** [upstream](https://christian.amsuess.com/tools/arandr/)
   * Provides a slightly patched version of the `arandr` screen configuration GUI, which automatically applies setup files saved as `~/.screenlayout/default.sh` upon login (incidentally, this autoload can be suppressed by holding down <kbd>Ctrl</kbd> during boot).
@@ -235,15 +205,6 @@ The overlay provides the following ebuilds:
 
 * **x11-misc/twofing** [upstream](http://plippo.de/p/twofing)
   * Provides the `twofing` daemon, which converts touchscreen gestures into mouse and keyboard events. Included primarily for use with the offical 7" RPi (1,2,3) touchscreen (not sure if this is yet compatible with the RPi4?).
-
-* **x11-themes/gnome-icon-theme** [upstream](https://www.gnome.org)
-  * Provides `gnome-icon-theme-3.12.0-r1.ebuild`; this has been removed from the main Gentoo tree, but is still required for some icons on the image.
-
-* **x11-themes/gtk-engines-xfce** [upstream](https://www.xfce.org/projects/)
-  * Provides a shadow copy of `gtk-engines-xfce-r{2,3}01`, preparatory to these being removed from the main tree (announced but not yet effected at the time of writing) &mdash; as still a dep of some packages currently in use on the image.
-
-* **xfce-extra/xfc4-mixer** [upstream](http://softwarebakery.com/maato/volumeicon.html)
-  * Provides `xfc4-mixer-4.99.0-r1`, a 'pseudo-package' replacing the original, treecleaned `xfce4-mixer` with the (broadly equivalent) `media-sound/volumeicon` package.
 
 * **xfce-extra/xfce4-battery-plugin**<a id="ptbattery"></a> [upstream](https://github.com/rricharz/pi-top-battery-status)
   * A modified version of the standard `xfce4-battery-plugin` gas gauge. It is patched with code from rricharz to query the status of the Pi-Top's battery over I2C; this code is activated by building `rpi-64bit-meta`  with the `pitop` USE flag (NB - _only_ for use on Pi-Top systems).

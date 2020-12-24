@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
-<pkgmetadata>
-<longdescription>
-	Simple app to provide a live view of the camera's output
-	on the RPi3 and RPi4.
-</longdescription>
-</pkgmetadata>
