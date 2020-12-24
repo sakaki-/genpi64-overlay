@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
-<pkgmetadata>
-<longdescription>
-	Simple app to allow playback of videos using v4l2 m2m codecs
-	on the RPi3 and RPi4.
-</longdescription>
-</pkgmetadata>
