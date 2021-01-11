@@ -12,7 +12,7 @@ CHOST="aarch64-unknown-linux-gnu"
 USE="bindist -mudflap -sanitize -X -gtk -qt -qt4 -gtk2 -gnome -kde"
 
 # Only free software, please.
-ACCEPT_LICENSE="-* @FREE CC-Sampling-Plus-1.0"
+ACCEPT_LICENSE="-* @FREE CC-Sampling-Plus-1.0 Broadcom linux-fw-redistributable no-source-code bluez-firmware "
 
 # Use the 'testing' branch - otherwise we'll have to keyword everything
 ACCEPT_KEYWORDS="~arm64"
