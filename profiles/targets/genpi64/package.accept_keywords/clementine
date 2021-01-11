@@ -1,5 +1,0 @@
-media-sound/clementine  * ~*
-# dependencies of clementine
-dev-libs/qjson  * ~*
-media-libs/libmygpo-qt  * ~*
-app-crypt/argon2	* ~*

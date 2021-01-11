@@ -1,7 +1,0 @@
-games-engines/openmw * ~*
-# dependencies of openmw
-dev-games/mygui * ~*
-dev-games/openscenegraph * ~*
-sci-physics/bullet * ~*
-app-arch/unshield * ~*
-

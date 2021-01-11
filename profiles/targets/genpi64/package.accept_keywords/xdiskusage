@@ -1,3 +1,0 @@
-x11-misc/xdiskusage	* ~*
-# dependencies of x11-misc/xdiskusage
-x11-libs/fltk	* ~*

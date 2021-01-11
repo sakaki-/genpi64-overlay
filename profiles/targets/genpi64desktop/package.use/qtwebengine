@@ -1,0 +1,3 @@
+dev-qt/qtwebengine widgets
+dev-qt/qtwebchannel qml
+dev-qt/qtwebengine alsa jumbo-build system-ffmpeg system-icu widgets bindist pulseaudio

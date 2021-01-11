@@ -1,3 +1,0 @@
-net-analyzer/etherape * ~*
-# dependencies of etherape
-x11-libs/goocanvas * ~*

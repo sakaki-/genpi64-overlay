@@ -1,5 +1,0 @@
-# only allow stable builds for now (quite troublesome enough ^-^)
-www-client/chromium *
-# dependencies of www-client/chromium
-dev-util/gn *
-

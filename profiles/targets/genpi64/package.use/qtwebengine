@@ -1,5 +1,0 @@
-dev-qt/qtwebengine widgets
-# required by qtwebengine
-dev-qt/qtwebchannel qml
-# enable  much more efficient build process
->=dev-qt/qtwebengine-5.14.1 jumbo-build

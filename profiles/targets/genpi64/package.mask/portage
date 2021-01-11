@@ -1,4 +1,0 @@
-# problems with sync verification
-=sys-apps/portage-2.3.28
-# mask cascades don't seem to work properly; precautionary hold
-=sys-apps/portage-2.3.100-r1

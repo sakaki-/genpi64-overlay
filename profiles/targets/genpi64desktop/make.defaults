@@ -1,0 +1,3 @@
+# Additional USE flags in addition to those specified by the current profile.
+USE="bindist -mudflap -sanitize"
+

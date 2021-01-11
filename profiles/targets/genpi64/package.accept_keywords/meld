@@ -1,3 +1,0 @@
-dev-util/meld	* ~*
-# dependencies of dev-util/meld
-x11-libs/gtksourceview	* ~*

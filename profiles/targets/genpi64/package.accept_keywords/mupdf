@@ -1,4 +1,0 @@
-app-text/mupdf * ~*
-# required by mupdf
-media-libs/glfw * ~*
-

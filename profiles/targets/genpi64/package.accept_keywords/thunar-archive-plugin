@@ -1,5 +1,0 @@
-xfce-extra/thunar-archive-plugin	* ~*
-# requirements of xfce-extra/thunar-archive-plugin
-dev-libs/volume_key     * ~*
-dev-libs/libbytesize    * ~*
-sys-libs/libblockdev    * ~*

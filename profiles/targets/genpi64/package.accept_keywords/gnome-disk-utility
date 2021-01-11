@@ -1,5 +1,0 @@
-sys-apps/gnome-disk-utility	* ~*
-# dependencies of sys-apps/gnome-disk-utility
-media-libs/libdvdread	* ~*
-media-libs/libcanberra	* ~*
-media-libs/libdvdcss	* ~*

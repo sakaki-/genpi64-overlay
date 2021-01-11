@@ -1,9 +1,0 @@
-app-office/abiword	* ~*
-# dependencies of app-office/abiword
-app-text/wv	* ~*
-media-gfx/imagemagick	* ~*
-x11-libs/goffice	* ~*
-gnome-extra/libgsf	* ~*
-app-text/enchant	* ~*
-app-text/libspectre	* ~*
-

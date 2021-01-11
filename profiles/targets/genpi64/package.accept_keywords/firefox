@@ -1,9 +1,0 @@
-www-client/firefox * ~*
-# required by firefox
-virtual/rust * ~*
-dev-util/cargo * ~*
-app-eselect/eselect-rust * ~*
-dev-lang/rust-bin * ~*
-dev-util/cbindgen * ~*
-
-www-client/firefox-bin * ~*
