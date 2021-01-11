@@ -41,7 +41,7 @@ L10N="en en-US"
 
 # for upgrade stability only (see news item)
 # will be deleted shortly
-PYTHON_TARGETS="python3_8 python3_9
+PYTHON_TARGETS="python3_8 python3_9"
 
 # conservative build parallelism, to avoid hitting swap
 # override locally if desired
