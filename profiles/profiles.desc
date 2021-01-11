@@ -10,6 +10,5 @@
 # core gentoo repo
 
 # ARM-64 Profiles (retain rpi3 for now, but shift to equivalent genpi64)
-arm64           default/linux/arm64/13.0/desktop/rpi3           exp
-arm64           default/linux/arm64/17.0/desktop/rpi3           exp
 arm64           default/linux/arm64/17.0/desktop/genpi64        exp
+arm64           default/linux/arm64/17.0/genpi64                exp

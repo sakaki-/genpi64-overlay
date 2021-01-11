@@ -1,9 +1,1 @@
-# Add support for v4l2, chromium browser
->=media-video/ffmpeg-4.1.1 v4l chromium libv4l
-# Apply 6by9's patches for V4L2-M2M
-# https://www.raspberrypi.org/forums/viewtopic.php?p=1436166#p1436166
->=media-video/ffmpeg-4.2 v4l2m2m-fix
-# use mmal for versions with dep on appropriate raspberrypi-userland
->=media-video/ffmpeg-4.2.1-r3 mmal
-# required by certain codecs
->=media-video/ffmpeg-4.2.3-r1 libdrm
+media-video/ffmpeg -X alsa bzip2 dav1d encode fdk gnutls gpl iconv jack libdrm libv4l mp3 network openal opencl opengl openssl postproc pulseaudio -sdl svg theora threads truetype v4l -vaapi -vdpau vorbis vpx x264 xvid zlib -amr -amrenc -appkit -bluray -bs2b -cdio -chromaprint -chromium -codec2 -cpudetection -cuda -debug -doc -flite -fontconfig -frei0r -fribidi -gcrypt -gme -gmp -gsm -hardcoded-tables -iec61883 -ieee1394 -jpeg2k -kvazaar -ladspa -libaom -libaribb24 -libass -libcaca -libilbc -libressl -librtmp -libsoxr -libtesseract -libxml2 -lv2 -lzma -mipsdspr1 -mipsdspr2 -mipsfpu -mmal -modplug -openh264 -opus -oss -pic -rav1e -rubberband -samba -snappy -speex -srt -ssh -static-libs -test -twolame -vidstab -vulkan -wavpack -webp -x265 -zeromq -zimg -zvbi

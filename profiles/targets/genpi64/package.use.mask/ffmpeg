@@ -1,2 +1,0 @@
-# allow mmal USE for ffmpeg with dep on patched raspberrypi-userland
->=media-video/ffmpeg-4.2.1-r3 -mmal

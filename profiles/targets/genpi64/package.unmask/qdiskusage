@@ -1,3 +1,0 @@
-# there's a copy of this ebuild in the overlay now, so
-# undo the main gentoo tree mask
->=sys-apps/qdiskusage-1.0.4

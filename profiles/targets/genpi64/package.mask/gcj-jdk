@@ -1,3 +1,0 @@
-# prevent this from trying to build, since it depends on gcc-5.4.0
-~dev-java/gcj-jdk-5.4.0
-

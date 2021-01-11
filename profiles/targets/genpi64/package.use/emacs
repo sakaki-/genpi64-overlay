@@ -1,2 +1,1 @@
-# nicer font rendering, native toolbars
-app-editors/emacs toolkit-scroll-bars xft
+app-editors/emacs acl alsa -cairo dbus -games gfile gif gmp gpm -gsettings -gtk -gui -imagemagick inotify jpeg lcms libxml2 mailutils -motif png sound source ssl svg threads tiff -xft -xpm zlib -Xaw3d -aqua -athena -dynamic-loading -gconf -gtk2 -gzip-el -harfbuzz -json -kerberos -livecd -m17n-lib -selinux -systemd -toolkit-scroll-bars -wide-int -xwidgets

@@ -1,5 +1,0 @@
-# mask erroneously tagged version
-=sys-boot/rpi3-64bit-firmware-1.20180417
-# problems booting
-=sys-boot/rpi3-64bit-firmware-1.20200114
-

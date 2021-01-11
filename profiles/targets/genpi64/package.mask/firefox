@@ -1,6 +1,0 @@
-# problems building on arm64 atm (skia etc)
-=www-client/firefox-60.0
-# config problem on arm64
-=www-client/firefox-71.0
-# build problem on arm64
-=www-client/firefox-76.0

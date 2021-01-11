@@ -1,0 +1,2 @@
+# Chromium doesn't support jumbo-build anymore, not going to build it.  Use falkon instead
+www-client/chromium

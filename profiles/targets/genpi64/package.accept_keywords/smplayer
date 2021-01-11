@@ -1,4 +1,0 @@
-media-video/smplayer	* ~*
-# dependencies of media-video/smplayer
-dev-qt/qtlockedfile	* ~*
-dev-qt/qtsingleapplication	* ~*

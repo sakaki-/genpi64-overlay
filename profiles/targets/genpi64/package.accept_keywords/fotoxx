@@ -1,6 +1,0 @@
-# required by fotoxx
-media-libs/libraw	* ~*
-media-libs/libchamplain	* ~*
-media-libs/exiftool	* ~*
-media-gfx/dcraw	* ~*
-

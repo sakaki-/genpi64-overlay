@@ -1,6 +1,0 @@
-x11-libs/gksu	* ~*
-# dependencies of x11-libs/gksu
-gnome-base/libgtop	* ~*
-x11-libs/libgksu	* ~*
-gnome-base/gconf	* ~*
-gnome-base/libgnome-keyring	* ~*

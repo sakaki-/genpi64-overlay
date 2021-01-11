@@ -1,4 +1,0 @@
-x11-wm/enlightenment * ~*
-# dependencies of x11-wm/enlightenment
-dev-libs/efl * ~*
-
