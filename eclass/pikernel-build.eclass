@@ -41,7 +41,7 @@ BDEPEND="
 	virtual/libelf
 	virtual/yacc"
 
-IUSE="bcmrpi bcm2709 bcmrpi3 +bcm2711"
+IUSE="bcmrpi bcm2709 bcmrpi3 +bcm2711 -initramfs"
 REQUIRED_USE="|| ( bcmrpi bcm2709 bcmrpi3 bcm2711 )"
 
 pikernel-build_get_targets() {
@@ -135,7 +135,7 @@ pikernel-build_src_install() {
 
 	pikernel-build_get_targets
 
-	for n in $targets
+	for n in "${targets[@]}"
 	do
 	    emake O="${WORKDIR}/${n}" "${MAKEARGS[@]}" \
 		  INSTALL_MOD_PATH="${ED}" INSTALL_PATH="${ED}/boot" modules_install
@@ -162,20 +162,20 @@ pikernel-build_src_install() {
 	cp -p -R * "${ED}/usr/src/linux-${ver}/" || die
 
 	cd "${WORKDIR}" || die
-	for n in $targets
+	for n in "${targets[@]}"
 	do
-	    if [ $n == "bcm2711" ]; then
-		KERNEL=kernel7l
-	    else
+	    ebegin "Installing ${n}"
+	    if [ "${n}" == "bcmrpi3" ]; then
 		KERNEL=kernel7
+	    else
+		KERNEL=kernel7l
 	    fi
 	    insinto "/boot/"
-	    doins "${n}/arch/arm64/boot/dts/broadcom/*.dtb"
+	    doins "${n}"/arch/arm64/boot/dts/broadcom/*.dtb
 	    cp "${n}/arch/arm64/boot/Image" "${n}/arch/arm64/boot/$KERNEL.img"
 	    doins "${n}/arch/arm64/boot/$KERNEL.img"
 	    insinto "/boot/overlays"
-	    doins "${n}/arch/arm64/boot/dts/overlays/*.dtb*"
-	    doins "${n}/arch/arm64/boot/dts/overlays/README"
+	    doins "${n}"/arch/arm64/boot/dts/overlays/*.dtb*
 
 	done
 
@@ -189,6 +189,10 @@ pikernel-build_src_install() {
 	save_config "${configs[@]}"
 }
 
+pikernel-build_pkg_postinst() {
+    debug-print-function ${FUNCNAME} "${@}"
+
+}
 
 # @FUNCTION: kernel-build_merge_configs
 # @USAGE: [distro.config...]
@@ -228,4 +232,4 @@ pikernel-build_merge_configs() {
 _KERNEL_BUILD_ECLASS=1
 fi
 
-EXPORT_FUNCTIONS src_configure src_compile src_install merge_configs
+EXPORT_FUNCTIONS src_configure src_compile src_install merge_configs pkg_postinst
