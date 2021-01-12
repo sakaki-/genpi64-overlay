@@ -170,12 +170,12 @@ pikernel-build_src_install() {
 		KERNEL=kernel7
 	    fi
 	    insinto "/boot/"
-	    doins "../${n}/arch/arm64/boot/dts/broadcom/*.dtb"
-	    cp "../${n}/arch/arm64/boot/Image" "${n}/arch/arm64/boot/$KERNEL.img"
-	    doins "../${n}/arch/arm64/boot/$KERNEL.img"
+	    doins "${n}/arch/arm64/boot/dts/broadcom/*.dtb"
+	    cp "${n}/arch/arm64/boot/Image" "${n}/arch/arm64/boot/$KERNEL.img"
+	    doins "${n}/arch/arm64/boot/$KERNEL.img"
 	    insinto "/boot/overlays"
-	    doins "../${n}/arch/arm64/boot/dts/overlays/*.dtb*"
-	    doins "../${n}/arch/arm64/boot/dts/overlays/README"
+	    doins "${n}/arch/arm64/boot/dts/overlays/*.dtb*"
+	    doins "${n}/arch/arm64/boot/dts/overlays/README"
 
 	done
 
