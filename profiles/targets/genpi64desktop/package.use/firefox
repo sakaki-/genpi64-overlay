@@ -11,7 +11,6 @@ www-client/firefox -gmp-autoupdate
 >=www-client/firefox-78.0.2 -openh264
 
 # requirements of firefox
-dev-lang/python:2.7 sqlite
 media-libs/harfbuzz icu
 media-libs/libvpx postproc
 # required by >=www-client/firefox-65
