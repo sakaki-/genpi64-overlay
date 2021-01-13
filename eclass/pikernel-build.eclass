@@ -1,4 +1,4 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: pikernel-build.eclass
@@ -45,17 +45,17 @@ IUSE="bcmrpi bcm2709 bcmrpi3 +bcm2711 -initramfs"
 REQUIRED_USE="|| ( bcmrpi bcm2709 bcmrpi3 bcm2711 )"
 
 pikernel-build_get_targets() {
-    targets=()
-    configs=()
-    for n in bcmrpi bcm2709 bcmrpi3 bcm2711
-    do
+	targets=()
+	configs=()
+	for n in bcmrpi bcm2709 bcmrpi3 bcm2711
+	do
 	if use ${n}; then
-	    ebegin "using $n"
-	    targets+=( "${n}" )
-	    mkdir -p "${WORKDIR}/${n}" || die
-	    configs+=( "${n}/.config" )
+		ebegin "using $n"
+		targets+=( "${n}" )
+		mkdir -p "${WORKDIR}/${n}" || die
+		configs+=( "${n}/.config" )
 	fi
-    done
+	done
 }
 
 # @FUNCTION: pikernel-build_src_configure
@@ -63,15 +63,15 @@ pikernel-build_get_targets() {
 # Prepare the toolchain for building the kernel, get the default .config
 # or restore savedconfig, and get build tree configured for modprep.
 pikernel-build_src_configure() {
-    debug-print-function ${FUNCNAME} "${@}"
-    pikernel-build_get_targets
-    restore_config "${configs[@]}"
-    for n in "${targets[@]}"
-    do
+	debug-print-function ${FUNCNAME} "${@}"
+	pikernel-build_get_targets
+	restore_config "${configs[@]}"
+	for n in "${targets[@]}"
+	do
 	[[ -f $n/.config ]] || 	emake O="${WORKDIR}/${n}" ARCH=arm64 CROSS_COMPILE=aarch64-unknown-linux-gnu- "${n}_defconfig"
-	internal_src_configure aarch64-unknown-linux-gnu $n 
-    done
-    
+	internal_src_configure aarch64-unknown-linux-gnu $n
+	done
+
 }
 
 internal_src_configure() {
@@ -114,14 +114,14 @@ internal_src_configure() {
 # @DESCRIPTION:
 # Compile the kernel sources.
 pikernel-build_src_compile() {
-    debug-print-function ${FUNCNAME} "${@}"
+	debug-print-function ${FUNCNAME} "${@}"
 
-    pikernel-build_get_targets
-    for n in "${targets[@]}"
-    do
+	pikernel-build_get_targets
+	for n in "${targets[@]}"
+	do
 	emake O="${WORKDIR}/$n" "${MAKEARGS[@]}" Image modules dtbs
-    done
-	
+	done
+
 
 }
 
@@ -137,10 +137,10 @@ pikernel-build_src_install() {
 
 	for n in "${targets[@]}"
 	do
-	    emake O="${WORKDIR}/${n}" "${MAKEARGS[@]}" \
+		emake O="${WORKDIR}/${n}" "${MAKEARGS[@]}" \
 		  INSTALL_MOD_PATH="${ED}" INSTALL_PATH="${ED}/boot" modules_install
 	done
-	
+
 	# note: we're using mv rather than doins to save space and time
 	# install main and arch-specific headers first, and scripts
 	local kern_arch=$(tc-arch-kernel)
@@ -164,18 +164,18 @@ pikernel-build_src_install() {
 	cd "${WORKDIR}" || die
 	for n in "${targets[@]}"
 	do
-	    ebegin "Installing ${n}"
-	    if [ "${n}" == "bcmrpi3" ]; then
-		KERNEL=kernel7
-	    else
-		KERNEL=kernel7l
-	    fi
-	    insinto "/boot/"
-	    doins "${n}"/arch/arm64/boot/dts/broadcom/*.dtb
-	    cp "${n}/arch/arm64/boot/Image" "${n}/arch/arm64/boot/$KERNEL.img"
-	    doins "${n}/arch/arm64/boot/$KERNEL.img"
-	    insinto "/boot/overlays"
-	    doins "${n}"/arch/arm64/boot/dts/overlays/*.dtb*
+		ebegin "Installing ${n}"
+		if [ "${n}" == "bcmrpi3" ]; then
+		KERNEL=kernel8
+		else
+		KERNEL=kernel8-pi4
+		fi
+		insinto "/boot/"
+		doins "${n}"/arch/arm64/boot/dts/broadcom/*.dtb
+		cp "${n}/arch/arm64/boot/Image" "${n}/arch/arm64/boot/$KERNEL.img"
+		doins "${n}/arch/arm64/boot/$KERNEL.img"
+		insinto "/boot/overlays"
+		doins "${n}"/arch/arm64/boot/dts/overlays/*.dtb*
 
 	done
 
@@ -190,7 +190,7 @@ pikernel-build_src_install() {
 }
 
 pikernel-build_pkg_postinst() {
-    debug-print-function ${FUNCNAME} "${@}"
+	debug-print-function ${FUNCNAME} "${@}"
 
 }
 
@@ -207,25 +207,25 @@ pikernel-build_merge_configs() {
 	get_targets()
 	for f in "${targets[@]}"
 	do
-	    [[ -f "${WORKDIR}/${f}/.config" ]] || die "${FUNCNAME}: {$f}/.config does not exist"
-	    has .config "${@}" &&
+		[[ -f "${WORKDIR}/${f}/.config" ]] || die "${FUNCNAME}: {$f}/.config does not exist"
+		has .config "${@}" &&
 		die "${FUNCNAME}: do not specify .config as parameter"
 
-	    local shopt_save=$(shopt -p nullglob)
-	    shopt -s nullglob
-	    local user_configs=( "${BROOT}"/etc/kernel/config.d/*.config )
-	    shopt -u nullglob
-	    
-	    if [[ ${#user_configs[@]} -gt 0 ]]; then
+		local shopt_save=$(shopt -p nullglob)
+		shopt -s nullglob
+		local user_configs=( "${BROOT}"/etc/kernel/config.d/*.config )
+		shopt -u nullglob
+
+		if [[ ${#user_configs[@]} -gt 0 ]]; then
 		elog "User config files are being applied:"
 		local x
 		for x in "${user_configs[@]}"; do
-		    elog "- ${x}"
+			elog "- ${x}"
 		done
-	    fi
+		fi
 
-	    ./scripts/kconfig/merge_config.sh -m -r \
-					       "${WORKDIR}/${f}/.config" "${@}" "${user_configs[@]}" || die
+		./scripts/kconfig/merge_config.sh -m -r \
+						   "${WORKDIR}/${f}/.config" "${@}" "${user_configs[@]}" || die
 	done
 }
 
