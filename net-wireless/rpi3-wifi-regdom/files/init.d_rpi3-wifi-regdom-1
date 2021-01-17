@@ -8,7 +8,7 @@
 description="Sets up WiFi regulatory domain on the RPi3"
 
 depend() {
-	need net
+	before net
 }
 
 start() {
