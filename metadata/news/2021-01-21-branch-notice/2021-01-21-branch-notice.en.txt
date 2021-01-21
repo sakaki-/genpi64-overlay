@@ -1,0 +1,17 @@
+Title: Branch notice
+Author: samip5/kryptonian
+Content-Type: text/plain
+Posted: 2021-01-21
+Revision: 1
+News-Item-Format: 2.0
+
+Merging branches
+---------------------------------------------------------
+
+Hi there everyone,
+
+Please check that you're using the overlay's master branch as the other branches will be merged in a few days time.
+If you require help in doing just that, please reach out on Discord.
+
+
+- Kryptonian
