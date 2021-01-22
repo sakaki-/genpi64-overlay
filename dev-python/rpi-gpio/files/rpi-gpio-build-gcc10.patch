@@ -1,0 +1,297 @@
+--- a/RPi/GPIO/__init__.py.orig	1970-01-01 03:00:00.000000000 +0300
++++ b/RPi/GPIO/__init__.py.orig	2021-01-22 08:27:14.117402262 +0300
+@@ -0,0 +1,25 @@
++"""
++Copyright (c) 2012-2019 Ben Croston
++
++Permission is hereby granted, free of charge, to any person obtaining a copy of
++this software and associated documentation files (the "Software"), to deal in
++the Software without restriction, including without limitation the rights to
++use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
++of the Software, and to permit persons to whom the Software is furnished to do
++so, subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in all
++copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
++SOFTWARE.
++"""
++
++from RPi._GPIO import *
++
++VERSION = '0.7.0'
+--- a/RPi/GPIO/__init__.py.rej	1970-01-01 03:00:00.000000000 +0300
++++ b/RPi/GPIO/__init__.py.rej	2021-01-22 08:27:14.118402248 +0300
+@@ -0,0 +1,8 @@
++--- RPi/GPIO/__init__.py
+++++ RPi/GPIO/__init__.py
++@@ -22,4 +22,4 @@
++ 
++ from RPi._GPIO import *
++ 
++-VERSION = '0.7.1a1'
+++VERSION = '0.7.1a2'
+--- a/setup.py.orig	1970-01-01 03:00:00.000000000 +0300
++++ b/setup.py.orig	2021-01-22 08:27:14.119402234 +0300
+@@ -0,0 +1,46 @@
++"""
++Copyright (c) 2012-2019 Ben Croston
++
++Permission is hereby granted, free of charge, to any person obtaining a copy of
++this software and associated documentation files (the "Software"), to deal in
++the Software without restriction, including without limitation the rights to
++use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
++of the Software, and to permit persons to whom the Software is furnished to do
++so, subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in all
++copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
++SOFTWARE.
++"""
++
++from distutils.core import setup, Extension
++
++classifiers = ['Development Status :: 5 - Production/Stable',
++               'Operating System :: POSIX :: Linux',
++               'License :: OSI Approved :: MIT License',
++               'Intended Audience :: Developers',
++               'Programming Language :: Python :: 2.7',
++               'Programming Language :: Python :: 3',
++               'Topic :: Software Development',
++               'Topic :: Home Automation',
++               'Topic :: System :: Hardware']
++
++setup(name             = 'RPi.GPIO',
++      version          = '0.7.0',
++      author           = 'Ben Croston',
++      author_email     = 'ben@croston.org',
++      description      = 'A module to control Raspberry Pi GPIO channels',
++      long_description = open('README.txt').read() + open('CHANGELOG.txt').read(),
++      license          = 'MIT',
++      keywords         = 'Raspberry Pi GPIO',
++      url              = 'http://sourceforge.net/projects/raspberry-gpio-python/',
++      classifiers      = classifiers,
++      packages         = ['RPi','RPi.GPIO'],
++      ext_modules      = [Extension('RPi._GPIO', ['source/py_gpio.c', 'source/c_gpio.c', 'source/cpuinfo.c', 'source/event_gpio.c', 'source/soft_pwm.c', 'source/py_pwm.c', 'source/common.c', 'source/constants.c'])])
+--- a/setup.py.rej	1970-01-01 03:00:00.000000000 +0300
++++ b/setup.py.rej	2021-01-22 08:27:14.120402221 +0300
+@@ -0,0 +1,11 @@
++--- setup.py
+++++ setup.py
++@@ -34,7 +34,7 @@
++                'Topic :: System :: Hardware']
++ 
++ setup(name             = 'RPi.GPIO',
++-      version          = '0.7.1a1',
+++      version          = '0.7.1a2',
++       author           = 'Ben Croston',
++       author_email     = 'ben@croston.org',
++       description      = 'A module to control Raspberry Pi GPIO channels',
+--- a/source/common.c	2021-01-22 08:27:06.692504517 +0300
++++ b/source/common.c	2021-01-22 08:27:14.121402207 +0300
+@@ -1,5 +1,5 @@
+ /*
+-Copyright (c) 2013-2014 Ben Croston
++Copyright (c) 2013-2021 Ben Croston
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy of
+ this software and associated documentation files (the "Software"), to deal in
+@@ -28,6 +28,9 @@
+ const int pin_to_gpio_rev1[41] = {-1, -1, -1, 0, -1, 1, -1, 4, 14, -1, 15, 17, 18, 21, -1, 22, 23, -1, 24, 10, -1, 9, 25, 11, 8, -1, 7, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+ const int pin_to_gpio_rev2[41] = {-1, -1, -1, 2, -1, 3, -1, 4, 14, -1, 15, 17, 18, 27, -1, 22, 23, -1, 24, 10, -1, 9, 25, 11, 8, -1, 7, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+ const int pin_to_gpio_rev3[41] = {-1, -1, -1, 2, -1, 3, -1, 4, 14, -1, 15, 17, 18, 27, -1, 22, 23, -1, 24, 10, -1, 9, 25, 11, 8, -1, 7, -1, -1, 5, -1, 6, 12, 13, -1, 19, 16, 26, 20, -1, 21 };
++const int (*pin_to_gpio)[41];
++int gpio_direction[54];
++rpi_info rpiinfo;
+ int setup_error = 0;
+ int module_setup = 0;
+ 
+--- a/source/common.h	2021-01-22 08:27:06.688504572 +0300
++++ b/source/common.h	2021-01-22 08:27:14.123402179 +0300
+@@ -1,5 +1,5 @@
+ /*
+-Copyright (c) 2013-2015 Ben Croston
++Copyright (c) 2013-2021 Ben Croston
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy of
+ this software and associated documentation files (the "Software"), to deal in
+@@ -30,14 +30,15 @@
+ #define I2C          42
+ #define PWM          43
+ 
+-int gpio_mode;
+-const int pin_to_gpio_rev1[41];
+-const int pin_to_gpio_rev2[41];
+-const int pin_to_gpio_rev3[41];
+-const int (*pin_to_gpio)[41];
+-int gpio_direction[54];
+-rpi_info rpiinfo;
+-int setup_error;
+-int module_setup;
++extern int gpio_mode;
++extern const int pin_to_gpio_rev1[41];
++extern const int pin_to_gpio_rev2[41];
++extern const int pin_to_gpio_rev3[41];
++extern const int (*pin_to_gpio)[41];
++extern int gpio_direction[54];
++extern rpi_info rpiinfo;
++extern int setup_error;
++extern int module_setup;
++
+ int check_gpio_priv(void);
+ int get_gpio_number(int channel, unsigned int *gpio);
+--- a/source/constants.c	2021-01-22 08:27:06.687504586 +0300
++++ b/source/constants.c	2021-01-22 08:27:14.124402166 +0300
+@@ -1,5 +1,5 @@
+ /*
+-Copyright (c) 2013-2016 Ben Croston
++Copyright (c) 2013-2021 Ben Croston
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy of
+ this software and associated documentation files (the "Software"), to deal in
+@@ -26,6 +26,24 @@
+ #include "c_gpio.h"
+ #include "event_gpio.h"
+ 
++PyObject *high;
++PyObject *low;
++PyObject *input;
++PyObject *output;
++PyObject *pwm;
++PyObject *serial;
++PyObject *i2c;
++PyObject *spi;
++PyObject *unknown;
++PyObject *board;
++PyObject *bcm;
++PyObject *pud_off;
++PyObject *pud_up;
++PyObject *pud_down;
++PyObject *rising_edge;
++PyObject *falling_edge;
++PyObject *both_edge;
++
+ void define_constants(PyObject *module)
+ {
+    high = Py_BuildValue("i", HIGH);
+--- a/source/constants.h	2021-01-22 08:27:06.689504559 +0300
++++ b/source/constants.h	2021-01-22 08:27:14.125402152 +0300
+@@ -1,5 +1,5 @@
+ /*
+-Copyright (c) 2013 Ben Croston
++Copyright (c) 2013-2021 Ben Croston
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy of
+ this software and associated documentation files (the "Software"), to deal in
+@@ -23,22 +23,22 @@
+ #define PY_PUD_CONST_OFFSET 20
+ #define PY_EVENT_CONST_OFFSET 30
+ 
+-PyObject *high;
+-PyObject *low;
+-PyObject *input;
+-PyObject *output;
+-PyObject *pwm;
+-PyObject *serial;
+-PyObject *i2c;
+-PyObject *spi;
+-PyObject *unknown;
+-PyObject *board;
+-PyObject *bcm;
+-PyObject *pud_off;
+-PyObject *pud_up;
+-PyObject *pud_down;
+-PyObject *rising_edge;
+-PyObject *falling_edge;
+-PyObject *both_edge;
++extern PyObject *high;
++extern PyObject *low;
++extern PyObject *input;
++extern PyObject *output;
++extern PyObject *pwm;
++extern PyObject *serial;
++extern PyObject *i2c;
++extern PyObject *spi;
++extern PyObject *unknown;
++extern PyObject *board;
++extern PyObject *bcm;
++extern PyObject *pud_off;
++extern PyObject *pud_up;
++extern PyObject *pud_down;
++extern PyObject *rising_edge;
++extern PyObject *falling_edge;
++extern PyObject *both_edge;
+ 
+ void define_constants(PyObject *module);
+--- a/source/event_gpio.c	2021-01-22 08:27:06.685504614 +0300
++++ b/source/event_gpio.c	2021-01-22 08:27:14.126402138 +0300
+@@ -1,5 +1,5 @@
+ /*
+-Copyright (c) 2013-2018 Ben Croston
++Copyright (c) 2013-2021 Ben Croston
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy of
+ this software and associated documentation files (the "Software"), to deal in
+@@ -57,7 +57,6 @@
+ };
+ struct callback *callbacks = NULL;
+ 
+-pthread_t threads;
+ int event_occurred[54] = { 0 };
+ int thread_running = 0;
+ int epfd_thread = -1;
+--- a/source/py_pwm.h	2021-01-22 08:27:06.691504531 +0300
++++ b/source/py_pwm.h	2021-01-22 08:27:14.128402111 +0300
+@@ -1,5 +1,5 @@
+ /*
+-Copyright (c) 2013 Ben Croston
++Copyright (c) 2013-2021 Ben Croston
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy of
+ this software and associated documentation files (the "Software"), to deal in
+@@ -20,5 +20,6 @@
+ SOFTWARE.
+ */
+ 
+-PyTypeObject PWMType;
++extern PyTypeObject PWMType;
++
+ PyTypeObject *PWM_init_PWMType(void);
+--- a/source/soft_pwm.c	2021-01-22 08:27:06.688504572 +0300
++++ b/source/soft_pwm.c	2021-01-22 08:27:14.129402097 +0300
+@@ -1,5 +1,5 @@
+ /*
+-Copyright (c) 2013-2018 Ben Croston
++Copyright (c) 2013-2021 Ben Croston
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy of
+ this software and associated documentation files (the "Software"), to deal in
+@@ -25,7 +25,6 @@
+ #include <time.h>
+ #include "c_gpio.h"
+ #include "soft_pwm.h"
+-pthread_t threads;
+ 
+ struct pwm
+ {
+@@ -193,6 +192,7 @@
+ 
+ void pwm_start(unsigned int gpio)
+ {
++    pthread_t threads;
+     struct pwm *p;
+ 
+     if (((p = find_pwm(gpio)) == NULL) || p->running)
