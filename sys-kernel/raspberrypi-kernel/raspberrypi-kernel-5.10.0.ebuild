@@ -1,9 +1,11 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
 inherit pikernel-build
+
+PV=${PV}-rc5
 
 MY_P=linux-rpi-${PV%.*}.y_20201122
 GENPATCHES_P=genpatches-${PV%.*}-$(( ${PV##*.} + 2 ))
@@ -50,16 +52,8 @@ BDEPEND="
 
 src_prepare() {
     local PATCHES=(
-	"${WORKDIR}"/{15,19,2,4}*.patch
+	"${WORKDIR}"/{15,2,4}*.patch
     )
     default
-    ebegin "Selecting Kernel Config"
-    
-    local merge_configs=(
-	"${WORKDIR}/gentoo-kernel-config-${GENTOO_CONFIG_VER}"/base.config
-    )
-    use debug || merge_configs+=(
-	    "${WORKDIR}/gentoo-kernel-config-${GENTOO_CONFIG_VER}"/no-debug.config
-	)
-    pikernel-build_merge_configs "${merge_configs[@]}"
 }
+

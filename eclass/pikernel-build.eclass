@@ -66,11 +66,23 @@ pikernel-build_src_configure() {
 	debug-print-function ${FUNCNAME} "${@}"
 	pikernel-build_get_targets
 	restore_config "${configs[@]}"
+	local merge_configs=(
+	    "${WORKDIR}/gentoo-kernel-config-${GENTOO_CONFIG_VER}"/base.config
+	)
+	use debug || merge_configs+=(
+	    "${WORKDIR}/gentoo-kernel-config-${GENTOO_CONFIG_VER}"/no-debug.config
+	)
+
 	for n in "${targets[@]}"
 	do
-	[[ -f $n/.config ]] || 	emake O="${WORKDIR}/${n}" ARCH=arm64 CROSS_COMPILE=aarch64-unknown-linux-gnu- "${n}_defconfig"
-	internal_src_configure aarch64-unknown-linux-gnu $n
+	    [[ -f $n/.config ]] || 	emake O="${WORKDIR}/${n}" ARCH=arm64 CROSS_COMPILE=aarch64-unknown-linux-gnu- "${n}_defconfig"
+	    internal_src_configure aarch64-unknown-linux-gnu $n
+	    ebegin "Selecting Kernel Config"
+
 	done
+	pikernel-build_merge_configs "${merge_configs[@]}"
+
+
 
 }
 
@@ -210,7 +222,8 @@ pikernel-build_pkg_postinst() {
 # configuration.
 pikernel-build_merge_configs() {
 	debug-print-function ${FUNCNAME} "${@}"
-	get_targets()
+	get_targets
+	ebegin "Merging kernel configs"
 	for f in "${targets[@]}"
 	do
 		[[ -f "${WORKDIR}/${f}/.config" ]] || die "${FUNCNAME}: {$f}/.config does not exist"
@@ -230,8 +243,10 @@ pikernel-build_merge_configs() {
 		done
 		fi
 
-		./scripts/kconfig/merge_config.sh -m -r \
-						   "${WORKDIR}/${f}/.config" "${@}" "${user_configs[@]}" || die
+		cd "${WORKDIR}/${f}"
+		
+		./source/scripts/kconfig/merge_config.sh -m -r \
+						   ".config" "${@}" "${user_configs[@]}" || die
 	done
 }
 
