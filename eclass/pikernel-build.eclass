@@ -166,9 +166,11 @@ pikernel-build_src_install() {
 	do
 		ebegin "Installing ${n}"
 		if [ "${n}" == "bcmrpi3" ]; then
-		KERNEL=kernel8
+			KERNEL=kernel8
+			KERNEL_SUFFIX=-v8
 		else
-		KERNEL=kernel8-pi4
+			KERNEL=kernel8-pi4
+			KERNEL_SUFFIX=-v8
 		fi
 		insinto "/boot/"
 		doins "${n}"/arch/arm64/boot/dts/broadcom/*.dtb
@@ -179,13 +181,17 @@ pikernel-build_src_install() {
 
 	done
 
-	insinto "/usr/src/linux-${ver}"
-	doins "${targets[0]}"/{System.map,Module.symvers}
+	for n in "${targets[@]}"
+	do
+
+
+		insinto "/usr/src/linux-${ver}-${KERNEL_SUFFIX}"
+		doins "${targets[0]}"/{System.map,Module.symvers}
 
 	# fix source tree and build dir symlinks
-	dosym ../../../usr/src/linux-${ver} /lib/modules/${ver}/build
-	dosym ../../../usr/src/linux-${ver} /lib/modules/${ver}/source
-
+		dosym ../../../usr/src/linux-${ver} /lib/modules/${ver}-${KERNEL_SUFFIX}/build
+		dosym ../../../usr/src/linux-${ver} /lib/modules/${ver}-${KERNEL_SUFFIX}/source
+	done
 	save_config "${configs[@]}"
 }
 
