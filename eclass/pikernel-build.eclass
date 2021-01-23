@@ -182,7 +182,7 @@ pikernel-build_src_install() {
 			KERNEL_SUFFIX=-v8
 		else
 			KERNEL=kernel8-pi4
-			KERNEL_SUFFIX=-v8
+			KERNEL_SUFFIX=-v8-pi4
 		fi
 		insinto "/boot/"
 		doins "${n}"/arch/arm64/boot/dts/broadcom/*.dtb
@@ -226,27 +226,37 @@ pikernel-build_merge_configs() {
 	ebegin "Merging kernel configs"
 	for f in "${targets[@]}"
 	do
-		[[ -f "${WORKDIR}/${f}/.config" ]] || die "${FUNCNAME}: {$f}/.config does not exist"
-		has .config "${@}" &&
+	    if [ "${f}" == "bcmrpi3" ]; then
+		KERNEL=kernel8
+		KERNEL_SUFFIX=-v8
+	    else
+		KERNEL=kernel8-pi4
+		KERNEL_SUFFIX=-v8-pi4
+	    fi
+
+	    [[ -f "${WORKDIR}/${f}/.config" ]] || die "${FUNCNAME}: {$f}/.config does not exist"
+	    has .config "${@}" &&
 		die "${FUNCNAME}: do not specify .config as parameter"
-
-		local shopt_save=$(shopt -p nullglob)
-		shopt -s nullglob
-		local user_configs=( "${BROOT}"/etc/kernel/config.d/*.config )
-		shopt -u nullglob
-
-		if [[ ${#user_configs[@]} -gt 0 ]]; then
+	    
+	    local shopt_save=$(shopt -p nullglob)
+	    shopt -s nullglob
+	    local user_configs=( "${BROOT}"/etc/kernel/config.d/*.config )
+	    shopt -u nullglob
+	    
+	    if [[ ${#user_configs[@]} -gt 0 ]]; then
 		elog "User config files are being applied:"
 		local x
 		for x in "${user_configs[@]}"; do
-			elog "- ${x}"
+		    elog "- ${x}"
 		done
-		fi
+	    fi
+	    
+	    cd "${WORKDIR}/${f}"
+	    
+	    ./source/scripts/kconfig/merge_config.sh -m -r \
+						     ".config" "${@}" "${user_configs[@]}" || die
+	    echo CONFIG_LOCALVERSION="$KERNEL_SUFFIX" | ./source/scripts/kconfig/merge_config.sh -m -r .config /dev/stdin
 
-		cd "${WORKDIR}/${f}"
-		
-		./source/scripts/kconfig/merge_config.sh -m -r \
-						   ".config" "${@}" "${user_configs[@]}" || die
 	done
 }
 
