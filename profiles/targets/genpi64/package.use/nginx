@@ -1,4 +1,0 @@
-# add threading support
-www-servers/nginx threads
-# for Jitsi with turnserver mux on port 443
->=www-servers/nginx-1.18.0 nginx_modules_stream_ssl_preread nginx_modules_stream_map
