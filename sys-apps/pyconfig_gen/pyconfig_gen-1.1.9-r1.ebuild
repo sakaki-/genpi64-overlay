@@ -1,8 +1,8 @@
 # Copyright 2018 sakaki (sakaki@deciban.com)
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-PYTHON_COMPAT=( python{3_5,3_6} )
+EAPI=7
+PYTHON_COMPAT=( python3_{6..9} )
 
 inherit distutils-r1 desktop xdg-utils
 
@@ -19,7 +19,7 @@ KEYWORDS="~arm ~arm64"
 IUSE="-systemd"
 
 DEPEND="${PYTHON_DEPS}
-	>=xfce-base/xfce4-meta-4.12
+	x11-apps/xhost
 "
 
 RDEPEND="${DEPEND}
