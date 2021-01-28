@@ -67,17 +67,17 @@ pikernel-build_src_configure() {
 	pikernel-build_get_targets
 	restore_config "${configs[@]}"
 	local merge_configs=(
-	    "${WORKDIR}/gentoo-kernel-config-${GENTOO_CONFIG_VER}"/base.config
+		"${WORKDIR}/gentoo-kernel-config-${GENTOO_CONFIG_VER}"/base.config
 	)
 	use debug || merge_configs+=(
-	    "${WORKDIR}/gentoo-kernel-config-${GENTOO_CONFIG_VER}"/no-debug.config
+		"${WORKDIR}/gentoo-kernel-config-${GENTOO_CONFIG_VER}"/no-debug.config
 	)
 
 	for n in "${targets[@]}"
 	do
-	    [[ -f $n/.config ]] || 	emake O="${WORKDIR}/${n}" ARCH=arm64 CROSS_COMPILE=aarch64-unknown-linux-gnu- "${n}_defconfig"
-	    internal_src_configure aarch64-unknown-linux-gnu $n
-	    ebegin "Selecting Kernel Config"
+		[[ -f $n/.config ]] || 	emake O="${WORKDIR}/${n}" ARCH=arm64 CROSS_COMPILE=aarch64-unknown-linux-gnu- "${n}_defconfig"
+		internal_src_configure aarch64-unknown-linux-gnu $n
+		ebegin "Selecting Kernel Config"
 
 	done
 	pikernel-build_merge_configs "${merge_configs[@]}"
@@ -179,10 +179,10 @@ pikernel-build_src_install() {
 		ebegin "Installing ${n}"
 		if [ "${n}" == "bcmrpi3" ]; then
 			KERNEL=kernel8
-			KERNEL_SUFFIX=-v8
+			export KERNEL_SUFFIX=-v8
 		else
 			KERNEL=kernel8-pi4
-			KERNEL_SUFFIX=-v8-pi4
+			export KERNEL_SUFFIX=-v8-pi4
 		fi
 		insinto "/boot/"
 		doins "${n}"/arch/arm64/boot/dts/broadcom/*.dtb
@@ -226,36 +226,40 @@ pikernel-build_merge_configs() {
 	ebegin "Merging kernel configs"
 	for f in "${targets[@]}"
 	do
-	    if [ "${f}" == "bcmrpi3" ]; then
+		if [ "${f}" == "bcmrpi3" ]; then
 		KERNEL=kernel8
-		KERNEL_SUFFIX=-v8
-	    else
+		export KERNEL_SUFFIX=-v8
+		else
 		KERNEL=kernel8-pi4
-		KERNEL_SUFFIX=-v8-pi4
-	    fi
+		export KERNEL_SUFFIX=-v8-pi4
+		fi
 
-	    [[ -f "${WORKDIR}/${f}/.config" ]] || die "${FUNCNAME}: {$f}/.config does not exist"
-	    has .config "${@}" &&
+		[[ -f "${WORKDIR}/${f}/.config" ]] || die "${FUNCNAME}: {$f}/.config does not exist"
+		has .config "${@}" &&
 		die "${FUNCNAME}: do not specify .config as parameter"
-	    
-	    local shopt_save=$(shopt -p nullglob)
-	    shopt -s nullglob
-	    local user_configs=( "${BROOT}"/etc/kernel/config.d/*.config )
-	    shopt -u nullglob
-	    
-	    if [[ ${#user_configs[@]} -gt 0 ]]; then
+
+		local shopt_save=$(shopt -p nullglob)
+		shopt -s nullglob
+		local user_configs=( "${BROOT}"/etc/kernel/config.d/*.config )
+		shopt -u nullglob
+
+		if [[ ${#user_configs[@]} -gt 0 ]]; then
 		elog "User config files are being applied:"
 		local x
 		for x in "${user_configs[@]}"; do
-		    elog "- ${x}"
+			elog "- ${x}"
 		done
-	    fi
-	    
-	    cd "${WORKDIR}/${f}"
-	    
-	    ./source/scripts/kconfig/merge_config.sh -m -r \
-						     ".config" "${@}" "${user_configs[@]}" || die
-	    echo CONFIG_LOCALVERSION="$KERNEL_SUFFIX" | ./source/scripts/kconfig/merge_config.sh -m -r .config /dev/stdin
+		fi
+
+		cd "${WORKDIR}/${f}"
+
+		./source/scripts/kconfig/merge_config.sh -m -r \
+							 ".config" "${@}" "${user_configs[@]}" || die
+		if [ "${f}" == "bcmrpi3" ]; then
+				sed -i -E "s_CONFIG\_LOCALVERSION=.*\$_CONFIG\_LOCALVERSION=\"-v8\"_" .config
+		else
+				sed -i -E "s_CONFIG\_LOCALVERSION=.*\$_CONFIG\_LOCALVERSION=\"-v8-pi4\"_" .config
+		fi
 
 	done
 }
