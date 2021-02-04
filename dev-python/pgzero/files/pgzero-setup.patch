@@ -1,0 +1,11 @@
+--- a/setup.py	2020-11-20 01:22:43.445756482 +0300
++++ b/setup.py	2020-11-20 01:23:01.693566106 +0300
+@@ -8,7 +8,7 @@
+     LONG_DESCRIPTION = f.read()
+ 
+ install_requires = [
+-    'pygame>=1.9.2, <2.0',
++    'pygame>=1.9.2',
+     'numpy',
+ ]
+ 
