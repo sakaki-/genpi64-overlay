@@ -1,0 +1,2 @@
+>=app-crypt/gcr-3.38.0 gtk
+gnome-base/gvfs -gnome-keyring

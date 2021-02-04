@@ -6,7 +6,6 @@ Gentoo overlay (ebuild repository) for the Raspberry Pi 3 Model B and B+, and Ra
 
 > NB: this repository has been renamed, from `rpi3-overlay` to `genpi64-overlay`, to reflect its applicability to the new Pi4.
 
-
 ## <a id="list_of_ebuilds"></a>List of ebuilds
 
 The overlay provides the following ebuilds:

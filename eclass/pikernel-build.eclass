@@ -66,11 +66,23 @@ pikernel-build_src_configure() {
 	debug-print-function ${FUNCNAME} "${@}"
 	pikernel-build_get_targets
 	restore_config "${configs[@]}"
+	local merge_configs=(
+		"${WORKDIR}/gentoo-kernel-config-${GENTOO_CONFIG_VER}"/base.config
+	)
+	use debug || merge_configs+=(
+		"${WORKDIR}/gentoo-kernel-config-${GENTOO_CONFIG_VER}"/no-debug.config
+	)
+
 	for n in "${targets[@]}"
 	do
-	[[ -f $n/.config ]] || 	emake O="${WORKDIR}/${n}" ARCH=arm64 CROSS_COMPILE=aarch64-unknown-linux-gnu- "${n}_defconfig"
-	internal_src_configure aarch64-unknown-linux-gnu $n
+		[[ -f $n/.config ]] || 	emake O="${WORKDIR}/${n}" ARCH=arm64 CROSS_COMPILE=aarch64-unknown-linux-gnu- "${n}_defconfig"
+		internal_src_configure aarch64-unknown-linux-gnu $n
+		ebegin "Selecting Kernel Config"
+
 	done
+	pikernel-build_merge_configs "${merge_configs[@]}"
+
+
 
 }
 
@@ -166,9 +178,11 @@ pikernel-build_src_install() {
 	do
 		ebegin "Installing ${n}"
 		if [ "${n}" == "bcmrpi3" ]; then
-		KERNEL=kernel8
+			KERNEL=kernel8
+			export KERNEL_SUFFIX=-v8
 		else
-		KERNEL=kernel8-pi4
+			KERNEL=kernel8-pi4
+			export KERNEL_SUFFIX=-v8-pi4
 		fi
 		insinto "/boot/"
 		doins "${n}"/arch/arm64/boot/dts/broadcom/*.dtb
@@ -179,13 +193,17 @@ pikernel-build_src_install() {
 
 	done
 
-	insinto "/usr/src/linux-${ver}"
-	doins "${targets[0]}"/{System.map,Module.symvers}
+	for n in "${targets[@]}"
+	do
+
+
+		insinto "/usr/src/linux-${ver}-${KERNEL_SUFFIX}"
+		doins "${targets[0]}"/{System.map,Module.symvers}
 
 	# fix source tree and build dir symlinks
-	dosym ../../../usr/src/linux-${ver} /lib/modules/${ver}/build
-	dosym ../../../usr/src/linux-${ver} /lib/modules/${ver}/source
-
+		dosym ../../../usr/src/linux-${ver} /lib/modules/${ver}-${KERNEL_SUFFIX}/build
+		dosym ../../../usr/src/linux-${ver} /lib/modules/${ver}-${KERNEL_SUFFIX}/source
+	done
 	save_config "${configs[@]}"
 }
 
@@ -204,9 +222,18 @@ pikernel-build_pkg_postinst() {
 # configuration.
 pikernel-build_merge_configs() {
 	debug-print-function ${FUNCNAME} "${@}"
-	get_targets()
+	get_targets
+	ebegin "Merging kernel configs"
 	for f in "${targets[@]}"
 	do
+		if [ "${f}" == "bcmrpi3" ]; then
+		KERNEL=kernel8
+		export KERNEL_SUFFIX=-v8
+		else
+		KERNEL=kernel8-pi4
+		export KERNEL_SUFFIX=-v8-pi4
+		fi
+
 		[[ -f "${WORKDIR}/${f}/.config" ]] || die "${FUNCNAME}: {$f}/.config does not exist"
 		has .config "${@}" &&
 		die "${FUNCNAME}: do not specify .config as parameter"
@@ -224,8 +251,16 @@ pikernel-build_merge_configs() {
 		done
 		fi
 
-		./scripts/kconfig/merge_config.sh -m -r \
-						   "${WORKDIR}/${f}/.config" "${@}" "${user_configs[@]}" || die
+		cd "${WORKDIR}/${f}"
+
+		./source/scripts/kconfig/merge_config.sh -m -r \
+							 ".config" "${@}" "${user_configs[@]}" || die
+		if [ "${f}" == "bcmrpi3" ]; then
+				sed -i -E "s_CONFIG\_LOCALVERSION=.*\$_CONFIG\_LOCALVERSION=\"-v8\"_" .config
+		else
+				sed -i -E "s_CONFIG\_LOCALVERSION=.*\$_CONFIG\_LOCALVERSION=\"-v8-pi4\"_" .config
+		fi
+
 	done
 }
 

@@ -9,7 +9,7 @@ CXXFLAGS="${CFLAGS}"
 CHOST="aarch64-unknown-linux-gnu"
 
 # Additional USE flags in addition to those specified by the current profile.
-USE="bindist -X -gtk -qt -qt4 -gtk2 -gnome -kde"
+USE="bindist -sanitize -X -gtk -qt -qt4 -gtk2 -gnome -kde"
 
 # Only free software, please.
 ACCEPT_LICENSE="-* @FREE CC-Sampling-Plus-1.0 Broadcom linux-fw-redistributable no-source-code bluez-firmware rpi-eeprom raspberrypi-videocore-bin"
