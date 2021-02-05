@@ -1,2 +1,2 @@
 # required by gtk+ / gtk USE flag on certain packages (e.g. git)
-dev-lang/mujs * ~*
+dev-lang/mujs

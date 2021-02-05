@@ -4,5 +4,5 @@ dev-libs/libdbusmenu	* ~*
 net-libs/libetpan	* ~*
 dev-libs/libindicate	* ~*
 x11-themes/sound-theme-freedesktop	* ~*
-net-mail/ytnef  * ~*
+net-mail/ytnef
 
