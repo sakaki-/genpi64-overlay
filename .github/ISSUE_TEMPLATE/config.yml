@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Support via Discord
+    url: https://discord.gg/Eu5D2e5KJQ
+    about: Chat with users and devs on support related topics.
+  - name: General Gentoo ARM support via IRC
+    url: http://webchat.freenode.net/?channels=#gentoo-arm
+    about: Chat with users and devs on support related topics.
