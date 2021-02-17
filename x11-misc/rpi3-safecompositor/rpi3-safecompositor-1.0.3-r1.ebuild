@@ -19,7 +19,7 @@ S="${WORKDIR}"
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	>=media-libs/raspberrypi-userland-1.20170721-r1
+	media-libs/raspberrypi-userland
 	systemd?  ( >=sys-apps/systemd-242-r6 )
 	!systemd? ( >=sys-apps/openrc-0.41 )
 	>=app-shells/bash-4.0"
