@@ -191,18 +191,12 @@ pikernel-build_src_install() {
 		insinto "/boot/overlays"
 		doins "${n}"/arch/arm64/boot/dts/overlays/*.dtb*
 
-	done
-
-	for n in "${targets[@]}"
-	do
-
-
-		insinto "/usr/src/linux-${ver}-${KERNEL_SUFFIX}"
+		insinto "/usr/src/linux-${ver}${KERNEL_SUFFIX}"
 		doins "${targets[0]}"/{System.map,Module.symvers}
 
 	# fix source tree and build dir symlinks
-		dosym ../../../usr/src/linux-${ver} /lib/modules/${ver}-${KERNEL_SUFFIX}/build
-		dosym ../../../usr/src/linux-${ver} /lib/modules/${ver}-${KERNEL_SUFFIX}/source
+		dosym ../../../usr/src/linux-${ver} /lib/modules/${ver}${KERNEL_SUFFIX}/build
+		dosym ../../../usr/src/linux-${ver} /lib/modules/${ver}${KERNEL_SUFFIX}/source
 	done
 	save_config "${configs[@]}"
 }
