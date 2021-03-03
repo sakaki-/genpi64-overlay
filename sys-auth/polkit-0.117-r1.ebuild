@@ -139,4 +139,10 @@ src_install() {
 pkg_postinst() {
 	chmod 0700 "${EROOT}"/{etc,usr/share}/polkit-1/rules.d
 	chown polkitd "${EROOT}"/{etc,usr/share}/polkit-1/rules.d
+	if use duktape; then
+		ewarn "Current duktape implementation is unable to handle config files that do not"
+		ewarn "terminate, and can cause polkitd to lock up. If you are using custom polkit"
+		ewarn "rules files, it is recommended to disable duktape support, and use the"
+		ewarn "default spidermonkey engine."
+	fi
 }
