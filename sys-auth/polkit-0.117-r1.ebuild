@@ -1,5 +1,6 @@
 # Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
+# File retrieved 2021-03-02 from https://github.com/miramir/miramir-layman/ 
 
 EAPI=7
 
@@ -140,6 +141,7 @@ pkg_postinst() {
 	chmod 0700 "${EROOT}"/{etc,usr/share}/polkit-1/rules.d
 	chown polkitd "${EROOT}"/{etc,usr/share}/polkit-1/rules.d
 	if use duktape; then
+		# per conversation @ https://gitlab.freedesktop.org/polkit/polkit/-/merge_requests/35
 		ewarn "Current duktape implementation is unable to handle config files that do not"
 		ewarn "terminate, and can cause polkitd to lock up. If you are using custom polkit"
 		ewarn "rules files, it is recommended to disable duktape support, and use the"
