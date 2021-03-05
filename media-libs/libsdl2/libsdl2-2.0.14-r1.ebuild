@@ -115,6 +115,7 @@ multilib_src_configure() {
 
 	# libsdl2-2.0.14 build regression. Please check if still needed
 	append-flags -D__LINUX__
+	append-ldflags -lvchostif
 
 	if use ibus; then
 		local -x IBUS_CFLAGS="-I${ESYSROOT}/usr/include/ibus-1.0 -I${ESYSROOT}/usr/include/glib-2.0 -I${ESYSROOT}/usr/$(get_libdir)/glib-2.0/include"
