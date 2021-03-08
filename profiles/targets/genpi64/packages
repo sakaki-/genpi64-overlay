@@ -14,6 +14,7 @@ app-portage/flaggie
 net-fs/sshfs
 net-misc/telnet-bsd
 net-misc/chrony
+net-misc/dhcpcd
 sys-block/parted
 sys-devel/distcc
 sys-fs/dosfstools
