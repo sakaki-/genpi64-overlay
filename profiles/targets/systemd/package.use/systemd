@@ -1,0 +1,4 @@
+# To enable first time boot partition resizing
+sys-apps/systemd repart
+# To enable systemd to load kernel modules as needed.
+sys-apps/systemd kmod

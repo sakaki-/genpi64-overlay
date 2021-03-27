@@ -1,3 +1,4 @@
 gentoo:default/linux/arm64/17.0
 genpi64:targets/genpi64
 gentoo:targets/systemd
+genpi64:targets/systemd
