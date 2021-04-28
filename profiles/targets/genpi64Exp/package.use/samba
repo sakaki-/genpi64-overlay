@@ -1,0 +1,8 @@
+# ensure we can be a client too
+net-fs/samba client
+# allow network discovery
+>=net-fs/samba-4.12.4 zeroconf
+# required by net-fs/samba
+sys-libs/tevent python
+sys-libs/tdb python
+

@@ -1,0 +1,5 @@
+# perform native LLVM build only, for efficiency
+# (credit: NeddySeagoon)
+>=dev-lang/rust-1.19.0-r1	nativeonly
+# for more modern rusts, turn on wasm codegen
+>=dev-lang/rust-1.31.1          wasm

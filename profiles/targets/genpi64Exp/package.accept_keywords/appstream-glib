@@ -1,0 +1,4 @@
+dev-libs/appstream-glib	*
+# dependencies of appstream-glib
+dev-util/appdata-tools	*
+

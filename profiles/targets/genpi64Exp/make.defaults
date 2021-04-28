@@ -1,0 +1,53 @@
+# Common build settings for Raspberry Pi 3 and Pi 4, in 64-bit mode
+
+# Target Cortex-A72 (Pi 4 SoC); code will still run on Pi 3 (A53)
+CFLAGS="-march=armv8-a+crc -mtune=cortex-a72 -ftree-vectorize -O2 -pipe"
+CXXFLAGS="${CFLAGS}"
+
+# WARNING: Changing your CHOST is not something that should be done lightly.
+# Please consult https://wiki.gentoo.org/wiki/Changing_the_CHOST_variable before changing.
+CHOST="aarch64-unknown-linux-gnu"
+
+# Additional USE flags in addition to those specified by the current profile.
+USE="bindist -sanitize -X -gtk -qt -qt4 -gtk2 -gnome -kde"
+
+# Only free software, please.
+ACCEPT_LICENSE="-* @FREE CC-Sampling-Plus-1.0 Broadcom linux-fw-redistributable no-source-code bluez-firmware rpi-eeprom raspberrypi-videocore-bin"
+
+# Use the 'testing' branch - otherwise we'll have to keyword everything
+#ACCEPT_KEYWORDS="~arm64"
+
+# Turn on logging - see http://gentoo-en.vfose.ru/wiki/Gentoo_maintenance.
+# PORTAGE_ELOG_CLASSES="info warn error log qa"
+# PORTAGE_ELOG_SYSTEM="save"
+# Logs go to /var/log/portage/elog by default - view them with elogviewer.
+
+# Drop root privs when fetching
+# Allow QEMU-user chroot build with modern Portage
+# See e.g. https://forums.gentoo.org/viewtopic-p-8302518.html#8302518
+FEATURES="userfetch -pid-sandbox"
+
+# This sets the language of build output to English.
+# Please keep this setting intact when reporting bugs.
+LC_MESSAGES=C
+
+# Default build targets for QEMU; override if desired.
+QEMU_SOFTMMU_TARGETS="aarch64 arm i386 x86_64"
+QEMU_USER_TARGETS="aarch64"
+
+# English L10N (for libreoffice spellcheck etc.)
+# Override if desired
+L10N="en en-US"
+
+# for upgrade stability only (see news item)
+# will be deleted shortly
+PYTHON_TARGETS="python3_8 python3_9"
+
+# conservative build parallelism, to avoid hitting swap
+# override locally if desired
+MAKEOPTS="-j1 -l1"
+EMERGE_DEFAULT_OPTS="--jobs=1 --load-average=1"
+
+# required for modern rust etc.
+LLVM_TARGETS="WebAssembly "
+

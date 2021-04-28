@@ -1,0 +1,2 @@
+# enable gold linker, neccessary to build e.g. firefox
+>=sys-devel/llvm-7.0.0 gold

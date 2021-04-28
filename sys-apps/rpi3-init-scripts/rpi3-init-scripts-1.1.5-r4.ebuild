@@ -20,15 +20,16 @@ S="${WORKDIR}"
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	X? ( >=x11-apps/xdm-1.1.11-r3 )
-	systemd?  ( >=sys-apps/systemd-242-r6 )
-	!systemd? ( >=sys-apps/openrc-0.41 )
-	>=app-shells/bash-4.0"
+	X? ( >=x11-apps/xdm-1.1.12 )
+	systemd?  ( >=sys-apps/systemd-246.6 )
+	!systemd? ( >=sys-apps/openrc-0.42.1-r1 )
+	>=app-shells/bash-5.1_p4"
 
 src_install() {
 	newinitd "${FILESDIR}/init.d_autoexpand_root-4" "${AR_SVCNAME}"
 	insinto "/usr/share/X11/xorg.conf.d"
 	newins "${FILESDIR}/50-disable-Xv.conf-1" "50-disable-Xv.conf"
+	insinto "/etc/NetworkManager/conf.d"
 	newins "${FILESDIR}/50-hostname-mode-none.conf-1" "50-hostname-mode-none.conf"
 	insinto "/etc/sysctl.d"
 	newins "${FILESDIR}/35-low-memory-cache-settings.conf-1" "35-low-memory-cache-settings.conf"

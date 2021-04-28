@@ -1,0 +1,2 @@
+# need for hciattach
+>=net-wireless/bluez-5.45 deprecated

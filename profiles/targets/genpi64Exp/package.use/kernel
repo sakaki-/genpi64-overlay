@@ -1,0 +1,1 @@
+sys-kernel/raspberrypi-kernel bcm2711 bcmrpi3 -initramfs

@@ -60,4 +60,3 @@ pkg_postinst() {
 		ewarn "you are on your own to get things working ><"
 	fi
 }
-

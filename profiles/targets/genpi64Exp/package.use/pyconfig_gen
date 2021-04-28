@@ -1,0 +1,2 @@
+# requirements of pyconfig_gen
+>=dev-qt/qtmultimedia-5.14.1 widgets

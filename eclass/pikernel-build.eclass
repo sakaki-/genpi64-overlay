@@ -44,6 +44,8 @@ BDEPEND="
 IUSE="bcmrpi bcm2709 bcmrpi3 +bcm2711 -initramfs"
 REQUIRED_USE="|| ( bcmrpi bcm2709 bcmrpi3 bcm2711 )"
 
+SLOT="0"
+
 pikernel-build_get_targets() {
 	targets=()
 	configs=()

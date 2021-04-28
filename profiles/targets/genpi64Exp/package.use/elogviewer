@@ -1,0 +1,2 @@
+# requirements of app-portage/elogviewer
+dev-libs/libpcre pcre16

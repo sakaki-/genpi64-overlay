@@ -1,0 +1,5 @@
+# ensure the (often) more efficient @world updater emtee is used
+>=app-portage/genup-1.0.20 emtee
+# turn on nocache to prevent rsync causing overswapping
+>=app-portage/genup-1.0.21 nocache
+

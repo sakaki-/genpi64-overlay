@@ -1,0 +1,3 @@
+dev-libs/libffi static-libs
+sys-fs/btrfs-progs static-libs
+sys-apps/util-linux static-libs
