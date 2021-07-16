@@ -175,11 +175,6 @@ Instead of a meta package, select the profile and sets you want.
 * **sys-kernel/linux-firmware** [upstream](https://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git)
   * Provides a large collection of redistributable Linux firmware files. The version in this overlay supports the `43455-fix` USE flag, which when set does _not_ install the file `/lib/firmware/brcm/brcmfmac43455-sdio.bin` (allowing a more modern version to be supplied by `sys-firmware/brcm43430-firmware`; see above).
 
-
-* **www-client/chromium** [upstream](http://chromium.org/)
-  * Provides a number of versions of the open-source browser `chromium`, capable of being built in a `bindist` compatible manner (by suppressing all software-based `h264` codec inclusions). Also forces the use of `clang` as the compiler.
-
-
 * **x11-misc/arandr** [upstream](https://christian.amsuess.com/tools/arandr/)
   * Provides a slightly patched version of the `arandr` screen configuration GUI, which automatically applies setup files saved as `~/.screenlayout/default.sh` upon login (incidentally, this autoload can be suppressed by holding down <kbd>Ctrl</kbd> during boot).
 
