@@ -49,13 +49,6 @@ Instead of a meta package, select the profile and sets you want.
 * **app-portage/weekly-genup**
   * Installs a simple cron.weekly script, to automate `genup`, and another, to run 'fixups' (small scripts to correct issues that may e.g. prevent correct `genup` operation, effect upstream file hierarchy migrations etc.).
 
-* **dev-embedded/pitop-speaker**<a id="ptspeaker"></a> [upstream](https://github.com/pi-top/pi-topSPEAKER)
-  * Provides the `ptspeaker` Python 3 package and accompanying OpenRC service, to initialize pitopSPEAKER add-on-boards. The init has been adapted from the original Debian package and does _not_ use `pt-peripherals-daemon`. Only installed on the image when the `pitop` USE flag is set on `rpi-64bit-meta`.
-
-* **dev-embedded/pitop-utils**<a id="ptbrightness"></a> [upstream](https://github.com/rricharz/pi-top-install)
-  **Dead dependencies upstream, removed**
-  * Provides the `pt-poweroff` and `pt-brightness` `sbin` utilities for the Pi-Top. Only installed on the image when the `pitop` USE flag is set on `rpi-64bit-meta`.
-
 * **dev-embedded/rpi4-eeprom-images** [upstream](http://archive.raspberrypi.org/debian/pool/main/r/rpi-eeprom/)
   * Provides a set of EEPROM images for use by `rpi4-eeprom-updater` (see below). A weekly build-server process automatically creates new ebuilds for this package, whenever upstream releases a new EEPROM deb. For further details, please see [this post](https://www.raspberrypi.org/forums/viewtopic.php?p=1557653#p1557653).
 
@@ -64,13 +57,7 @@ Instead of a meta package, select the profile and sets you want.
 
 * **dev-lang/pony** [upstream](http://www.ponylang.org/)
   * Provides a few ebuilds for the `pony` language. Not installed on the image. Please see [this post, *ff.*](https://www.raspberrypi.org/forums/viewtopic.php?p=1414960#p1414960) for more background.
-
-* **dev-lang/python** [upstream](https:/www.python.org)
-  **Too expensive to maintain**
-  * pypy3 provides similar speedup for portage
-  * Provides builds of the `python` language interpreter (for slots 3.6 and 3.7) that have profile guided optimisation (`pgo`) turned on, as this can yield a significant performance improvement (see e.g. [these notes](https://www.raspberrypi.org/forums/viewtopic.php?p=1528347#p1528347)).
-
-
+  
 * **dev-libs/pigpio** [upstream](http://abyz.me.uk/rpi/pigpio/index.html)
   * Provides a library, daemon (`pigpiod`), `python` bindings and CLI client (`pigs`), allowing control of the GPIOs on the RPi 3 and 4. A useful replacement for `wiringpi`, the version included here includes the necessary patches to work on an `arm64` system, and sets up the server to run, by default, on IPv4 `127.0.0.1`, port `8888` only.
 
@@ -85,25 +72,9 @@ Instead of a meta package, select the profile and sets you want.
 
 * **media-libs/libsdl2** [upstream](http://www.libsdl.org)
   * Provides a modified ebuild (`libsdl-2.0.10-r1`) patched to build correctly under `arm64`. Will be replaced by a main-tree variant on the image once one becomes available.
-
-* **media-libs/mesa** [upstream](https://mesa.freedesktop.org)
-  * Provides a number of lightly-patched ebuilds for this OpenGL-like graphic library, which ensure that the `v3d` drivers are also built (for the RPi4) whenever `vc4` is present in [VIDEO_CARDS](https://wiki.gentoo.org/wiki//etc/portage/make.conf#VIDEO_CARDS).
-
-* **media-libs/raspberrypi-userland** [upstream](https://github.com/raspberrypi/userland)
-  * Provides (restricted) 64-bit builds (`-DARM64=ON`) of `raspberrypi-userland`, for`vcgencmd` etc. Now also (>=1.20191025-r1) includes 6by9's provisional patchset for 64-bit userspace MMAL (so, e.g. `raspivid` and `raspistill` can be used). The ebuild needs tidying, so please use with care ><
-
-* **media-sound/pulseaudio** [upstream](https://www.freedesktop.org/wiki/Software/PulseAudio/)
-  * Provides a number of ebuilds for `pulseaudio` supporting the extra `rpi-deglitch` USE flag; this sets `tsched=0` by default, as a [workaround](https://forum.manjaro.org/t/manjaro-arm-19-08-released/99031/72) for choppy audio under certain 64-bit kernels.
-
-* **media-video/ffmpeg** [upstream](https://ffmpeg.org/)
-  * Provides a version of `ffmpeg` that has been patched to allow leverage of the RPi3/4's hardware video codecs, via V4L2 M2M, and also (>=4.2.1-r3) can use MMAL from a 64-bit userspace.
-
+  
 * **net-libs/nghttp2** [upstream](https://nghttp2.org/)
   * Provides  version of `nghttp2` that can work under `bindist`, by using the EC-patched `dev-libs/openssl` libraries (see above). Still in use on the image (as the main tree version unnecessarily forces `-bindist`).
-
-* **net-libs/nodejs** [upstream](https://nodejs.org/)
-  * Provides  version of `nodejs` that can work under `bindist`, by using the EC-patched `dev-libs/openssl` libraries (see above). Still in use on the image (for the same reason as `net-libs/nghttp2`).
-
 
 * **net-misc/rpi3-ethfix**
   * Effects some simple Ethernet workarounds (using `ethtool`) for the RPi3B+. It has no effect on the RPi3B or RPi4B.
@@ -113,15 +84,11 @@ Instead of a meta package, select the profile and sets you want.
 
 * **net-misc/xrdp** [upstream](http://www.xrdp.org/)
   * Provides `xrdp-0.9.8.ebuild` for this open source Remote Desktop Protocol server. Supplied on the image with `xorgxrdp` above.
-
-
+  
 * **net-wireless/rpi3-bluetooth** [upstream](https://aur.archlinux.org/packages/pi-bluetooth/)
   * Provides a startup service and `udev` rule for the RPi3/4's integrated Bluetooth transceiver. Adapted from the [`pi-bluetooth`](https://aur.archlinux.org/packages/pi-bluetooth/) package from ArchLinux.
 
 * **net-wireless/rpi3-wifi-regdom** Provides a simple service to set the WiFi regulatory domain; the value set may be modified by editing the file `/etc/conf.d/rpi3-wifi-regdom`.
-
-* **sys-apps/openrc** [upstream](https://github.com/openrc/openrc/)
-  * Provided lightly modified ebuilds for this, Gentoo's native init system, supporting the additional `swclock-fix` USE flag. This flag (set on the image) patches the startup code to attempt to overcome annoying clock-skew messages that can occur at boot (the `swclock` service is used on systems like the RPi, which has no RTC). Please see [these notes](https://gitlab.alpinelinux.org/alpine/aports/issues/8093) for some further background.
 
 * **sys-apps/pyconfig_gen** [upstream](https://github.com/GenPi64/pyconfig_gen)
   * Provides a simple, PyQt5 dialog-based app, to allow the `/boot/config.txt` file to be edited in a structured manner, together with some support services (to revert the new config automatically, unless ratified upon reboot).
@@ -155,8 +122,7 @@ Instead of a meta package, select the profile and sets you want.
 
 * **sys-apps/rpi3-spidev**
   * Provides a `udev` rule for SPI access on the RPi3; ensures that the `/dev/spidevN.M` devices are read/write for all members of the `wheel` group, not just `root`. Originally installed by the `pitop` USE flag on `rpi-64bit-meta`, it has since been superseded by `rpi-spi`, above.
-
-
+  
 * **sys-boot/rpi3-64bit-firmware** [upstream](https://github.com/raspberrypi/firmware)
   * Provides the firmware and config files required in `/boot` to boot the RPi3/4 in 64-bit mode. Does not provide the kernel or DTBs (see `sys-kernel/bcmrpi3-kernel<-bis>-bin`, above, for that). A weekly check is made to see if a new tag has been added to the official [`raspberrypi/firmware/boot`](https://github.com/raspberrypi/firmware/tree/master/boot) upstream, and, if so, a matching ebuild is automatically created here. With the `dtbo` USE flag off (as forced [by the profile](https://github.com/GenPi64/genpi64-overlay/blob/master/profiles/targets/rpi3/package.use/rpi3-64bit-firmware), currently), does _not_ provide or populate the `/boot/overlays` directory - this then being the responsibility of the binary kernel package.
 
