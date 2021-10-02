@@ -5,7 +5,7 @@
 EAPI=6
 inherit git-r3
 
-KEYWORDS="~arm ~arm64"
+KEYWORDS="~arm arm64"
 
 DESCRIPTION="Firmware for integrated bluetooth on the Raspberry Pi 3"
 HOMEPAGE="https://aur.archlinux.org/packages/pi-bluetooth/"

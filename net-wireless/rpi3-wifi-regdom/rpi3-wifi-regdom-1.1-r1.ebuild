@@ -4,7 +4,7 @@
 
 EAPI=6
 
-KEYWORDS="~arm ~arm64"
+KEYWORDS="~arm arm64"
 
 DESCRIPTION="Service to setup WiFi regulatory domain on RPi3"
 HOMEPAGE="https://github.com/GenPi64/gentoo-on-rpi3-64bit"
