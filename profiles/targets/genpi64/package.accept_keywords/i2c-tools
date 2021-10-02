@@ -1,0 +1,2 @@
+# https://bugs.gentoo.org/815802
+sys-apps/i2c-tools ~arm64
