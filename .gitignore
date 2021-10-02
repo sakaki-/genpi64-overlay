@@ -3,3 +3,4 @@
 *.sig
 *.asc
 .\#*
+.idea
