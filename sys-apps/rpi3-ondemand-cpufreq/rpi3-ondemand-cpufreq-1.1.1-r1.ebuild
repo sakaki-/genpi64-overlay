@@ -4,7 +4,7 @@
 
 EAPI=6
 
-KEYWORDS="~arm ~arm64"
+KEYWORDS="~arm arm64"
 
 DESCRIPTION="Startup script to enable on-demand CPU frequency scaling on RPi3"
 HOMEPAGE="https://github.com/GenPi64/gentoo-on-rpi3-64bit"
