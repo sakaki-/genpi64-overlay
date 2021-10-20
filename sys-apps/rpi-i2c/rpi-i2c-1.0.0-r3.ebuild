@@ -4,7 +4,7 @@
 
 EAPI=6
 
-KEYWORDS="~arm ~arm64"
+KEYWORDS="~arm arm64"
 
 DESCRIPTION="Service and udev rule to allow i2c group RPi I2C access"
 HOMEPAGE="https://github.com/GenPi64/gentoo-on-rpi-64bit"
