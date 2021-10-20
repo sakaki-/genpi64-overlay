@@ -4,7 +4,7 @@
 
 EAPI=5
 
-KEYWORDS="~arm64"
+KEYWORDS="~arm arm64"
 
 DESCRIPTION="Misc init scripts for the gentoo-on-rpi3-64bit image"
 HOMEPAGE="https://github.com/GenPi64/gentoo-on-rpi3-64bit"
