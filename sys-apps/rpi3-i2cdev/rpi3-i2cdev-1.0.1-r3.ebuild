@@ -4,7 +4,7 @@
 
 EAPI=6
 
-KEYWORDS="~arm ~arm64"
+KEYWORDS="~arm arm64"
 
 DESCRIPTION="Service and udev rule for I2C device access on the Raspberry Pi 3"
 HOMEPAGE="https://github.com/GenPi64/gentoo-on-rpi3-64bit"
