@@ -4,7 +4,7 @@
 
 EAPI=6
 
-KEYWORDS="~arm ~arm64"
+KEYWORDS="~arm arm64"
 
 DESCRIPTION="udev rules to allow gpio group RPi GPIO access"
 HOMEPAGE="https://github.com/GenPi64/gentoo-on-rpi-64bit"
