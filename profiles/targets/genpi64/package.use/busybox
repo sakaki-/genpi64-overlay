@@ -1,2 +1,2 @@
 # Busybox must be statically linked in order to be used for the initramfs, and that requires pam be disabled for busybox.
-sys-apps/busybox -pam
+sys-apps/busybox -pam static
