@@ -11,10 +11,10 @@ SLOT="0"
 IUSE="-systemd"
 RESTRICT="mirror"
 
-EGIT_REPO_URI="https://aur.archlinux.org/pi-bluetooth.git"
+# Had to use our own due to missing file in upstreams version.
+EGIT_REPO_URI="https://github.com/GenPi64/pi-bluetooth.git"
 EGIT_BRANCH="master"
-# following is commit for release 1.2_3 of the archlinux pi-bluetooth package
-EGIT_COMMIT="039cc1628501980885d4b6a0d4bd2dcab120096d"
+EGIT_COMMIT="ff81b04b1b22235eea304268ef60653aa7922afd"
 
 DEPEND=""
 RDEPEND="
