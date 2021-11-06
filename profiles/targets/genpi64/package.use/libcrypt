@@ -1,2 +1,4 @@
 # Need statically linked busybox to support initramfs, which requires statically linked libcrypt
 virtual/libcrypt static-libs
+# Need static-libs on libxcrypt too as it's a dependency of the one above
+sys-libs/libxcrypt static-libs
