@@ -203,9 +203,13 @@ pikernel-build_src_install() {
 	save_config "${configs[@]}"
 }
 
+# Override function from kernel-install eclass to skip checking of kernel.release file(s).
+pikernel-build_pkg_preinst() {
+	debug-print-function ${FUNCNAME} "${@}"
+}
+
 pikernel-build_pkg_postinst() {
 	debug-print-function ${FUNCNAME} "${@}"
-
 }
 
 # @FUNCTION: kernel-build_merge_configs
