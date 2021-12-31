@@ -1,0 +1,12 @@
+[Unit]
+Description=Run GenPi64 startup script to auto expand root partition
+ConditionFirstBoot=yes
+ConditionPathExists=!/boot/dont_autoexpand_root
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/boot/autoexpand_root.sh
+
+[Install]
+WantedBy=multi-user.target

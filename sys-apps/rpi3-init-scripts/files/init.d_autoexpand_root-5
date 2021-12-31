@@ -1,0 +1,23 @@
+#!/sbin/openrc-run
+#
+# Automatically attempt to extend root partition to fill remaining free space on the device
+#
+# Checks for a sentinel file "dont_autoexpand_root" on /boot
+# and will proceed only if not found.
+#
+# Copyright (c) 2017 sakaki <sakaki@deciban.com>
+# License: GPL v2 or GPL 3.0+
+# NO WARRANTY
+
+description="Auto-expands root partition (for GenPi64)"
+
+depend() {
+	need localmount
+	after modules sysctl root
+}
+
+start() {
+	ebegin "Starting ${SVCNAME}"
+	/boot/autoexpand_root.sh
+	eend $?
+}
