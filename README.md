@@ -64,12 +64,6 @@ Instead of a meta package, select the profile and sets you want.
 * **dev-php/pthreads** [upstream](https://github.com/krakjoe/phthreads/)
   * Provides `pthreads-3.2.0`, a threading extension for `php`. Not required on the image, but used by some other packages, such as `minecraft` (see [this thread](https://www.raspberrypi.org/forums/viewtopic.php?p=1418762#p1418762) for further details).
 
-* **mail-client/thunderbird** [upstream](https://www.mozilla.org/thunderbird)
-  * Provides a number of ebuilds for this popular email client, in which attempts to use the `--disable-elf-hack` configuration option under the `clang` compiler are suppressed on `arm64` (as this breaks the build otherwise).
-
-* **media-libs/gst-plugins-base** [upstream](https://gstreamer.freedesktop.org)
-  * Provides a modified ebuild (`gst-plugins-base-1.14.5-r1`) patched to build correctly under `arm64` (prevents detection of the RPi platform, as not all interfaces are yet available within a 64-bit userland). Will be replaced by a main-tree variant on the image once one becomes available.
-
 * **media-libs/libsdl2** [upstream](http://www.libsdl.org)
   * Provides a modified ebuild (`libsdl-2.0.10-r1`) patched to build correctly under `arm64`. Will be replaced by a main-tree variant on the image once one becomes available.
   
