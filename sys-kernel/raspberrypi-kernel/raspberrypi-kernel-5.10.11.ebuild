@@ -42,7 +42,7 @@ SRC_URI+=" https://github.com/raspberrypi/linux/archive/raspberrypi-kernel_1.202
 S=${WORKDIR}/${MY_P}
 
 LICENSE="GPL-2"
-KEYWORDS="~amd64 ~arm ~arm64 ~ppc64 ~x86"
+KEYWORDS="~amd64 ~arm arm64 ~ppc64 ~x86"
 
 RDEPEND="
 	!sys-kernel/vanilla-kernel:${SLOT}
@@ -55,5 +55,10 @@ src_prepare() {
 	"${WORKDIR}"/{15,2,4}*.patch
     )
     default
+}
+
+# Override function from kernel-install eclass to skip checking of kernel.release file(s).
+pkg_preinst() {
+	debug-print-function ${FUNCNAME} "${@}"
 }
 
