@@ -1,4 +1,0 @@
-mail-client/mailx       * ~*
-# required by mail-client/mailx
-mail-client/mailx-support       * ~*
-

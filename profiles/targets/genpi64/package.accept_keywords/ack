@@ -1,3 +1,0 @@
-sys-apps/ack	* ~*
-# dependencies of sys-apps/ack
-dev-perl/File-Next	* ~*

@@ -1,5 +1,0 @@
-virtual/emacs	* ~*
-# dependencies of virtual/emacs
-app-editors/emacs	* ~*
-app-eselect/eselect-emacs	* ~*
-app-emacs/emacs-common-gentoo	* ~*
