@@ -15,7 +15,7 @@ RESTRICT="mirror"
 
 SLOT="0"
 LICENSE="GPL-3+"
-KEYWORDS="~arm ~arm64"
+KEYWORDS="~arm arm64"
 IUSE="-systemd"
 
 DEPEND="${PYTHON_DEPS}
