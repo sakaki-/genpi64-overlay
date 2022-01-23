@@ -4,7 +4,7 @@
 
 EAPI=6
 
-KEYWORDS="~arm64"
+KEYWORDS="arm64"
 
 DESCRIPTION="Force software cursor blitting when overscan enabled on RPi3"
 HOMEPAGE="https://github.com/GenPi64/gentoo-on-rpi3-64bit"
