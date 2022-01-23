@@ -4,7 +4,7 @@
 
 EAPI=6
 
-KEYWORDS="~arm64"
+KEYWORDS="arm64"
 
 DESCRIPTION="Turn off display compositing for high RPi3 pixel clock values"
 HOMEPAGE="https://github.com/GenPi64/gentoo-on-rpi3-64bit"
