@@ -1,1 +1,4 @@
 sys-block/zram-init
+net-dns/bind-tools
+net-analyzer/mtr
+net-misc/iperf
