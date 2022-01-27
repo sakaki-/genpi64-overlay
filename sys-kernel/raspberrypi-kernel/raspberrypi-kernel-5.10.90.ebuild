@@ -7,7 +7,7 @@ inherit pikernel-build
 
 PV=${PV}
 
-MY_P=linux-raspberrypi-kernel_1.20220120
+MY_P=linux-1.20220120
 GENPATCHES_P=genpatches-${PV%.*}-$(( ${PV##*.} + 7 ))
 # https://koji.fedoraproject.org/koji/packageinfo?packageID=8
 CONFIG_VER=5.10.12
@@ -18,8 +18,8 @@ IUSE+=" debug "
 
 DESCRIPTION="Raspberry Pi Foundation Linux kernel built with Gentoo patches"
 HOMEPAGE="https://www.kernel.org/ https://github.com/raspberrypi/linux"
-SRC_URI+=" https://github.com/raspberrypi/linux/archive/refs/tags/1.20220120.tar.gz
-               -> 1.20220120.tar.gz
+SRC_URI+=" https://codeload.github.com/raspberrypi/linux/legacy.tar.gz/refs/tags/1.20220120
+               -> raspberrypi-kernel-1.20220120.tar.gz
 	https://dev.gentoo.org/~mpagano/dist/genpatches/${GENPATCHES_P}.base.tar.xz
 	https://dev.gentoo.org/~mpagano/dist/genpatches/${GENPATCHES_P}.extras.tar.xz
 	https://github.com/mgorny/gentoo-kernel-config/archive/v${GENTOO_CONFIG_VER}.tar.gz
