@@ -41,15 +41,16 @@ install_micropackages() {
     popd
     popd
 
-src_unpack() {
-	default
-	git clone https://github.com/micropython/micropython-lib
-	mkdir -p initramfs/lib
-	mkdir -p initramfs/usr/lib/micropython
-	mkdir "raspberrypi-initramfs-${PV}"
 }
 
+
+
+src_unpack() {
 	default
+	git clone https://github.com/micropython/micropython-lib || die
+	mkdir -p initramfs/lib || die
+	mkdir -p initramfs/usr/lib/micropython || die 
+	mkdir "raspberrypi-initramfs-${PV}" || die
 }
 
 src_compile() {
@@ -58,32 +59,32 @@ src_compile() {
 	popd
 	pushd ../initramfs
 	mkdir bin
-	cp /bin/busybox bin
-	cp /sbin/btrfs bin
-	cp /sbin/btrfstune bin
-	cp /usr/bin/micropython bin
-	cp /sbin/blkid bin
-	cp /sbin/findfs bin
+	cp /bin/busybox bin || die
+	cp /sbin/btrfs bin || die
+	cp /sbin/btrfstune bin || die
+	cp /usr/bin/micropython bin || die
+	cp /sbin/blkid bin || die
+	cp /sbin/findfs bin || die
 
-	cp /lib64/ld-linux-aarch64.so.1 lib
-	cp /lib64/libc.so.6 lib
-	cp /lib64/libm.so.6 lib
-	cp /lib64/libdl.so.2 lib
-	cp /usr/lib64/libffi.so.7 lib
-	cp /lib64/libuuid.so.1 lib
-	cp /lib64/libblkid.so.1 lib
-	cp /lib64/libmount.so.1 lib
-	cp /lib64/libz.so.1 lib
-	cp /lib64/liblzo2.so.2 lib
-	cp /usr/lib64/libzstd.so.1 lib
-	cp /lib64/libpthread.so.0 lib
-	cp /lib64/libpcre.so.1 lib
+	cp /lib64/ld-linux-aarch64.so.1 lib || die
+	cp /lib64/libc.so.6 lib || die
+	cp /lib64/libm.so.6 lib || die
+	cp /lib64/libdl.so.2 lib || die
+	cp /usr/lib64/libffi.so.7 lib || die
+	cp /lib64/libuuid.so.1 lib || die
+	cp /lib64/libblkid.so.1 lib || die
+	cp /lib64/libmount.so.1 lib || die
+	cp /lib64/libz.so.1 lib || die
+	cp /lib64/liblzo2.so.2 lib || die
+	cp /usr/lib64/libzstd.so.1 lib || die
+	cp /lib64/libpthread.so.0 lib || die
+	cp /lib64/libpcre.so.1 lib || die
 
-	cp -r ${WORKDIR}/PiInitramfs-${PV}/{LICENSE.txt,init,bin} .
-	cp -r ${WORKDIR}/PiInitramfs-${PV}/lib/python/* usr/lib/micropython/
+	cp -r ${WORKDIR}/PiInitramfs-${PV}/{LICENSE.txt,init,bin} . || die
+	cp -r ${WORKDIR}/PiInitramfs-${PV}/lib/python/* usr/lib/micropython/ || die
 
-	mkdir -p {bin,dev,etc,lib,newroot,proc,sys}
-	touch {bin,dev,etc,lib,newroot,proc,sys}/.keep
+	mkdir -p {bin,dev,etc,lib,newroot,proc,sys} || die
+	touch {bin,dev,etc,lib,newroot,proc,sys}/.keep || die
 
 	popd
 
