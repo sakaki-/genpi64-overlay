@@ -32,13 +32,15 @@ install_one_micropackage() {
 install_micropackages() {
     INSTALLCMD="find . -maxdepth 1 -mindepth 1 \( -name '*.py' -not -name 'test_*' -not -name 'setup.py' -not -name 'example_*' \) -or \( -type d -not -name 'dist' -not -name '*.egg-info' -not -name '__pycache__' \)| xargs --no-run-if-empty cp -r -t ${WORKDIR}/initramfs/usr/lib/micropython"
     pushd ../micropython-lib
-    pushd unix-ffi
-    install_one_micropackage
-    popd
 
     pushd python-stdlib
     install_one_micropackage
     popd
+
+    pushd unix-ffi
+    install_one_micropackage
+    popd
+    
     popd
 
 }
