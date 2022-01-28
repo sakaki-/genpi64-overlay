@@ -21,6 +21,25 @@ BDEPEND="dev-lang/micropython
 		 sys-apps/busybox[static]
 		 sys-fs/btrfs-progs[static-libs]"
 
+install_one_micropackage() {
+    for d in $(find -maxdepth 1 -type d ! -name ".*"); do
+	echo $d;
+	$(cd $d; sh -c "${INSTALLCMD}");
+    done
+}
+
+
+install_micropackages() {
+    INSTALLCMD="find . -maxdepth 1 -mindepth 1 \( -name '*.py' -not -name 'test_*' -not -name 'setup.py' -not -name 'example_*' \) -or \( -type d -not -name 'dist' -not -name '*.egg-info' -not -name '__pycache__' \)| xargs --no-run-if-empty cp -r -t ${WORKDIR}/initramfs/usr/lib/micropython"
+    pushd ../micropython-lib
+    pushd unix-ffi
+    install_one_micropackage
+    popd
+
+    pushd python-stdlib
+    install_one_micropackage
+    popd
+    popd
 
 src_unpack() {
 	default
@@ -30,19 +49,12 @@ src_unpack() {
 	mkdir "raspberrypi-initramfs-${PV}"
 }
 
-src_prepare() {
-	pushd ../micropython-lib
-	echo PREFIX=${WORKDIR}/initramfs/usr/lib/micropython > Makefile.patched
-	cat Makefile | grep -v "PREFIX =" >> Makefile.patched
-	mv Makefile.patched Makefile
-	popd
 	default
 }
 
-
 src_compile() {
 	pushd ../micropython-lib
-	make install
+        install_micropackages
 	popd
 	pushd ../initramfs
 	mkdir bin
