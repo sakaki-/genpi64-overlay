@@ -7,7 +7,8 @@ inherit pikernel-build
 
 PV=${PV}
 
-MY_P=linux-1.20220120
+MY_P=raspberrypi-linux-650082a
+
 GENPATCHES_P=genpatches-${PV%.*}-$(( ${PV##*.} + 7 ))
 # https://koji.fedoraproject.org/koji/packageinfo?packageID=8
 CONFIG_VER=5.10.12
@@ -62,4 +63,3 @@ src_prepare() {
 pkg_preinst() {
 	debug-print-function ${FUNCNAME} "${@}"
 }
-
