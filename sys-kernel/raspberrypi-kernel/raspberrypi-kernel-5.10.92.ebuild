@@ -5,9 +5,7 @@ EAPI=7
 
 inherit pikernel-build
 
-PV=${PV}
-
-MY_P=raspberrypi-linux-650082a
+MY_P=linux-1.20220120
 
 GENPATCHES_P=genpatches-${PV%.*}-$(( ${PV##*.} + 7 ))
 # https://koji.fedoraproject.org/koji/packageinfo?packageID=8
