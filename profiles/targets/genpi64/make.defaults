@@ -31,10 +31,6 @@ FEATURES="userfetch -pid-sandbox"
 # Please keep this setting intact when reporting bugs.
 LC_MESSAGES=C
 
-# Default build targets for QEMU; override if desired.
-QEMU_SOFTMMU_TARGETS="aarch64 arm i386 x86_64"
-QEMU_USER_TARGETS="aarch64"
-
 # English L10N (for libreoffice spellcheck etc.)
 # Override if desired
 L10N="en en-US"
