@@ -1,0 +1,8 @@
+# Build GCC with Link Time Optimization: for a faster compiler via cross-translation unit optimizations
+sys-devel/gcc lto
+
+# Build GCC with Profile Guided Optimization: Requires a profiling step and then an additional compile of the compiler, but the result should be faster.
+sys-devel/gcc pgo
+
+# Build GCC with zstd compression support: Allow debug symbols to be stored in a compressed format, using zstd
+sys-devel/gcc zstd
