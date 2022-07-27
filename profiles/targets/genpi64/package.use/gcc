@@ -1,5 +1,7 @@
 # Build GCC with Link Time Optimization: for a faster compiler via cross-translation unit optimizations
-sys-devel/gcc lto
+# TODO: This increases the build times for gcc by >4x, with little speedup in the resulting compile times.
+# until that's figured out, not worth it.
+# sys-devel/gcc lto
 
 # Build GCC with Profile Guided Optimization: Requires a profiling step and then an additional compile of the compiler, but the result should be faster.
 sys-devel/gcc pgo
