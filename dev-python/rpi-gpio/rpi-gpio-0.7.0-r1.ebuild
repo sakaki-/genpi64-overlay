@@ -3,25 +3,26 @@
 
 EAPI="7"
 
-PYTHON_COMPAT=( python3_{6..11} )
+PYTHON_COMPAT=( python3_{6..10} )
 
-inherit eutils distutils-r1 mercurial
+inherit eutils distutils-r1
 
 MY_PN="RPi.GPIO"
 MY_P="${MY_PN}-${PV}"
 DESCRIPTION="RPi.GPIO Python Module"
 HOMEPAGE="https://sourceforge.net/projects/raspberry-gpio-python"
-EHG_REPO_URI="http://hg.code.sf.net/p/raspberry-gpio-python/code"
-#HG_PROJECT="raspberry-gpio-python-code"
+SRC_URI="https://sourceforge.net/projects/raspberry-gpio-python/files/${MY_P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
+KEYWORDS="~arm arm64"
 IUSE=""
 RESTRICT="nomirror"
 
-DEPEND="
-"
+DEPEND=""
 
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_P}"
+
+PATCHES=( ${FILESDIR}/${PN}-build-gcc10.patch )
