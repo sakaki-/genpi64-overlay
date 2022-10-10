@@ -2,12 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-PYTHON_COMPAT=( python3_{6..9} )
+PYTHON_COMPAT=( python3_{6..11} )
 
 inherit distutils-r1 desktop xdg-utils
 
 DESCRIPTION="GUI editor for /boot/config.txt on RPi3 and RPi4 SBCs"
-BASE_SERVER_URI="https://github.com/sakaki-" # Required because it's available there.
+BASE_SERVER_URI="https://github.com/GenPi64" # Required because it's available there.
 HOMEPAGE="${BASE_SERVER_URI}/${PN}"
 SRC_URI="${BASE_SERVER_URI}/${PN}/releases/download/v${PV}/${PN}-v${PV}.tar.gz"
 
@@ -15,7 +15,7 @@ RESTRICT="mirror"
 
 SLOT="0"
 LICENSE="GPL-3+"
-KEYWORDS="~arm ~arm64"
+KEYWORDS="~arm arm64"
 IUSE="-systemd"
 
 DEPEND="${PYTHON_DEPS}
