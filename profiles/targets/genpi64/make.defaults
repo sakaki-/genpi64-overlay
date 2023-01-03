@@ -9,7 +9,7 @@ CXXFLAGS="${CFLAGS}"
 CHOST="aarch64-unknown-linux-gnu"
 
 # Additional USE flags in addition to those specified by the current profile.
-USE="bindist -X -gtk -qt -qt4 -gtk2 -gnome -kde"
+USE="${USE} bindist"
 
 # Only free software, please.
 ACCEPT_LICENSE="-* @FREE CC-Sampling-Plus-1.0 Broadcom linux-fw-redistributable no-source-code bluez-firmware rpi-eeprom raspberrypi-videocore-bin"
@@ -41,5 +41,5 @@ MAKEOPTS="-j1 -l1"
 EMERGE_DEFAULT_OPTS="--jobs=1 --load-average=1"
 
 # required for modern rust etc.
-LLVM_TARGETS="WebAssembly "
+LLVM_TARGETS="${LLVM_TARGETS} WebAssembly"
 
