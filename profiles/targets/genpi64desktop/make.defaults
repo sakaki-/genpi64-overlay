@@ -1,3 +1,2 @@
 # Additional USE flags in addition to those specified by the current profile.
-USE="bindist X gtk3 qt5"
-
+USE="${USE} X gtk3 qt5"
