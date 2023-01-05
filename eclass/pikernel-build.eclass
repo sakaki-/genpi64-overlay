@@ -17,28 +17,9 @@
 # the kernel and installing it along with its modules and subset
 # of sources needed to build external modules.
 #
-# Based off kernel-build.eclass by Michał Górny <mgorny@gentoo.org>
-
-if [[ ! ${_KERNEL_BUILD_ECLASS} ]]; then
-
-case "${EAPI:-0}" in
-	0|1|2|3|4|5|6)
-		die "Unsupported EAPI=${EAPI:-0} (too old) for ${ECLASS}"
-		;;
-	7)
-		;;
-	*)
-		die "Unsupported EAPI=${EAPI} (unknown) for ${ECLASS}"
-		;;
-esac
+# Based off / inherits from kernel-build.eclass by Michał Górny <mgorny@gentoo.org>
 
 inherit kernel-build
-
-BDEPEND="
-	sys-devel/bc
-	sys-devel/flex
-	virtual/libelf
-	virtual/yacc"
 
 IUSE="bcmrpi bcm2709 bcmrpi3 +bcm2711 -initramfs"
 REQUIRED_USE="|| ( bcmrpi bcm2709 bcmrpi3 bcm2711 )"
@@ -78,13 +59,17 @@ pikernel-build_src_configure() {
 	for n in "${targets[@]}"
 	do
 		[[ -f $n/.config ]] || emake O="${WORKDIR}/${n}" ARCH=arm64 CROSS_COMPILE=aarch64-unknown-linux-gnu- "${n}_defconfig"
-		internal_src_configure aarch64-unknown-linux-gnu $n
+		export CHOST=aarch64-unknown-linux-gnu
+		internal_src_configure $n
 		ebegin "Selecting Kernel Config"
 	done
 	pikernel-build_merge_configs "${merge_configs[@]}"
 }
 
-
+# Almost the same as kernel-build_src_configure
+# but some parts got chopped off, and
+# the last line is changed to support being called in a for-loop.
+# TODO: It'd be great if we could call kernel-build_src_configure instead
 internal_src_configure() {
 	debug-print-function ${FUNCNAME} "${@}"
 
@@ -103,7 +88,7 @@ internal_src_configure() {
 		HOSTCFLAGS="${BUILD_CFLAGS}"
 		HOSTLDFLAGS="${BUILD_LDFLAGS}"
 
-		CROSS_COMPILE=${1}-
+		CROSS_COMPILE=${CHOST}-
 		AS="$(tc-getAS)"
 		CC="$(tc-getCC)"
 		LD="${LD}"
@@ -116,7 +101,7 @@ internal_src_configure() {
 		# we need to pass it to override colliding Gentoo envvar
 		ARCH=$(tc-arch-kernel)
 	)
-	emake O="${WORKDIR}/${2}" "${MAKEARGS[@]}" olddefconfig
+	emake O="${WORKDIR}/${1}" "${MAKEARGS[@]}" olddefconfig
 }
 
 
@@ -199,7 +184,7 @@ pikernel-build_pkg_preinst() {
 	debug-print-function ${FUNCNAME} "${@}"
 }
 
-# Hack: Override function from kernel-install eclass to skip checking of kernel.release file(s).
+# Hack: Override function from kernel-install eclass to skip building of initramfs.
 pikernel-build_pkg_postinst() {
 	debug-print-function ${FUNCNAME} "${@}"
 }
@@ -254,7 +239,6 @@ pikernel-build_merge_configs() {
 	done
 }
 
-_KERNEL_BUILD_ECLASS=1
 fi
 
-EXPORT_FUNCTIONS src_configure src_compile src_install merge_configs pkg_postinst
+EXPORT_FUNCTIONS src_configure src_compile src_install pkg_postinst
