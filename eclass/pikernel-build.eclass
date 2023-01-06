@@ -239,6 +239,4 @@ pikernel-build_merge_configs() {
 	done
 }
 
-fi
-
 EXPORT_FUNCTIONS src_configure src_compile src_install pkg_postinst
