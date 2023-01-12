@@ -63,9 +63,14 @@ QA_FLAGS_IGNORED="
 "
 
 src_prepare() {
-    local PATCHES=(
-        # meh, genpatches have no directory
-        "${WORKDIR}"/*.patch
-    )
-    default
+	local PATCHES=(
+		# meh, genpatches have no directory
+		"${WORKDIR}"/{15,2,4}*.patch
+	)
+	default
+}
+
+# Override function from kernel-install eclass to skip checking of kernel.release file(s).
+pkg_preinst() {
+	debug-print-function ${FUNCNAME} "${@}"
 }
