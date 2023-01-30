@@ -1,11 +1,11 @@
 # Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 DISTUTILS_USE_SETUPTOOLS="no"
 
-PYTHON_COMPAT=( python3_{8..10} )
+PYTHON_COMPAT=( python3_{8..11} )
 
 inherit distutils-r1 gnome2-utils
 
@@ -13,8 +13,6 @@ DESCRIPTION="Onscreen keyboard for everybody who can't use a hardware keyboard"
 
 HOMEPAGE="https://launchpad.net/onboard"
 
-# Using of PN variable avoided, Following note in
-# https://wiki.gentoo.org/wiki/Basic_guide_to_write_Gentoo_Ebuilds
 SRC_URI="https://launchpad.net/onboard/$(ver_cut 1-2)/${PV}/+download/${P}.tar.gz"
 
 # po/* are licensed under BSD 3-clause
@@ -42,8 +40,10 @@ COMMON_DEPEND="app-text/hunspell:=
 	x11-libs/libXtst
 	x11-libs/libwnck:3
 	x11-libs/pango"
+
 DEPEND="${COMMON_DEPEND}
 	dev-util/intltool"
+
 RDEPEND="${COMMON_DEPEND}
 	app-accessibility/at-spi2-core
 	app-text/iso-codes
