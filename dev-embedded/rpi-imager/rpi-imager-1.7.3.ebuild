@@ -20,5 +20,10 @@ SLOT="0"
 KEYWORDS="~arm64 ~amd64"
 IUSE=""
 
-DEPEND=""
-RDEPEND="${DEPEND}"
+DEPEND="
+        dev-qt/qtconcurrent
+        "
+        
+RDEPEND="
+        dev-qt/qtquickcontrols2
+        "
