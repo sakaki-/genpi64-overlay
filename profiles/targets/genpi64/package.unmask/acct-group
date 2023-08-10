@@ -1,0 +1,4 @@
+# Unmask the following two account ebuilds, gentoo masked them for removal, and broke us.
+# Can be removed after Aug 2023
+acct-group/spi
+acct-group/gpio
