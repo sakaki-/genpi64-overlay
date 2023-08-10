@@ -1,0 +1,7 @@
+# Unmask only the versions of the dist-kernel package that we have in the genpi64
+# overlay, so that the raspberrypi-kernel package only pulls in our own versions.
+# technically it's possible that upstream gentoo will define their own copies
+# of these, but these specific versions are already older than what's in gentoo's
+# repo, so the likelyhood is pretty low. If it does happen, we can re-assess.
+=virtual/dist-kernel-5.15.61
+=virtual/dist-kernel-6.1.21

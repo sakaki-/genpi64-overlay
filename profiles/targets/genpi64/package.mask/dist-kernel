@@ -1,0 +1,4 @@
+# Prevent the gentoo overlay's version of the dist-kernel package from being in scope
+# this prevents the merging of the gentoo-kernel or vanilla-kernel packages as a dep
+# of the raspberrypi-kernel package from the genpi64 overlay (this overlay).
+virtual/dist-kernel
